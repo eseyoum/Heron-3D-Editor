@@ -1,4 +1,6 @@
-package edu.augustana.HeronTeamProject;
+package heron.gameboardeditor; //Changed the package declaration -Corey
+//package edu.augustana.HeronTeamProject; -old package
+
 
 import javafx.application.Application; 
 import javafx.fxml.FXMLLoader;
@@ -7,7 +9,7 @@ import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-import java.awt.geom.Rectangle2D;
+//import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 
 import java.util.Random;
@@ -17,7 +19,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-import edu.augustana.HeronTeamProject.GridBoard.Cell;
+import heron.gameboardeditor.GridBoard.Cell; //Changed the package -Corey
+//import edu.augustana.HeronTeamProject.GridBoard.Cell; -old package
+
 /**
  * JavaFX App
  */

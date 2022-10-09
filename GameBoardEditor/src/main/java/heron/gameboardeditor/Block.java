@@ -1,4 +1,5 @@
-package edu.augustana.HeronTeamProject;
+package heron.gameboardeditor; //Changed the package declaration -Corey
+//package edu.augustana.HeronTeamProject; -old package
 
 import javafx.scene.Parent;
 

@@ -1,4 +1,5 @@
-package edu.augustana.HeronTeamProject;
+package heron.gameboardeditor; //Changed the package declaration -Corey
+//package edu.augustana.HeronTeamProject; -old package
 
 import java.util.ArrayList;
 import java.util.List;
@@ -121,7 +122,7 @@ public class GridBoard extends Parent {
         	wasClicked = true;
             setFill(Color.GRAY);
 
-            if (block != null) {
+            if (block != null) { //if there is already a block and it is clicked, it gets removed
             	block.hit();
                 setFill(Color.GRAY);
             }
