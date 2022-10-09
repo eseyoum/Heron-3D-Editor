@@ -37,7 +37,7 @@ public class MainApp extends Application {
 
             Cell cell = (Cell) event.getSource();
             cell = myBoard.getCell(cell.x, cell.y);
-            //if (cell.wasClicked) edited this out so that you can click on cells that are already clicked -Corey
+            //if (cell.wasClicked) -edited this out so that you can click on cells that are already clicked -Corey
                 //return;
             userTurn = cell.click();
         });

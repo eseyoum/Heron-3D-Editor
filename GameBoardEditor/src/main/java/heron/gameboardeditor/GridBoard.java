@@ -1,6 +1,7 @@
 package heron.gameboardeditor;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import javafx.event.EventHandler;
@@ -16,6 +17,9 @@ public class GridBoard extends Parent {
     private VBox rows = new VBox();
     private boolean user = false;
     public int blocks = 5;
+    
+    HashSet<Block> blockSet;
+    
 
     public GridBoard(boolean user, EventHandler<? super MouseEvent> handler) {
         this.user = user;
@@ -31,6 +35,8 @@ public class GridBoard extends Parent {
         }
 
         getChildren().add(rows);
+        
+        blockSet = new HashSet<Block>(); //set for every block created on the board
     }
 
     public boolean placeBlock(Block block, int x, int y) {
@@ -119,13 +125,18 @@ public class GridBoard extends Parent {
             if (block != null) {
             	block.hit();
                 setFill(Color.LIGHTGRAY);
+                if (block == null) {
+                	blockSet.remove(block);
+                }
                 block = null;
             } 
             else {
-            	block = new Block(5); //unsure what to put for the parameter so I just put 5
             	setFill(Color.GRAY);
+    
+            	block = new Block(x, y, 0); //The 0 is a placeholder. Eventually, a z coordinate will be added instead of 0.
+            	blockSet.add(block);
             }
-
+            
             return false;
         }
     }
