@@ -1,6 +1,4 @@
-package heron.gameboardeditor; //Changed the package declaration -Corey
-//package edu.augustana.HeronTeamProject; -old package
-
+package heron.gameboardeditor;
 
 import javafx.application.Application; 
 import javafx.fxml.FXMLLoader;
@@ -8,8 +6,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-
-//import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 
 import java.util.Random;
@@ -19,9 +15,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-import heron.gameboardeditor.GridBoard.Cell; //Changed the package -Corey
-//import edu.augustana.HeronTeamProject.GridBoard.Cell; -old package
-
+import heron.gameboardeditor.GridBoard.Cell;
 /**
  * JavaFX App
  */
@@ -29,23 +23,23 @@ public class MainApp extends Application {
 
     private static Scene scene;
     private boolean running = false;
-
+    private boolean userTurn = false;
     private GridBoard myBoard;
-
-
-    private Random random = new Random();
+    private int blocksToPlace = 100;
+    
 
     private Parent createContent() {
         BorderPane root = new BorderPane();
         root.setPrefSize(600, 800);
-
-        myBoard = new GridBoard(true, event -> {
-            if (!running)
+        myBoard = new GridBoard(false, event -> {
+            if (running)
                 return;
 
             Cell cell = (Cell) event.getSource();
-            if (cell.wasClicked)
-                return;
+            cell = myBoard.getCell(cell.x, cell.y);
+            //if (cell.wasClicked) edited this out so that you can click on cells that are already clicked -Corey
+                //return;
+            userTurn = cell.click();
         });
 
         VBox vbox = new VBox(50, myBoard);
@@ -56,22 +50,6 @@ public class MainApp extends Application {
         return root;
     }
 
-
-    private void startGame() {
-        // place default block
-        int type = 5;
-
-        while (type > 0) {
-            int x = random.nextInt(10);
-            int y = random.nextInt(10);
-
-            if (myBoard.placeBlock(new Block(type, Math.random() < 0.5), x, y)) {
-                type--;
-            }
-        }
-
-        running = true;
-    }
     @Override
     public void start(Stage stage) throws IOException {
         //scene = new Scene(loadFXML("primary"), 640, 480);

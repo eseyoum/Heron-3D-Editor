@@ -1,5 +1,4 @@
-package heron.gameboardeditor; //Changed the package declaration -Corey
-//package edu.augustana.HeronTeamProject; -old package
+package heron.gameboardeditor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,13 +15,13 @@ import javafx.scene.shape.Rectangle;
 public class GridBoard extends Parent {
     private VBox rows = new VBox();
     private boolean user = false;
-    public int ships = 5;
+    public int blocks = 5;
 
     public GridBoard(boolean user, EventHandler<? super MouseEvent> handler) {
         this.user = user;
-        for (int y = 0; y < 10; y++) {
+        for (int y = 0; y < 100; y++) {
             HBox row = new HBox();
-            for (int x = 0; x < 10; x++) {
+            for (int x = 0; x < 100; x++) {
                 Cell c = new Cell(x, y, this);
                 c.setOnMouseClicked(handler);
                 row.getChildren().add(c);
@@ -36,9 +35,7 @@ public class GridBoard extends Parent {
 
     public boolean placeBlock(Block block, int x, int y) {
         if (canPlaceBlock(block, x, y)) {
-            int length = block.type;
-
-            Cell cell = getCell(x, length);
+            Cell cell = getCell(x, y);
             cell.block = block;
             cell.setFill(Color.WHITE);
             cell.setStroke(Color.GREEN);
@@ -72,24 +69,21 @@ public class GridBoard extends Parent {
     }
 
     private boolean canPlaceBlock(Block block, int x, int y) {
-        int length = block.type;
-        
-        for (int i = y; i < y + length; i++) {
-            if (!isValidPoint(x, i))
+            if (!isValidPoint(x, y))
                 return false;
 
-            Cell cell = getCell(x, i);
+            Cell cell = getCell(x, y);
             if (cell.block != null)
                 return false;
 
-            for (Cell neighbor : getNeighbors(x, i)) {
-                if (!isValidPoint(x, i))
+            for (Cell neighbor : getNeighbors(x, y)) {
+                if (!isValidPoint(x, y))
                     return false;
 
                 if (neighbor.block != null)
                     return false;
             }
-        }
+        
         
         return true;
     }
@@ -99,13 +93,14 @@ public class GridBoard extends Parent {
     }
 
     private boolean isValidPoint(double x, double y) {
-        return x >= 0 && x < 10 && y >= 0 && y < 10;
+        return x >= 0 && x < 100 && y >= 0 && y < 100;
     }
 
     public class Cell extends Rectangle {
         public int x, y;
         public Block block = null;
         public boolean wasClicked = false;
+        public boolean blockPlaced = false;
 
         private GridBoard board;
 
@@ -120,11 +115,15 @@ public class GridBoard extends Parent {
 
         public boolean click() {
         	wasClicked = true;
-            setFill(Color.GRAY);
-
-            if (block != null) { //if there is already a block and it is clicked, it gets removed
+        	
+            if (block != null) {
             	block.hit();
-                setFill(Color.GRAY);
+                setFill(Color.LIGHTGRAY);
+                block = null;
+            } 
+            else {
+            	block = new Block(5); //unsure what to put for the parameter so I just put 5
+            	setFill(Color.GRAY);
             }
 
             return false;
