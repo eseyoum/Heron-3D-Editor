@@ -27,21 +27,22 @@ public class MainApp extends Application {
     private boolean running = false;
 
     private GridBoard myBoard;
-
-
-    private Random random = new Random();
+    private int blocksToPlace = 5;
 
     private Parent createContent() {
         BorderPane root = new BorderPane();
         root.setPrefSize(600, 800);
 
-        myBoard = new GridBoard(true, event -> {
-            if (!running)
+        myBoard = new GridBoard(false, event -> {
+            if (running)
                 return;
 
             Cell cell = (Cell) event.getSource();
-            if (cell.wasClicked)
-                return;
+            if (myBoard.placeBlock(new Block(blocksToPlace, event.getButton() == MouseButton.PRIMARY), cell.x, cell.y)) {
+            	if (--blocksToPlace == 0) {
+                    startGame();
+                }
+            }
         });
 
         VBox vbox = new VBox(50, myBoard);
@@ -54,17 +55,18 @@ public class MainApp extends Application {
 
 
     private void startGame() {
-        // place enemy ships
-        int type = 5;
-
-        while (type > 0) {
-            int x = random.nextInt(10);
-            int y = random.nextInt(10);
-
-            if (myBoard.placeBlock(new Block(type, Math.random() < 0.5), x, y)) {
-                type--;
-            }
-        }
+    	//place default blocks
+//    	myBoard.setOnMouseClicked(mouseEvent -> {
+//            int x = (int) mouseEvent.getSceneX();
+//            int y = (int) mouseEvent.getSceneY();
+//            int type = 10;
+//            if (myBoard.placeBlock(new Block(type, Math.random() < 0.5), x, y)) {
+//                type--;
+//            }
+//    	});
+    	int type = 10;
+    	
+    	myBoard.placeBlock(new Block(type, x, y)
 
         running = true;
     }
