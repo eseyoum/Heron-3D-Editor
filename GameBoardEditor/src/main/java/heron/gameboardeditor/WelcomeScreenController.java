@@ -9,10 +9,10 @@ import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
-public class SecondaryController {
+public class WelcomeScreenController {
 
     @FXML
     private void switchToPrimary() throws IOException {
-        App.setRoot("primary");
+        App.setRoot("openingScreen");
     }
 }
