@@ -13,7 +13,7 @@
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
             <ImageView fitHeight="131.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true" />
-            <Label alignment="CENTER" prefHeight="16.0" prefWidth="900.0" text="Welcome to TableTopDawgz LLC" textAlignment="CENTER" wrapText="true">
+            <Label alignment="CENTER" prefHeight="128.0" prefWidth="900.0" text="Welcome to TableTopDawgz LLC" textAlignment="CENTER" wrapText="true">
                <padding>
                   <Insets bottom="15.0" top="15.0" />
                </padding>
@@ -33,14 +33,14 @@
       </VBox>
    </top>
    <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="NewProject" mnemonicParsing="false" onAction="#switchToOpeningScreen" prefHeight="60.0" prefWidth="520.0">
+            <Button fx:id="NewProject" mnemonicParsing="false" onAction="#switchToOpeningScreen" prefHeight="60.0" prefWidth="520.0" textAlignment="CENTER">
                <VBox.margin>
                   <Insets bottom="15.0" left="20.0" top="30.0" />
                </VBox.margin>
                <graphic>
-                  <Label prefHeight="16.0" prefWidth="520.0" text="New Project" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="16.0" prefWidth="520.0" text="New Project" textAlignment="CENTER" />
                </graphic>
             </Button>
             <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="520.0">
@@ -48,7 +48,7 @@
                   <Insets bottom="15.0" left="20.0" top="15.0" />
                </VBox.margin>
                <graphic>
-                  <Label prefWidth="520.0" text="Continue Project" />
+                  <Label alignment="CENTER" prefWidth="520.0" text="Continue Project" textAlignment="CENTER" />
                </graphic>
             </Button>
             <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="520.0">
@@ -56,7 +56,7 @@
                   <Insets bottom="15.0" left="20.0" top="15.0" />
                </VBox.margin>
                <graphic>
-                  <Label prefWidth="520.0" text="Help" />
+                  <Label alignment="CENTER" prefWidth="520.0" text="Help" />
                </graphic>
             </Button>
          </children>
