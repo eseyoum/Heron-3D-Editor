@@ -2,6 +2,7 @@ package heron.gameboardeditor;
 
 import javafx.application.Application; 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
@@ -28,32 +29,32 @@ public class MainApp extends Application {
     private int blocksToPlace = 100;
     
 
-    private Parent createContent() {
-        BorderPane root = new BorderPane();
-        root.setPrefSize(600, 800);
-        myBoard = new GridBoard(false, event -> {
-            if (running)
-                return;
-
-            Cell cell = (Cell) event.getSource();
-            cell = myBoard.getCell(cell.x, cell.y);
-            //if (cell.wasClicked) -edited this out so that you can click on cells that are already clicked -Corey
-                //return;
-            userTurn = cell.click();
-        });
-
-        VBox vbox = new VBox(50, myBoard);
-        vbox.setAlignment(Pos.CENTER);
-
-        root.setCenter(vbox);
-
-        return root;
-    }
+//    private Parent createContent() {
+//        BorderPane root = new BorderPane();
+//        root.setPrefSize(600, 800);
+//        myBoard = new GridBoard(false, event -> {
+//            if (running)
+//                return;
+//
+//            Cell cell = (Cell) event.getSource();
+//            cell = myBoard.getCell(cell.x, cell.y);
+//            //if (cell.wasClicked) -edited this out so that you can click on cells that are already clicked -Corey
+//                //return;
+//            userTurn = cell.click();
+//        });
+//
+//        VBox vbox = new VBox(50, myBoard);
+//        vbox.setAlignment(Pos.CENTER);
+//
+//        root.setCenter(vbox);
+//
+//        return root;
+//    }
 
     @Override
     public void start(Stage stage) throws IOException {
-        //scene = new Scene(loadFXML("primary"), 640, 480);
-    	Scene scene = new Scene(createContent());
+        scene = new Scene(loadFXML("openingScreen"), 640, 480);
+        //Scene Scene = new Scene(createContent());
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();

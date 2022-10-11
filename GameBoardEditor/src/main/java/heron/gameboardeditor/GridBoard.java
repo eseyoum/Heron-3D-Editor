@@ -16,7 +16,7 @@ import javafx.scene.shape.Rectangle;
 public class GridBoard extends Parent {
     private VBox rows = new VBox();
     private boolean user = false;
-    public int blocks = 5;
+    public int blocks = 100;
     
     HashSet<Block> blockSet;
     
