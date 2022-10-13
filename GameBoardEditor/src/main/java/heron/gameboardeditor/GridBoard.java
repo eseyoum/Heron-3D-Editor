@@ -39,17 +39,17 @@ public class GridBoard extends Parent {
         blockSet = new HashSet<Block>(); //set for every block created on the board
     }
 
-    public boolean placeBlock(Block block, int x, int y) {
-        if (canPlaceBlock(block, x, y)) {
-            Cell cell = getCell(x, y);
-            cell.block = block;
-            cell.setFill(Color.WHITE);
-            cell.setStroke(Color.GREEN);
-            return true;
-        }
-
-        return false;
-    }
+//    public boolean placeBlock(Block block, int x, int y) {
+//        if (canPlaceBlock(block, x, y)) {
+//            Cell cell = getCell(x, y);
+//            cell.block = block;
+//            cell.setFill(Color.WHITE);
+//            cell.setStroke(Color.GREEN);
+//            return true;
+//        }
+//
+//        return false;
+//    }
 
     public Cell getCell(int x, int y) {
         return (Cell)((HBox)rows.getChildren().get(y)).getChildren().get(x);
@@ -74,25 +74,25 @@ public class GridBoard extends Parent {
         return neighbors.toArray(new Cell[0]);
     }
 
-    private boolean canPlaceBlock(Block block, int x, int y) {
-            if (!isValidPoint(x, y))
-                return false;
-
-            Cell cell = getCell(x, y);
-            if (cell.block != null)
-                return false;
-
-            for (Cell neighbor : getNeighbors(x, y)) {
-                if (!isValidPoint(x, y))
-                    return false;
-
-                if (neighbor.block != null)
-                    return false;
-            }
-        
-        
-        return true;
-    }
+//    private boolean canPlaceBlock(Block block, int x, int y) {
+//            if (!isValidPoint(x, y))
+//                return false;
+//
+//            Cell cell = getCell(x, y);
+//            if (cell.block != null)
+//                return false;
+//
+//            for (Cell neighbor : getNeighbors(x, y)) {
+//                if (!isValidPoint(x, y))
+//                    return false;
+//
+//                if (neighbor.block != null)
+//                    return false;
+//            }
+//        
+//        
+//        return true;
+//    }
 
     private boolean isValidPoint(Point2D point) {
         return isValidPoint(point.getX(), point.getY());

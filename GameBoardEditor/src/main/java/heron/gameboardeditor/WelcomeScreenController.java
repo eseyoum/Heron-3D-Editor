@@ -2,17 +2,26 @@ package heron.gameboardeditor;
 
 import java.io.IOException;
 
-import heron.gameboardeditor.GridBoard.Cell;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
-import javafx.scene.Parent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.Button;
+
 
 public class WelcomeScreenController {
-
-    @FXML
-    private void switchToPrimary() throws IOException {
-        App.setRoot("openingScreen");
+	
+	@FXML
+    private void switchToOpeningScreen() throws IOException {
+    	App.setRoot("openingScreen");
     }
+
+	@FXML // fx:id="newProjectButton"
+    private Button newProjectButton; // Value injected by FXMLLoader
+	
+	@FXML // fx:id="continueProjectButton"
+    private Button continueProjectButton; // Value injected by FXMLLoader
+	
+	@FXML // fx:id="helpButton"
+    private Button helpButton; // Value injected by FXMLLoader
+	
+    
 }
+
