@@ -55,24 +55,24 @@ public class GridBoard extends Parent {
         return (Cell)((HBox)rows.getChildren().get(y)).getChildren().get(x);
     }
 
-    private Cell[] getNeighbors(int x, int y) {
-        Point2D[] points = new Point2D[] {
-                new Point2D(x - 1, y),
-                new Point2D(x + 1, y),
-                new Point2D(x, y - 1),
-                new Point2D(x, y + 1)
-        };
-
-        List<Cell> neighbors = new ArrayList<Cell>();
-
-        for (Point2D p : points) {
-            if (isValidPoint(p)) {
-                neighbors.add(getCell((int)p.getX(), (int)p.getY()));
-            }
-        }
-
-        return neighbors.toArray(new Cell[0]);
-    }
+//    private Cell[] getNeighbors(int x, int y) {
+//        Point2D[] points = new Point2D[] {
+//                new Point2D(x - 1, y),
+//                new Point2D(x + 1, y),
+//                new Point2D(x, y - 1),
+//                new Point2D(x, y + 1)
+//        };
+//
+//        List<Cell> neighbors = new ArrayList<Cell>();
+//
+//        for (Point2D p : points) {
+//            if (isValidPoint(p)) {
+//                neighbors.add(getCell((int)p.getX(), (int)p.getY()));
+//            }
+//        }
+//
+//        return neighbors.toArray(new Cell[0]);
+//    }
 
 //    private boolean canPlaceBlock(Block block, int x, int y) {
 //            if (!isValidPoint(x, y))
@@ -123,7 +123,6 @@ public class GridBoard extends Parent {
         	wasClicked = true;
         	
             if (block != null) {
-            	block.hit();
                 setFill(Color.LIGHTGRAY);
                 if (block == null) {
                 	blockSet.remove(block);

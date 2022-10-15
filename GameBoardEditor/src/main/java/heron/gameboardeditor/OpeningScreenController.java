@@ -21,13 +21,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 public class OpeningScreenController {
-    
-    private static Scene scene;
+
     private boolean running = false;
     private boolean userTurn = false;
     private GridBoard myBoard;
     //private AnchorPane MapDisplay;
-    @FXML private AnchorPane MapDisplay;
+    @FXML private AnchorPane mapDisplay;
 	
 	@FXML
     private void switchToSecondary() throws IOException {
@@ -73,11 +72,11 @@ public class OpeningScreenController {
     }
     
     @FXML
-    void Open2DMap(MouseEvent event) {
-    	MapDisplay.add(createContent());
+    private void initialize() {
+    	mapDisplay.getChildren().add(createContent());
     }
 
-    private Parent createContent() {
+    private BorderPane createContent() {
         BorderPane root = new BorderPane();
         root.setPrefSize(600, 800);
         myBoard = new GridBoard(false, event -> {
