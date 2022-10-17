@@ -52,21 +52,6 @@
 
 <VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="heron.gameboardeditor.OpeningScreenController">
   <children>
-      <HBox prefHeight="50.0" prefWidth="200.0">
-         <children>
-            <Button contentDisplay="CENTER" mnemonicParsing="false" text="X" textAlignment="CENTER">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </Button>
-            <Button fx:id="minimizeButton" contentDisplay="CENTER" graphicTextGap="8.0" mnemonicParsing="false" text=" - ">
-               <opaqueInsets>
-                  <Insets left="5.0" right="5.0" />
-               </opaqueInsets>
-            </Button>
-            <Button mnemonicParsing="false" text="[ ]" />
-         </children>
-      </HBox>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
         <Menu mnemonicParsing="false" text="File">
@@ -169,7 +154,7 @@
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="20.0" focusTraversable="true" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../Icons/Delete.png" />
+                        <Image url="@Icons/Delete.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -181,7 +166,7 @@
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../Icons/Edit.png" />
+                        <Image url="@Icons/Edit.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -193,7 +178,7 @@
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../Icons/Copy.png" />
+                        <Image url="@Icons/Copy.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -205,7 +190,7 @@
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../Icons/Export.png" />
+                        <Image url="@Icons/Export.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -217,7 +202,7 @@
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../Icons/Door%20Open.png" />
+                        <Image url="@Icons/Door%20Open.png" />
                      </image>
                   </ImageView>
                </graphic>
