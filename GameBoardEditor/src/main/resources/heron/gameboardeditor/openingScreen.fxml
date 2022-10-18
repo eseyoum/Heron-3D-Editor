@@ -52,37 +52,18 @@
 
 <VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="heron.gameboardeditor.OpeningScreenController">
   <children>
-      <HBox prefHeight="50.0" prefWidth="200.0">
-         <children>
-            <Button contentDisplay="CENTER" mnemonicParsing="false" text="X" textAlignment="CENTER">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </Button>
-            <Button fx:id="minimizeButton" contentDisplay="CENTER" graphicTextGap="8.0" mnemonicParsing="false" text=" - ">
-               <opaqueInsets>
-                  <Insets left="5.0" right="5.0" />
-               </opaqueInsets>
-            </Button>
-            <Button mnemonicParsing="false" text="[ ]" />
-         </children>
-      </HBox>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
-            <MenuItem mnemonicParsing="false" text="New" />
+            <MenuItem fx:id="newfile" mnemonicParsing="false" text="New" />
             <MenuItem mnemonicParsing="false" text="Open…" />
-            <Menu mnemonicParsing="false" text="Open Recent" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" text="Close" />
             <MenuItem mnemonicParsing="false" text="Save" />
-            <MenuItem mnemonicParsing="false" text="Save As…" />
-            <MenuItem mnemonicParsing="false" text="Revert" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Preferences…" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
+            <MenuItem fx:id="quit" mnemonicParsing="false" text="Quit" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
@@ -122,13 +103,8 @@
         </AnchorPane>
         <ScrollPane prefWidth="520.0">
           <content>
-            <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
+            <AnchorPane id="Content" fx:id="mapDisplay" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
               <children>
-                        <ImageView fitHeight="487.0" fitWidth="442.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@Screen%20Shot%202022-09-22%20at%208.49%201.png" />
-                           </image>
-                        </ImageView>
                 <Label alignment="CENTER" layoutX="-2.0" layoutY="-3.0" prefHeight="23.0" prefWidth="81.0" style="&#10;" text="2D Map View" textAlignment="CENTER" textFill="$x2" wrapText="false">
                            <font>
                               <Font size="12.0" />
@@ -169,7 +145,7 @@
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="20.0" focusTraversable="true" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../Icons/Delete.png" />
+                        <Image url="@Icons/Delete.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -181,7 +157,7 @@
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../Icons/Edit.png" />
+                        <Image url="@Icons/Edit.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -193,7 +169,7 @@
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../Icons/Copy.png" />
+                        <Image url="@Icons/Copy.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -205,19 +181,19 @@
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../Icons/Export.png" />
+                        <Image url="@Icons/Export.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="exitButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false">
+            <Button fx:id="exitButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#exitTheSceen">
                <HBox.margin>
                   <Insets right="60.0" />
                </HBox.margin>
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../Icons/Door%20Open.png" />
+                        <Image url="@Icons/Door%20Open.png" />
                      </image>
                   </ImageView>
                </graphic>

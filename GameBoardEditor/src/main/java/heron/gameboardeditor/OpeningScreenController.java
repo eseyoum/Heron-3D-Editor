@@ -5,11 +5,28 @@ import java.io.IOException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import java.net.URL;
+import java.util.ResourceBundle;
+import heron.gameboardeditor.GridBoard.Cell;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 public class OpeningScreenController {
+
+    private boolean running = false;
+    private boolean userTurn = false;
+    private GridBoard myBoard;
+    //private AnchorPane MapDisplay;
+    @FXML private AnchorPane mapDisplay;
 	
 	@FXML
     private void switchToSecondary() throws IOException {
@@ -53,5 +70,34 @@ public class OpeningScreenController {
     void exitTheSceen(ActionEvent event) {
     	Platform.exit();
     }
+    
+    private Boolean quit;
+    
+    @FXML
+    private void initialize() {
+    	mapDisplay.getChildren().add(createContent());
+    }
 
+    private BorderPane createContent() {
+        BorderPane root = new BorderPane();
+        root.setPrefSize(600, 800);
+        myBoard = new GridBoard(false, event -> {
+            if (running)
+                return;
+
+            Cell cell = (Cell) event.getSource();
+            cell = myBoard.getCell(cell.x, cell.y);
+            //if (cell.wasClicked) -edited this out so that you can click on cells that are already clicked -Corey
+                //return;
+            userTurn = cell.click();
+        });
+
+        VBox vbox = new VBox(50, myBoard);
+        vbox.setAlignment(Pos.CENTER);
+
+        root.setCenter(vbox);
+
+        return root;
+    }
+    
 }
