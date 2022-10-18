@@ -23,9 +23,9 @@ public class GridBoard extends Parent {
 
     public GridBoard(boolean user, EventHandler<? super MouseEvent> handler) {
         this.user = user;
-        for (int y = 0; y < 100; y++) {
+        for (int y = 0; y < 30; y++) {
             HBox row = new HBox();
-            for (int x = 0; x < 100; x++) {
+            for (int x = 0; x < 50; x++) {
                 Cell c = new Cell(x, y, this);
                 c.setOnMouseClicked(handler);
                 row.getChildren().add(c);
