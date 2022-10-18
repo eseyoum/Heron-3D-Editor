@@ -56,18 +56,14 @@
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
-            <MenuItem mnemonicParsing="false" text="New" />
+            <MenuItem fx:id="newfile" mnemonicParsing="false" text="New" />
             <MenuItem mnemonicParsing="false" text="Open…" />
-            <Menu mnemonicParsing="false" text="Open Recent" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" text="Close" />
             <MenuItem mnemonicParsing="false" text="Save" />
-            <MenuItem mnemonicParsing="false" text="Save As…" />
-            <MenuItem mnemonicParsing="false" text="Revert" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Preferences…" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
+            <MenuItem fx:id="quit" mnemonicParsing="false" text="Quit" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
@@ -107,13 +103,8 @@
         </AnchorPane>
         <ScrollPane prefWidth="520.0">
           <content>
-            <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
+            <AnchorPane id="Content" fx:id="mapDisplay" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
               <children>
-                        <ImageView fitHeight="487.0" fitWidth="442.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@Screen%20Shot%202022-09-22%20at%208.49%201.png" />
-                           </image>
-                        </ImageView>
                 <Label alignment="CENTER" layoutX="-2.0" layoutY="-3.0" prefHeight="23.0" prefWidth="81.0" style="&#10;" text="2D Map View" textAlignment="CENTER" textFill="$x2" wrapText="false">
                            <font>
                               <Font size="12.0" />
@@ -195,7 +186,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="exitButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false">
+            <Button fx:id="exitButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#exitTheSceen">
                <HBox.margin>
                   <Insets right="60.0" />
                </HBox.margin>

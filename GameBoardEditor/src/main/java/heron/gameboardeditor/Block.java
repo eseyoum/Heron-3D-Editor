@@ -10,12 +10,9 @@ public class Block extends Parent {
     private int x;
     private int y;
     private int z;
-    
-    private int health;
 
     public Block(int type) {
         this.type = type;
-        health = type;
     }
     
     /**
@@ -30,14 +27,6 @@ public class Block extends Parent {
     	this.x = x;
     	this.y = y;
     	this.z = z;
-    }
-
-    public void hit() {
-        health--;
-    }
-
-    public boolean isAlive() {
-        return health > 0;
     }
 
 	@Override
