@@ -1,19 +1,17 @@
 package heron.gameboardeditor;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 
+import heron.gameboardeditor.datamodel.Block;
+import heron.gameboardeditor.datamodel.Grid;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
-public class GridBoard extends Parent {
+public class GridBoardUI extends Parent {
     private VBox rows = new VBox();
     private boolean user = false;
     public int blocks = 100;
@@ -21,12 +19,13 @@ public class GridBoard extends Parent {
     HashSet<Block> blockSet;
     
 
-    public GridBoard(boolean user, EventHandler<? super MouseEvent> handler) {
+    public GridBoardUI(boolean user, EventHandler<? super MouseEvent> handler) {
         this.user = user;
+        Grid gridData = new Grid(100,100);
         for (int y = 0; y < 100; y++) {
             HBox row = new HBox();
             for (int x = 0; x < 100; x++) {
-                Cell c = new Cell(x, y, this);
+                CellUI c = new CellUI(this, gridData.getBlockAt(x, y));
                 c.setOnMouseClicked(handler);
                 row.getChildren().add(c);
             }
@@ -51,8 +50,8 @@ public class GridBoard extends Parent {
 //        return false;
 //    }
 
-    public Cell getCell(int x, int y) {
-        return (Cell)((HBox)rows.getChildren().get(y)).getChildren().get(x);
+    public CellUI getCell(int x, int y) {
+        return (CellUI)((HBox)rows.getChildren().get(y)).getChildren().get(x);
     }
 
 //    private Cell[] getNeighbors(int x, int y) {
@@ -100,43 +99,5 @@ public class GridBoard extends Parent {
 
     private boolean isValidPoint(double x, double y) {
         return x >= 0 && x < 100 && y >= 0 && y < 100;
-    }
-
-    public class Cell extends Rectangle {
-        public int x, y;
-        public Block block = null;
-        public boolean wasClicked = false;
-        public boolean blockPlaced = false;
-
-        private GridBoard board;
-
-        public Cell(int x, int y, GridBoard board) {
-            super(30, 30);
-            this.x = x;
-            this.y = y;
-            this.board = board;
-            setFill(Color.LIGHTGRAY);
-            setStroke(Color.BLACK);
-        }
-
-        public boolean click() {
-        	wasClicked = true;
-        	
-            if (block != null) {
-                setFill(Color.LIGHTGRAY);
-                if (block == null) {
-                	blockSet.remove(block);
-                }
-                block = null;
-            } 
-            else {
-            	setFill(Color.GRAY);
-    
-            	block = new Block(x, y, 0); //The 0 is a placeholder. Eventually, a z coordinate will be added instead of 0.
-            	blockSet.add(block);
-            }
-            
-            return false;
-        }
     }
 }

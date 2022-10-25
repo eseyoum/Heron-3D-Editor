@@ -8,7 +8,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import java.net.URL;
 import java.util.ResourceBundle;
-import heron.gameboardeditor.GridBoard.Cell;
+
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -24,7 +24,7 @@ public class OpeningScreenController {
 
     private boolean running = false;
     private boolean userTurn = false;
-    private GridBoard myBoard;
+    private GridBoardUI myBoard;
     //private AnchorPane MapDisplay;
     @FXML private AnchorPane mapDisplay;
 	
@@ -81,12 +81,12 @@ public class OpeningScreenController {
     private BorderPane createContent() {
         BorderPane root = new BorderPane();
         root.setPrefSize(600, 800);
-        myBoard = new GridBoard(false, event -> {
+        myBoard = new GridBoardUI(false, event -> {
             if (running)
                 return;
 
-            Cell cell = (Cell) event.getSource();
-            cell = myBoard.getCell(cell.x, cell.y);
+            CellUI cell = (CellUI) event.getSource();
+            cell = myBoard.getCell(cell.getBlock().getX(), cell.getBlock().getY());
             //if (cell.wasClicked) -edited this out so that you can click on cells that are already clicked -Corey
                 //return;
             userTurn = cell.click();
