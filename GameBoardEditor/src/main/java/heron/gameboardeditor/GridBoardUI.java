@@ -23,18 +23,11 @@ public class GridBoardUI extends Parent {
 
     public GridBoardUI(boolean user, EventHandler<? super MouseEvent> handler) {
         this.user = user;
-//<<<<<<< HEAD:GameBoardEditor/src/main/java/heron/gameboardeditor/GridBoard.java
-//        for (int y = 0; y < 30; y++) {
-//            HBox row = new HBox();
-//            for (int x = 0; x < 50; x++) {
-//                Cell c = new Cell(x, y, this);
-//=======
         Grid gridData = new Grid(100,100);
         for (int y = 0; y < 100; y++) {
             HBox row = new HBox();
             for (int x = 0; x < 100; x++) {
                 CellUI c = new CellUI(this, gridData.getBlockAt(x, y));
-//>>>>>>> 9bebdfbba770fa472929f77db58fe363c578926b:GameBoardEditor/src/main/java/heron/gameboardeditor/GridBoardUI.java
                 c.setOnMouseClicked(handler);
                 row.getChildren().add(c);
             }
