@@ -22,7 +22,13 @@
                   </ImageView>
                </graphic>
             </Button>
-            <ImageView fitHeight="131.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="131.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Icons/logo.png" />
+               </image>
+               <VBox.margin>
+                  <Insets left="380.0" />
+               </VBox.margin></ImageView>
             <Label alignment="CENTER" prefHeight="128.0" prefWidth="900.0" text="Welcome to Heron 3D Editor" textAlignment="CENTER" wrapText="true">
                <padding>
                   <Insets bottom="15.0" top="15.0" />
