@@ -20,7 +20,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
-public class OpeningScreenController {
+public class NewProjectScreenController {
 
     private boolean running = false;
     private boolean userTurn = false;
