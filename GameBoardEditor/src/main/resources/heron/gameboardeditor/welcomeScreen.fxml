@@ -3,35 +3,34 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="heron.gameboardeditor.WelcomeScreenController">
+<BorderPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: EFCA08;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="heron.gameboardeditor.WelcomeScreenController">
    <top>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="135.0" fitWidth="159.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@Icons/logo.png" />
-               </image>
+            <ImageView fitHeight="131.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true" />
+            <Label alignment="CENTER" prefHeight="128.0" prefWidth="900.0" text="Welcome to Heron 3D Editor" textAlignment="CENTER" wrapText="true">
+               <padding>
+                  <Insets bottom="15.0" top="15.0" />
+               </padding>
+               <font>
+                  <Font name="DIN Condensed Bold" size="70.0" />
+               </font>
                <VBox.margin>
-                  <Insets left="380.0" />
-               </VBox.margin></ImageView>
-            <Label alignment="CENTER" prefHeight="128.0" prefWidth="900.0" text="Welcome to TableTopDawgz LLC" textAlignment="CENTER" wrapText="true">
-               <font>
-                  <Font name="DIN Condensed Bold" size="37.0" />
-               </font>
+                  <Insets />
+               </VBox.margin>
             </Label>
-            <Label alignment="CENTER" prefHeight="18.0" prefWidth="923.0" text="TabelTopDawgz LLC presents, not the first but not the last either, 3-D game boards terrain design software." textAlignment="CENTER" textOverrun="CLIP">
-               <font>
-                  <Font name="Gill Sans" size="18.0" />
-               </font>
+            <Label alignment="CENTER" prefHeight="104.0" prefWidth="900.0" text="TabelTopDawgz LLC presents a 3-D game boards terrain design software." textAlignment="CENTER" textOverrun="CLIP">
                <padding>
                   <Insets bottom="20.0" top="20.0" />
                </padding>
+               <font>
+                  <Font name="Gill Sans" size="20.0" />
+               </font>
             </Label>
          </children>
       </VBox>
@@ -39,28 +38,37 @@
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="NewProject" mnemonicParsing="false" onAction="#switchToOpeningScreen" prefHeight="60.0" prefWidth="520.0" textAlignment="CENTER">
+            <Button mnemonicParsing="false" onAction="#switchToNewProject" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 20px;" textAlignment="CENTER">
                <VBox.margin>
                   <Insets bottom="15.0" left="20.0" top="30.0" />
                </VBox.margin>
                <graphic>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="16.0" prefWidth="520.0" text="New Project" textAlignment="CENTER" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="345.0" text="New Project" textAlignment="CENTER">
+                     <font>
+                        <Font size="25.0" />
+                     </font></Label>
                </graphic>
             </Button>
-            <Button fx:id="continueProject" mnemonicParsing="false" onAction="#continueProjectButton" prefHeight="60.0" prefWidth="520.0">
+            <Button mnemonicParsing="false" onAction="#continueProject" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 20px;">
                <VBox.margin>
                   <Insets bottom="15.0" left="20.0" top="15.0" />
                </VBox.margin>
                <graphic>
-                  <Label alignment="CENTER" prefWidth="520.0" text="Continue Project" textAlignment="CENTER" />
+                  <Label alignment="CENTER" prefWidth="520.0" text="Continue Project" textAlignment="CENTER">
+                     <font>
+                        <Font size="25.0" />
+                     </font></Label>
                </graphic>
             </Button>
-            <Button fx:id="about" mnemonicParsing="false" onAction="#aboutButton" prefHeight="60.0" prefWidth="520.0">
+            <Button mnemonicParsing="false" onAction="#switchToAboutTeamScreen" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 20px;">
                <VBox.margin>
                   <Insets bottom="15.0" left="20.0" top="15.0" />
                </VBox.margin>
                <graphic>
-                  <Label alignment="CENTER" prefWidth="520.0" text="About" />
+                  <Label alignment="CENTER" prefWidth="500.0" text="About">
+                     <font>
+                        <Font size="25.0" />
+                     </font></Label>
                </graphic>
             </Button>
          </children>
@@ -71,6 +79,9 @@
          <font>
             <Font size="12.0" />
          </font>
+         <BorderPane.margin>
+            <Insets bottom="15.0" />
+         </BorderPane.margin>
       </Label>
    </bottom>
 </BorderPane>

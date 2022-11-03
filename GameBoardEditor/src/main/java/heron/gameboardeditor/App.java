@@ -21,7 +21,7 @@ public class App extends Application {
         scene = new Scene(loadFXML("welcomeScreen"), 900, 600);
         stage.setScene(scene);
         stage.setResizable(true);
-        stage.show(); 
+        stage.show();
     }
 
     static void setRoot(String fxml) throws IOException {

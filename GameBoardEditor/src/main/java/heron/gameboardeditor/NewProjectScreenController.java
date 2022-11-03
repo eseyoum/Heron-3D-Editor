@@ -23,6 +23,7 @@ public class NewProjectScreenController {
     private boolean running = false;
     private boolean userTurn = false;
     private GridBoardUI myBoard;
+    
     //private AnchorPane MapDisplay;
     @FXML private AnchorPane mapDisplay;
 	
