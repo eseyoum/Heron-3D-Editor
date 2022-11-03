@@ -8,7 +8,7 @@ public class Grid {
 		blockGrid = new Block[width][height];
 		
 		for (int x = 0; x < width; x++) {
-			for (int y = 0; y < width; y++) {
+			for (int y = 0; y < height; y++) {
 				blockGrid[x][y] = new Block(x,y,0);
 			}			
 		}

@@ -115,7 +115,7 @@
         </ScrollPane>
             <ScrollPane prefHeight="485.0" prefWidth="252.0">
                <content>
-                  <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="251.0">
+                  <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="546.0" prefWidth="372.0">
                      <children>
                         <ImageView fitHeight="475.0" fitWidth="224.0" layoutX="-29.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -130,6 +130,15 @@
                               <Font size="12.0" />
                            </font>
                         </Label>
+                        <VBox layoutX="14.0" layoutY="114.0" prefHeight="257.0" prefWidth="110.0">
+                           <children>
+                              <Button fx:id="levelButton5" mnemonicParsing="false" onAction="#changeLevelTo5" text="5" />
+                              <Button fx:id="levelButton4" mnemonicParsing="false" onAction="#changeLevelTo4" text="4" />
+                              <Button fx:id="levelButton3" mnemonicParsing="false" onAction="#changeLevelTo3" text="3" />
+                              <Button fx:id="levelButton2" mnemonicParsing="false" onAction="#changeLevelTo2" text="2" />
+                              <Button fx:id="levelButton1" mnemonicParsing="false" onAction="#changeLevelTo1" text="1" />
+                           </children>
+                        </VBox>
                      </children>
                   </AnchorPane>
                </content>

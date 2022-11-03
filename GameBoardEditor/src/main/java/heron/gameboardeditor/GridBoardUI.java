@@ -16,6 +16,8 @@ public class GridBoardUI extends Parent {
     private boolean user = false;
     public int blocks = 100;
     
+    public int level; //the level of the depth map the user is currently working on
+    
     HashSet<Block> blockSet;
     
 
@@ -36,6 +38,21 @@ public class GridBoardUI extends Parent {
         getChildren().add(rows);
         
         blockSet = new HashSet<Block>(); //set for every block created on the board
+        
+        level = 1; //level begins with 1
+    }
+    
+    /**
+     * Changes the current level of the Gridboard
+     * 
+     * @param level- the level the user wants to work on
+     */
+    public void changeLevel(int level) {
+    	this.level = level;
+    }
+    
+    public int getLevel() {
+    	return this.level;
     }
 
 //    public boolean placeBlock(Block block, int x, int y) {

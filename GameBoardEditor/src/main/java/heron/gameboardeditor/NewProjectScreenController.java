@@ -65,7 +65,22 @@ public class NewProjectScreenController {
 
     @FXML // fx:id="x4"
     private Color x4; // Value injected by FXMLLoader
+    
+    @FXML
+    private Button levelButton1;
 
+    @FXML
+    private Button levelButton2;
+
+    @FXML
+    private Button levelButton3;
+
+    @FXML
+    private Button levelButton4;
+
+    @FXML
+    private Button levelButton5;
+    
     @FXML
     void exitTheSceen(ActionEvent event) {
     	Platform.exit();
@@ -98,6 +113,31 @@ public class NewProjectScreenController {
         root.setCenter(vbox);
 
         return root;
+    }
+    
+    @FXML
+    void changeLevelTo1(ActionEvent event) {
+    	myBoard.changeLevel(1);
+    }
+
+    @FXML
+    void changeLevelTo2(ActionEvent event) {
+    	myBoard.changeLevel(2);
+    }
+
+    @FXML
+    void changeLevelTo3(ActionEvent event) {
+    	myBoard.changeLevel(3);
+    }
+
+    @FXML
+    void changeLevelTo4(ActionEvent event) {
+    	myBoard.changeLevel(4);
+    }
+
+    @FXML
+    void changeLevelTo5(ActionEvent event) {
+    	myBoard.changeLevel(5);
     }
     
 }
