@@ -10,10 +10,14 @@ import java.util.ResourceBundle;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -80,6 +84,8 @@ public class NewProjectScreenController {
     @FXML
     private Button levelButton5;
     
+
+    
     @FXML
     void exitTheSceen(ActionEvent event) {
     	Platform.exit();
@@ -90,6 +96,7 @@ public class NewProjectScreenController {
     @FXML
     private void initialize() {
     	mapDisplay.getChildren().add(createContent());
+  
     }
 
     private BorderPane createContent() {

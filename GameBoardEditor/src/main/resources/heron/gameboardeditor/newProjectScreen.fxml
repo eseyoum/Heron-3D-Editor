@@ -35,6 +35,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -115,13 +116,8 @@
         </ScrollPane>
             <ScrollPane prefHeight="485.0" prefWidth="252.0">
                <content>
-                  <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="546.0" prefWidth="372.0">
+                  <AnchorPane id="Content" fx:id="component" minHeight="-1.0" minWidth="-1.0" prefHeight="546.0" prefWidth="372.0">
                      <children>
-                        <ImageView fitHeight="475.0" fitWidth="224.0" layoutX="-29.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@Screen%20Shot%202022-09-22%20at%208.53%201.png" />
-                           </image>
-                        </ImageView>
                         <Label alignment="CENTER" layoutX="-2.0" layoutY="-3.0" prefHeight="23.0" prefWidth="81.0" style="&#10;" text="3D Map View" textAlignment="CENTER" wrapText="false">
                            <textFill>
                               <Color red="0.624" green="0.624" blue="0.624" fx:id="x21" />
@@ -130,7 +126,7 @@
                               <Font size="12.0" />
                            </font>
                         </Label>
-                        <VBox layoutX="14.0" layoutY="114.0" prefHeight="257.0" prefWidth="110.0">
+                        <VBox layoutX="14.0" layoutY="20.0" prefHeight="257.0" prefWidth="180.0">
                            <children>
                               <Button fx:id="levelButton5" mnemonicParsing="false" onAction="#changeLevelTo5" text="5" />
                               <Button fx:id="levelButton4" mnemonicParsing="false" onAction="#changeLevelTo4" text="4" />
@@ -139,6 +135,7 @@
                               <Button fx:id="levelButton1" mnemonicParsing="false" onAction="#changeLevelTo1" text="1" />
                            </children>
                         </VBox>
+                        <ListView fx:id="listView" layoutX="14.0" layoutY="185.0" prefHeight="200.0" prefWidth="200.0" />
                      </children>
                   </AnchorPane>
                </content>

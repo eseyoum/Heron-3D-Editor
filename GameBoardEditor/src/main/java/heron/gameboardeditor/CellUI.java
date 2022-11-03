@@ -32,7 +32,7 @@ public class CellUI extends Rectangle {
      * 
      */
     public void addColors() {
-    	Color color = Color.DARKGREY.darker().darker(); //color for the first level
+    	Color color = Color.BLACK.darker().darker(); //color for the first level
     	colorList.add(color);
         for (int i = 0; i < 4; i++) {
         	color = color.brighter(); //higher levels are brighter colors 
