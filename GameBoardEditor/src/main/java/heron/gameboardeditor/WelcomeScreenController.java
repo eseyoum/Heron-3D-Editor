@@ -28,7 +28,7 @@ public class WelcomeScreenController {
     
     @FXML
     private void switchToNewProject() throws IOException {
-    	App.setRoot("newProjectScreen");
+    	App.setRoot("chooseBoard");
     }
 	
 	@FXML
