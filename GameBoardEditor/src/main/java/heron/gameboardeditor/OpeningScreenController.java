@@ -25,6 +25,7 @@ public class OpeningScreenController {
     private boolean running = false;
     private boolean userTurn = false;
     private GridBoardUI myBoard;
+    
     //private AnchorPane MapDisplay;
     @FXML private AnchorPane mapDisplay;
 	
