@@ -10,6 +10,8 @@ import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 public class GridBoardUI extends Parent {
     private VBox rows = new VBox();
@@ -19,6 +21,9 @@ public class GridBoardUI extends Parent {
     public int level; //the level of the depth map the user is currently working on
     
     HashSet<Block> blockSet;
+    private Rectangle selectionRectangle;
+    private double mouseX;
+    private double mouseY;
     
 
     public GridBoardUI(boolean user, EventHandler<? super MouseEvent> handler) {
@@ -55,6 +60,33 @@ public class GridBoardUI extends Parent {
     	return this.level;
     }
 
+//    private Rectangle selectionRectangle() {
+//    	selectionRectangle = new Rectangle();
+//    	selectionRectangle.setStroke(Color.BLACK);
+//    	selectionRectangle.setFill(Color.TRANSPARENT);
+//    	selectionRectangle.getStrokeDashArray().addAll(5.0, 5.0);
+//    	
+//    	GridBoardUI pane = new GridBoardUI(user, null);
+//    	pane.setOnMousePressed(event -> {
+//    		mouseX = event.getX();
+//    		mouseY = event.getY();
+//    		selectionRectangle.setX(mouseX);
+//    		selectionRectangle.setY(mouseY);
+//    		selectionRectangle.setWidth(0);
+//    		selectionRectangle.setHeight(0);
+//    	});
+//    	
+//    	mapDisplay.setOnMouseDragged(event -> {
+//    		selectionRectangle.setX(Math.min(event.getX(), mouseX));
+//    		selectionRectangle.setWidth(Math.abs(event.getX() - mouseX));
+//    		selectionRectangle.setY(Math.min(event.getY(), mouseY));
+//    		selectionRectangle.setHeight(Math.abs(event.getY() - mouseY));
+//    		
+//    	});
+//    	
+//    	return selectionRectangle;
+//    }
+    
 //    public boolean placeBlock(Block block, int x, int y) {
 //        if (canPlaceBlock(block, x, y)) {
 //            Cell cell = getCell(x, y);

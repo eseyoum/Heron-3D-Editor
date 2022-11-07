@@ -10,16 +10,20 @@ import java.util.ResourceBundle;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBoxTreeItem;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.control.cell.CheckBoxTreeCell;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 
 public class NewProjectScreenController {
@@ -84,7 +88,15 @@ public class NewProjectScreenController {
     @FXML
     private Button levelButton5;
     
-
+    private TreeView<String> treeView;
+    
+    @FXML private StackPane editPanel;
+    
+    private double mouseX;
+    private double mouseY;
+    private Rectangle selectionRectangle;
+    private BorderPane gridMap;
+    
     
     @FXML
     void exitTheSceen(ActionEvent event) {
@@ -95,10 +107,63 @@ public class NewProjectScreenController {
     
     @FXML
     private void initialize() {
-    	mapDisplay.getChildren().add(createContent());
-  
+    	gridMap = createContent();
+    	selectionRectangle = selectionRectangle();
+    	mapDisplay.getChildren().addAll(gridMap, selectionRectangle);
+    	treeView = checkBoxTreeView();
+    	editPanel.getChildren().add(checkBoxTreeView());
+//    	mapDisplay.getChildren().add(selectionRectangle());
     }
 
+    private Rectangle selectionRectangle() {
+    	selectionRectangle = new Rectangle();
+    	selectionRectangle.setStroke(Color.BLACK);
+    	selectionRectangle.setFill(Color.TRANSPARENT);
+    	selectionRectangle.getStrokeDashArray().addAll(5.0, 5.0);
+    	
+    	
+    	gridMap.setOnMousePressed(event -> {
+    		mouseX = event.getX();
+    		mouseY = event.getY();
+    		selectionRectangle.setX(mouseX);
+    		selectionRectangle.setY(mouseY);
+    		selectionRectangle.setWidth(0);
+    		selectionRectangle.setHeight(0);
+    	});
+    	
+    	gridMap.setOnMouseDragged(event -> {
+    		selectionRectangle.setX(Math.min(event.getX(), mouseX));
+    		selectionRectangle.setWidth(Math.abs(event.getX() - mouseX));
+    		selectionRectangle.setY(Math.min(event.getY(), mouseY));
+    		selectionRectangle.setHeight(Math.abs(event.getY() - mouseY));
+    		
+    	});
+    	
+    	return selectionRectangle;
+    }
+    
+    //Considering whether this checkBoxTreeView should be created in a new class named EditinPanelUI ?
+    private TreeView checkBoxTreeView() { 
+    	CheckBoxTreeItem<String> rootItem = new CheckBoxTreeItem<>("Level List");
+        rootItem.setExpanded(true);                  
+      
+        final TreeView tree = new TreeView(rootItem);  
+        tree.setEditable(true);
+        
+        tree.setCellFactory(CheckBoxTreeCell.<String>forTreeView());    
+        for (int i = 0; i < 5; i++) {
+            final CheckBoxTreeItem<String> checkBoxTreeItem = new CheckBoxTreeItem<>("Level " + (i+1));
+            rootItem.getChildren().add(checkBoxTreeItem);   
+        }
+        
+        tree.getSelectionModel().selectedItemProperty().isNull();
+        
+                       
+        tree.setRoot(rootItem);
+        tree.setShowRoot(true);
+        return tree;
+    }
+    
     private BorderPane createContent() {
         BorderPane root = new BorderPane();
         root.setPrefSize(600, 800);
