@@ -61,10 +61,10 @@
             <MenuItem mnemonicParsing="false" text="Open…" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" text="Close" />
-            <MenuItem mnemonicParsing="false" text="Save" />
+            <MenuItem mnemonicParsing="false" onAction="#saveProject" text="Save" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem fx:id="quit" mnemonicParsing="false" text="Quit" />
+            <MenuItem fx:id="quit" mnemonicParsing="false" onAction="#exitTheSceen" text="Quit" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
@@ -192,7 +192,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="exitButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#exitTheSceen">
+            <Button fx:id="exitButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false">
                <HBox.margin>
                   <Insets right="60.0" />
                </HBox.margin>

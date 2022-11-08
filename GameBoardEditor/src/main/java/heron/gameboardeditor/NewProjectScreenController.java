@@ -211,4 +211,9 @@ public class NewProjectScreenController {
     	myBoard.changeLevel(5);
     }
     
+    @FXML
+    void saveProject(ActionEvent event) {
+    	
+    }
+    
 }

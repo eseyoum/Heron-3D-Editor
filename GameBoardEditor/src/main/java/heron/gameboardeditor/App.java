@@ -9,12 +9,16 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import heron.gameboardeditor.datamodel.Grid;
+
 /**
  * JavaFX App
  */
 public class App extends Application {
 
     private static Scene scene;
+    private static Stage mainWindow;
+    private static Grid game = new Grid(0, 0);
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -22,6 +26,7 @@ public class App extends Application {
         stage.setScene(scene);
         stage.setResizable(true);
         stage.show();
+        mainWindow = stage;
     }
 
     static void setRoot(String fxml) throws IOException {
@@ -39,6 +44,18 @@ public class App extends Application {
     
     public static void main(String[] args) {
         launch();
+    }
+    
+    public static Grid getGame() {
+    	return game;
+    }
+    
+    public static Stage getMainWindow() {
+    	return mainWindow;
+    }
+    
+    public static void setGrid(Grid newGrid) {
+    	game = newGrid;
     }
 
 }
