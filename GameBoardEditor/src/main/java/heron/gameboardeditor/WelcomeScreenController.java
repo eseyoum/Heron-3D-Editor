@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import heron.gameboardeditor.datamodel.Grid;
 import heron.gameboardeditor.datamodel.ProjectIO;
 import javafx.event.ActionEvent;
@@ -37,14 +36,15 @@ public class WelcomeScreenController {
 		File input = fileChooser.showOpenDialog(App.getMainWindow());
 		if (input != null) {
 			try {
-				Grid grid = ProjectIO.load(input);
+				GridBoardUI grid = ProjectIO.load(input);
+				App.setRoot("newProjectScreen");
 				App.setGrid(grid);
 				
+				//myBoard = grid;
 				
 				///movieListView.getItems().clear();
 		    	///movieListView.getItems().addAll(grid.getMovieList());
 		    	///collectionNameTextField.setText(mc.getName());
-		    	
 		    	
 			} catch (FileNotFoundException ex) {
 				new Alert(AlertType.ERROR, "The file you tried to open could not be found.").showAndWait();
@@ -52,9 +52,6 @@ public class WelcomeScreenController {
 				new Alert(AlertType.ERROR, "Error opening file.  Did you choose a valid .heron file (which uses JSON format?)").show();
 			}
 		}
-		
-		fileChooser.setTitle("Open");
-		fileChooser.showOpenDialog(null);
 		
     }
 	
@@ -65,9 +62,8 @@ public class WelcomeScreenController {
 
     @FXML
     void initialize() {
+    	GridBoardUI grid = App.getGame();
         //assert NewProject != null : "fx:id=\"NewProject\" was not injected: check your FXML file 'welcomeScreen.fxml'.";
-        Grid grid = App.getGame();
-
     }
     
 

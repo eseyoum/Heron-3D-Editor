@@ -1,5 +1,7 @@
 package heron.gameboardeditor;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -7,13 +9,18 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import heron.gameboardeditor.datamodel.Grid;
+import heron.gameboardeditor.datamodel.ProjectIO;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBoxTreeItem;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.CheckBoxTreeCell;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -25,6 +32,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
+
 
 public class NewProjectScreenController {
 
@@ -39,7 +48,10 @@ public class NewProjectScreenController {
     private void switchToSecondary() throws IOException {
         App.setRoot("welcomeScreen");
     }
-
+	
+	@FXML
+    private Button eraserButton;
+	
     @FXML // fx:id="copyButton"
     private Button copyButton; // Value injected by FXMLLoader
 
@@ -88,6 +100,9 @@ public class NewProjectScreenController {
     @FXML
     private Button levelButton5;
     
+    @FXML
+    private Button pencilButton;
+    
     private TreeView<String> treeView;
     
     @FXML private StackPane editPanel;
@@ -108,10 +123,11 @@ public class NewProjectScreenController {
     @FXML
     private void initialize() {
     	gridMap = createContent();
-    	selectionRectangle = selectionRectangle();
-    	mapDisplay.getChildren().addAll(gridMap, selectionRectangle);
-    	treeView = checkBoxTreeView();
-    	editPanel.getChildren().add(checkBoxTreeView());
+    	//selectionRectangle = selectionRectangle(); edited out
+    	//mapDisplay.getChildren().addAll(gridMap, selectionRectangle); edited this out until the selectionRectangle is more functional
+    	mapDisplay.getChildren().addAll(gridMap);
+    	//treeView = checkBoxTreeView(); edited out
+    	//editPanel.getChildren().add(checkBoxTreeView()); edited out
 //    	mapDisplay.getChildren().add(selectionRectangle());
     }
 
@@ -213,7 +229,51 @@ public class NewProjectScreenController {
     
     @FXML
     void saveProject(ActionEvent event) {
+    	FileChooser saveChooser = new FileChooser();
+    	FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Heron game (*.heron)", "*.heron");
+    	saveChooser.getExtensionFilters().add(extFilter);
+    	File outputFile = saveChooser.showSaveDialog(App.getMainWindow());
+    	if (outputFile != null) {
+    		GridBoardUI grid = App.getGame();
+    		try {
+				ProjectIO.save(grid, outputFile);
+			} catch (IOException ex) {
+	    		new Alert(AlertType.ERROR, "An I/O error occurred while trying to save this file.").showAndWait();			
+			}
+    	}
     	
+    }
+    
+    @FXML
+    void openProject(ActionEvent event) {
+    	FileChooser fileChooser = new FileChooser();
+		FileChooser.ExtensionFilter fileExtension = new FileChooser.ExtensionFilter("Heron game (*.heron)", "*.heron");
+		fileChooser.getExtensionFilters().add(fileExtension);
+		File input = fileChooser.showOpenDialog(App.getMainWindow());
+		if (input != null) {
+			try {
+				GridBoardUI grid = ProjectIO.load(input);
+				//App.setGrid(grid);
+				//App.setRoot("newProjectScreen");
+				myBoard = grid;
+		    	
+		    	
+			} catch (FileNotFoundException ex) {
+				new Alert(AlertType.ERROR, "The file you tried to open could not be found.").showAndWait();
+			} catch (IOException ex) {
+				new Alert(AlertType.ERROR, "Error opening file.  Did you choose a valid .heron file (which uses JSON format?)").show();
+			}
+		}
+    }
+    
+    @FXML
+    void pencilButtonOn(ActionEvent event) {
+    	myBoard.eraserOff();
+    }
+    
+    @FXML
+    void eraserButtonOn(ActionEvent event) {
+    	myBoard.eraserOn();
     }
     
 }

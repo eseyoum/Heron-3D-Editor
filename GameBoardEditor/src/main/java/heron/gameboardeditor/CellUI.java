@@ -32,7 +32,7 @@ public class CellUI extends Rectangle {
      * 
      */
     public void addColors() {
-    	Color color = Color.BLACK.darker().darker().darker(); //color for the first level
+    	Color color = Color.DARKGREY.darker().darker().darker(); //color for the first level
     	colorList.add(color);
         for (int i = 0; i < 4; i++) {
         	color = color.brighter(); //higher levels are brighter colors 
@@ -52,12 +52,19 @@ public class CellUI extends Rectangle {
 //        } 
         //else {
         	//setFill(Color.GRAY);
+    	
+    	if (gridBoard.getEraser()) {
+    		setFill(Color.LIGHTGREY);
+    		block.setVisible(true);
+    		block.setZ(0);
+    		this.gridBoard.blockSet.remove(block);
+    	} else {
         	setFill(colorList.get(gridBoard.getLevel() - 1));
             block.setVisible(true);
             block.setZ(gridBoard.getLevel());
         	//block = new Block(x, y, 0); //The 0 is a placeholder. Eventually, a z coordinate will be added instead of 0.
         	this.gridBoard.blockSet.add(block);
-        //}
+        }
         
         return false;
     }
