@@ -19,6 +19,7 @@ public class GridBoardUI extends Parent {
     public int blocks = 100;
     
     public int level; //the level of the depth map the user is currently working on
+    public boolean eraserOn; //shows if the eraser tool is selected
     
     HashSet<Block> blockSet;
     private Rectangle selectionRectangle;
@@ -58,6 +59,18 @@ public class GridBoardUI extends Parent {
     
     public int getLevel() {
     	return this.level;
+    }
+    
+    public void eraserOn() {
+    	this.eraserOn = true;
+    }
+    
+    public void eraserOff() {
+    	this.eraserOn = false;
+    }
+    
+    public boolean getEraser() {
+    	return this.eraserOn;
     }
 
 //    private Rectangle selectionRectangle() {

@@ -39,7 +39,10 @@ public class NewProjectScreenController {
     private void switchToSecondary() throws IOException {
         App.setRoot("welcomeScreen");
     }
-
+	
+	@FXML
+    private Button eraserButton;
+	
     @FXML // fx:id="copyButton"
     private Button copyButton; // Value injected by FXMLLoader
 
@@ -88,6 +91,9 @@ public class NewProjectScreenController {
     @FXML
     private Button levelButton5;
     
+    @FXML
+    private Button pencilButton;
+    
     private TreeView<String> treeView;
     
     @FXML private StackPane editPanel;
@@ -108,10 +114,11 @@ public class NewProjectScreenController {
     @FXML
     private void initialize() {
     	gridMap = createContent();
-    	selectionRectangle = selectionRectangle();
-    	mapDisplay.getChildren().addAll(gridMap, selectionRectangle);
-    	treeView = checkBoxTreeView();
-    	editPanel.getChildren().add(checkBoxTreeView());
+    	//selectionRectangle = selectionRectangle(); edited out
+    	//mapDisplay.getChildren().addAll(gridMap, selectionRectangle); edited this out until the selectionRectangle is more functional
+    	mapDisplay.getChildren().addAll(gridMap);
+    	//treeView = checkBoxTreeView(); edited out
+    	//editPanel.getChildren().add(checkBoxTreeView()); edited out
 //    	mapDisplay.getChildren().add(selectionRectangle());
     }
 
@@ -209,6 +216,16 @@ public class NewProjectScreenController {
     @FXML
     void changeLevelTo5(ActionEvent event) {
     	myBoard.changeLevel(5);
+    }
+    
+    @FXML
+    void pencilButtonOn(ActionEvent event) {
+    	myBoard.eraserOff();
+    }
+    
+    @FXML
+    void eraserButtonOn(ActionEvent event) {
+    	myBoard.eraserOn();
     }
     
 }
