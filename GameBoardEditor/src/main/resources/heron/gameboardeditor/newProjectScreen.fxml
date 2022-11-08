@@ -204,6 +204,7 @@
                   </ImageView>
                </graphic>
             </Button>
+            <Button fx:id="fillTool" mnemonicParsing="false" onAction="#fillToolOn" text="Fill Tool" />
          </children>
       </HBox>
     <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">

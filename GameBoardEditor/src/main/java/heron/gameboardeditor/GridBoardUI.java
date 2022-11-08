@@ -20,16 +20,19 @@ public class GridBoardUI extends Parent {
     
     public int level; //the level of the depth map the user is currently working on
     public boolean eraserOn; //shows if the eraser tool is selected
+    public boolean fillTool = false;
     
     HashSet<Block> blockSet;
     private Rectangle selectionRectangle;
     private double mouseX;
     private double mouseY;
     
+    public Grid gridData;
+    
 
     public GridBoardUI(boolean user, EventHandler<? super MouseEvent> handler) {
         this.user = user;
-        Grid gridData = new Grid(100,100);
+        this.gridData = new Grid(100,100);
         for (int y = 0; y < 100; y++) {
             HBox row = new HBox();
             for (int x = 0; x < 100; x++) {
@@ -71,6 +74,14 @@ public class GridBoardUI extends Parent {
     
     public boolean getEraser() {
     	return this.eraserOn;
+    }
+    
+    public void fillToolOn() {
+    	this.fillTool = true;
+    }
+    
+    public void fillToolOff() {
+    	this.fillTool = false;
     }
 
 //    private Rectangle selectionRectangle() {
