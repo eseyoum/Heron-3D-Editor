@@ -28,7 +28,7 @@
                   <Image url="@Icons/logo.png" />
                </image>
                <VBox.margin>
-                  <Insets left="380.0" />
+                  <Insets left="410.0" />
                </VBox.margin></ImageView>
             <Label alignment="CENTER" prefHeight="128.0" prefWidth="900.0" text="About Heron Team" textAlignment="CENTER" wrapText="true">
                <padding>
@@ -57,7 +57,7 @@
    <left>
       <VBox prefHeight="327.0" prefWidth="901.0" style="-fx-background-radius: 20 px;" BorderPane.alignment="CENTER">
          <children>
-            <TextArea fx:id="credits" prefHeight="282.0" prefWidth="701.0" text="&#10;                                        This  app is developed by &#10;                    our talented software developers including:&#10;&#10;                                             1. Stephanie Le&#10;                                             2. Ezana Seyoum&#10;                                             3. Corey Reagan&#10;                                             4. Ngoc Le">
+            <TextArea fx:id="credits" prefHeight="314.0" prefWidth="701.0" text="&#10;                                        This  app is developed by &#10;                    our talented software developers including:&#10;                                            •  Corey Reagan&#10;                                            •  Ezana Seyoum&#10;                                            •  Ngoc Le&#10;                                            •  Stephanie Le&#10;                                           &#10;                              Supervisor: Dr. Forrest Stonedahl">
                <font>
                   <Font size="25.0" />
                </font>
