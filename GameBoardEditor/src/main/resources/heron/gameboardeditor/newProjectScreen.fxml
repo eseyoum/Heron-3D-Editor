@@ -88,7 +88,7 @@
         </Menu>
       </menus>
     </MenuBar>
-    <SplitPane dividerPositions="0.2505567928730512, 0.7505567928730512" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <SplitPane dividerPositions="0.1653674832962138, 0.8012249443207127" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <items>
         <AnchorPane prefHeight="485.0" prefWidth="151.0">
           <children>
@@ -129,11 +129,26 @@
                         </Label>
                         <VBox layoutX="20.0" layoutY="226.0" prefHeight="257.0" prefWidth="180.0">
                            <children>
-                              <Button fx:id="levelButton5" mnemonicParsing="false" onAction="#changeLevelTo5" text="5" />
-                              <Button fx:id="levelButton4" mnemonicParsing="false" onAction="#changeLevelTo4" text="4" />
-                              <Button fx:id="levelButton3" mnemonicParsing="false" onAction="#changeLevelTo3" text="3" />
-                              <Button fx:id="levelButton2" mnemonicParsing="false" onAction="#changeLevelTo2" text="2" />
-                              <Button fx:id="levelButton1" mnemonicParsing="false" onAction="#changeLevelTo1" text="1" />
+                              <Button fx:id="levelButton5" mnemonicParsing="false" onAction="#changeLevelTo5" style="-fx-background-color: EFCA08 EFCA08;" text="5">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" />
+                                 </VBox.margin></Button>
+                              <Button fx:id="levelButton4" mnemonicParsing="false" onAction="#changeLevelTo4" style="-fx-background-color: EFCA08 EFCA08;" text="4">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" />
+                                 </VBox.margin></Button>
+                              <Button fx:id="levelButton3" mnemonicParsing="false" onAction="#changeLevelTo3" style="-fx-background-color: EFCA08 EFCA08;" text="3">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" />
+                                 </VBox.margin></Button>
+                              <Button fx:id="levelButton2" mnemonicParsing="false" onAction="#changeLevelTo2" style="-fx-background-color: EFCA08 EFCA08;" text="2">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" />
+                                 </VBox.margin></Button>
+                              <Button fx:id="levelButton1" mnemonicParsing="false" onAction="#changeLevelTo1" style="-fx-background-color: EFCA08 EFCA08;" text="1">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" />
+                                 </VBox.margin></Button>
                            </children>
                         </VBox>
                      </children>
@@ -142,9 +157,9 @@
             </ScrollPane>
       </items>
     </SplitPane>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="869.0" style="-fx-background-color: EFCA08 EFCA08;">
          <children>
-            <Button fx:id="eraserButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#eraserButtonOn" style="-fx-background-color: EFCA08 EFCA08;">
+            <Button fx:id="eraserButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#eraserButtonOn" style="-fx-background-color: white;">
                <HBox.margin>
                   <Insets right="60.0" />
                </HBox.margin>
@@ -156,7 +171,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="pencilButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#pencilButtonOn" style="-fx-background-color: EFCA08 EFCA08;">
+            <Button fx:id="pencilButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#pencilButtonOn" style="-fx-background-color: white;">
                <HBox.margin>
                   <Insets right="60.0" />
                </HBox.margin>
@@ -168,7 +183,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="copyButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" style="-fx-background-color: EFCA08 EFCA08;">
+            <Button fx:id="copyButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" style="-fx-background-color: white;">
                <HBox.margin>
                   <Insets right="60.0" />
                </HBox.margin>
@@ -180,7 +195,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="exportButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" style="-fx-background-color: EFCA08 EFCA08;">
+            <Button fx:id="exportButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" style="-fx-background-color: white;">
                <HBox.margin>
                   <Insets right="60.0" />
                </HBox.margin>
@@ -192,7 +207,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="exitButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" style="-fx-background-color: EFCA08 EFCA08;">
+            <Button fx:id="exitButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" style="-fx-background-color: white;">
                <HBox.margin>
                   <Insets right="60.0" />
                </HBox.margin>
@@ -204,7 +219,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="fillTool" mnemonicParsing="false" onAction="#fillToolOn" style="-fx-background-color: EFCA08 EFCA08;" text="Fill Tool" />
+            <Button fx:id="fillTool" mnemonicParsing="false" onAction="#fillToolOn" style="-fx-background-color: white;" text="Fill Tool" />
          </children>
       </HBox>
     <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
@@ -217,7 +232,7 @@
             <Color red="0.625" green="0.625" blue="0.625" fx:id="x4" />
           </textFill>
         </Label>
-        <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
+        <Pane prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: white;" HBox.hgrow="ALWAYS" />
         <Label font="$x3" maxWidth="-1.0" text="Scale" textFill="$x4" HBox.hgrow="NEVER" />
       </children>
       <padding>
