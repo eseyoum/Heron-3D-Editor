@@ -52,6 +52,9 @@ public class NewProjectScreenController {
 	@FXML
     private Button eraserButton;
 	
+	@FXML
+	private Button fillTool;
+	
     @FXML // fx:id="copyButton"
     private Button copyButton; // Value injected by FXMLLoader
 
@@ -274,6 +277,11 @@ public class NewProjectScreenController {
     @FXML
     void eraserButtonOn(ActionEvent event) {
     	myBoard.eraserOn();
+    }
+    
+    @FXML
+    void fillToolOn(ActionEvent event) {
+    	myBoard.fillToolOn();
     }
     
 }

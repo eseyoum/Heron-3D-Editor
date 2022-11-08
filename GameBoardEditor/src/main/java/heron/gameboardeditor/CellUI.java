@@ -3,6 +3,7 @@ package heron.gameboardeditor;
 import java.util.ArrayList;
 
 import heron.gameboardeditor.datamodel.Block;
+import heron.gameboardeditor.datamodel.Grid;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -14,6 +15,7 @@ public class CellUI extends Rectangle {
     public Block block;
     public boolean wasClicked = false;
     public boolean blockPlaced = false;
+    public Grid gridData;
     
     private ArrayList<Color> colorList = new ArrayList<Color>();
 
@@ -53,6 +55,17 @@ public class CellUI extends Rectangle {
         //else {
         	//setFill(Color.GRAY);
     	
+    	if (gridBoard.fillTool) {
+    		int startingLevel = block.getZ();
+    		int turnToLevel = gridBoard.getLevel();
+        	//this.gridBoard.blockSet.add(block);
+        	gridData = gridBoard.gridData;
+        	fill(block, startingLevel, turnToLevel, gridData);
+        	
+        	gridBoard.fillToolOff();
+    		return false;
+    	} else {
+    	
     	if (gridBoard.getEraser()) {
     		setFill(Color.LIGHTGREY);
     		block.setVisible(true);
@@ -67,6 +80,44 @@ public class CellUI extends Rectangle {
         }
         
         return false;
+    }}
+    
+    public void setFillTo(int turnToLevel) {
+    	setFill(colorList.get(turnToLevel - 1));
+    }
+    
+    private void fill(Block block, int startingLevel, int turnToLevel, Grid gridData) {
+    	//setFill(colorList.get(turnToLevel - 1)); //unsure if this will work
+    	gridBoard.getCell(block.getX(), block.getY()).setFillTo(turnToLevel);
+        block.setVisible(true);
+        block.setZ(turnToLevel);
+    	//this.gridBoard.blockSet.add(block);
+		fill(gridData.getBlockAt(block.getX() + 1, block.getY()), block, startingLevel, turnToLevel, gridData);
+		fill(gridData.getBlockAt(block.getX() - 1, block.getY()), block, startingLevel, turnToLevel, gridData);
+		fill(gridData.getBlockAt(block.getX(), block.getY() + 1), block, startingLevel, turnToLevel, gridData);
+		fill(gridData.getBlockAt(block.getX(), block.getY() - 1), block, startingLevel, turnToLevel, gridData);
+    }
+    
+    private void fill(Block block, Block prevBlock, int startingLevel, int turnToLevel, Grid gridData) {
+    		if (block == null) {
+    			return;
+    		}
+    		else if (block.getZ() != startingLevel) {
+    			return;
+    		}
+    		
+    		else {
+    			//setFill(colorList.get(turnToLevel - 1)); //unsure if this will work
+    			gridBoard.getCell(block.getX(), block.getY()).setFillTo(turnToLevel);
+    	        block.setVisible(true);
+    	        block.setZ(turnToLevel);
+    	    	//this.gridBoard.blockSet.add(block);
+    	    	
+    	    	fill(gridData.getBlockAt(block.getX() + 1, block.getY()), block, startingLevel, turnToLevel, gridData);
+    			fill(gridData.getBlockAt(block.getX() - 1, block.getY()), block, startingLevel, turnToLevel, gridData);
+    			fill(gridData.getBlockAt(block.getX(), block.getY() + 1), block, startingLevel, turnToLevel, gridData);
+    			fill(gridData.getBlockAt(block.getX(), block.getY() - 1), block, startingLevel, turnToLevel, gridData);
+    		}
     }
     
     public Block getBlock() {
