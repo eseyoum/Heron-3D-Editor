@@ -112,7 +112,7 @@ public class NewProjectScreenController {
     
     private double mouseX;
     private double mouseY;
-    private Rectangle selectionRectangle;
+    private selectionRectangle selectionRectangle;
     private BorderPane gridMap;
     
     
@@ -126,19 +126,20 @@ public class NewProjectScreenController {
     @FXML
     private void initialize() {
     	gridMap = createContent();
-    	//selectionRectangle = selectionRectangle(); edited out
-    	//mapDisplay.getChildren().addAll(gridMap, selectionRectangle); edited this out until the selectionRectangle is more functional
-    	mapDisplay.getChildren().addAll(gridMap);
-    	//treeView = checkBoxTreeView(); edited out
-    	//editPanel.getChildren().add(checkBoxTreeView()); edited out
+    	selectionRectangle = new selectionRectangle();
+    	//selectionRectangle = mouseSelect(selectionRectangle, myBoard);
+    	mapDisplay.getChildren().addAll(gridMap, selectionRectangle);
+//    	mapDisplay.getChildren().addAll(gridMap);
+    	treeView = checkBoxTreeView();
+    	editPanel.getChildren().add(checkBoxTreeView());
 //    	mapDisplay.getChildren().add(selectionRectangle());
     }
 
     private Rectangle selectionRectangle() {
-    	selectionRectangle = new Rectangle();
-    	selectionRectangle.setStroke(Color.BLACK);
-    	selectionRectangle.setFill(Color.TRANSPARENT);
-    	selectionRectangle.getStrokeDashArray().addAll(5.0, 5.0);
+//    	selectionRectangle = new Rectangle();
+//    	selectionRectangle.setStroke(Color.BLACK);
+//    	selectionRectangle.setFill(Color.TRANSPARENT);
+//    	selectionRectangle.getStrokeDashArray().addAll(5.0, 5.0);
     	
     	
     	gridMap.setOnMousePressed(event -> {
@@ -281,7 +282,7 @@ public class NewProjectScreenController {
     
     @FXML
     void fillToolOn(ActionEvent event) {
-    	myBoard.fillToolOn();
+    	myBoard.fillToolButton.fillToolOn();
     }
     
 }
