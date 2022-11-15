@@ -30,12 +30,13 @@ public class GridBoardUI extends Parent {
     public Grid gridData;
     
 
-    public GridBoardUI(boolean user, EventHandler<? super MouseEvent> handler) {
+    public GridBoardUI(Grid grid, boolean user, EventHandler<? super MouseEvent> handler) {
         this.user = user;
-        this.gridData = new Grid(100,100);
-        for (int y = 0; y < 100; y++) {
+        //this.gridData = new Grid(100,100);
+        this.gridData = grid;
+        for (int y = 0; y < grid.getHeight(); y++) {
             HBox row = new HBox();
-            for (int x = 0; x < 100; x++) {
+            for (int x = 0; x < grid.getWidth(); x++) {
                 CellUI c = new CellUI(this, gridData.getBlockAt(x, y));
                 c.setOnMouseClicked(handler);
                 row.getChildren().add(c);

@@ -28,7 +28,7 @@
                   <Image url="@Icons/logo.png" />
                </image>
                <VBox.margin>
-                  <Insets left="380.0" />
+                  <Insets left="400.0" />
                </VBox.margin></ImageView>
             <Label alignment="CENTER" prefHeight="128.0" prefWidth="900.0" text="About Heron Team" textAlignment="CENTER" wrapText="true">
                <padding>

@@ -36,9 +36,10 @@ public class WelcomeScreenController {
 		File input = fileChooser.showOpenDialog(App.getMainWindow());
 		if (input != null) {
 			try {
-				GridBoardUI grid = ProjectIO.load(input);
+				Grid grid = ProjectIO.load(input);
 				App.setRoot("newProjectScreen");
 				App.setGrid(grid);
+				
 				
 				//myBoard = grid;
 				
@@ -62,7 +63,7 @@ public class WelcomeScreenController {
 
     @FXML
     void initialize() {
-    	GridBoardUI grid = App.getGame();
+    	Grid grid = App.getGrid();
         //assert NewProject != null : "fx:id=\"NewProject\" was not injected: check your FXML file 'welcomeScreen.fxml'.";
     }
     

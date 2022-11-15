@@ -37,9 +37,7 @@ import javafx.stage.FileChooser;
 
 public class NewProjectScreenController {
 
-    private boolean running = false;
-    private boolean userTurn = false;
-    private GridBoardUI myBoard;
+    
     
     //private AnchorPane MapDisplay;
     @FXML private AnchorPane mapDisplay;
@@ -114,7 +112,10 @@ public class NewProjectScreenController {
     private double mouseY;
     private Rectangle selectionRectangle;
     private BorderPane gridMap;
-    
+    private VBox boardParentVBox;
+    private boolean running = false;
+    private boolean userTurn = false;
+    private GridBoardUI myBoard;
     
     @FXML
     void exitTheSceen(ActionEvent event) {
@@ -186,7 +187,7 @@ public class NewProjectScreenController {
     private BorderPane createContent() {
         BorderPane root = new BorderPane();
         root.setPrefSize(600, 800);
-        myBoard = new GridBoardUI(false, event -> {
+        myBoard = new GridBoardUI(App.getGrid(), false, event -> {
             if (running)
                 return;
 
@@ -197,10 +198,10 @@ public class NewProjectScreenController {
             userTurn = cell.click();
         });
 
-        VBox vbox = new VBox(50, myBoard);
-        vbox.setAlignment(Pos.CENTER);
+        boardParentVBox = new VBox(50, myBoard);
+        boardParentVBox.setAlignment(Pos.CENTER);
 
-        root.setCenter(vbox);
+        root.setCenter(boardParentVBox);
 
         return root;
     }
@@ -237,7 +238,7 @@ public class NewProjectScreenController {
     	saveChooser.getExtensionFilters().add(extFilter);
     	File outputFile = saveChooser.showSaveDialog(App.getMainWindow());
     	if (outputFile != null) {
-    		GridBoardUI grid = App.getGame();
+    		Grid grid = App.getGrid();
     		try {
 				ProjectIO.save(grid, outputFile);
 			} catch (IOException ex) {
@@ -255,10 +256,28 @@ public class NewProjectScreenController {
 		File input = fileChooser.showOpenDialog(App.getMainWindow());
 		if (input != null) {
 			try {
-				GridBoardUI grid = ProjectIO.load(input);
-				//App.setGrid(grid);
+				Grid grid = ProjectIO.load(input);
+				App.setGrid(grid);
+				
+				//createContent();
+				
+				myBoard = new GridBoardUI(App.getGrid(), false, evt -> {
+		            if (running)
+		                return;
+
+		            CellUI cell = (CellUI) evt.getSource();
+		            cell = myBoard.getCell(cell.getBlock().getX(), cell.getBlock().getY());
+		            //if (cell.wasClicked) -edited this out so that you can click on cells that are already clicked -Corey
+		                //return;
+		            userTurn = cell.click();
+		        });
+				
+				boardParentVBox.getChildren().clear();
+				boardParentVBox.getChildren().addAll(myBoard);
+				
+				
 				//App.setRoot("newProjectScreen");
-				myBoard = grid;
+				//myBoard = grid;
 		    	
 		    	
 			} catch (FileNotFoundException ex) {

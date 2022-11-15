@@ -18,7 +18,7 @@ public class App extends Application {
 
     private static Scene scene;
     private static Stage mainWindow;
-    private static GridBoardUI game = new GridBoardUI(false, null);
+    private static Grid game = new Grid(10, 10);
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -46,7 +46,7 @@ public class App extends Application {
         launch();
     }
     
-    public static GridBoardUI getGame() {
+    public static Grid getGrid() {
     	return game;
     }
     
@@ -54,7 +54,7 @@ public class App extends Application {
     	return mainWindow;
     }
     
-    public static void setGrid(GridBoardUI newGrid) {
+    public static void setGrid(Grid newGrid) {
     	game = newGrid;
     }
 

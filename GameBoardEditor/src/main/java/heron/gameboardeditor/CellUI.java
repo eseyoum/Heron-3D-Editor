@@ -1,6 +1,7 @@
 package heron.gameboardeditor;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import heron.gameboardeditor.datamodel.Block;
 import heron.gameboardeditor.datamodel.Grid;
@@ -17,32 +18,30 @@ public class CellUI extends Rectangle {
     public boolean blockPlaced = false;
     public Grid gridData;
     
-    private ArrayList<Color> colorList = new ArrayList<Color>();
+    private static List<Color> colorList = generateColors();
 
+    
     public CellUI(GridBoardUI gridBoard, Block block) {
         super(30, 30);
 		this.gridBoard = gridBoard;
 		this.block = block;
-        setFill(Color.LIGHTGRAY);
-        setStroke(Color.BLACK);
-        
-        addColors();
+		updateVisualBasedOnBlock();
     }
     
-    /**
-     * Adds the possible colors for differentiating between levels on the depth map
-     * 
-     */
-    public void addColors() {
-    	Color color = Color.DARKGREY.darker().darker().darker(); //color for the first level
-    	colorList.add(color);
-        for (int i = 0; i < 4; i++) {
-        	color = color.brighter(); //higher levels are brighter colors 
-        	colorList.add(color);
-        }
-    }
 
-    public boolean click() {
+    private void updateVisualBasedOnBlock() {
+    	if (block.isVisible()) {
+    		setFill(colorList.get(block.getZ() - 1));
+    	} else {
+      		setFill(Color.AQUA);
+      	    		
+    	}
+        setStroke(Color.BLACK);
+		
+	}
+
+
+	public boolean click() {
     	wasClicked = true;
     	
 //        if (block.isVisible()) { //this code could be used later for an eraser tool -Corey
@@ -67,14 +66,15 @@ public class CellUI extends Rectangle {
     	} else {
     	
     	if (gridBoard.getEraser()) {
-    		setFill(Color.LIGHTGREY);
-    		block.setVisible(true);
+    		block.setVisible(false);
     		block.setZ(0);
+            updateVisualBasedOnBlock();
     		this.gridBoard.blockSet.remove(block);
     	} else {
-        	setFill(colorList.get(gridBoard.getLevel() - 1));
-            block.setVisible(true);
             block.setZ(gridBoard.getLevel());
+            block.setVisible(true);
+            
+            updateVisualBasedOnBlock();
         	//block = new Block(x, y, 0); //The 0 is a placeholder. Eventually, a z coordinate will be added instead of 0.
         	this.gridBoard.blockSet.add(block);
         }
@@ -123,4 +123,21 @@ public class CellUI extends Rectangle {
     public Block getBlock() {
     	return block;
     }
+    
+    /**
+     * Adds the possible colors for differentiating between levels on the depth map
+     * 
+     */
+    public static List<Color> generateColors() {
+    	List<Color> colors = new ArrayList<>();
+    	Color color = Color.DARKGREY.darker().darker().darker(); //color for the first level
+    	colors.add(color);
+        for (int i = 0; i < 4; i++) {
+        	color = color.brighter(); //higher levels are brighter colors 
+        	colors.add(color);
+        }
+        return colors;
+    }
+
+
 }
