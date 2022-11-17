@@ -111,10 +111,9 @@ public class NewProjectScreenController {
     private double mouseX;
     private double mouseY;
     private selectionRectangle selectionRectangle;
-    private BorderPane gridMap;
+    private Rectangle selectionRectangleTest;
+    private BorderPane gridMapPane;
     private VBox boardParentVBox;
-    private boolean running = false;
-    private boolean userTurn = false;
     private GridBoardUI myBoard;
     
     @FXML
@@ -126,41 +125,39 @@ public class NewProjectScreenController {
     
     @FXML
     private void initialize() {
-    	gridMap = createContent();
-    	selectionRectangle = new selectionRectangle();
+    	gridMapPane = createContent();
+    	//selectionRectangleTestMethod(); //temporarily edited out until the selection rectangle is working
     	//selectionRectangle = mouseSelect(selectionRectangle, myBoard);
-    	mapDisplay.getChildren().addAll(gridMap, selectionRectangle);
-//    	mapDisplay.getChildren().addAll(gridMap);
+    	mapDisplay.getChildren().addAll(gridMapPane);
     	treeView = checkBoxTreeView();
     	editPanel.getChildren().add(checkBoxTreeView());
-//    	mapDisplay.getChildren().add(selectionRectangle());
     }
 
-    private Rectangle selectionRectangle() {
-//    	selectionRectangle = new Rectangle();
-//    	selectionRectangle.setStroke(Color.BLACK);
-//    	selectionRectangle.setFill(Color.TRANSPARENT);
-//    	selectionRectangle.getStrokeDashArray().addAll(5.0, 5.0);
+    private void selectionRectangleTestMethod() {
+    	selectionRectangleTest = new Rectangle();
+    	selectionRectangleTest.setStroke(Color.BLACK);
+    	selectionRectangleTest.setFill(Color.TRANSPARENT);
+    	selectionRectangleTest.getStrokeDashArray().addAll(5.0, 5.0);
     	
     	
-    	gridMap.setOnMousePressed(event -> {
+    	myBoard.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
     		mouseX = event.getX();
     		mouseY = event.getY();
-    		selectionRectangle.setX(mouseX);
-    		selectionRectangle.setY(mouseY);
-    		selectionRectangle.setWidth(0);
-    		selectionRectangle.setHeight(0);
+    		selectionRectangleTest.setX(mouseX);
+    		selectionRectangleTest.setY(mouseY);
+    		selectionRectangleTest.setWidth(0);
+    		selectionRectangleTest.setHeight(0);
     	});
     	
-    	gridMap.setOnMouseDragged(event -> {
-    		selectionRectangle.setX(Math.min(event.getX(), mouseX));
-    		selectionRectangle.setWidth(Math.abs(event.getX() - mouseX));
-    		selectionRectangle.setY(Math.min(event.getY(), mouseY));
-    		selectionRectangle.setHeight(Math.abs(event.getY() - mouseY));
+    	myBoard.addEventFilter(MouseEvent.MOUSE_DRAGGED,event -> {
+    		selectionRectangleTest.setX(Math.min(event.getX(), mouseX));
+    		selectionRectangleTest.setWidth(Math.abs(event.getX() - mouseX));
+    		selectionRectangleTest.setY(Math.min(event.getY(), mouseY));
+    		selectionRectangleTest.setHeight(Math.abs(event.getY() - mouseY));
     		
     	});
     	
-    	return selectionRectangle;
+    	myBoard.getChildren().add(selectionRectangleTest);
     }
     
     //Considering whether this checkBoxTreeView should be created in a new class named EditinPanelUI ?
@@ -188,16 +185,7 @@ public class NewProjectScreenController {
     private BorderPane createContent() {
         BorderPane root = new BorderPane();
         root.setPrefSize(600, 800);
-        myBoard = new GridBoardUI(App.getGrid(), false, event -> {
-            if (running)
-                return;
-
-            CellUI cell = (CellUI) event.getSource();
-            cell = myBoard.getCell(cell.getBlock().getX(), cell.getBlock().getY());
-            //if (cell.wasClicked) -edited this out so that you can click on cells that are already clicked -Corey
-                //return;
-            userTurn = cell.click();
-        });
+        myBoard = new GridBoardUI(App.getGrid());
 
         boardParentVBox = new VBox(50, myBoard);
         boardParentVBox.setAlignment(Pos.CENTER);
@@ -262,16 +250,7 @@ public class NewProjectScreenController {
 				
 				//createContent();
 				
-				myBoard = new GridBoardUI(App.getGrid(), false, evt -> {
-		            if (running)
-		                return;
-
-		            CellUI cell = (CellUI) evt.getSource();
-		            cell = myBoard.getCell(cell.getBlock().getX(), cell.getBlock().getY());
-		            //if (cell.wasClicked) -edited this out so that you can click on cells that are already clicked -Corey
-		                //return;
-		            userTurn = cell.click();
-		        });
+				myBoard = new GridBoardUI(App.getGrid());
 				
 				boardParentVBox.getChildren().clear();
 				boardParentVBox.getChildren().addAll(myBoard);

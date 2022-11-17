@@ -12,6 +12,7 @@ public class selectionRectangle extends Rectangle {
 		selectionRectangle.setFill(Color.TRANSPARENT);
 		selectionRectangle.getStrokeDashArray().addAll(5.0, 5.0);
 	}
+	
 	public Rectangle getSelectionRectangle() {
 		return selectionRectangle;
 	}

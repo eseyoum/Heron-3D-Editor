@@ -8,14 +8,14 @@ import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class GridBoardUI extends Parent {
+public class GridBoardUI extends AnchorPane {
     private VBox rows = new VBox();
-    private boolean user = false;
     public int blocks = 100;
     
     public int level; //the level of the depth map the user is currently working on
@@ -31,15 +31,20 @@ public class GridBoardUI extends Parent {
     public Grid gridData;
     
 
-    public GridBoardUI(Grid grid, boolean user, EventHandler<? super MouseEvent> handler) {
-        this.user = user;
+    public GridBoardUI(Grid grid) {
         //this.gridData = new Grid(100,100);
         this.gridData = grid;
         for (int y = 0; y < grid.getHeight(); y++) {
             HBox row = new HBox();
             for (int x = 0; x < grid.getWidth(); x++) {
                 CellUI c = new CellUI(this, gridData.getBlockAt(x, y));
-                c.setOnMouseClicked(handler);
+                c.setOnMousePressed(event -> { //was setOnMouseReleased to get the selectionRectangle to work
+                    CellUI cell = (CellUI) event.getSource();
+                    cell = this.getCell(cell.getBlock().getX(), cell.getBlock().getY());
+                    //if (cell.wasClicked) -edited this out so that you can click on cells that are already clicked -Corey
+                        //return;
+                    cell.click();
+                });
                 row.getChildren().add(c);
             }
 

@@ -60,7 +60,10 @@ public class FillTool {
     		if (block == null) {
     			return;
     		}
-    		if (block.getX() + 1 > 99 || block.getY() + 1 > 99 || block.getX() - 1 < 0 || block.getY() - 1 < 0) {
+    		if (block.getX() + 1 > gridData.getWidth() - 1 || block.getY() + 1 > gridData.getHeight() - 1 || block.getX() - 1 < 0 || block.getY() - 1 < 0) {
+    			gridBoard.getCell(block.getX(), block.getY()).setFillTo(turnToLevel);
+    	        block.setVisible(true);
+    	        block.setZ(turnToLevel);
     			return;
     		}
     		
