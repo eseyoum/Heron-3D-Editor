@@ -15,15 +15,13 @@ public class CellUI extends Rectangle {
 	 * 
 	 */
 	private final GridBoardUI gridBoard;
-    public Block block;
-    public boolean wasClicked = false;
-    public boolean blockPlaced = false;
-    public Grid gridData;
+    private Block block;
+    public static final int TILE_SIZE = 30;
     
     private static List<Color> colorList = generateColors();
     
     public CellUI(GridBoardUI gridBoard, Block block) {
-        super(30, 30);
+        super(TILE_SIZE, TILE_SIZE);
 		this.gridBoard = gridBoard;
 		this.block = block;
 		updateVisualBasedOnBlock();
@@ -54,7 +52,6 @@ public class CellUI extends Rectangle {
 	}
 
 	public boolean click() {
-    	wasClicked = true;
     	if (gridBoard.fillToolButton.isFillToolOn()) { //if the fill tool is selected
         	gridBoard.fillToolButton.fill(block, block.getZ(), gridBoard.getLevel());
         	gridBoard.fillToolButton.fillToolOff();
@@ -63,12 +60,10 @@ public class CellUI extends Rectangle {
     		block.setVisible(false);
     		block.setZ(0);
             updateVisualBasedOnBlock();
-    		this.gridBoard.blockSet.remove(block);
     	} else { //if the pencil tool is selected
         	setFillTo(gridBoard.getLevel());
             block.setVisible(true);
             block.setZ(gridBoard.getLevel());
-        	this.gridBoard.blockSet.add(block);
         	 updateVisualBasedOnBlock();
         }
     return false;	

@@ -126,38 +126,10 @@ public class NewProjectScreenController {
     @FXML
     private void initialize() {
     	gridMapPane = createContent();
-    	//selectionRectangleTestMethod(); //temporarily edited out until the selection rectangle is working
     	//selectionRectangle = mouseSelect(selectionRectangle, myBoard);
     	mapDisplay.getChildren().addAll(gridMapPane);
     	treeView = checkBoxTreeView();
     	editPanel.getChildren().add(checkBoxTreeView());
-    }
-
-    private void selectionRectangleTestMethod() {
-    	selectionRectangleTest = new Rectangle();
-    	selectionRectangleTest.setStroke(Color.BLACK);
-    	selectionRectangleTest.setFill(Color.TRANSPARENT);
-    	selectionRectangleTest.getStrokeDashArray().addAll(5.0, 5.0);
-    	
-    	
-    	myBoard.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
-    		mouseX = event.getX();
-    		mouseY = event.getY();
-    		selectionRectangleTest.setX(mouseX);
-    		selectionRectangleTest.setY(mouseY);
-    		selectionRectangleTest.setWidth(0);
-    		selectionRectangleTest.setHeight(0);
-    	});
-    	
-    	myBoard.addEventFilter(MouseEvent.MOUSE_DRAGGED,event -> {
-    		selectionRectangleTest.setX(Math.min(event.getX(), mouseX));
-    		selectionRectangleTest.setWidth(Math.abs(event.getX() - mouseX));
-    		selectionRectangleTest.setY(Math.min(event.getY(), mouseY));
-    		selectionRectangleTest.setHeight(Math.abs(event.getY() - mouseY));
-    		
-    	});
-    	
-    	myBoard.getChildren().add(selectionRectangleTest);
     }
     
     //Considering whether this checkBoxTreeView should be created in a new class named EditinPanelUI ?

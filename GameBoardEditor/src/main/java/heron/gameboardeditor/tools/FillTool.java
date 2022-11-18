@@ -1,11 +1,12 @@
-package heron.gameboardeditor;
+package heron.gameboardeditor.tools;
 
+import heron.gameboardeditor.GridBoardUI;
 import heron.gameboardeditor.datamodel.Block;
 import heron.gameboardeditor.datamodel.Grid;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
-public class FillTool {
+public class FillTool extends Tool {
 	private GridBoardUI gridBoard;
 	private Grid gridData;
 	private boolean fillToolOn;

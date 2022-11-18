@@ -4,59 +4,89 @@ import java.util.HashSet;
 
 import heron.gameboardeditor.datamodel.Block;
 import heron.gameboardeditor.datamodel.Grid;
+import heron.gameboardeditor.tools.FillTool;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class GridBoardUI extends AnchorPane {
-    private VBox rows = new VBox();
-    public int blocks = 100;
-    
-    public int level; //the level of the depth map the user is currently working on
-    public boolean eraserOn; //shows if the eraser tool is selected
-    public boolean fillTool = false;
+    private int level; //the level of the depth map the user is currently working on
+    private boolean eraserOn; //shows if the eraser tool is selected
+    private boolean fillTool = false;
     public FillTool fillToolButton;
     
-    HashSet<Block> blockSet;
     private Rectangle selectionRectangle;
-    private double mouseX;
-    private double mouseY;
+    private double initialSelectX;
+    private double initialSelectY;
     
-    public Grid gridData;
+    private Grid gridData;
+    
+    private CellUI[][] cellArray;
     
 
     public GridBoardUI(Grid grid) {
         //this.gridData = new Grid(100,100);
         this.gridData = grid;
+        cellArray = new CellUI[grid.getWidth()][grid.getHeight()];
         for (int y = 0; y < grid.getHeight(); y++) {
-            HBox row = new HBox();
             for (int x = 0; x < grid.getWidth(); x++) {
-                CellUI c = new CellUI(this, gridData.getBlockAt(x, y));
-                c.setOnMousePressed(event -> { //was setOnMouseReleased to get the selectionRectangle to work
+                cellArray[x][y] = new CellUI(this, gridData.getBlockAt(x, y));
+                cellArray[x][y].setOnMousePressed(event -> {
                     CellUI cell = (CellUI) event.getSource();
-                    cell = this.getCell(cell.getBlock().getX(), cell.getBlock().getY());
+                    //cell = this.getCell(cell.getBlock().getX(), cell.getBlock().getY());
                     //if (cell.wasClicked) -edited this out so that you can click on cells that are already clicked -Corey
                         //return;
                     cell.click();
                 });
-                row.getChildren().add(c);
+                //row.getChildren().add(cellArray[x][y]);
+                cellArray[x][y].setLayoutX(x * CellUI.TILE_SIZE);
+                cellArray[x][y].setLayoutY(y * CellUI.TILE_SIZE);
+                this.getChildren().add(cellArray[x][y]);
             }
-
-            rows.getChildren().add(row);
         }
-
-        getChildren().add(rows);
         
-        blockSet = new HashSet<Block>(); //set for every block created on the board
+        selectionRectangleTestMethod();
         
         level = 1; //level begins with 1
         this.fillToolButton = new FillTool(this, this.gridData);
+    }
+    
+    private void selectionRectangleTestMethod() {
+    	Rectangle selectionRectangleTest = new Rectangle();
+    	selectionRectangleTest.setStroke(Color.BLACK);
+    	selectionRectangleTest.setFill(Color.TRANSPARENT);
+    	selectionRectangleTest.getStrokeDashArray().addAll(5.0, 5.0);
+    	
+    	
+    	this.setOnMousePressed(event -> {
+    		initialSelectX = event.getX();
+    		initialSelectY = event.getY();
+    		selectionRectangleTest.setX(initialSelectX);
+    		selectionRectangleTest.setY(initialSelectY);
+    		selectionRectangleTest.setWidth(0);
+    		selectionRectangleTest.setHeight(0);
+    	});
+    	
+    	this.setOnMouseDragged(event -> {
+    		selectionRectangleTest.setX(Math.min(event.getX(), initialSelectX));
+    		selectionRectangleTest.setWidth(Math.abs(event.getX() - initialSelectX));
+    		selectionRectangleTest.setY(Math.min(event.getY(), initialSelectY));
+    		selectionRectangleTest.setHeight(Math.abs(event.getY() - initialSelectY));
+    		
+    	});
+    	
+    	this.setOnMouseReleased(event -> {
+    		
+    	});
+    	
+    	this.getChildren().add(selectionRectangleTest);
     }
     
     /**
@@ -124,7 +154,7 @@ public class GridBoardUI extends AnchorPane {
 //    }
 
     public CellUI getCell(int x, int y) {
-        return (CellUI)((HBox)rows.getChildren().get(y)).getChildren().get(x);
+        return cellArray[x][y];
     }
 
 //    private Cell[] getNeighbors(int x, int y) {
