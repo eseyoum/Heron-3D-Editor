@@ -21,10 +21,11 @@ public class CellUI extends Rectangle {
     private static List<Color> colorList = generateColors();
     
     public CellUI(GridBoardUI gridBoard, Block block) {
-        super(TILE_SIZE, TILE_SIZE);
+        super(TILE_SIZE - 1, TILE_SIZE - 1);
 		this.gridBoard = gridBoard;
 		this.block = block;
 		updateVisualBasedOnBlock();
+		this.deselect();
     }
     
     /**
@@ -48,7 +49,6 @@ public class CellUI extends Rectangle {
     	} else {
       		setFill(Color.AQUA);
     	}
-        setStroke(Color.BLACK);
 	}
 
 	public boolean click() {
@@ -64,7 +64,7 @@ public class CellUI extends Rectangle {
         	setFillTo(gridBoard.getLevel());
             block.setVisible(true);
             block.setZ(gridBoard.getLevel());
-        	 updateVisualBasedOnBlock();
+        	updateVisualBasedOnBlock();
         }
     return false;	
     }
@@ -80,5 +80,13 @@ public class CellUI extends Rectangle {
     public Block getBlock() {
     	return block;
     }
+
+	public void select() {
+		this.setStroke(Color.RED);
+	}
+	
+	public void deselect() {
+		this.setStroke(Color.BLACK);
+	}
 
 }

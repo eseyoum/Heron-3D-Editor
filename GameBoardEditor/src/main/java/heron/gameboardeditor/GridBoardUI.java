@@ -1,6 +1,7 @@
 package heron.gameboardeditor;
 
 import java.util.HashSet;
+import java.util.Set;
 
 import heron.gameboardeditor.datamodel.Block;
 import heron.gameboardeditor.datamodel.Grid;
@@ -29,6 +30,8 @@ public class GridBoardUI extends AnchorPane {
     private Grid gridData;
     
     private CellUI[][] cellArray;
+    
+    private Set<CellUI>selectedCells = new HashSet<CellUI>();
     
 
     public GridBoardUI(Grid grid) {
@@ -59,36 +62,54 @@ public class GridBoardUI extends AnchorPane {
     }
     
     private void selectionRectangleTestMethod() {
-    	Rectangle selectionRectangleTest = new Rectangle();
-    	selectionRectangleTest.setStroke(Color.BLACK);
-    	selectionRectangleTest.setFill(Color.TRANSPARENT);
-    	selectionRectangleTest.getStrokeDashArray().addAll(5.0, 5.0);
+    	Rectangle selectionRectangle = new Rectangle();
+    	selectionRectangle.setStroke(Color.BLACK);
+    	selectionRectangle.setFill(Color.TRANSPARENT);
+    	selectionRectangle.getStrokeDashArray().addAll(5.0, 5.0);
     	
     	
     	this.setOnMousePressed(event -> {
+    		selectionRectangle.setVisible(true);
     		initialSelectX = event.getX();
     		initialSelectY = event.getY();
-    		selectionRectangleTest.setX(initialSelectX);
-    		selectionRectangleTest.setY(initialSelectY);
-    		selectionRectangleTest.setWidth(0);
-    		selectionRectangleTest.setHeight(0);
+    		selectionRectangle.setX(initialSelectX);
+    		selectionRectangle.setY(initialSelectY);
+    		selectionRectangle.setWidth(0);
+    		selectionRectangle.setHeight(0);
+    		deselectAll();
     	});
     	
     	this.setOnMouseDragged(event -> {
-    		selectionRectangleTest.setX(Math.min(event.getX(), initialSelectX));
-    		selectionRectangleTest.setWidth(Math.abs(event.getX() - initialSelectX));
-    		selectionRectangleTest.setY(Math.min(event.getY(), initialSelectY));
-    		selectionRectangleTest.setHeight(Math.abs(event.getY() - initialSelectY));
+    		selectionRectangle.setX(Math.min(event.getX(), initialSelectX));
+    		selectionRectangle.setWidth(Math.abs(event.getX() - initialSelectX));
+    		selectionRectangle.setY(Math.min(event.getY(), initialSelectY));
+    		selectionRectangle.setHeight(Math.abs(event.getY() - initialSelectY));
     		
     	});
     	
     	this.setOnMouseReleased(event -> {
-    		
+    		int xStartIndex = (int) selectionRectangle.getX() / CellUI.TILE_SIZE;
+    		int yStartIndex = (int) selectionRectangle.getY() / CellUI.TILE_SIZE;
+    		int xEndIndex = (int) (selectionRectangle.getX() + selectionRectangle.getWidth()) / CellUI.TILE_SIZE;
+    		int yEndIndex = (int) (selectionRectangle.getY() + selectionRectangle.getHeight()) / CellUI.TILE_SIZE;
+    		for (int xIndex = xStartIndex; xIndex <= xEndIndex; xIndex++) {
+    			for (int yIndex = yStartIndex; yIndex <= yEndIndex; yIndex++) {
+    				selectedCells.add(cellArray[xIndex][yIndex]);
+    				cellArray[xIndex][yIndex].select();
+    			}
+    		}
+    		selectionRectangle.setVisible(false);
     	});
     	
-    	this.getChildren().add(selectionRectangleTest);
+    	this.getChildren().add(selectionRectangle);
     }
     
+    public void deselectAll() {
+    	for (CellUI cell: selectedCells) {
+    		cell.deselect();
+    	}
+    	selectedCells.clear();
+    }
     /**
      * Changes the current level of the Gridboard
      * 
