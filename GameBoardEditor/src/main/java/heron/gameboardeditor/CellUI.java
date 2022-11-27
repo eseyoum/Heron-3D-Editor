@@ -21,7 +21,7 @@ public class CellUI extends Rectangle {
     private static List<Color> colorList = generateColors();
     
     public CellUI(GridBoardUI gridBoard, Block block) {
-        super(TILE_SIZE - 1, TILE_SIZE - 1);
+        super(TILE_SIZE - 1, TILE_SIZE - 1); //a CellUI object is a rectangle
 		this.gridBoard = gridBoard;
 		this.block = block;
 		updateVisualBasedOnBlock();
@@ -50,8 +50,12 @@ public class CellUI extends Rectangle {
       		setFill(Color.AQUA);
     	}
 	}
-
-	public boolean click() {
+    
+    /**
+     * registers clicks for the CellUI objects based on if the pencil, eraser, or fill tool is selected. Needs to be refactored
+     * @return
+     */
+	public void click() {
     	if (gridBoard.fillToolButton.isFillToolOn()) { //if the fill tool is selected
         	gridBoard.fillToolButton.fill(block, block.getZ(), gridBoard.getLevel());
         	gridBoard.fillToolButton.fillToolOff();
@@ -66,7 +70,6 @@ public class CellUI extends Rectangle {
             block.setZ(gridBoard.getLevel());
         	updateVisualBasedOnBlock();
         }
-    return false;	
     }
     
     public void setFillTo(int turnToLevel) {

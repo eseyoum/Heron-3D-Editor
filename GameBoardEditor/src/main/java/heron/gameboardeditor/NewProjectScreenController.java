@@ -110,7 +110,7 @@ public class NewProjectScreenController {
     
     private double mouseX;
     private double mouseY;
-    private selectionRectangle selectionRectangle;
+    //private selectionRectangle selectionRectangle; Not used as of now. May make the selectionRectangle an object
     private Rectangle selectionRectangleTest;
     private BorderPane gridMapPane;
     private VBox boardParentVBox;
@@ -125,41 +125,42 @@ public class NewProjectScreenController {
     
     @FXML
     private void initialize() {
-    	gridMapPane = createContent();
-    	//selectionRectangle = mouseSelect(selectionRectangle, myBoard);
+    	gridMapPane = createContent(); //creates the 2d grid
     	mapDisplay.getChildren().addAll(gridMapPane);
-    	treeView = checkBoxTreeView();
-    	editPanel.getChildren().add(checkBoxTreeView());
     }
     
-    //Considering whether this checkBoxTreeView should be created in a new class named EditinPanelUI ?
-    private TreeView checkBoxTreeView() { 
-    	CheckBoxTreeItem<String> rootItem = new CheckBoxTreeItem<>("Level List");
-        rootItem.setExpanded(true);                  
-      
-        final TreeView tree = new TreeView(rootItem);  
-        tree.setEditable(true);
-        
-        tree.setCellFactory(CheckBoxTreeCell.<String>forTreeView());    
-        for (int i = 0; i < 5; i++) {
-            final CheckBoxTreeItem<String> checkBoxTreeItem = new CheckBoxTreeItem<>("Level " + (i+1));
-            rootItem.getChildren().add(checkBoxTreeItem);   
-        }
-        
-        tree.getSelectionModel().selectedItemProperty().isNull();
-        
-                       
-        tree.setRoot(rootItem);
-        tree.setShowRoot(true);
-        return tree;
-    }
+//    //Considering whether this checkBoxTreeView should be created in a new class named EditinPanelUI ?
+//    private TreeView checkBoxTreeView() { 
+//    	CheckBoxTreeItem<String> rootItem = new CheckBoxTreeItem<>("Level List");
+//        rootItem.setExpanded(true);                  
+//      
+//        final TreeView tree = new TreeView(rootItem);  
+//        tree.setEditable(true);
+//        
+//        tree.setCellFactory(CheckBoxTreeCell.<String>forTreeView());    
+//        for (int i = 0; i < 5; i++) {
+//            final CheckBoxTreeItem<String> checkBoxTreeItem = new CheckBoxTreeItem<>("Level " + (i+1));
+//            rootItem.getChildren().add(checkBoxTreeItem);   
+//        }
+//        
+//        tree.getSelectionModel().selectedItemProperty().isNull();
+//        
+//                       
+//        tree.setRoot(rootItem);
+//        tree.setShowRoot(true);
+//        return tree;
+//    }
     
+    /**
+     * Creates the grid
+     * @return the root, which is a BorderPane containing a VBox with a grid in it
+     */
     private BorderPane createContent() {
         BorderPane root = new BorderPane();
         root.setPrefSize(600, 800);
-        myBoard = new GridBoardUI(App.getGrid());
+        myBoard = new GridBoardUI(App.getGrid()); //creates a GridBoardUI, which is the grid the user can see
 
-        boardParentVBox = new VBox(50, myBoard);
+        boardParentVBox = new VBox(50, myBoard); //creates a vbox with myBoard for children
         boardParentVBox.setAlignment(Pos.CENTER);
 
         root.setCenter(boardParentVBox);
