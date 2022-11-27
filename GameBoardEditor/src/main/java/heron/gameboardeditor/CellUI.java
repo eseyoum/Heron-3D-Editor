@@ -32,7 +32,7 @@ public class CellUI extends Rectangle {
      * Adds the possible colors for differentiating between levels on the depth map
      * 
      */
-    public static List<Color> generateColors() {
+    private static List<Color> generateColors() {
     	List<Color> colors = new ArrayList<>();
     	Color color = Color.DARKGREY.darker().darker().darker(); //color for the first level
     	colors.add(color);
@@ -60,25 +60,23 @@ public class CellUI extends Rectangle {
         	gridBoard.fillToolButton.fill(block, block.getZ(), gridBoard.getLevel());
         	gridBoard.fillToolButton.fillToolOff();
     	} if (gridBoard.getEraser()) { //if the eraser tool is selected
-    		setFillTo(0);
-    		block.setVisible(false);
-    		block.setZ(0);
-            updateVisualBasedOnBlock();
+    		removeCell();
     	} else { //if the pencil tool is selected
-        	setFillTo(gridBoard.getLevel());
-            block.setVisible(true);
-            block.setZ(gridBoard.getLevel());
-        	updateVisualBasedOnBlock();
+    		placeCell(gridBoard.getLevel());
         }
     }
-    
-    public void setFillTo(int turnToLevel) {
-    	if (turnToLevel == 0) {
-    		setFill(Color.LIGHTGREY);
-    	} else {
-    		setFill(colorList.get(turnToLevel - 1));
-    	}
-    }
+	
+	public void placeCell(int level) {
+		block.setZ(level);
+		block.setVisible(true);
+		updateVisualBasedOnBlock();
+	}
+	
+	public void removeCell() {
+		block.setZ(0);
+		block.setVisible(false);
+        updateVisualBasedOnBlock();
+	}
     
     public Block getBlock() {
     	return block;

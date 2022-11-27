@@ -46,7 +46,7 @@ public class FillTool extends Tool {
      * @param gridData - the data of the grid. This is used to find surrounding cells
      */
 	public void fill(Block block, int startingLevel, int turnToLevel) {
-    	gridBoard.getCell(block.getX(), block.getY()).setFillTo(turnToLevel);
+    	gridBoard.getCell(block.getX(), block.getY()).placeCell(turnToLevel);
         block.setVisible(true);
         block.setZ(turnToLevel);
         
@@ -62,7 +62,7 @@ public class FillTool extends Tool {
     			return;
     		}
     		if (block.getX() + 1 > gridData.getWidth() - 1 || block.getY() + 1 > gridData.getHeight() - 1 || block.getX() - 1 < 0 || block.getY() - 1 < 0) {
-    			gridBoard.getCell(block.getX(), block.getY()).setFillTo(turnToLevel);
+    			gridBoard.getCell(block.getX(), block.getY()).placeCell(turnToLevel);
     	        block.setVisible(true);
     	        block.setZ(turnToLevel);
     			return;
@@ -77,7 +77,7 @@ public class FillTool extends Tool {
     		}
     		
     		else {
-    			gridBoard.getCell(block.getX(), block.getY()).setFillTo(turnToLevel);
+    			gridBoard.getCell(block.getX(), block.getY()).placeCell(turnToLevel);
     	        block.setVisible(true);
     	        block.setZ(turnToLevel);
     	    	
