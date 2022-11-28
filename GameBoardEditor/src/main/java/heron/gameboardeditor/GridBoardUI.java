@@ -1,128 +1,53 @@
 package heron.gameboardeditor;
 
-import java.util.HashSet; 
-import java.util.Set;
-
-import heron.gameboardeditor.datamodel.Block;
 import heron.gameboardeditor.datamodel.Grid;
 import heron.gameboardeditor.tools.FillTool;
-import javafx.event.EventHandler;
-import javafx.geometry.Point2D;
-import javafx.scene.Parent;
-import javafx.scene.input.MouseEvent;
+import heron.gameboardeditor.tools.PencilTool;
+import heron.gameboardeditor.tools.SelectionTool;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 public class GridBoardUI extends AnchorPane {
     private int level; //the level of the depth map the user is currently working on
     private boolean eraserOn; //shows if the eraser tool is selected
-    private boolean fillTool = false; //shows if filltool is selected
-    public FillTool fillToolButton;
+    public GridEditor gridEditor;
+    public final PencilTool pencilTool;
+    public final FillTool fillTool;
+    public final SelectionTool selectionTool;
 
-    private double initialSelectX;
-    private double initialSelectY;
     private UndoRedoHandler undoRedoHandler;
     
     private Grid gridData;
 
 	private CellUI[][] cellArray;
 	private CellUI cell;
-    
-    private Set<CellUI>selectedCells = new HashSet<CellUI>();
-    private Set<CellUI>clickedCells = new HashSet<CellUI>();
 
     public GridBoardUI(Grid grid) {
         this.gridData = new Grid(100,100);
         this.gridData = grid;
-        this.fillToolButton = new FillTool(this, this.gridData, undoRedoHandler);
+        this.fillTool = new FillTool(this, this.gridData, undoRedoHandler);
+        this.pencilTool = new PencilTool(this, undoRedoHandler);
         cellArray = new CellUI[grid.getWidth()][grid.getHeight()];
         for (int y = 0; y < grid.getHeight(); y++) {
             for (int x = 0; x < grid.getWidth(); x++) {
                 cellArray[x][y] = new CellUI(this, gridData.getBlockAt(x, y));
-                cellArray[x][y].setOnMousePressed(event -> {
-                    CellUI cell = (CellUI) event.getSource();
-                    cell.click();
-                    clickedCells.add(cell);
-                });
                 cellArray[x][y].setLayoutX(x * CellUI.TILE_SIZE); //spaces out the tiles based on TILE_SIZE
                 cellArray[x][y].setLayoutY(y * CellUI.TILE_SIZE);
                 this.getChildren().add(cellArray[x][y]);
             }
         }
-        
-        selectionRectangle();
+        this.selectionTool = new SelectionTool(this, undoRedoHandler);
         level = 1; //level begins with 1
+        
+        this.gridEditor = new GridEditor(selectionTool);
+		this.setOnMousePressed(e -> gridEditor.mousePressed(e));
+		this.setOnMouseReleased(e -> gridEditor.mouseReleased(e));
+		this.setOnMouseDragged(e -> gridEditor.mouseDragged(e));
         
     }
     
     public Grid getGridData() {
 		return gridData;
 	}
-   
-    public void fillTool() {
-    	for (CellUI cell: clickedCells) {
-    		cell.fillTool();
-    	}
-    	fillToolButton.fillToolOff();
-    }
-    
-    /**
-     * Creates the selectionRectangle. It creates a rectangle you can drag. CellUI objects
-     * in the rectangle are selected, which shows an outline
-     */
-    private void selectionRectangle() {
-    	Rectangle selectionRectangle = new Rectangle();
-    	selectionRectangle.setStroke(Color.BLACK);
-    	selectionRectangle.setFill(Color.TRANSPARENT);
-    	selectionRectangle.getStrokeDashArray().addAll(5.0, 5.0);
-    	
-    	
-    	this.setOnMousePressed(event -> {
-    		selectionRectangle.setVisible(true);
-    		initialSelectX = event.getX();
-    		initialSelectY = event.getY();
-    		selectionRectangle.setX(initialSelectX);
-    		selectionRectangle.setY(initialSelectY);
-    		selectionRectangle.setWidth(0);
-    		selectionRectangle.setHeight(0);
-    		deselectAll();
-    	});
-    	
-    	this.setOnMouseDragged(event -> {
-    		selectionRectangle.setX(Math.min(event.getX(), initialSelectX));
-    		selectionRectangle.setWidth(Math.abs(event.getX() - initialSelectX));
-    		selectionRectangle.setY(Math.min(event.getY(), initialSelectY));
-    		selectionRectangle.setHeight(Math.abs(event.getY() - initialSelectY));
-    		
-    	});
-    	
-    	this.setOnMouseReleased(event -> {
-    		int xStartIndex = (int) selectionRectangle.getX() / CellUI.TILE_SIZE;
-    		int yStartIndex = (int) selectionRectangle.getY() / CellUI.TILE_SIZE;
-    		int xEndIndex = (int) (selectionRectangle.getX() + selectionRectangle.getWidth()) / CellUI.TILE_SIZE;
-    		int yEndIndex = (int) (selectionRectangle.getY() + selectionRectangle.getHeight()) / CellUI.TILE_SIZE;
-    		for (int xIndex = xStartIndex; xIndex <= xEndIndex; xIndex++) {
-    			for (int yIndex = yStartIndex; yIndex <= yEndIndex; yIndex++) {
-    				selectedCells.add(cellArray[xIndex][yIndex]);
-    				cellArray[xIndex][yIndex].select();
-    			}
-    		}
-    		selectionRectangle.setVisible(false);
-    	});
-    	
-    	this.getChildren().add(selectionRectangle);
-    }
-    
-    public void deselectAll() {
-    	for (CellUI cell: selectedCells) {
-    		cell.deselect();
-    	}
-    	selectedCells.clear();
-    }
     
     public CellUI getCell(int x, int y) {
         return cellArray[x][y];
@@ -134,18 +59,6 @@ public class GridBoardUI extends AnchorPane {
     
     public int getLevel() {
     	return this.level;
-    }
-    
-    public void eraserOn() {
-    	this.eraserOn = true;
-    }
-    
-    public void eraserOff() {
-    	this.eraserOn = false;
-    }
-    
-    public boolean getEraser() {
-    	return this.eraserOn;
     }
     
     public class State {

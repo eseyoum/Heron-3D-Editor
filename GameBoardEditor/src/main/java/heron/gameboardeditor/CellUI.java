@@ -54,12 +54,12 @@ public class CellUI extends Rectangle {
     	}
 	}
     
-    public void fillTool() {
-    	if (gridBoard.fillToolButton.isFillToolOn()) { //if the fill tool is selected
-			gridBoard.fillToolButton.fill(block, block.getZ(), gridBoard.getLevel());
-	    	gridBoard.fillToolButton.fillToolOff();
-    	}
-    }
+//    public void fillTool() {
+//    	if (gridBoard.fillTool.isFillToolOn()) { //if the fill tool is selected
+//			gridBoard.fillTool.fill(block, block.getZ(), gridBoard.getLevel());
+//	    	gridBoard.fillTool.fillToolOff();
+//    	}
+//    }
     public void eraseTool() {
     	block.setZ(0);
 		block.setVisible(false);
@@ -74,7 +74,7 @@ public class CellUI extends Rectangle {
 
     
 	public void click() {
-    	setFillTo(gridBoard.getLevel());
+    	//setFillTo(gridBoard.getLevel());
         block.setVisible(true);
         block.setZ(gridBoard.getLevel());
     	updateVisualBasedOnBlock();
@@ -82,15 +82,15 @@ public class CellUI extends Rectangle {
 	
 	
     
-    public void setFillTo(int turnToLevel) {
-    	if (turnToLevel == 0) {
-    		setFill(Color.LIGHTGREY);
-    	} else {
-    		setFill(colorList.get(turnToLevel - 1));
-    	}
-    }
+//    public void setFillTo(int turnToLevel) {
+//    	if (turnToLevel == 0) {
+//    		setFill(Color.LIGHTGREY);
+//    	} else {
+//    		setFill(colorList.get(turnToLevel - 1));
+//    	}
+//    }
 	
-	public void placeCell(int level) {
+	public void setLevel(int level) {
 		block.setZ(level);
 		block.setVisible(true);
 		updateVisualBasedOnBlock();

@@ -75,8 +75,14 @@ public class FillTool extends Tool {
 //		
 //    }
     
+    public void mousePressed(MouseEvent e) {
+    	System.out.println("Fill Tool Pressed Test");
+    	CellUI cellClicked = gridBoard.getCell((int) e.getX() / CellUI.TILE_SIZE, (int) e.getY() / CellUI.TILE_SIZE);
+    	fill(cellClicked.getBlock(), cellClicked.getBlock().getZ(), gridBoard.getLevel());
+    }
+    
 	public void fill(Block block, int startingLevel, int turnToLevel) {
-    	gridBoard.getCell(block.getX(), block.getY()).setFillTo(turnToLevel);
+    	gridBoard.getCell(block.getX(), block.getY()).setLevel(turnToLevel);
         block.setVisible(true);
         block.setZ(turnToLevel);
         
@@ -92,7 +98,7 @@ public class FillTool extends Tool {
     			return;
     		}
     		if (block.getX() + 1 > gridData.getWidth() - 1 || block.getY() + 1 > gridData.getHeight() - 1 || block.getX() - 1 < 0 || block.getY() - 1 < 0) {
-    			gridBoard.getCell(block.getX(), block.getY()).setFillTo(turnToLevel);
+    			gridBoard.getCell(block.getX(), block.getY()).setLevel(turnToLevel);
     	        block.setVisible(true);
     	        block.setZ(turnToLevel);
     			return;
@@ -107,7 +113,7 @@ public class FillTool extends Tool {
     		}
     		
     		else {
-    			gridBoard.getCell(block.getX(), block.getY()).setFillTo(turnToLevel);
+    			gridBoard.getCell(block.getX(), block.getY()).setLevel(turnToLevel);
     	        block.setVisible(true);
     	        block.setZ(turnToLevel);
     	    	

@@ -41,6 +41,8 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -90,26 +92,18 @@
     </MenuBar>
     <SplitPane dividerPositions="0.1653674832962138, 0.8012249443207127" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <items>
-        <AnchorPane prefHeight="485.0" prefWidth="151.0">
-          <children>
-            <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Master" textAlignment="CENTER" wrapText="false">
-              <font>
-                <Font size="18.0" fx:id="x1" />
-              </font>
-              <textFill>
-                <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
-              </textFill>
-            </Label>
-          </children>
-        </AnchorPane>
+        <AnchorPane prefHeight="485.0" prefWidth="151.0" />
         <ScrollPane prefWidth="520.0">
           <content>
             <AnchorPane id="Content" fx:id="mapDisplay" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
               <children>
-                <Label alignment="CENTER" layoutX="-2.0" layoutY="-3.0" prefHeight="23.0" prefWidth="81.0" style="&#10;" text="2D Map View" textAlignment="CENTER" textFill="$x2" wrapText="false">
+                <Label alignment="CENTER" layoutX="-2.0" layoutY="-3.0" prefHeight="23.0" prefWidth="81.0" style="&#10;" text="2D Map View" textAlignment="CENTER" wrapText="false">
                            <font>
                               <Font size="12.0" />
-                           </font></Label>
+                           </font>
+                           <textFill>
+                      <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
+                           </textFill></Label>
               </children>
             </AnchorPane>
           </content>
@@ -119,14 +113,6 @@
                   <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="546.0" prefWidth="372.0">
                      <children>
                         <StackPane fx:id="editPanel" prefHeight="150.0" prefWidth="200.0" />
-                        <Label alignment="CENTER" layoutX="20.0" layoutY="200.0" prefHeight="23.0" prefWidth="81.0" style="&#10;" text="3D Map View" textAlignment="CENTER" wrapText="false">
-                           <textFill>
-                              <Color red="0.624" green="0.624" blue="0.624" fx:id="x21" />
-                           </textFill>
-                           <font>
-                              <Font size="12.0" />
-                           </font>
-                        </Label>
                         <VBox layoutX="20.0" layoutY="226.0" prefHeight="257.0" prefWidth="180.0">
                            <children>
                               <Button fx:id="levelButton5" mnemonicParsing="false" onAction="#changeLevelTo5" style="-fx-background-color: EFCA08 EFCA08;" text="5">
@@ -159,18 +145,18 @@
     </SplitPane>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="869.0" style="-fx-background-color: EFCA08 EFCA08;">
          <children>
-            <Button fx:id="eraserButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#eraserButtonOn" style="-fx-background-color: white;">
-               <HBox.margin>
-                  <Insets right="60.0" />
-               </HBox.margin>
+            <ToggleButton fx:id="pencilToggle" mnemonicParsing="false" selected="true">
                <graphic>
-                  <ImageView fx:id="eraseButton" fitHeight="15.0" fitWidth="20.0" focusTraversable="true" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="15.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@Icons/Delete.png" />
+                        <Image url="@Icons/Edit.png" />
                      </image>
                   </ImageView>
                </graphic>
-            </Button>
+               <toggleGroup>
+                  <ToggleGroup fx:id="toolButtonToggleGroup" />
+               </toggleGroup>
+            </ToggleButton>
             <Button fx:id="pencilButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#pencilButtonOn" style="-fx-background-color: white;">
                <HBox.margin>
                   <Insets right="60.0" />
@@ -179,6 +165,27 @@
                   <ImageView fitHeight="15.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@Icons/Edit.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <ToggleButton fx:id="eraserToggle" mnemonicParsing="false" toggleGroup="$toolButtonToggleGroup">
+               <graphic>
+                  <ImageView fx:id="eraseButton1" fitHeight="15.0" fitWidth="20.0" focusTraversable="true" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Icons/Delete.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </ToggleButton>
+            <Button fx:id="eraserButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#eraserButtonOn" style="-fx-background-color: white;">
+               <HBox.margin>
+                  <Insets right="60.0" />
+               </HBox.margin>
+               <graphic>
+                  <ImageView fx:id="eraseButton" fitHeight="15.0" fitWidth="20.0" focusTraversable="true" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Icons/Delete.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -219,6 +226,7 @@
                   </ImageView>
                </graphic>
             </Button>
+            <ToggleButton fx:id="fillToolToggle" mnemonicParsing="false" text="FILL" toggleGroup="$toolButtonToggleGroup" />
             <Button fx:id="fillButton" mnemonicParsing="false" onAction="#fillToolOn" style="-fx-background-color: white;" text="Fill Tool" />
          </children>
       </HBox>

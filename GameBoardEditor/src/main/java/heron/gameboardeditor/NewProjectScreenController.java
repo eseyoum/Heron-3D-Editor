@@ -1,6 +1,6 @@
 package heron.gameboardeditor;
 
-import java.io.File; 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import javafx.application.Platform;
@@ -19,6 +19,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBoxTreeItem;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.control.Alert.AlertType;
@@ -47,6 +49,17 @@ public class NewProjectScreenController {
     private void switchToSecondary() throws IOException {
         App.setRoot("welcomeScreen");
     }
+	
+	@FXML 
+	private ToggleGroup toolButtonToggleGroup;	
+	@FXML
+    private ToggleButton eraserToggle;
+    @FXML
+    private ToggleButton fillToolToggle;
+    @FXML
+    private ToggleButton pencilToggle;
+	
+	
 	
 	@FXML
     private Button eraserButton;
@@ -129,8 +142,6 @@ public class NewProjectScreenController {
     private void initialize() {
     	gridMapPane = createContent(); //creates the 2d grid
     	mapDisplay.getChildren().addAll(gridMapPane);
-    	FillTool fillTool = new FillTool(myBoard, myBoard.getGridData(), undoRedoHandler);
-		fillButton.setOnAction(e -> myBoard.fillTool());
     }
 
     /**
@@ -225,18 +236,17 @@ public class NewProjectScreenController {
     
     @FXML
     void pencilButtonOn(ActionEvent event) {
-    	myBoard.eraserOff();
+    	myBoard.gridEditor.setCurrentTool(myBoard.pencilTool);
     }
     
     @FXML
     void eraserButtonOn(ActionEvent event) {
-    	myBoard.eraserOn();
+    	
     }
     
     @FXML
     void fillToolOn(ActionEvent event) {
-    	myBoard.fillToolButton.fillToolOn();
-//    	undoRedoHandler.saveState();
+    	myBoard.gridEditor.setCurrentTool(myBoard.fillTool);
     }
     
 }
