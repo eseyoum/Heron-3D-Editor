@@ -16,6 +16,7 @@ public class CellUI extends Rectangle {
 	 * 
 	 */
     public static final int TILE_SIZE = 30;
+    private static final Color DEFAULT_COLOR = Color.CORNFLOWERBLUE;
     private static List<Color> colorList = generateColors();
     
     private final GridBoardUI gridBoard;
@@ -50,45 +51,9 @@ public class CellUI extends Rectangle {
     	if (block.isVisible()) {
     		setFill(colorList.get(block.getZ() - 1));
     	} else {
-      		setFill(Color.AQUA);
+      		setFill(DEFAULT_COLOR);
     	}
 	}
-    
-//    public void fillTool() {
-//    	if (gridBoard.fillTool.isFillToolOn()) { //if the fill tool is selected
-//			gridBoard.fillTool.fill(block, block.getZ(), gridBoard.getLevel());
-//	    	gridBoard.fillTool.fillToolOff();
-//    	}
-//    }
-    public void eraseTool() {
-    	block.setZ(0);
-		block.setVisible(false);
-        updateVisualBasedOnBlock();
-    }
-    
-    public void pencilTool(int level) {
-    	block.setZ(level);
-		block.setVisible(true);
-		updateVisualBasedOnBlock();
-    }
-
-    
-	public void click() {
-    	//setFillTo(gridBoard.getLevel());
-        block.setVisible(true);
-        block.setZ(gridBoard.getLevel());
-    	updateVisualBasedOnBlock();
-    }
-	
-	
-    
-//    public void setFillTo(int turnToLevel) {
-//    	if (turnToLevel == 0) {
-//    		setFill(Color.LIGHTGREY);
-//    	} else {
-//    		setFill(colorList.get(turnToLevel - 1));
-//    	}
-//    }
 	
 	public void setLevel(int level) {
 		block.setZ(level);
