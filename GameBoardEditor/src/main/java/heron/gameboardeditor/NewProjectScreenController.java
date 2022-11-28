@@ -1,6 +1,6 @@
 package heron.gameboardeditor;
 
-import java.io.File;
+import java.io.File; 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import javafx.application.Platform;
@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 
 import heron.gameboardeditor.datamodel.Grid;
 import heron.gameboardeditor.datamodel.ProjectIO;
+import heron.gameboardeditor.tools.FillTool;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -51,7 +52,7 @@ public class NewProjectScreenController {
     private Button eraserButton;
 	
 	@FXML
-	private Button fillTool;
+	private Button fillButton;
 	
     @FXML // fx:id="copyButton"
     private Button copyButton; // Value injected by FXMLLoader
@@ -115,6 +116,7 @@ public class NewProjectScreenController {
     private BorderPane gridMapPane;
     private VBox boardParentVBox;
     private GridBoardUI myBoard;
+    private UndoRedoHandler undoRedoHandler;
     
     @FXML
     void exitTheSceen(ActionEvent event) {
@@ -128,30 +130,8 @@ public class NewProjectScreenController {
     	gridMapPane = createContent();
     	//selectionRectangle = mouseSelect(selectionRectangle, myBoard);
     	mapDisplay.getChildren().addAll(gridMapPane);
-    	treeView = checkBoxTreeView();
-    	editPanel.getChildren().add(checkBoxTreeView());
-    }
-    
-    //Considering whether this checkBoxTreeView should be created in a new class named EditinPanelUI ?
-    private TreeView checkBoxTreeView() { 
-    	CheckBoxTreeItem<String> rootItem = new CheckBoxTreeItem<>("Level List");
-        rootItem.setExpanded(true);                  
-      
-        final TreeView tree = new TreeView(rootItem);  
-        tree.setEditable(true);
-        
-        tree.setCellFactory(CheckBoxTreeCell.<String>forTreeView());    
-        for (int i = 0; i < 5; i++) {
-            final CheckBoxTreeItem<String> checkBoxTreeItem = new CheckBoxTreeItem<>("Level " + (i+1));
-            rootItem.getChildren().add(checkBoxTreeItem);   
-        }
-        
-        tree.getSelectionModel().selectedItemProperty().isNull();
-        
-                       
-        tree.setRoot(rootItem);
-        tree.setShowRoot(true);
-        return tree;
+    	FillTool fillTool = new FillTool(myBoard, myBoard.getGridData(), undoRedoHandler);
+		fillButton.setOnAction(e -> myBoard.fillTool());
     }
     
     private BorderPane createContent() {
@@ -253,6 +233,7 @@ public class NewProjectScreenController {
     @FXML
     void fillToolOn(ActionEvent event) {
     	myBoard.fillToolButton.fillToolOn();
+//    	undoRedoHandler.saveState();
     }
     
 }

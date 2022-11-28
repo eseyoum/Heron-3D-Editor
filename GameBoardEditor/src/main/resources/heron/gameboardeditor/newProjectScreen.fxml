@@ -164,7 +164,7 @@
                   <Insets right="60.0" />
                </HBox.margin>
                <graphic>
-                  <ImageView fitHeight="15.0" fitWidth="20.0" focusTraversable="true" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="eraseButton" fitHeight="15.0" fitWidth="20.0" focusTraversable="true" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@Icons/Delete.png" />
                      </image>
@@ -219,7 +219,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="fillTool" mnemonicParsing="false" onAction="#fillToolOn" style="-fx-background-color: white;" text="Fill Tool" />
+            <Button fx:id="fillButton" mnemonicParsing="false" onAction="#fillToolOn" style="-fx-background-color: white;" text="Fill Tool" />
          </children>
       </HBox>
     <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">

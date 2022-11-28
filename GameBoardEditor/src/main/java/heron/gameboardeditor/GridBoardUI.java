@@ -1,6 +1,6 @@
 package heron.gameboardeditor;
 
-import java.util.HashSet;
+import java.util.HashSet; 
 import java.util.Set;
 
 import heron.gameboardeditor.datamodel.Block;
@@ -26,17 +26,20 @@ public class GridBoardUI extends AnchorPane {
     private Rectangle selectionRectangle;
     private double initialSelectX;
     private double initialSelectY;
+    private UndoRedoHandler undoRedoHandler;
     
     private Grid gridData;
-    
-    private CellUI[][] cellArray;
+
+	private CellUI[][] cellArray;
+	private CellUI cell;
     
     private Set<CellUI>selectedCells = new HashSet<CellUI>();
-    
+    private Set<CellUI>clickedCells = new HashSet<CellUI>();
 
     public GridBoardUI(Grid grid) {
-        //this.gridData = new Grid(100,100);
+        this.gridData = new Grid(100,100);
         this.gridData = grid;
+        this.fillToolButton = new FillTool(this, this.gridData, undoRedoHandler);
         cellArray = new CellUI[grid.getWidth()][grid.getHeight()];
         for (int y = 0; y < grid.getHeight(); y++) {
             for (int x = 0; x < grid.getWidth(); x++) {
@@ -47,6 +50,7 @@ public class GridBoardUI extends AnchorPane {
                     //if (cell.wasClicked) -edited this out so that you can click on cells that are already clicked -Corey
                         //return;
                     cell.click();
+                    clickedCells.add(cell);
                 });
                 //row.getChildren().add(cellArray[x][y]);
                 cellArray[x][y].setLayoutX(x * CellUI.TILE_SIZE);
@@ -55,10 +59,24 @@ public class GridBoardUI extends AnchorPane {
             }
         }
         
-        selectionRectangleTestMethod();
+        this.setOnMouseClicked(event -> {
+        	System.out.println("test");
+        });
         
+        selectionRectangleTestMethod();
         level = 1; //level begins with 1
-        this.fillToolButton = new FillTool(this, this.gridData);
+        
+    }
+    
+    public Grid getGridData() {
+		return gridData;
+	}
+   
+    public void fillTool() {
+    	for (CellUI cell: clickedCells) {
+    		cell.fillTool();
+    	}
+    	fillToolButton.fillToolOff();
     }
     
     private void selectionRectangleTestMethod() {
@@ -135,93 +153,34 @@ public class GridBoardUI extends AnchorPane {
     	return this.eraserOn;
     }
 
-//    private Rectangle selectionRectangle() {
-//    	selectionRectangle = new Rectangle();
-//    	selectionRectangle.setStroke(Color.BLACK);
-//    	selectionRectangle.setFill(Color.TRANSPARENT);
-//    	selectionRectangle.getStrokeDashArray().addAll(5.0, 5.0);
-//    	
-//    	GridBoardUI pane = new GridBoardUI(user, null);
-//    	pane.setOnMousePressed(event -> {
-//    		mouseX = event.getX();
-//    		mouseY = event.getY();
-//    		selectionRectangle.setX(mouseX);
-//    		selectionRectangle.setY(mouseY);
-//    		selectionRectangle.setWidth(0);
-//    		selectionRectangle.setHeight(0);
-//    	});
-//    	
-//    	mapDisplay.setOnMouseDragged(event -> {
-//    		selectionRectangle.setX(Math.min(event.getX(), mouseX));
-//    		selectionRectangle.setWidth(Math.abs(event.getX() - mouseX));
-//    		selectionRectangle.setY(Math.min(event.getY(), mouseY));
-//    		selectionRectangle.setHeight(Math.abs(event.getY() - mouseY));
-//    		
-//    	});
-//    	
-//    	return selectionRectangle;
-//    }
-    
-//    public boolean placeBlock(Block block, int x, int y) {
-//        if (canPlaceBlock(block, x, y)) {
-//            Cell cell = getCell(x, y);
-//            cell.block = block;
-//            cell.setFill(Color.WHITE);
-//            cell.setStroke(Color.GREEN);
-//            return true;
-//        }
-//
-//        return false;
-//    }
-
     public CellUI getCell(int x, int y) {
         return cellArray[x][y];
     }
-
-//    private Cell[] getNeighbors(int x, int y) {
-//        Point2D[] points = new Point2D[] {
-//                new Point2D(x - 1, y),
-//                new Point2D(x + 1, y),
-//                new Point2D(x, y - 1),
-//                new Point2D(x, y + 1)
-//        };
-//
-//        List<Cell> neighbors = new ArrayList<Cell>();
-//
-//        for (Point2D p : points) {
-//            if (isValidPoint(p)) {
-//                neighbors.add(getCell((int)p.getX(), (int)p.getY()));
-//            }
-//        }
-//
-//        return neighbors.toArray(new Cell[0]);
-//    }
-
-//    private boolean canPlaceBlock(Block block, int x, int y) {
-//            if (!isValidPoint(x, y))
-//                return false;
-//
-//            Cell cell = getCell(x, y);
-//            if (cell.block != null)
-//                return false;
-//
-//            for (Cell neighbor : getNeighbors(x, y)) {
-//                if (!isValidPoint(x, y))
-//                    return false;
-//
-//                if (neighbor.block != null)
-//                    return false;
-//            }
-//        
-//        
-//        return true;
-//    }
-
-    private boolean isValidPoint(Point2D point) {
-        return isValidPoint(point.getX(), point.getY());
+    
+    public class State {
+    	private Grid grid;
+    	
+    	public State() {
+    		grid = (Grid) GridBoardUI.this.gridData.clone();
+    	}
+    	
+    	public void restore() {
+    		GridBoardUI.this.gridData = (Grid) grid.clone();
+    	}
     }
 
-    private boolean isValidPoint(double x, double y) {
-        return x >= 0 && x < 100 && y >= 0 && y < 100;
-    }
+	public State createMemento() {
+		return new State();
+	}
+
+	public void restoreState(State gridBoardState) {
+		gridBoardState.restore();
+		repaint();
+	}
+
+	private void repaint() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

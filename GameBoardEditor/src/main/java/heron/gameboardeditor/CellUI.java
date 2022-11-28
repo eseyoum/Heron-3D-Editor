@@ -5,6 +5,7 @@ import java.util.List;
 
 import heron.gameboardeditor.datamodel.Block;
 import heron.gameboardeditor.datamodel.Grid;
+import heron.gameboardeditor.tools.FillTool;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.paint.Color;
@@ -14,11 +15,13 @@ public class CellUI extends Rectangle {
     /**
 	 * 
 	 */
-	private final GridBoardUI gridBoard;
-    private Block block;
     public static final int TILE_SIZE = 30;
-    
     private static List<Color> colorList = generateColors();
+    
+    private final GridBoardUI gridBoard;
+    private Block block;
+    private FillTool fillToolButton;
+    private boolean fillToolOn;
     
     public CellUI(GridBoardUI gridBoard, Block block) {
         super(TILE_SIZE - 1, TILE_SIZE - 1);
@@ -50,24 +53,34 @@ public class CellUI extends Rectangle {
       		setFill(Color.AQUA);
     	}
 	}
-
-	public boolean click() {
+    
+    public void fillTool() {
     	if (gridBoard.fillToolButton.isFillToolOn()) { //if the fill tool is selected
-        	gridBoard.fillToolButton.fill(block, block.getZ(), gridBoard.getLevel());
-        	gridBoard.fillToolButton.fillToolOff();
-    	} if (gridBoard.getEraser()) { //if the eraser tool is selected
-    		setFillTo(0);
-    		block.setVisible(false);
-    		block.setZ(0);
-            updateVisualBasedOnBlock();
-    	} else { //if the pencil tool is selected
-        	setFillTo(gridBoard.getLevel());
-            block.setVisible(true);
-            block.setZ(gridBoard.getLevel());
-        	updateVisualBasedOnBlock();
-        }
-    return false;	
+			gridBoard.fillToolButton.fill(block, block.getZ(), gridBoard.getLevel());
+	    	gridBoard.fillToolButton.fillToolOff();
+    	}
     }
+    public void eraseTool() {
+    	block.setZ(0);
+		block.setVisible(false);
+        updateVisualBasedOnBlock();
+    }
+    
+    public void pencilTool(int level) {
+    	block.setZ(level);
+		block.setVisible(true);
+		updateVisualBasedOnBlock();
+    }
+
+    
+	public void click() {
+    	setFillTo(gridBoard.getLevel());
+        block.setVisible(true);
+        block.setZ(gridBoard.getLevel());
+    	updateVisualBasedOnBlock();
+    }
+	
+	
     
     public void setFillTo(int turnToLevel) {
     	if (turnToLevel == 0) {
