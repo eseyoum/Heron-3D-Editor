@@ -1,6 +1,7 @@
 package heron.gameboardeditor;
 
 import heron.gameboardeditor.datamodel.Grid;
+import heron.gameboardeditor.tools.EraserTool;
 import heron.gameboardeditor.tools.FillTool;
 import heron.gameboardeditor.tools.PencilTool;
 import heron.gameboardeditor.tools.SelectionTool;
@@ -11,6 +12,7 @@ public class GridBoardUI extends AnchorPane {
     private boolean eraserOn; //shows if the eraser tool is selected
     public GridEditor gridEditor;
     public final PencilTool pencilTool;
+    public final EraserTool eraserTool;
     public final FillTool fillTool;
     public final SelectionTool selectionTool;
 
@@ -24,8 +26,9 @@ public class GridBoardUI extends AnchorPane {
     public GridBoardUI(Grid grid) {
         this.gridData = new Grid(100,100);
         this.gridData = grid;
-        this.fillTool = new FillTool(this, this.gridData, undoRedoHandler);
         this.pencilTool = new PencilTool(this, undoRedoHandler);
+        this.eraserTool = new EraserTool(this, undoRedoHandler);
+        this.fillTool = new FillTool(this, this.gridData, undoRedoHandler);
         cellArray = new CellUI[grid.getWidth()][grid.getHeight()];
         for (int y = 0; y < grid.getHeight(); y++) {
             for (int x = 0; x < grid.getWidth(); x++) {

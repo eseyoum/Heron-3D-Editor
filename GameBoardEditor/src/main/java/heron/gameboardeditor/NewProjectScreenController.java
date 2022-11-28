@@ -241,7 +241,7 @@ public class NewProjectScreenController {
     
     @FXML
     void eraserButtonOn(ActionEvent event) {
-    	
+    	myBoard.gridEditor.setCurrentTool(myBoard.eraserTool);
     }
     
     @FXML

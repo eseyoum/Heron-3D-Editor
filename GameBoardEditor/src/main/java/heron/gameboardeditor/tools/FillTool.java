@@ -76,7 +76,6 @@ public class FillTool extends Tool {
 //    }
     
     public void mousePressed(MouseEvent e) {
-    	System.out.println("Fill Tool Pressed Test");
     	CellUI cellClicked = gridBoard.getCell((int) e.getX() / CellUI.TILE_SIZE, (int) e.getY() / CellUI.TILE_SIZE);
     	fill(cellClicked.getBlock(), cellClicked.getBlock().getZ(), gridBoard.getLevel());
     }
