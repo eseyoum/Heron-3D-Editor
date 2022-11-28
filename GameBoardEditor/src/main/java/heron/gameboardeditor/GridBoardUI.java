@@ -54,10 +54,6 @@ public class GridBoardUI extends AnchorPane {
             }
         }
         
-        this.setOnMouseClicked(event -> {
-        	System.out.println("test");
-        });
-        
         selectionRectangle();
         level = 1; //level begins with 1
         
