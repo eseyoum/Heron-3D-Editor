@@ -24,7 +24,7 @@ public class CellUI extends Rectangle {
     private boolean fillToolOn;
     
     public CellUI(GridBoardUI gridBoard, Block block) {
-        super(TILE_SIZE - 1, TILE_SIZE - 1);
+        super(TILE_SIZE - 1, TILE_SIZE - 1); //a CellUI object is a rectangle
 		this.gridBoard = gridBoard;
 		this.block = block;
 		updateVisualBasedOnBlock();
@@ -35,7 +35,7 @@ public class CellUI extends Rectangle {
      * Adds the possible colors for differentiating between levels on the depth map
      * 
      */
-    public static List<Color> generateColors() {
+    private static List<Color> generateColors() {
     	List<Color> colors = new ArrayList<>();
     	Color color = Color.DARKGREY.darker().darker().darker(); //color for the first level
     	colors.add(color);
@@ -89,6 +89,18 @@ public class CellUI extends Rectangle {
     		setFill(colorList.get(turnToLevel - 1));
     	}
     }
+	
+	public void placeCell(int level) {
+		block.setZ(level);
+		block.setVisible(true);
+		updateVisualBasedOnBlock();
+	}
+	
+	public void removeCell() {
+		block.setZ(0);
+		block.setVisible(false);
+        updateVisualBasedOnBlock();
+	}
     
     public Block getBlock() {
     	return block;

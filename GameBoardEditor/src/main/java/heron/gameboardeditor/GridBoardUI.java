@@ -20,10 +20,9 @@ import javafx.scene.shape.Rectangle;
 public class GridBoardUI extends AnchorPane {
     private int level; //the level of the depth map the user is currently working on
     private boolean eraserOn; //shows if the eraser tool is selected
-    private boolean fillTool = false;
+    private boolean fillTool = false; //shows if filltool is selected
     public FillTool fillToolButton;
-    
-    private Rectangle selectionRectangle;
+
     private double initialSelectX;
     private double initialSelectY;
     private UndoRedoHandler undoRedoHandler;
@@ -46,14 +45,10 @@ public class GridBoardUI extends AnchorPane {
                 cellArray[x][y] = new CellUI(this, gridData.getBlockAt(x, y));
                 cellArray[x][y].setOnMousePressed(event -> {
                     CellUI cell = (CellUI) event.getSource();
-                    //cell = this.getCell(cell.getBlock().getX(), cell.getBlock().getY());
-                    //if (cell.wasClicked) -edited this out so that you can click on cells that are already clicked -Corey
-                        //return;
                     cell.click();
                     clickedCells.add(cell);
                 });
-                //row.getChildren().add(cellArray[x][y]);
-                cellArray[x][y].setLayoutX(x * CellUI.TILE_SIZE);
+                cellArray[x][y].setLayoutX(x * CellUI.TILE_SIZE); //spaces out the tiles based on TILE_SIZE
                 cellArray[x][y].setLayoutY(y * CellUI.TILE_SIZE);
                 this.getChildren().add(cellArray[x][y]);
             }
@@ -63,7 +58,7 @@ public class GridBoardUI extends AnchorPane {
         	System.out.println("test");
         });
         
-        selectionRectangleTestMethod();
+        selectionRectangle();
         level = 1; //level begins with 1
         
     }
@@ -79,7 +74,11 @@ public class GridBoardUI extends AnchorPane {
     	fillToolButton.fillToolOff();
     }
     
-    private void selectionRectangleTestMethod() {
+    /**
+     * Creates the selectionRectangle. It creates a rectangle you can drag. CellUI objects
+     * in the rectangle are selected, which shows an outline
+     */
+    private void selectionRectangle() {
     	Rectangle selectionRectangle = new Rectangle();
     	selectionRectangle.setStroke(Color.BLACK);
     	selectionRectangle.setFill(Color.TRANSPARENT);
@@ -128,11 +127,11 @@ public class GridBoardUI extends AnchorPane {
     	}
     	selectedCells.clear();
     }
-    /**
-     * Changes the current level of the Gridboard
-     * 
-     * @param level- the level the user wants to work on
-     */
+    
+    public CellUI getCell(int x, int y) {
+        return cellArray[x][y];
+    }
+    
     public void changeLevel(int level) {
     	this.level = level;
     }
@@ -151,10 +150,6 @@ public class GridBoardUI extends AnchorPane {
     
     public boolean getEraser() {
     	return this.eraserOn;
-    }
-
-    public CellUI getCell(int x, int y) {
-        return cellArray[x][y];
     }
     
     public class State {
@@ -175,12 +170,6 @@ public class GridBoardUI extends AnchorPane {
 
 	public void restoreState(State gridBoardState) {
 		gridBoardState.restore();
-		repaint();
-	}
-
-	private void repaint() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

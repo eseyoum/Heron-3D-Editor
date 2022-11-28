@@ -18,7 +18,7 @@ public class App extends Application {
 
     private static Scene scene;
     private static Stage mainWindow;
-    private static Grid game = new Grid(10, 10);
+    private static Grid gridData = new Grid(10, 10); //creates the data for the grid
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -47,7 +47,7 @@ public class App extends Application {
     }
     
     public static Grid getGrid() {
-    	return game;
+    	return gridData;
     }
     
     public static Stage getMainWindow() {
@@ -55,7 +55,7 @@ public class App extends Application {
     }
     
     public static void setGrid(Grid newGrid) {
-    	game = newGrid;
+    	gridData = newGrid;
     }
 
 }

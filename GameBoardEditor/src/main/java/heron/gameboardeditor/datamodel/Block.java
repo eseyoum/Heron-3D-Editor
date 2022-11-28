@@ -28,23 +28,6 @@ public class Block {
     	this.z = z;
     }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(x, y, z);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Block other = (Block) obj;
-		return x == other.x && y == other.y && z == other.z;
-	}
-
 	public boolean isVisible() {
 		return visible;
 	}
@@ -68,6 +51,23 @@ public class Block {
 	public void setZ(int z) {
 		this.z = z;
 	}
+	
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(x, y, z);
+//	}
+//
+//	@Override
+//	public boolean equals(Object obj) {
+//		if (this == obj)
+//			return true;
+//		if (obj == null)
+//			return false;
+//		if (getClass() != obj.getClass())
+//			return false;
+//		Block other = (Block) obj;
+//		return x == other.x && y == other.y && z == other.z;
+//	}
 
     
     

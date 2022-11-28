@@ -50,6 +50,7 @@ public class FillTool extends Tool {
      * @param turnToLevel - the level which the area should turn to
      * @param gridData - the data of the grid. This is used to find surrounding cells
      */
+    
 //    public void mousePressed(MouseEvent e) {
 ////    	GridBoardUI gridBoard = (GridBoardUI) e.getSource();
 ////    	CellUI cell = gridBoard.getCell((int) e.getX(),(int) e.getY());
@@ -79,14 +80,11 @@ public class FillTool extends Tool {
         block.setVisible(true);
         block.setZ(turnToLevel);
         
-//        if (fillToolOn) {
-	        fill(gridData.getBlockAt(block.getX() + 1, block.getY()), block, startingLevel, turnToLevel);
-			fill(gridData.getBlockAt(block.getX() - 1, block.getY()), block, startingLevel, turnToLevel);
-			fill(gridData.getBlockAt(block.getX(), block.getY() + 1), block, startingLevel, turnToLevel);
-			fill(gridData.getBlockAt(block.getX(), block.getY() - 1), block, startingLevel, turnToLevel);
-//        } else {
-        	return;
-//        }
+        fill(gridData.getBlockAt(block.getX() + 1, block.getY()), block, startingLevel, turnToLevel);
+		fill(gridData.getBlockAt(block.getX() - 1, block.getY()), block, startingLevel, turnToLevel);
+		fill(gridData.getBlockAt(block.getX(), block.getY() + 1), block, startingLevel, turnToLevel);
+		fill(gridData.getBlockAt(block.getX(), block.getY() - 1), block, startingLevel, turnToLevel);
+    	return;
     }
     
     private void fill(Block block, Block prevBlock, int startingLevel, int turnToLevel) {
