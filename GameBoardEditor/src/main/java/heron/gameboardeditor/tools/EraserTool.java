@@ -15,7 +15,6 @@ public class EraserTool extends Tool {
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		System.out.println("Pencil test");
 		CellUI cellClicked = gridBoard.getCell((int) e.getX() / CellUI.TILE_SIZE, (int) e.getY() / CellUI.TILE_SIZE);
 		cellClicked.removeCell();
 	}

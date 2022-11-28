@@ -214,7 +214,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="exitButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" style="-fx-background-color: white;">
+            <Button fx:id="selectButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#selectToolOn" style="-fx-background-color: white;">
                <HBox.margin>
                   <Insets right="60.0" />
                </HBox.margin>

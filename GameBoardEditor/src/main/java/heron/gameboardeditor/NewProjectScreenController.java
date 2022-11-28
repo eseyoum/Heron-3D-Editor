@@ -77,7 +77,7 @@ public class NewProjectScreenController {
     private Button editButton; // Value injected by FXMLLoader
 
     @FXML // fx:id="exitButton"
-    private Button exitButton; // Value injected by FXMLLoader
+    private Button selectButton; // Value injected by FXMLLoader
 
     @FXML // fx:id="exportButton"
     private Button exportButton; // Value injected by FXMLLoader
@@ -187,6 +187,26 @@ public class NewProjectScreenController {
     }
     
     @FXML
+    void pencilButtonOn(ActionEvent event) {
+    	myBoard.gridEditor.setCurrentTool(myBoard.pencilTool);
+    }
+    
+    @FXML
+    void eraserButtonOn(ActionEvent event) {
+    	myBoard.gridEditor.setCurrentTool(myBoard.eraserTool);
+    }
+    
+    @FXML
+    void fillToolOn(ActionEvent event) {
+    	myBoard.gridEditor.setCurrentTool(myBoard.fillTool);
+    }
+    
+    @FXML
+    void selectToolOn(ActionEvent event) {
+    	myBoard.gridEditor.setCurrentTool(myBoard.selectionTool);
+    }
+    
+    @FXML
     void saveProject(ActionEvent event) {
     	FileChooser saveChooser = new FileChooser();
     	FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Heron game (*.heron)", "*.heron");
@@ -232,21 +252,6 @@ public class NewProjectScreenController {
 				new Alert(AlertType.ERROR, "Error opening file.  Did you choose a valid .heron file (which uses JSON format?)").show();
 			}
 		}
-    }
-    
-    @FXML
-    void pencilButtonOn(ActionEvent event) {
-    	myBoard.gridEditor.setCurrentTool(myBoard.pencilTool);
-    }
-    
-    @FXML
-    void eraserButtonOn(ActionEvent event) {
-    	myBoard.gridEditor.setCurrentTool(myBoard.eraserTool);
-    }
-    
-    @FXML
-    void fillToolOn(ActionEvent event) {
-    	myBoard.gridEditor.setCurrentTool(myBoard.fillTool);
     }
     
 }
