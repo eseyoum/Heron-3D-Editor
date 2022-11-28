@@ -143,9 +143,9 @@
             </ScrollPane>
       </items>
     </SplitPane>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="869.0" style="-fx-background-color: EFCA08 EFCA08;">
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="869.0" spacing="50.0" style="-fx-background-color: EFCA08 EFCA08;">
          <children>
-            <ToggleButton fx:id="pencilToggle" mnemonicParsing="false" selected="true">
+            <ToggleButton fx:id="pencilToggle" mnemonicParsing="false" onAction="#pencilButtonOn" selected="true" style="-fx-background-color: white;">
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -157,77 +157,9 @@
                   <ToggleGroup fx:id="toolButtonToggleGroup" />
                </toggleGroup>
             </ToggleButton>
-            <Button fx:id="pencilButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#pencilButtonOn" style="-fx-background-color: white;">
-               <HBox.margin>
-                  <Insets right="60.0" />
-               </HBox.margin>
-               <graphic>
-                  <ImageView fitHeight="15.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@Icons/Edit.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <ToggleButton fx:id="eraserToggle" mnemonicParsing="false" toggleGroup="$toolButtonToggleGroup">
-               <graphic>
-                  <ImageView fx:id="eraseButton1" fitHeight="15.0" fitWidth="20.0" focusTraversable="true" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@Icons/Delete.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </ToggleButton>
-            <Button fx:id="eraserButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#eraserButtonOn" style="-fx-background-color: white;">
-               <HBox.margin>
-                  <Insets right="60.0" />
-               </HBox.margin>
-               <graphic>
-                  <ImageView fx:id="eraseButton" fitHeight="15.0" fitWidth="20.0" focusTraversable="true" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@Icons/Delete.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="copyButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" style="-fx-background-color: white;">
-               <HBox.margin>
-                  <Insets right="60.0" />
-               </HBox.margin>
-               <graphic>
-                  <ImageView fitHeight="15.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@Icons/Copy.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="exportButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" style="-fx-background-color: white;">
-               <HBox.margin>
-                  <Insets right="60.0" />
-               </HBox.margin>
-               <graphic>
-                  <ImageView fitHeight="15.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@Icons/Export.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="selectButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#selectToolOn" style="-fx-background-color: white;">
-               <HBox.margin>
-                  <Insets right="60.0" />
-               </HBox.margin>
-               <graphic>
-                  <ImageView fitHeight="15.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@Icons/Door%20Open.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <ToggleButton fx:id="fillToolToggle" mnemonicParsing="false" text="FILL" toggleGroup="$toolButtonToggleGroup" />
-            <Button fx:id="fillButton" mnemonicParsing="false" onAction="#fillToolOn" style="-fx-background-color: white;" text="Fill Tool" />
+            <ToggleButton fx:id="eraserToggle" mnemonicParsing="false" onAction="#eraserButtonOn" style="-fx-background-color: white;" text="ERASE" toggleGroup="$toolButtonToggleGroup" />
+            <ToggleButton fx:id="fillToolToggle" mnemonicParsing="false" onAction="#fillToolOn" style="-fx-background-color: white;" text="FILL" toggleGroup="$toolButtonToggleGroup" />
+            <ToggleButton fx:id="selectToggle" mnemonicParsing="false" onAction="#selectToolOn" style="-fx-background-color: white;" text="SELECT" toggleGroup="$toolButtonToggleGroup" />
          </children>
       </HBox>
     <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">

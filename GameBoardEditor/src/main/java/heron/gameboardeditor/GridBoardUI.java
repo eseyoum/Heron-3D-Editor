@@ -41,7 +41,7 @@ public class GridBoardUI extends AnchorPane {
         this.selectionTool = new SelectionTool(this, undoRedoHandler);
         level = 1; //level begins with 1
         
-        this.gridEditor = new GridEditor(selectionTool);
+        this.gridEditor = new GridEditor(pencilTool); //pencilTool is the default tool
 		this.setOnMousePressed(e -> gridEditor.mousePressed(e));
 		this.setOnMouseReleased(e -> gridEditor.mouseReleased(e));
 		this.setOnMouseDragged(e -> gridEditor.mouseDragged(e));

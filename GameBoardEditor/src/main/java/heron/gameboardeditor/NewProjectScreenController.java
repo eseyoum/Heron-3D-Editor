@@ -58,6 +58,8 @@ public class NewProjectScreenController {
     private ToggleButton fillToolToggle;
     @FXML
     private ToggleButton pencilToggle;
+    @FXML
+    private ToggleButton selectToggle;
 	
 	
 	
