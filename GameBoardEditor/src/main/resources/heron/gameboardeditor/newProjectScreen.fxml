@@ -41,13 +41,17 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
@@ -113,7 +117,7 @@
                   <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="546.0" prefWidth="372.0">
                      <children>
                         <StackPane fx:id="editPanel" prefHeight="150.0" prefWidth="200.0" />
-                        <VBox layoutX="20.0" layoutY="226.0" prefHeight="257.0" prefWidth="180.0">
+                        <VBox layoutX="10.0" layoutY="253.0" prefHeight="257.0" prefWidth="180.0">
                            <children>
                               <Button fx:id="levelButton5" mnemonicParsing="false" onAction="#changeLevelTo5" style="-fx-background-color: EFCA08 EFCA08;" text="5">
                                  <VBox.margin>
@@ -135,6 +139,37 @@
                                  <VBox.margin>
                                     <Insets bottom="5.0" />
                                  </VBox.margin></Button>
+                           </children>
+                        </VBox>
+                        <VBox layoutX="10.0" prefHeight="200.0" prefWidth="117.0">
+                           <children>
+                              <GridPane>
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints maxHeight="44.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
+                                  <RowConstraints maxHeight="29.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label text="Row" />
+                                    <Label text="Coumn" GridPane.rowIndex="1" />
+                                    <TextField GridPane.columnIndex="1" />
+                                    <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
+                              </GridPane>
+                              <Button mnemonicParsing="false" style="-fx-background-color: EFCA08 EFCA08 EFCA08 EFCA08;" text="Set Size">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </Button>
                            </children>
                         </VBox>
                      </children>
