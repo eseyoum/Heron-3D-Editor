@@ -1,7 +1,6 @@
 package heron.gameboardeditor.datamodel;
 
 public class Grid {
-	
 	private Block[][] blockGrid;
 	private int width;
 	private int height;
