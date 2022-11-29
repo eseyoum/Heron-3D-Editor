@@ -39,10 +39,6 @@ import javafx.stage.FileChooser;
 
 
 public class NewProjectScreenController {
-
-    
-    
-    //private AnchorPane MapDisplay;
     @FXML private AnchorPane mapDisplay;
 	
 	@FXML
@@ -60,85 +56,39 @@ public class NewProjectScreenController {
     private ToggleButton pencilToggle;
     @FXML
     private ToggleButton selectToggle;
-	
-	
-	
-	@FXML
-    private Button eraserButton;
-	
-	@FXML
-	private Button fillButton;
-	
-    @FXML // fx:id="copyButton"
-    private Button copyButton; // Value injected by FXMLLoader
-
-    @FXML // fx:id="deleteButton"
-    private Button deleteButton; // Value injected by FXMLLoader
-
-    @FXML // fx:id="editButton"
-    private Button editButton; // Value injected by FXMLLoader
-
-    @FXML // fx:id="exitButton"
-    private Button selectButton; // Value injected by FXMLLoader
-
-    @FXML // fx:id="exportButton"
-    private Button exportButton; // Value injected by FXMLLoader
-
-    @FXML // fx:id="minimizeButton"
-    private Button minimizeButton; // Value injected by FXMLLoader
 
     @FXML // fx:id="x1"
     private Font x1; // Value injected by FXMLLoader
-
     @FXML // fx:id="x2"
     private Color x2; // Value injected by FXMLLoader
-
     @FXML // fx:id="x21"
     private Color x21; // Value injected by FXMLLoader
-
     @FXML // fx:id="x3"
     private Font x3; // Value injected by FXMLLoader
-
     @FXML // fx:id="x4"
     private Color x4; // Value injected by FXMLLoader
     
     @FXML
     private Button levelButton1;
-
     @FXML
     private Button levelButton2;
-
     @FXML
     private Button levelButton3;
-
     @FXML
     private Button levelButton4;
-
     @FXML
     private Button levelButton5;
     
-    @FXML
-    private Button pencilButton;
-    
-    private TreeView<String> treeView;
-    
     @FXML private StackPane editPanel;
-    
-    private double mouseX;
-    private double mouseY;
-    //private selectionRectangle selectionRectangle; Not used as of now. May make the selectionRectangle an object
-    private Rectangle selectionRectangleTest;
+
     private BorderPane gridMapPane;
     private VBox boardParentVBox;
     private GridBoardUI myBoard;
-    private UndoRedoHandler undoRedoHandler;
     
     @FXML
     void exitTheSceen(ActionEvent event) {
     	Platform.exit();
     }
-    
-    private Boolean quit;
     
     @FXML
     private void initialize() {
@@ -167,22 +117,18 @@ public class NewProjectScreenController {
     void changeLevelTo1(ActionEvent event) {
     	myBoard.setLevel(1);
     }
-
     @FXML
     void changeLevelTo2(ActionEvent event) {
     	myBoard.setLevel(2);
     }
-
     @FXML
     void changeLevelTo3(ActionEvent event) {
     	myBoard.setLevel(3);
     }
-
     @FXML
     void changeLevelTo4(ActionEvent event) {
     	myBoard.setLevel(4);
     }
-
     @FXML
     void changeLevelTo5(ActionEvent event) {
     	myBoard.setLevel(5);
@@ -192,17 +138,14 @@ public class NewProjectScreenController {
     void pencilButtonOn(ActionEvent event) {
     	myBoard.gridEditor.setCurrentTool(myBoard.pencilTool);
     }
-    
     @FXML
     void eraserButtonOn(ActionEvent event) {
     	myBoard.gridEditor.setCurrentTool(myBoard.eraserTool);
     }
-    
     @FXML
     void fillToolOn(ActionEvent event) {
     	myBoard.gridEditor.setCurrentTool(myBoard.fillTool);
     }
-    
     @FXML
     void selectToolOn(ActionEvent event) {
     	myBoard.gridEditor.setCurrentTool(myBoard.selectionTool);
