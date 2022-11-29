@@ -3,6 +3,10 @@ package heron.gameboardeditor.tools;
 import heron.gameboardeditor.UndoRedoHandler;
 import javafx.scene.input.MouseEvent;
 
+/**
+ * This abstract class is the superclass of all tools
+ *
+ */
 public abstract class Tool {
 	private UndoRedoHandler undoRedoHandler;
 	

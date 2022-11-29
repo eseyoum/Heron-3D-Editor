@@ -2,26 +2,20 @@ package heron.gameboardeditor;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import heron.gameboardeditor.datamodel.Block;
-import heron.gameboardeditor.datamodel.Grid;
-import heron.gameboardeditor.tools.FillTool;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * This class represents one cell (or tile) of the GridBoardUI
+ */
 public class CellUI extends Rectangle {
-    /**
-	 * 
-	 */
-    public static final int TILE_SIZE = 30;
-    private static List<Color> colorList = generateColors();
+    public static final int TILE_SIZE = 30; //size of the cells
+    private static final Color DEFAULT_COLOR = Color.CORNFLOWERBLUE; //default color of the cells
+    private static List<Color> colorList = generateColors(); //list of colors for each level of the depth map
     
     private final GridBoardUI gridBoard;
     private Block block;
-    private FillTool fillToolButton;
-    private boolean fillToolOn;
     
     public CellUI(GridBoardUI gridBoard, Block block) {
         super(TILE_SIZE - 1, TILE_SIZE - 1); //a CellUI object is a rectangle
@@ -33,7 +27,6 @@ public class CellUI extends Rectangle {
     
     /**
      * Adds the possible colors for differentiating between levels on the depth map
-     * 
      */
     private static List<Color> generateColors() {
     	List<Color> colors = new ArrayList<>();
@@ -46,65 +39,28 @@ public class CellUI extends Rectangle {
         return colors;
     }
     
+    /**
+     * Updates the cell color to reflect the level of the block
+     */
     private void updateVisualBasedOnBlock() {
     	if (block.isVisible()) {
     		setFill(colorList.get(block.getZ() - 1));
     	} else {
-      		setFill(Color.AQUA);
+      		setFill(DEFAULT_COLOR); //if the cell is not visible, the level is zero
     	}
 	}
-    
-//    public void fillTool() {
-//    	if (gridBoard.fillTool.isFillToolOn()) { //if the fill tool is selected
-//			gridBoard.fillTool.fill(block, block.getZ(), gridBoard.getLevel());
-//	    	gridBoard.fillTool.fillToolOff();
-//    	}
-//    }
-    public void eraseTool() {
-    	block.setZ(0);
-		block.setVisible(false);
-        updateVisualBasedOnBlock();
-    }
-    
-    public void pencilTool(int level) {
-    	block.setZ(level);
-		block.setVisible(true);
-		updateVisualBasedOnBlock();
-    }
-
-    
-	public void click() {
-    	setFillTo(gridBoard.getLevel());
-        block.setVisible(true);
-        block.setZ(gridBoard.getLevel());
-    	updateVisualBasedOnBlock();
-    }
 	
-	
-    
-    public void setFillTo(int turnToLevel) {
-    	if (turnToLevel == 0) {
-    		setFill(Color.LIGHTGREY);
-    	} else {
-    		setFill(colorList.get(turnToLevel - 1));
-    	}
-    }
-	
-	public void placeCell(int level) {
+	public void setLevel(int level) {
 		block.setZ(level);
-		block.setVisible(true);
+		
+		if (level != 0) {
+			block.setVisible(true);
+		} else {
+			block.setVisible(false); //if cell level is zero it should not be visible
+		}
+		
 		updateVisualBasedOnBlock();
 	}
-	
-	public void removeCell() {
-		block.setZ(0);
-		block.setVisible(false);
-        updateVisualBasedOnBlock();
-	}
-    
-    public Block getBlock() {
-    	return block;
-    }
 
 	public void select() {
 		this.setStroke(Color.RED);
@@ -113,5 +69,9 @@ public class CellUI extends Rectangle {
 	public void deselect() {
 		this.setStroke(Color.BLACK);
 	}
+	
+    public Block getBlock() {
+    	return block;
+    }
 
 }

@@ -4,11 +4,10 @@ package heron.gameboardeditor;
 import heron.gameboardeditor.tools.Tool;
 import javafx.scene.input.MouseEvent;
 
+/**
+ * This class uses the State pattern. It passes all the listening responsibilities to the currentTool
+ */
 public class GridEditor {
-	/*
-	 * This class uses the State pattern. It passes all the listening
-	 * responsibilities to the currentTool.
-	 */
 
 	private Tool currentTool;
 
