@@ -63,7 +63,8 @@ public class NewProjectScreenController {
     private Button levelButton5;
     
     @FXML private StackPane editPanel;
-
+    
+    private static Grid gridData = new Grid(10, 10); //creates the data for the grid
     private BorderPane gridMapPane;
     private VBox boardParentVBox;
     private GridBoardUI gridBoard;

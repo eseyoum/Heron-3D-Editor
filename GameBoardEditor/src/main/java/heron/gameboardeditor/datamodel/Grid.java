@@ -31,6 +31,14 @@ public class Grid {
 		return height;
 	}
 	
+    public boolean isEdgeBlock(Block block) {
+    	return (block.getX() == this.width - 1 || block.getX() == 0 || block.getY() == this.height - 1 || block.getY() == 0);
+    }
+    
+    public boolean isCornerBlock(Block block) {
+    	return ((block.getX() == 0 && block.getY() == 0) || (block.getX() == 0 && block.getY() == this.height - 1) || (block.getX() == this.width - 1 && block.getY() == 0) || (block.getX() == this.width - 1 && block.getY() == this.height - 1));
+    }
+    
 	public Grid clone() {
 		try {
 			Grid clone = (Grid) super.clone();
