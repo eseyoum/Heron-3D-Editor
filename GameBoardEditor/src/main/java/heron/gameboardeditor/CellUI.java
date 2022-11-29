@@ -12,17 +12,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class CellUI extends Rectangle {
-    /**
-	 * 
-	 */
-    public static final int TILE_SIZE = 30;
-    private static final Color DEFAULT_COLOR = Color.CORNFLOWERBLUE;
+    public static final int TILE_SIZE = 30; //size of the cells
+    private static final Color DEFAULT_COLOR = Color.CORNFLOWERBLUE; //default color of the cells
     private static List<Color> colorList = generateColors();
     
     private final GridBoardUI gridBoard;
     private Block block;
-    private FillTool fillToolButton;
-    private boolean fillToolOn;
     
     public CellUI(GridBoardUI gridBoard, Block block) {
         super(TILE_SIZE - 1, TILE_SIZE - 1); //a CellUI object is a rectangle
@@ -34,7 +29,6 @@ public class CellUI extends Rectangle {
     
     /**
      * Adds the possible colors for differentiating between levels on the depth map
-     * 
      */
     private static List<Color> generateColors() {
     	List<Color> colors = new ArrayList<>();
@@ -47,29 +41,28 @@ public class CellUI extends Rectangle {
         return colors;
     }
     
+    /**
+     * Updates the cell color to reflect the level of the block
+     */
     private void updateVisualBasedOnBlock() {
     	if (block.isVisible()) {
     		setFill(colorList.get(block.getZ() - 1));
     	} else {
-      		setFill(DEFAULT_COLOR);
+      		setFill(DEFAULT_COLOR); //if the cell is not visible, the level is zero
     	}
 	}
 	
 	public void setLevel(int level) {
 		block.setZ(level);
-		block.setVisible(true);
+		
+		if (level != 0) {
+			block.setVisible(true);
+		} else {
+			block.setVisible(false); //if cell level is zero it should not be visible
+		}
+		
 		updateVisualBasedOnBlock();
 	}
-	
-	public void removeCell() {
-		block.setZ(0);
-		block.setVisible(false);
-        updateVisualBasedOnBlock();
-	}
-    
-    public Block getBlock() {
-    	return block;
-    }
 
 	public void select() {
 		this.setStroke(Color.RED);
@@ -78,5 +71,9 @@ public class CellUI extends Rectangle {
 	public void deselect() {
 		this.setStroke(Color.BLACK);
 	}
+	
+    public Block getBlock() {
+    	return block;
+    }
 
 }

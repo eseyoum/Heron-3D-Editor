@@ -8,29 +8,25 @@ import heron.gameboardeditor.tools.SelectionTool;
 import javafx.scene.layout.AnchorPane;
 
 public class GridBoardUI extends AnchorPane {
-    private int level; //the level of the depth map the user is currently working on
-    private boolean eraserOn; //shows if the eraser tool is selected
-    public GridEditor gridEditor;
+	private Grid gridData;
+	private CellUI[][] cellArray;
+	
+	private int level = 1; //the level of the depth map the user is currently working on. The user starts on level 1
+    
+    public GridEditor gridEditor; //controls which tool the user is currently using
+    
     public final PencilTool pencilTool;
     public final EraserTool eraserTool;
     public final FillTool fillTool;
     public final SelectionTool selectionTool;
 
     private UndoRedoHandler undoRedoHandler;
-    
-    private Grid gridData;
-
-	private CellUI[][] cellArray;
-	private CellUI cell;
 
     public GridBoardUI(Grid grid) {
-        this.gridData = new Grid(100,100);
         this.gridData = grid;
-        this.pencilTool = new PencilTool(this, undoRedoHandler);
-        this.eraserTool = new EraserTool(this, undoRedoHandler);
-        this.fillTool = new FillTool(this, this.gridData, undoRedoHandler);
         cellArray = new CellUI[grid.getWidth()][grid.getHeight()];
-        for (int y = 0; y < grid.getHeight(); y++) {
+        
+        for (int y = 0; y < grid.getHeight(); y++) { //creates the grid
             for (int x = 0; x < grid.getWidth(); x++) {
                 cellArray[x][y] = new CellUI(this, gridData.getBlockAt(x, y));
                 cellArray[x][y].setLayoutX(x * CellUI.TILE_SIZE); //spaces out the tiles based on TILE_SIZE
@@ -38,14 +34,17 @@ public class GridBoardUI extends AnchorPane {
                 this.getChildren().add(cellArray[x][y]);
             }
         }
+        
+        this.pencilTool = new PencilTool(this, undoRedoHandler);
+        this.eraserTool = new EraserTool(this, undoRedoHandler);
+        this.fillTool = new FillTool(this, this.gridData, undoRedoHandler);
         this.selectionTool = new SelectionTool(this, undoRedoHandler);
-        level = 1; //level begins with 1
         
         this.gridEditor = new GridEditor(pencilTool); //pencilTool is the default tool
+        
 		this.setOnMousePressed(e -> gridEditor.mousePressed(e));
 		this.setOnMouseReleased(e -> gridEditor.mouseReleased(e));
 		this.setOnMouseDragged(e -> gridEditor.mouseDragged(e));
-        
     }
     
     public Grid getGridData() {
@@ -56,12 +55,12 @@ public class GridBoardUI extends AnchorPane {
         return cellArray[x][y];
     }
     
-    public void changeLevel(int level) {
-    	this.level = level;
-    }
-    
     public int getLevel() {
     	return this.level;
+    }
+    
+    public void setLevel(int level) {
+    	this.level = level; //sets the level the user is currently working on
     }
     
     public class State {

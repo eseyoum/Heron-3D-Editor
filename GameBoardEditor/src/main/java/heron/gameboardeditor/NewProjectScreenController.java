@@ -165,27 +165,27 @@ public class NewProjectScreenController {
     
     @FXML
     void changeLevelTo1(ActionEvent event) {
-    	myBoard.changeLevel(1);
+    	myBoard.setLevel(1);
     }
 
     @FXML
     void changeLevelTo2(ActionEvent event) {
-    	myBoard.changeLevel(2);
+    	myBoard.setLevel(2);
     }
 
     @FXML
     void changeLevelTo3(ActionEvent event) {
-    	myBoard.changeLevel(3);
+    	myBoard.setLevel(3);
     }
 
     @FXML
     void changeLevelTo4(ActionEvent event) {
-    	myBoard.changeLevel(4);
+    	myBoard.setLevel(4);
     }
 
     @FXML
     void changeLevelTo5(ActionEvent event) {
-    	myBoard.changeLevel(5);
+    	myBoard.setLevel(5);
     }
     
     @FXML
