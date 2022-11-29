@@ -7,44 +7,26 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 import heron.gameboardeditor.datamodel.Grid;
 import heron.gameboardeditor.datamodel.ProjectIO;
-import heron.gameboardeditor.tools.FillTool;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBoxTreeItem;
-import javafx.scene.control.ListView;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.cell.CheckBoxTreeCell;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 
 
 public class NewProjectScreenController {
-    @FXML private AnchorPane mapDisplay;
-	
-	@FXML
-    private void switchToSecondary() throws IOException {
-        App.setRoot("welcomeScreen");
-    }
+    @FXML 
+    private AnchorPane mapDisplay;
 	
 	@FXML 
 	private ToggleGroup toolButtonToggleGroup;	
@@ -83,7 +65,12 @@ public class NewProjectScreenController {
 
     private BorderPane gridMapPane;
     private VBox boardParentVBox;
-    private GridBoardUI myBoard;
+    private GridBoardUI gridBoard;
+    
+    @FXML
+    private void switchToSecondary() throws IOException {
+        App.setRoot("welcomeScreen");
+    }
     
     @FXML
     void exitTheSceen(ActionEvent event) {
@@ -103,9 +90,9 @@ public class NewProjectScreenController {
     private BorderPane createContent() {
         BorderPane root = new BorderPane();
         root.setPrefSize(600, 800);
-        myBoard = new GridBoardUI(App.getGrid()); //creates a GridBoardUI, which is the grid the user can see
+        gridBoard = new GridBoardUI(App.getGrid()); //creates a GridBoardUI, which is the grid the user can see
 
-        boardParentVBox = new VBox(50, myBoard); //creates a vbox with myBoard for children
+        boardParentVBox = new VBox(50, gridBoard); //creates a vbox with myBoard for children
         boardParentVBox.setAlignment(Pos.CENTER);
 
         root.setCenter(boardParentVBox);
@@ -115,40 +102,40 @@ public class NewProjectScreenController {
     
     @FXML
     void changeLevelTo1(ActionEvent event) {
-    	myBoard.setLevel(1);
+    	gridBoard.setLevel(1);
     }
     @FXML
     void changeLevelTo2(ActionEvent event) {
-    	myBoard.setLevel(2);
+    	gridBoard.setLevel(2);
     }
     @FXML
     void changeLevelTo3(ActionEvent event) {
-    	myBoard.setLevel(3);
+    	gridBoard.setLevel(3);
     }
     @FXML
     void changeLevelTo4(ActionEvent event) {
-    	myBoard.setLevel(4);
+    	gridBoard.setLevel(4);
     }
     @FXML
     void changeLevelTo5(ActionEvent event) {
-    	myBoard.setLevel(5);
+    	gridBoard.setLevel(5);
     }
     
     @FXML
     void pencilButtonOn(ActionEvent event) {
-    	myBoard.gridEditor.setCurrentTool(myBoard.pencilTool);
+    	gridBoard.gridEditor.setCurrentTool(gridBoard.pencilTool);
     }
     @FXML
     void eraserButtonOn(ActionEvent event) {
-    	myBoard.gridEditor.setCurrentTool(myBoard.eraserTool);
+    	gridBoard.gridEditor.setCurrentTool(gridBoard.eraserTool);
     }
     @FXML
     void fillToolOn(ActionEvent event) {
-    	myBoard.gridEditor.setCurrentTool(myBoard.fillTool);
+    	gridBoard.gridEditor.setCurrentTool(gridBoard.fillTool);
     }
     @FXML
     void selectToolOn(ActionEvent event) {
-    	myBoard.gridEditor.setCurrentTool(myBoard.selectionTool);
+    	gridBoard.gridEditor.setCurrentTool(gridBoard.selectionTool);
     }
     
     @FXML
@@ -181,10 +168,10 @@ public class NewProjectScreenController {
 				
 				//createContent();
 				
-				myBoard = new GridBoardUI(App.getGrid());
+				gridBoard = new GridBoardUI(App.getGrid());
 				
 				boardParentVBox.getChildren().clear();
-				boardParentVBox.getChildren().addAll(myBoard);
+				boardParentVBox.getChildren().addAll(gridBoard);
 				
 				
 				//App.setRoot("newProjectScreen");

@@ -2,19 +2,14 @@ package heron.gameboardeditor;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import heron.gameboardeditor.datamodel.Block;
-import heron.gameboardeditor.datamodel.Grid;
-import heron.gameboardeditor.tools.FillTool;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class CellUI extends Rectangle {
     public static final int TILE_SIZE = 30; //size of the cells
     private static final Color DEFAULT_COLOR = Color.CORNFLOWERBLUE; //default color of the cells
-    private static List<Color> colorList = generateColors();
+    private static List<Color> colorList = generateColors(); //list of colors for each level of the depth map
     
     private final GridBoardUI gridBoard;
     private Block block;
