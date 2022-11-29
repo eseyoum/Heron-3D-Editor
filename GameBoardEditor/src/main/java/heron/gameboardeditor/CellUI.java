@@ -6,6 +6,9 @@ import heron.gameboardeditor.datamodel.Block;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * This class represents one cell (or tile) of the GridBoardUI
+ */
 public class CellUI extends Rectangle {
     public static final int TILE_SIZE = 30; //size of the cells
     private static final Color DEFAULT_COLOR = Color.CORNFLOWERBLUE; //default color of the cells

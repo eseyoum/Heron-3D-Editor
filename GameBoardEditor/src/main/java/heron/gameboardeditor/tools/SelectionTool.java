@@ -1,7 +1,6 @@
 package heron.gameboardeditor.tools;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import heron.gameboardeditor.CellUI;
@@ -70,8 +69,4 @@ public class SelectionTool extends Tool {
     	}
     	selectedCells.clear();
     }
-    
-//    public Set<CellUI> getSelectedCells() {
-//    	return selectedCells;
-//    }
 }

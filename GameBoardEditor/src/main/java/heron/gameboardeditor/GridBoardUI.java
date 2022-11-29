@@ -7,6 +7,9 @@ import heron.gameboardeditor.tools.PencilTool;
 import heron.gameboardeditor.tools.SelectionTool;
 import javafx.scene.layout.AnchorPane;
 
+/**
+ * This class represents the grid of cells
+ */
 public class GridBoardUI extends AnchorPane {
 	private Grid gridData;
 	private CellUI[][] cellArray;
@@ -47,7 +50,7 @@ public class GridBoardUI extends AnchorPane {
 		this.setOnMouseDragged(e -> gridEditor.mouseDragged(e));
     }
     
-    public Grid getGridData() {
+    public Grid getGridData() { //grid data represents the data of the GridUI
 		return gridData;
 	}
     
@@ -60,7 +63,7 @@ public class GridBoardUI extends AnchorPane {
     }
     
     public void setLevel(int level) {
-    	this.level = level; //sets the level the user is currently working on
+    	this.level = level;
     }
     
     public class State {
