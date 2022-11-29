@@ -114,7 +114,7 @@ public class NewProjectScreenController {
     private BorderPane createContent() {
         BorderPane root = new BorderPane();
         root.setPrefSize(600, 800);
-        gridBoard = new GridBoardUI(App.getGrid(rows, columns)); //creates a GridBoardUI, which is the grid the user can see
+        gridBoard = new GridBoardUI(App.getGrid()); //creates a GridBoardUI, which is the grid the user can see
 
         boardParentVBox = new VBox(50, gridBoard); //creates a vbox with myBoard for children
         boardParentVBox.setAlignment(Pos.CENTER);
@@ -173,7 +173,7 @@ public class NewProjectScreenController {
     	saveChooser.getExtensionFilters().add(extFilter);
     	File outputFile = saveChooser.showSaveDialog(App.getMainWindow());
     	if (outputFile != null) {
-    		Grid grid = App.getGrid(rows, columns);
+    		Grid grid = App.getGrid();
     		try {
 				ProjectIO.save(grid, outputFile);
 			} catch (IOException ex) {
@@ -196,7 +196,7 @@ public class NewProjectScreenController {
 				
 				//createContent();
 				
-				gridBoard = new GridBoardUI(App.getGrid(rows, columns));
+				gridBoard = new GridBoardUI(grid);
 				
 				boardParentVBox.getChildren().clear();
 				boardParentVBox.getChildren().addAll(gridBoard);

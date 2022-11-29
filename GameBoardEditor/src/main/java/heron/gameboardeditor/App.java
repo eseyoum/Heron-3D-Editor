@@ -46,12 +46,14 @@ public class App extends Application {
         launch();
     }
     
-    public static Grid getGrid(int row, int column) {
-    	gridData = new Grid(row,column);
+    public static void useNewGrid(int rows, int columns) {
+    	gridData = new Grid(rows,columns);
+    }
+
+    public static Grid getGrid() {
     	return gridData;
     }
-    
-    
+        
     public static Stage getMainWindow() {
     	return mainWindow;
     }

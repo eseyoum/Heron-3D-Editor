@@ -70,6 +70,12 @@ public class GridBoardUI extends AnchorPane {
     	this.level = level;
     }
     
+    public void crop(int newRow, int newColumn) {
+    	
+    }
+    
+    
+    
     public class State {
     	private Grid grid;
     	
