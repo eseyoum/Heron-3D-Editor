@@ -17,6 +17,7 @@ public class CellUI extends Rectangle {
     
     private final GridBoardUI gridBoard;
     private Block block;
+    private boolean isClicked;
     
     public CellUI(GridBoardUI gridBoard, Block block) {
         super(TILE_SIZE - 1, TILE_SIZE - 1); //a CellUI object is a rectangle
@@ -73,6 +74,13 @@ public class CellUI extends Rectangle {
 	
     public Block getBlock() {
     	return block;
+    }
+    
+    public void setSelected(boolean status) {
+    	isClicked = status;
+    }
+    public boolean isSelected() {
+    	return isClicked;
     }
 
 }
