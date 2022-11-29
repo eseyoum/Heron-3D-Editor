@@ -31,6 +31,8 @@ public class NewProjectScreenController {
 	private ToggleGroup toolButtonToggleGroup;	
 	@FXML
     private ToggleButton eraserToggle;
+	@FXML
+	private ToggleButton digToggle;
     @FXML
     private ToggleButton fillToolToggle;
     @FXML
@@ -127,6 +129,10 @@ public class NewProjectScreenController {
     @FXML
     void eraserButtonOn(ActionEvent event) {
     	gridBoard.gridEditor.setCurrentTool(gridBoard.eraserTool);
+    }
+    @FXML
+    void digButtonOn(ActionEvent event) {
+    	gridBoard.gridEditor.setCurrentTool(gridBoard.digTool);
     }
     @FXML
     void fillToolOn(ActionEvent event) {
