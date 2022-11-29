@@ -35,14 +35,20 @@ public class SelectionTool extends Tool {
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		initialSelectX = e.getX();
-		initialSelectY = e.getY();
-		selectionRectangle.setVisible(true);
-		selectionRectangle.setX(initialSelectX);
-		selectionRectangle.setY(initialSelectY);
-		selectionRectangle.setWidth(0);
-		selectionRectangle.setHeight(0);
-		deselectAll();
+		if (!pressedInCell) {
+			initialSelectX = e.getX();
+			initialSelectY = e.getY();
+			selectionRectangle.setVisible(true);
+			selectionRectangle.setX(initialSelectX);
+			selectionRectangle.setY(initialSelectY);
+			selectionRectangle.setWidth(0);
+			selectionRectangle.setHeight(0);
+			deselectAll();
+		} else {
+			for (CellUI cell : selectedCells) {
+				cell.setSelected(true);
+			}
+		}
 
 	}
 	
