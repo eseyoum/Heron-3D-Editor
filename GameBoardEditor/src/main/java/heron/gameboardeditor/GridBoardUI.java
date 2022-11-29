@@ -20,8 +20,7 @@ import javafx.scene.shape.Rectangle;
 public class GridBoardUI extends AnchorPane {
     private int level; //the level of the depth map the user is currently working on
     private boolean eraserOn; //shows if the eraser tool is selected
-    private boolean fillTool = false; //shows if filltool is selected
-    public FillTool fillToolButton;
+    public FillTool fillTool;
 
     private double initialSelectX;
     private double initialSelectY;
@@ -38,7 +37,7 @@ public class GridBoardUI extends AnchorPane {
     public GridBoardUI(Grid grid) {
         this.gridData = new Grid(100,100);
         this.gridData = grid;
-        this.fillToolButton = new FillTool(this, this.gridData, undoRedoHandler);
+        this.fillTool = new FillTool(this, this.gridData, undoRedoHandler);
         cellArray = new CellUI[grid.getWidth()][grid.getHeight()];
         for (int y = 0; y < grid.getHeight(); y++) {
             for (int x = 0; x < grid.getWidth(); x++) {
@@ -67,12 +66,17 @@ public class GridBoardUI extends AnchorPane {
 		return gridData;
 	}
    
-    public void fillTool() {
-    	for (CellUI cell: clickedCells) {
-    		cell.fillTool();
-    	}
-    	fillToolButton.fillToolOff();
-    }
+//    public void fillTool() {
+//    	this.fillTool = new FillTool(this, this.gridData, undoRedoHandler);
+//    	
+//    	this.setOnMouseClicked(event -> {
+//    		for (CellUI cell: clickedCells) {
+//        		cell.fillTool();
+//        	}
+//        	fillTool.fillToolOff();
+//    	});
+//    	
+//    }
     
     /**
      * Creates the selectionRectangle. It creates a rectangle you can drag. CellUI objects

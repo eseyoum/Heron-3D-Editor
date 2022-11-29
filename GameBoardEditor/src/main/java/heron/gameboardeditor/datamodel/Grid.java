@@ -1,5 +1,7 @@
 package heron.gameboardeditor.datamodel;
 
+import heron.gameboardeditor.GridEditor;
+
 public class Grid {
 	
 	private Block[][] blockGrid;

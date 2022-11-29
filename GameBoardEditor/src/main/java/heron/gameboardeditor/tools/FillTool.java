@@ -51,41 +51,40 @@ public class FillTool extends Tool {
      * @param gridData - the data of the grid. This is used to find surrounding cells
      */
     
-//    public void mousePressed(MouseEvent e) {
-////    	GridBoardUI gridBoard = (GridBoardUI) e.getSource();
-////    	CellUI cell = gridBoard.getCell((int) e.getX(),(int) e.getY());
-//    	CellUI cell = (CellUI) e.getSource();
-//        cell = gridBoard.getCell(cell.getBlock().getX(), cell.getBlock().getY());
-//    	cell.setFillTo(gridBoard.getLevel());
-//    	Block block = cell.getBlock();
-//    	block.setVisible(true);
-//        block.setZ(gridBoard.getLevel());
-//        fillToolOn = (cell != null);
-//     
-//        if (fillToolOn) {
-//        	fill(gridData.getBlockAt(block.getX() + 1, block.getY()), block, block.getZ(), gridBoard.getLevel());
-//    		fill(gridData.getBlockAt(block.getX() - 1, block.getY()), block, block.getZ(), gridBoard.getLevel());
-//    		fill(gridData.getBlockAt(block.getX(), block.getY() + 1), block, block.getZ(), gridBoard.getLevel());
-//    		fill(gridData.getBlockAt(block.getX(), block.getY() - 1), block, block.getZ(), gridBoard.getLevel());
-//    		fillToolOn = false; 
-//        }
-//        if (!fillToolOn) {
-//        	return;
-//        }
-//		
-//    }
-    
-	public void fill(Block block, int startingLevel, int turnToLevel) {
-    	gridBoard.getCell(block.getX(), block.getY()).setFillTo(turnToLevel);
-        block.setVisible(true);
-        block.setZ(turnToLevel);
-        
-        fill(gridData.getBlockAt(block.getX() + 1, block.getY()), block, startingLevel, turnToLevel);
-		fill(gridData.getBlockAt(block.getX() - 1, block.getY()), block, startingLevel, turnToLevel);
-		fill(gridData.getBlockAt(block.getX(), block.getY() + 1), block, startingLevel, turnToLevel);
-		fill(gridData.getBlockAt(block.getX(), block.getY() - 1), block, startingLevel, turnToLevel);
-    	return;
+    public void mousePressed(MouseEvent e) {
+    	CellUI cell = gridBoard.getCell((int) e.getX(),(int) e.getY());
+    	cell = (CellUI) e.getSource();
+        cell = gridBoard.getCell(cell.getBlock().getX(), cell.getBlock().getY());
+    	cell.setFillTo(gridBoard.getLevel());
+    	Block block = cell.getBlock();
+    	block.setVisible(true);
+        block.setZ(gridBoard.getLevel());
+        fillToolOn = (cell != null);
+     
+        if (fillToolOn) {
+        	fill(gridData.getBlockAt(block.getX() + 1, block.getY()), block, block.getZ(), gridBoard.getLevel());
+    		fill(gridData.getBlockAt(block.getX() - 1, block.getY()), block, block.getZ(), gridBoard.getLevel());
+    		fill(gridData.getBlockAt(block.getX(), block.getY() + 1), block, block.getZ(), gridBoard.getLevel());
+    		fill(gridData.getBlockAt(block.getX(), block.getY() - 1), block, block.getZ(), gridBoard.getLevel());
+    		fillToolOn = false; 
+        }
+        if (!fillToolOn) {
+        	return;
+        }
+		
     }
+    
+//	public void fill(Block block, int startingLevel, int turnToLevel) {
+//    	gridBoard.getCell(block.getX(), block.getY()).setFillTo(turnToLevel);
+//        block.setVisible(true);
+//        block.setZ(turnToLevel);
+//        
+//        fill(gridData.getBlockAt(block.getX() + 1, block.getY()), block, startingLevel, turnToLevel);
+//		fill(gridData.getBlockAt(block.getX() - 1, block.getY()), block, startingLevel, turnToLevel);
+//		fill(gridData.getBlockAt(block.getX(), block.getY() + 1), block, startingLevel, turnToLevel);
+//		fill(gridData.getBlockAt(block.getX(), block.getY() - 1), block, startingLevel, turnToLevel);
+//    	return;
+//    }
     
     private void fill(Block block, Block prevBlock, int startingLevel, int turnToLevel) {
     		if (block == null) {

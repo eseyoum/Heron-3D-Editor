@@ -130,7 +130,10 @@ public class NewProjectScreenController {
     	gridMapPane = createContent(); //creates the 2d grid
     	mapDisplay.getChildren().addAll(gridMapPane);
     	FillTool fillTool = new FillTool(myBoard, myBoard.getGridData(), undoRedoHandler);
-		fillButton.setOnAction(e -> myBoard.fillTool());
+    	GridEditor gridEditor = new GridEditor(fillTool);
+    	fillButton.setOnAction(e -> gridEditor.setCurrentTool(fillTool));
+//    	fillButton.setOnAction(e -> myBoard.fillTool());
+    	mapDisplay.setOnMousePressed(e -> gridEditor.mousePressed(e));
     }
 
     /**
@@ -235,7 +238,7 @@ public class NewProjectScreenController {
     
     @FXML
     void fillToolOn(ActionEvent event) {
-    	myBoard.fillToolButton.fillToolOn();
+    	myBoard.fillTool.fillToolOn();
 //    	undoRedoHandler.saveState();
     }
     
