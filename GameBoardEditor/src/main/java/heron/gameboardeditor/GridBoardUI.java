@@ -70,12 +70,15 @@ public class GridBoardUI extends AnchorPane {
     	this.level = level;
     }
     
-    public void crop(int newRow, int newColumn) {
-    	
+   
+    public void updateVisual() {
+    	for (int y = 0; y < gridData.getHeight(); y++) { //creates the grid
+            for (int x = 0; x < gridData.getWidth(); x++) {
+            	getCell(x, y).updateVisualBasedOnBlock();
+            }
+    	}
     }
-    
-    
-    
+
     public class State {
     	private Grid grid;
     	

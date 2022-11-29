@@ -76,7 +76,6 @@ public class NewProjectScreenController {
     
     private static int rows = 10;
     private static int columns = 10;
-    
     private BorderPane gridMapPane;
     private VBox boardParentVBox;
     private GridBoardUI gridBoard;
@@ -93,8 +92,17 @@ public class NewProjectScreenController {
     
     @FXML
     void setSizeAction(ActionEvent event) {
-    	rows = Integer.parseInt(numRow.getText());
-    	columns = Integer.parseInt(numColumn.getText());
+    	if (!numRow.getText().isBlank()) {
+    		rows = Integer.parseInt(numRow.getText());
+    	} else {
+    		rows = 1;
+    	}
+    	
+    	if (!numColumn.getText().isBlank()) {
+    		columns = Integer.parseInt(numColumn.getText());
+    	} else {
+    		columns = 1;
+    	}
     	
     	mapDisplay.getChildren().clear(); // clear the old gird
     	initialize();
