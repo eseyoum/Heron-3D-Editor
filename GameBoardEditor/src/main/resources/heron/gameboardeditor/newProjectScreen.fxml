@@ -155,14 +155,14 @@
                                  <children>
                                     <Label text="Row" />
                                     <Label text="Coumn" GridPane.rowIndex="1" />
-                                    <TextField GridPane.columnIndex="1" />
-                                    <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <TextField fx:id="numRow" GridPane.columnIndex="1" />
+                                    <TextField fx:id="numColumn" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                  </children>
                                  <VBox.margin>
                                     <Insets top="20.0" />
                                  </VBox.margin>
                               </GridPane>
-                              <Button mnemonicParsing="false" style="-fx-background-color: EFCA08 EFCA08 EFCA08 EFCA08;" text="Set Size">
+                              <Button mnemonicParsing="false" onAction="#setSizeAction" style="-fx-background-color: EFCA08 EFCA08 EFCA08 EFCA08;" text="Set Size">
                                  <opaqueInsets>
                                     <Insets />
                                  </opaqueInsets>

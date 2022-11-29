@@ -11,6 +11,7 @@ import heron.gameboardeditor.datamodel.Grid;
 import heron.gameboardeditor.datamodel.ProjectIO;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
@@ -63,7 +64,19 @@ public class NewProjectScreenController {
     private Button levelButton5;
     
     @FXML private StackPane editPanel;
-
+    
+    @FXML
+    private Button setSizeButton;
+    
+    @FXML
+    private TextField numRow;
+    
+    @FXML
+    private TextField numColumn;
+    
+    private static int rows = 10;
+    private static int columns = 10;
+    
     private BorderPane gridMapPane;
     private VBox boardParentVBox;
     private GridBoardUI gridBoard;
@@ -79,6 +92,16 @@ public class NewProjectScreenController {
     }
     
     @FXML
+    void setSizeAction(ActionEvent event) {
+    	rows = Integer.parseInt(numRow.getText());
+    	columns = Integer.parseInt(numColumn.getText());
+    	
+    	mapDisplay.getChildren().clear(); // clear the old gird
+    	initialize();
+    }
+    
+  
+    @FXML
     private void initialize() {
     	gridMapPane = createContent(); //creates the 2d grid
     	mapDisplay.getChildren().addAll(gridMapPane);
@@ -91,7 +114,7 @@ public class NewProjectScreenController {
     private BorderPane createContent() {
         BorderPane root = new BorderPane();
         root.setPrefSize(600, 800);
-        gridBoard = new GridBoardUI(App.getGrid()); //creates a GridBoardUI, which is the grid the user can see
+        gridBoard = new GridBoardUI(App.getGrid(rows, columns)); //creates a GridBoardUI, which is the grid the user can see
 
         boardParentVBox = new VBox(50, gridBoard); //creates a vbox with myBoard for children
         boardParentVBox.setAlignment(Pos.CENTER);
@@ -150,7 +173,7 @@ public class NewProjectScreenController {
     	saveChooser.getExtensionFilters().add(extFilter);
     	File outputFile = saveChooser.showSaveDialog(App.getMainWindow());
     	if (outputFile != null) {
-    		Grid grid = App.getGrid();
+    		Grid grid = App.getGrid(rows, columns);
     		try {
 				ProjectIO.save(grid, outputFile);
 			} catch (IOException ex) {
@@ -173,7 +196,7 @@ public class NewProjectScreenController {
 				
 				//createContent();
 				
-				gridBoard = new GridBoardUI(App.getGrid());
+				gridBoard = new GridBoardUI(App.getGrid(rows, columns));
 				
 				boardParentVBox.getChildren().clear();
 				boardParentVBox.getChildren().addAll(gridBoard);
