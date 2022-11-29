@@ -21,62 +21,20 @@ public class FillTool extends Tool {
 		fillToolOn = false;
 	}
 	
-	/**
-	 * Turns the fill tool on. This occurs when the button is pressed
-	 */
 	public void fillToolOn() {
     	fillToolOn = true;
     }
     
-	/**
-	 * Turns the fill tool off. This occurs after the area is filled
-	 */
     public void fillToolOff() {
     	fillToolOn = false;
     }
-    
-    /**
-     * 
-     * @return whether the fill tool is on or off
-     */
+ 
     public boolean isFillToolOn() {
     	return fillToolOn;
     }
     
-    /**
-     * 
-     * @param block - the block the user clicks when the fill tool is active
-     * @param startingLevel - the level of the cell the user first clicks
-     * @param turnToLevel - the level which the area should turn to
-     * @param gridData - the data of the grid. This is used to find surrounding cells
-     */
-    
-//    public void mousePressed(MouseEvent e) {
-////    	GridBoardUI gridBoard = (GridBoardUI) e.getSource();
-////    	CellUI cell = gridBoard.getCell((int) e.getX(),(int) e.getY());
-//    	CellUI cell = (CellUI) e.getSource();
-//        cell = gridBoard.getCell(cell.getBlock().getX(), cell.getBlock().getY());
-//    	cell.setFillTo(gridBoard.getLevel());
-//    	Block block = cell.getBlock();
-//    	block.setVisible(true);
-//        block.setZ(gridBoard.getLevel());
-//        fillToolOn = (cell != null);
-//     
-//        if (fillToolOn) {
-//        	fill(gridData.getBlockAt(block.getX() + 1, block.getY()), block, block.getZ(), gridBoard.getLevel());
-//    		fill(gridData.getBlockAt(block.getX() - 1, block.getY()), block, block.getZ(), gridBoard.getLevel());
-//    		fill(gridData.getBlockAt(block.getX(), block.getY() + 1), block, block.getZ(), gridBoard.getLevel());
-//    		fill(gridData.getBlockAt(block.getX(), block.getY() - 1), block, block.getZ(), gridBoard.getLevel());
-//    		fillToolOn = false; 
-//        }
-//        if (!fillToolOn) {
-//        	return;
-//        }
-//		
-//    }
-    
     public void mousePressed(MouseEvent e) {
-    	CellUI cellClicked = gridBoard.getCell((int) e.getX() / CellUI.TILE_SIZE, (int) e.getY() / CellUI.TILE_SIZE);
+    	CellUI cellClicked = gridBoard.getCell((int) e.getX() / CellUI.TILE_SIZE, (int) e.getY() / CellUI.TILE_SIZE); //the initial cell which is clicked
     	fill(cellClicked.getBlock(), cellClicked.getBlock().getZ(), gridBoard.getLevel());
     }
     
