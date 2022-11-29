@@ -11,6 +11,7 @@ import javafx.scene.shape.Rectangle;
  */
 public class CellUI extends Rectangle {
     public static final int TILE_SIZE = 30; //size of the cells
+    public static final int MAX_LEVEL = 5; //number of possible levels
     private static final Color DEFAULT_COLOR = Color.CORNFLOWERBLUE; //default color of the cells
     private static List<Color> colorList = generateColors(); //list of colors for each level of the depth map
     
@@ -32,7 +33,7 @@ public class CellUI extends Rectangle {
     	List<Color> colors = new ArrayList<>();
     	Color color = Color.DARKGREY.darker().darker().darker(); //color for the first level
     	colors.add(color);
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < MAX_LEVEL - 1; i++) {
         	color = color.brighter(); //higher levels are brighter colors 
         	colors.add(color);
         }

@@ -29,4 +29,5 @@ public abstract class Tool {
 	public void mouseDragged(MouseEvent e) {
 		
 	}
+	
 }

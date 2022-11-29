@@ -1,6 +1,7 @@
 package heron.gameboardeditor;
 
 import heron.gameboardeditor.datamodel.Grid;
+import heron.gameboardeditor.tools.DigTool;
 import heron.gameboardeditor.tools.EraserTool;
 import heron.gameboardeditor.tools.FillTool;
 import heron.gameboardeditor.tools.PencilTool;
@@ -21,6 +22,7 @@ public class GridBoardUI extends AnchorPane {
     
     public final PencilTool pencilTool;
     public final EraserTool eraserTool;
+    public final DigTool digTool;
     public final FillTool fillTool;
     public final SelectionTool selectionTool;
 
@@ -41,6 +43,7 @@ public class GridBoardUI extends AnchorPane {
         
         this.pencilTool = new PencilTool(this, undoRedoHandler);
         this.eraserTool = new EraserTool(this, undoRedoHandler);
+        this.digTool = new DigTool(this, undoRedoHandler);
         this.fillTool = new FillTool(this, this.gridData, undoRedoHandler);
         this.selectionTool = new SelectionTool(this, undoRedoHandler);
         

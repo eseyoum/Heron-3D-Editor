@@ -158,6 +158,11 @@
                </toggleGroup>
             </ToggleButton>
             <ToggleButton fx:id="eraserToggle" mnemonicParsing="false" onAction="#eraserButtonOn" style="-fx-background-color: white;" text="ERASE" toggleGroup="$toolButtonToggleGroup" />
+            <ToggleButton fx:id="digToggle" mnemonicParsing="false" onAction="#digButtonOn" style="-fx-background-color: white;" text="DIG">
+               <toggleGroup>
+                  <ToggleGroup fx:id="toolButtonToggleGroup1" />
+               </toggleGroup>
+            </ToggleButton>
             <ToggleButton fx:id="fillToolToggle" mnemonicParsing="false" onAction="#fillToolOn" style="-fx-background-color: white;" text="FILL" toggleGroup="$toolButtonToggleGroup" />
             <ToggleButton fx:id="selectToggle" mnemonicParsing="false" onAction="#selectToolOn" style="-fx-background-color: white;" text="SELECT" toggleGroup="$toolButtonToggleGroup" />
          </children>
