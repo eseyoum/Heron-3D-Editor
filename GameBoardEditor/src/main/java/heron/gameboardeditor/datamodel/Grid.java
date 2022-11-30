@@ -1,8 +1,9 @@
 package heron.gameboardeditor.datamodel;
 
-import heron.gameboardeditor.GridEditor;
+import java.util.Set;
 
-public class Grid {
+
+public class Grid implements Cloneable {
 	private Block[][] blockGrid;
 	private int width;
 	private int height;
@@ -97,7 +98,7 @@ public class Grid {
 			clone.blockGrid = new Block[width][height];
 			for (int x = 0; x < width; x++) {
 				for (int y = 0; y < height; y++) {
-					clone.blockGrid[x][y] = new Block(x,y,0);
+					clone.blockGrid[x][y] = this.blockGrid[x][y].clone();
 				}			
 			}
 			return clone;
@@ -105,6 +106,26 @@ public class Grid {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	public void cutAndPaste(Set<Block> selectedBlocks, int changeInXIndex, int changeInYIndex) {
+    	Grid originalData = this.clone();
+    	System.out.println(selectedBlocks);
+
+    	for (Block block : selectedBlocks) {
+    		int srcX = block.getX();
+    		int srcY = block.getY();
+    		blockGrid[srcX][srcY].setVisible(false);
+    	}
+
+    	for (Block block : selectedBlocks) {
+    		int srcX = block.getX();
+    		int srcY = block.getY();
+    		int destX = srcX + changeInXIndex;
+    		int destY = srcY + changeInYIndex;
+    		System.out.println(srcX + " "+ srcY + " to " + destX + " " + destY );
+    		blockGrid[destX][destY] = originalData.blockGrid[srcX][srcY];
+    	}
 	}
 	
 

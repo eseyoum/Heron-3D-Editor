@@ -20,17 +20,15 @@ public class EraserTool extends Tool {
 	public void mousePressed(MouseEvent e) {
 		CellUI cellClicked = gridBoard.getCell((int) e.getX() / CellUI.TILE_SIZE, (int) e.getY() / CellUI.TILE_SIZE);
 		cellClicked.setLevel(0);
+		cellClicked.setSelected(false);
 		gridBoard.selectionTool.getSelectedCells().remove(cellClicked);
-		cellClicked.deselect();
-		gridBoard.getAllClickedCells().remove(cellClicked);
 	}
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		CellUI cellClicked = gridBoard.getCell((int) e.getX() / CellUI.TILE_SIZE, (int) e.getY() / CellUI.TILE_SIZE);
 		cellClicked.setLevel(0);
+		cellClicked.setSelected(false);
 		gridBoard.selectionTool.getSelectedCells().remove(cellClicked);
-		cellClicked.deselect();
-		gridBoard.getAllClickedCells().remove(cellClicked);
 	}
 }

@@ -33,7 +33,6 @@ public class GridBoardUI extends AnchorPane {
     public final DigTool digTool;
     public final FillTool fillTool;
     public final SelectionTool selectionTool;
-    private List<CellUI> allClickedCells = new ArrayList<CellUI>();
 
     private UndoRedoHandler undoRedoHandler;
     
@@ -46,7 +45,7 @@ public class GridBoardUI extends AnchorPane {
         
         for (int y = 0; y < grid.getHeight(); y++) { //creates the grid
             for (int x = 0; x < grid.getWidth(); x++) {
-                cellArray[x][y] = new CellUI(this, gridData.getBlockAt(x, y));
+                cellArray[x][y] = new CellUI(this, x, y);
                 cellArray[x][y].setLayoutX(x * CellUI.TILE_SIZE); //spaces out the tiles based on TILE_SIZE
                 cellArray[x][y].setLayoutY(y * CellUI.TILE_SIZE);
                 this.getChildren().add(cellArray[x][y]);
@@ -65,26 +64,19 @@ public class GridBoardUI extends AnchorPane {
 		this.setOnMouseReleased(e -> gridEditor.mouseReleased(e));
 		this.setOnMouseDragged(e -> gridEditor.mouseDragged(e));
     }
-    
-    public List<CellUI> getAllClickedCells(){
-    	return allClickedCells;
-    }
-    
-	public CellUI getCellContaining(int x, int y) {
-		for (CellUI cell : allClickedCells) {
-			if (cell.contains(x,y)) {
-				return cell;
-			}
-		}
-		return null;
-	}
 	
     public Grid getGridData() { //grid data represents the data of the GridUI
 		return gridData;
 	}
     
-    public CellUI getCell(int x, int y) {
-        return cellArray[x][y];
+    public CellUI getCell(int xIndex, int yIndex) throws IndexOutOfBoundsException {
+        return cellArray[xIndex][yIndex];
+    }
+    
+    public CellUI getCellAtPixelCoordinates(double x, double y) throws IndexOutOfBoundsException {
+    	int xIndex = (int) (x / CellUI.TILE_SIZE);
+    	int yIndex = (int) (y / CellUI.TILE_SIZE);
+    	return cellArray[xIndex][yIndex];
     }
     
     public int getLevel() {
@@ -101,8 +93,8 @@ public class GridBoardUI extends AnchorPane {
             	cellArray[x][y].updateVisualBasedOnBlock();
             }
     	}
-    }
-
+    }    
+    
     public void generateMaze() { //for maze
     	for (int y = 0; y < gridData.getHeight(); y++) { //may be a better way to go through the cells
             for (int x = 0; x < gridData.getWidth(); x++) {
