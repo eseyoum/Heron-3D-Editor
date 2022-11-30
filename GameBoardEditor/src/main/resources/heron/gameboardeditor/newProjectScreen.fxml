@@ -85,6 +85,8 @@
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" text="Select All" />
             <MenuItem mnemonicParsing="false" text="Unselect All" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="generateMazeButton" mnemonicParsing="false" onAction="#generateMaze" text="Generate Maze" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Help">

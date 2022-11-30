@@ -1,5 +1,11 @@
 package heron.gameboardeditor;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
+
+import heron.gameboardeditor.datamodel.Block;
 import heron.gameboardeditor.datamodel.Grid;
 import heron.gameboardeditor.tools.DigTool;
 import heron.gameboardeditor.tools.EraserTool;
@@ -27,7 +33,10 @@ public class GridBoardUI extends AnchorPane {
     public final SelectionTool selectionTool;
 
     private UndoRedoHandler undoRedoHandler;
-
+    
+	private ArrayList<CellUI> edgeCells = new ArrayList<CellUI>(); //stores all cells on the edge of the gridBoard. Used for generating the maze
+	private Set<CellUI>solutionPathCells = new HashSet<CellUI>(); //represents the cells in the solution path of the maze
+	
     public GridBoardUI(Grid grid) {
         this.gridData = grid;
         cellArray = new CellUI[grid.getWidth()][grid.getHeight()];
@@ -71,12 +80,88 @@ public class GridBoardUI extends AnchorPane {
     }
     
     public void updateVisual() {
-    	for (int y = 0; y < gridData.getHeight(); y++) { //creates the grid
+    	for (int y = 0; y < gridData.getHeight(); y++) { //may be a better way to go through the cells
             for (int x = 0; x < gridData.getWidth(); x++) {
-            	getCell(x, y).updateVisualBasedOnBlock();
+            	cellArray[x][y].updateVisualBasedOnBlock();
             }
     	}
     }
+    
+    public void generateMaze() {
+    	for (int y = 0; y < gridData.getHeight(); y++) { //may be a better way to go through the cells
+            for (int x = 0; x < gridData.getWidth(); x++) {
+            	cellArray[x][y].setLevel(2); //sets every cell to level 2
+            }
+    	}
+    	
+    	int edgeCellCount = 0;
+    	
+    	for (int y = 0; y < gridData.getHeight(); y++) { //may be a better way to go through the cells
+            for (int x = 0; x < gridData.getWidth(); x++) {
+            	if (cellArray[x][y].isEdgeCell()) {
+            		edgeCells.add(cellArray[x][y]); //adds all edge cells to an array
+            		edgeCellCount = edgeCellCount + 1;
+            	}
+            }
+    	}
+    	
+    	Random rand = new Random();
+    	CellUI cell = edgeCells.get(rand.nextInt(edgeCellCount)); //randomly chooses an edge cell for the start of the maze
+    	
+    	createSolutionPath(cell);
+    	
+    	int direction = 0; //1-up, 2-right, 3-down, 4-left
+    	cell.setLevel(1);
+    	solutionPathCells.add(cell);
+
+    	Block block = cell.getBlock();
+    	if (block.getX() == 0) { //cell is on left edge of grid
+    		direction = 2;
+    	}
+    	if (block.getX() == gridData.getWidth() - 1) { //cell is on right edge of grid
+    		direction = 4;
+    	}
+    	if (block.getY() == gridData.getHeight() - 1) { //cell is on bottom edge of grid
+    		direction = 1;
+    	}
+    	if (block.getY() == 0) { //cell is on top of grid
+    		direction = 3;
+    	}
+    	
+    	if (direction == 1) { //up
+    		createSolutionPath(cellArray[cell.getBlock().getX()][cell.getBlock().getY() - 1]);
+    	} else if (direction == 2) { //right
+    		createSolutionPath(cellArray[cell.getBlock().getX() + 1][cell.getBlock().getY()]);
+    	} else if (direction == 3) { //down
+    		createSolutionPath(cellArray[cell.getBlock().getX()][cell.getBlock().getY() + 1]);
+    	} else if (direction == 4) { //left
+    		createSolutionPath(cellArray[cell.getBlock().getX() - 1][cell.getBlock().getY()]);
+    	}
+    }
+    
+    private void createSolutionPath(CellUI cell) {
+    	Random rand = new Random();
+    	int direction = rand.nextInt(3) + 1;
+    	cell.setLevel(1);
+    	solutionPathCells.add(cell);
+    	
+    	if (cell.isEdgeCell()) {
+    		return;
+    	}
+    	
+    	if (cell.isThreeAdjacentTilesSame(2)) {
+	    	if (direction == 1) { //up
+	    		createSolutionPath(cellArray[cell.getBlock().getX()][cell.getBlock().getY() - 1]);
+	    	} else if (direction == 2) { //right
+	    		createSolutionPath(cellArray[cell.getBlock().getX() + 1][cell.getBlock().getY()]);
+	    	} else if (direction == 3) { //down
+	    		createSolutionPath(cellArray[cell.getBlock().getX()][cell.getBlock().getY() + 1]);
+	    	} else if (direction == 4) { //left
+	    		createSolutionPath(cellArray[cell.getBlock().getX() - 1][cell.getBlock().getY()]);
+	    	}
+    	}
+    }
+    
     public class State {
     	private Grid grid;
     	

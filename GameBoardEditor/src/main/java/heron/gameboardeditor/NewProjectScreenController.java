@@ -11,6 +11,7 @@ import heron.gameboardeditor.datamodel.Grid;
 import heron.gameboardeditor.datamodel.ProjectIO;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
@@ -40,6 +41,9 @@ public class NewProjectScreenController {
     private ToggleButton pencilToggle;
     @FXML
     private ToggleButton selectToggle;
+    
+    @FXML
+    private MenuItem generateMazeButton;
 
     @FXML // fx:id="x1"
     private Font x1; // Value injected by FXMLLoader
@@ -172,6 +176,11 @@ public class NewProjectScreenController {
     @FXML
     void selectToolOn(ActionEvent event) {
     	gridBoard.gridEditor.setCurrentTool(gridBoard.selectionTool);
+    }
+    
+    @FXML
+    void generateMaze(ActionEvent event) {
+    	gridBoard.generateMaze();
     }
     
     @FXML
