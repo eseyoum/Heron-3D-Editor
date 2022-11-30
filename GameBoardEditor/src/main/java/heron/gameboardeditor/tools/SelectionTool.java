@@ -18,6 +18,8 @@ public class SelectionTool extends Tool {
 	private double initialSelectX;
 	private double initialSelectY;
 	private Set<CellUI>selectedCells = new HashSet<CellUI>();
+	
+
 	private boolean pressedInCell;
 	private Point2D origin;
 		
@@ -108,6 +110,10 @@ public class SelectionTool extends Tool {
     	}
     	selectedCells.clear();
     }
+	
+	public Set<CellUI> getSelectedCells() {
+		return selectedCells;
+	}
 	
 	public CellUI getCellContaining(int x, int y) {
 		for (CellUI cell : selectedCells) {

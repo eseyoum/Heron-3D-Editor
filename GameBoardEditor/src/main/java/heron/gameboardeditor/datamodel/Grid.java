@@ -18,7 +18,7 @@ public class Grid {
 			}			
 		}
 	}
-	
+
 	public Block getBlockAt(int x, int y) {
 		return blockGrid[x][y];
 	}

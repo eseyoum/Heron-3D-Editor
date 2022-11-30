@@ -87,7 +87,6 @@ public class GridBoardUI extends AnchorPane {
     	this.level = level;
     }
     
-   
     public void updateVisual() {
     	for (int y = 0; y < gridData.getHeight(); y++) { //creates the grid
             for (int x = 0; x < gridData.getWidth(); x++) {
