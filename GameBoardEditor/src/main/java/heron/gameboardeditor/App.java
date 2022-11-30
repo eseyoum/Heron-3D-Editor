@@ -46,9 +46,29 @@ public class App extends Application {
         launch();
     }
     
-    public static void useNewGrid(int rows, int columns) {
-    	gridData = new Grid(rows,columns);
+    
+    /**
+     * This method will create a new grid based on the number of rows and columns
+     * 
+	 * @param newWidth - the number of columns of the new grid
+	 * @param neHeight - the number of rows of the new grid
+     */
+    public static void useNewGrid(int columns, int rows) {
+    	gridData = new Grid(columns, rows);
     }
+    
+    
+    /**
+     * This method will expand or crop the gridData based on the number of rows and columns the user inputs
+     * 
+	 * @param newWidth - the number of columns of the new grid
+	 * @param newHeight - the number of rows of the new grid
+     */
+    public static void resizeGrid(int newWidth, int newHeight) {
+    	gridData.resize(newWidth, newHeight);
+    }
+    
+    
 
     public static Grid getGrid() {
     	return gridData;

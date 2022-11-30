@@ -60,6 +60,11 @@ public class WelcomeScreenController {
     void switchToAboutTeamScreen(ActionEvent event) throws IOException {
     	App.setRoot("aboutTeamScreen");
     }
+    
+    @FXML
+    void switchToAboutSoftwareScreen(ActionEvent event) throws IOException {
+    	App.setRoot("aboutSoftwareScreen");
+    }
 
     @FXML
     void initialize() {

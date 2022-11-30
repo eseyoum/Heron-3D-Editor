@@ -51,7 +51,7 @@ public class GridBoardUI extends AnchorPane {
                 this.getChildren().add(cellArray[x][y]);
             }
         }
-        
+       
         this.pencilTool = new PencilTool(this, undoRedoHandler);
         this.eraserTool = new EraserTool(this, undoRedoHandler);
         this.digTool = new DigTool(this, undoRedoHandler);
@@ -93,7 +93,11 @@ public class GridBoardUI extends AnchorPane {
             	cellArray[x][y].updateVisualBasedOnBlock();
             }
     	}
-    }    
+    }
+    
+    public void resize(int newWidth, int newHeight) {
+    	gridData.resize(newWidth, newHeight);
+    }
     
     public void generateMaze() { //for maze
     	for (int y = 0; y < gridData.getHeight(); y++) { //may be a better way to go through the cells
