@@ -48,13 +48,46 @@ public class Grid {
 		this.height = newHeight;
 	}
 	
-
+	public Block getBlockRight(Block block) {
+		return this.getBlockAt(block.getX() + 1, block.getY());
+	}
+	
+	public Block getBlockLeft(Block block) {
+		return this.getBlockAt(block.getX() - 1, block.getY());
+	}
+	
+	public Block getBlockAbove(Block block) {
+		return this.getBlockAt(block.getX(), block.getY() - 1);
+	}
+	
+	public Block getBlockBelow(Block block) {
+		return this.getBlockAt(block.getX(), block.getY() + 1);
+	}
+	
     public boolean isEdgeBlock(Block block) {
     	return (block.getX() == this.width - 1 || block.getX() == 0 || block.getY() == this.height - 1 || block.getY() == 0);
     }
     
     public boolean isCornerBlock(Block block) {
     	return ((block.getX() == 0 && block.getY() == 0) || (block.getX() == 0 && block.getY() == this.height - 1) || (block.getX() == this.width - 1 && block.getY() == 0) || (block.getX() == this.width - 1 && block.getY() == this.height - 1));
+    }
+    
+    public boolean isThreeAdjacentBlocksSameLevel(Block block, int level) {
+    	int count = 0;
+    	if (getBlockRight(block).getZ() == level) {
+    		count = count + 1;
+    	}
+    	if (getBlockLeft(block).getZ() == level) {
+    		count = count + 1;
+    	}
+    	if (getBlockAbove(block).getZ() == level) {
+    		count = count + 1;
+    	}
+    	if (getBlockBelow(block).getZ() == level) {
+    		count = count + 1;
+    	}
+    	
+    	return (count == 3); //returns true if there are 3 adjacent blocks with the level
     }
     
 

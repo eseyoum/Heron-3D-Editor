@@ -39,7 +39,7 @@ public class FillTool extends Tool {
     		//initialCellClicked.setLevel(turnToLevel);
     		block.setZ(turnToLevel);
     		block.setVisible(true);
-    		handleEdgeCell(block, startingLevel, turnToLevel);
+    		handleEdgeBlock(block, startingLevel, turnToLevel);
     	} else {
     		fillSurroundingCells(block, startingLevel, turnToLevel);
     	}
@@ -55,68 +55,66 @@ public class FillTool extends Tool {
     			//cellClicked.setLevel(turnToLevel);
     			block.setZ(turnToLevel);
     			block.setVisible(true);
-    			handleEdgeCell(block, startingLevel, turnToLevel);
-    			return;
-    		}
-    		else {
+    			handleEdgeBlock(block, startingLevel, turnToLevel);
+    		} else {
     			//gridBoard.getCell(block.getX(), block.getY()).setLevel(turnToLevel);
     			block.setZ(turnToLevel);
     			block.setVisible(true);
     			fillSurroundingCells(block, startingLevel, turnToLevel);
-    			return;
     		}
+    		return;
     }
     
     private void fillSurroundingCells(Block block, int startingLevel, int turnToLevel) {
-    	fill(gridData.getBlockAt(block.getX() + 1, block.getY()), block, startingLevel, turnToLevel); //move right
-		fill(gridData.getBlockAt(block.getX(), block.getY() - 1), block, startingLevel, turnToLevel); //move up
-		fill(gridData.getBlockAt(block.getX() - 1, block.getY()), block, startingLevel, turnToLevel); //move left
-		fill(gridData.getBlockAt(block.getX(), block.getY() + 1), block, startingLevel, turnToLevel); //move down
+    	fill(gridData.getBlockAbove(block), block, startingLevel, turnToLevel); //move up
+    	fill(gridData.getBlockRight(block), block, startingLevel, turnToLevel); //move right
+    	fill(gridData.getBlockBelow(block), block, startingLevel, turnToLevel); //move down
+    	fill(gridData.getBlockLeft(block), block, startingLevel, turnToLevel); //move left
     }
     
-    private void handleEdgeCell(Block block, int startingLevel, int turnToLevel) {
+    private void handleEdgeBlock(Block block, int startingLevel, int turnToLevel) {
     	if (gridData.isCornerBlock(block)) {
-	    	handleCornerCell(block, startingLevel, turnToLevel);
+	    	handleCornerBlock(block, startingLevel, turnToLevel);
     	} else {
 	    	if (block.getX() == 0) { //block is on left edge of grid
-	    		fill(gridData.getBlockAt(block.getX() + 1, block.getY()), block, startingLevel, turnToLevel); //move right
-	    		fill(gridData.getBlockAt(block.getX(), block.getY() - 1), block, startingLevel, turnToLevel); //move up
-	    		fill(gridData.getBlockAt(block.getX(), block.getY() + 1), block, startingLevel, turnToLevel); //move down
+	        	fill(gridData.getBlockAbove(block), block, startingLevel, turnToLevel); //move up
+	        	fill(gridData.getBlockRight(block), block, startingLevel, turnToLevel); //move right
+	        	fill(gridData.getBlockBelow(block), block, startingLevel, turnToLevel); //move down
 	    	}
 	    	if (block.getX() == gridData.getWidth() - 1) { //block is on right edge of grid
-	    		fill(gridData.getBlockAt(block.getX(), block.getY() - 1), block, startingLevel, turnToLevel); //move up
-	    		fill(gridData.getBlockAt(block.getX() - 1, block.getY()), block, startingLevel, turnToLevel); //move left
-	    		fill(gridData.getBlockAt(block.getX(), block.getY() + 1), block, startingLevel, turnToLevel); //move down
+	        	fill(gridData.getBlockAbove(block), block, startingLevel, turnToLevel); //move up
+	        	fill(gridData.getBlockBelow(block), block, startingLevel, turnToLevel); //move down
+	        	fill(gridData.getBlockLeft(block), block, startingLevel, turnToLevel); //move left
 	    	}
 	    	if (block.getY() == gridData.getHeight() - 1) { //block is on bottom edge of grid
-	        	fill(gridData.getBlockAt(block.getX() + 1, block.getY()), block, startingLevel, turnToLevel); //move right
-	    		fill(gridData.getBlockAt(block.getX(), block.getY() - 1), block, startingLevel, turnToLevel); //move up
-	    		fill(gridData.getBlockAt(block.getX() - 1, block.getY()), block, startingLevel, turnToLevel); //move left
+	        	fill(gridData.getBlockAbove(block), block, startingLevel, turnToLevel); //move up
+	        	fill(gridData.getBlockRight(block), block, startingLevel, turnToLevel); //move right
+	        	fill(gridData.getBlockLeft(block), block, startingLevel, turnToLevel); //move left
 	    	}
 	    	if (block.getY() == 0) { //block is on top of grid
-	        	fill(gridData.getBlockAt(block.getX() + 1, block.getY()), block, startingLevel, turnToLevel); //move right
-	    		fill(gridData.getBlockAt(block.getX() - 1, block.getY()), block, startingLevel, turnToLevel); //move left
-	    		fill(gridData.getBlockAt(block.getX(), block.getY() + 1), block, startingLevel, turnToLevel); //move down
+	        	fill(gridData.getBlockRight(block), block, startingLevel, turnToLevel); //move right
+	        	fill(gridData.getBlockBelow(block), block, startingLevel, turnToLevel); //move down
+	        	fill(gridData.getBlockLeft(block), block, startingLevel, turnToLevel); //move left
 	    	}
     	}
     }
     
-    private void handleCornerCell(Block block, int startingLevel, int turnToLevel) {
+    private void handleCornerBlock(Block block, int startingLevel, int turnToLevel) {
     	if (block.getX() == 0 && block.getY() == 0) {//block is on top left of grid
-    		fill(gridData.getBlockAt(block.getX() + 1, block.getY()), block, startingLevel, turnToLevel); //move right
-    		fill(gridData.getBlockAt(block.getX(), block.getY() + 1), block, startingLevel, turnToLevel); //move down
+        	fill(gridData.getBlockRight(block), block, startingLevel, turnToLevel); //move right
+        	fill(gridData.getBlockBelow(block), block, startingLevel, turnToLevel); //move down
     	}
     	if (block.getX() == 0 && block.getY() == gridData.getHeight() - 1) {//block is on bottom left of grid
-    		fill(gridData.getBlockAt(block.getX() + 1, block.getY()), block, startingLevel, turnToLevel); //move right
-    		fill(gridData.getBlockAt(block.getX(), block.getY() - 1), block, startingLevel, turnToLevel); //move up
+        	fill(gridData.getBlockAbove(block), block, startingLevel, turnToLevel); //move up
+        	fill(gridData.getBlockRight(block), block, startingLevel, turnToLevel); //move right
     	}
     	if (block.getX() == gridData.getWidth() - 1 && block.getY() == 0) {//block is on top right of grid
-    		fill(gridData.getBlockAt(block.getX() - 1, block.getY()), block, startingLevel, turnToLevel); //move left
-    		fill(gridData.getBlockAt(block.getX(), block.getY() + 1), block, startingLevel, turnToLevel); //move down
+        	fill(gridData.getBlockBelow(block), block, startingLevel, turnToLevel); //move down
+        	fill(gridData.getBlockLeft(block), block, startingLevel, turnToLevel); //move left
     	}
     	if (block.getX() == gridData.getWidth() - 1 && block.getY() == gridData.getHeight() - 1) {//block is on bottom right of grid
-    		fill(gridData.getBlockAt(block.getX(), block.getY() - 1), block, startingLevel, turnToLevel); //move up
-    		fill(gridData.getBlockAt(block.getX() - 1, block.getY()), block, startingLevel, turnToLevel); //move left
+        	fill(gridData.getBlockAbove(block), block, startingLevel, turnToLevel); //move up
+        	fill(gridData.getBlockLeft(block), block, startingLevel, turnToLevel); //move left
     	}
     }
 }

@@ -124,7 +124,7 @@ public class GridBoardUI extends AnchorPane {
     	Random rand = new Random();
     	CellUI cell = edgeCells.get(rand.nextInt(edgeCellCount)); //randomly chooses an edge cell for the start of the maze
     	
-    	createSolutionPath(cell);
+    	//createSolutionPath(cell);
     	
     	int direction = 0; //1-up, 2-right, 3-down, 4-left
     	cell.setLevel(1);
@@ -145,36 +145,95 @@ public class GridBoardUI extends AnchorPane {
     	}
     	
     	if (direction == 1) { //up
-    		createSolutionPath(cellArray[cell.getBlock().getX()][cell.getBlock().getY() - 1]);
+    		createSolutionPath(cellArray[cell.getBlock().getX()][cell.getBlock().getY() - 1], direction, cell);
     	} else if (direction == 2) { //right
-    		createSolutionPath(cellArray[cell.getBlock().getX() + 1][cell.getBlock().getY()]);
+    		createSolutionPath(cellArray[cell.getBlock().getX() + 1][cell.getBlock().getY()], direction, cell);
     	} else if (direction == 3) { //down
-    		createSolutionPath(cellArray[cell.getBlock().getX()][cell.getBlock().getY() + 1]);
+    		createSolutionPath(cellArray[cell.getBlock().getX()][cell.getBlock().getY() + 1], direction, cell);
     	} else if (direction == 4) { //left
-    		createSolutionPath(cellArray[cell.getBlock().getX() - 1][cell.getBlock().getY()]);
+    		createSolutionPath(cellArray[cell.getBlock().getX() - 1][cell.getBlock().getY()], direction, cell);
     	}
     }
     
-    private void createSolutionPath(CellUI cell) { //for maze
+    private void createSolutionPath(CellUI cell, int previousDirection, CellUI previousCell) { //for maze
     	Random rand = new Random();
-    	int direction = rand.nextInt(3) + 1;
-    	cell.setLevel(1);
-    	solutionPathCells.add(cell);
+    	int direction = rand.nextInt(4) + 1;
+    	while (isOppositeDirection(direction, previousDirection)) { //the path should not go backwards
+    		direction = rand.nextInt(4) + 1;
+    	}
     	
-    	if (cell.isEdgeCell()) {
+    	if (cell.isEdgeCell()) { //once the path reaches the edge, the path is finished
+        	cell.setLevel(1);
+        	solutionPathCells.add(cell);
     		return;
     	}
     	
-    	if (cell.isThreeAdjacentTilesSame(2)) {
-	    	if (direction == 1) { //up
-	    		createSolutionPath(cellArray[cell.getBlock().getX()][cell.getBlock().getY() - 1]);
+    	if (gridData.isThreeAdjacentBlocksSameLevel(cell.getBlock(), 2)) {
+        	cell.setLevel(1);
+        	solutionPathCells.add(cell);
+    		if (direction == 1) { //up
+	    		createSolutionPath(cellArray[cell.getBlock().getX()][cell.getBlock().getY() - 1], direction, cell);
 	    	} else if (direction == 2) { //right
-	    		createSolutionPath(cellArray[cell.getBlock().getX() + 1][cell.getBlock().getY()]);
+	    		createSolutionPath(cellArray[cell.getBlock().getX() + 1][cell.getBlock().getY()], direction, cell);
 	    	} else if (direction == 3) { //down
-	    		createSolutionPath(cellArray[cell.getBlock().getX()][cell.getBlock().getY() + 1]);
+	    		createSolutionPath(cellArray[cell.getBlock().getX()][cell.getBlock().getY() + 1], direction, cell);
 	    	} else if (direction == 4) { //left
-	    		createSolutionPath(cellArray[cell.getBlock().getX() - 1][cell.getBlock().getY()]);
+	    		createSolutionPath(cellArray[cell.getBlock().getX() - 1][cell.getBlock().getY()], direction, cell);
 	    	}
+    	} else {
+    		//if the direction the path tried to go in is not valid
+    		createSolutionPath(previousCell, previousDirection, previousCell); //alse need an if there is no direction to go
+    	}
+    	
+//    	if (cell.isThreeAdjacentTilesSame(2)) {
+//	    	if (direction == 1 && previousDirection != 3) { //up
+//	    		createSolutionPath(cellArray[cell.getBlock().getX()][cell.getBlock().getY() - 1], direction);
+//	    	} else if (direction == 2 && previousDirection != 4) { //right
+//	    		createSolutionPath(cellArray[cell.getBlock().getX() + 1][cell.getBlock().getY()], direction);
+//	    	} else if (direction == 3 && previousDirection != 1) { //down
+//	    		createSolutionPath(cellArray[cell.getBlock().getX()][cell.getBlock().getY() + 1], direction);
+//	    	} else if (direction == 4 && previousDirection!= 2) { //left
+//	    		createSolutionPath(cellArray[cell.getBlock().getX() - 1][cell.getBlock().getY()], direction);
+//	    	}
+//    	}
+    	
+//    	if (cell.isThreeAdjacentTilesSame(2)) {
+//	    	if (direction == 1) { //up
+//	    		if (gridData.getBlockAbove(cell.getBlock()).getZ() == 1) {
+//	    			createSolutionPath(cellArray[cell.getBlock().getX()][cell.getBlock().getY()], direction);
+//	    		} else {
+//	    			createSolutionPath(cellArray[cell.getBlock().getX()][cell.getBlock().getY() - 1], direction);
+//	    		}
+//	    	} else if (direction == 2) { //right
+//	    		if (gridData.getBlockRight(cell.getBlock()).getZ() == 1) {
+//	    			createSolutionPath(cellArray[cell.getBlock().getX()][cell.getBlock().getY()], direction);
+//	    		} else {
+//	    			createSolutionPath(cellArray[cell.getBlock().getX() + 1][cell.getBlock().getY()], direction);
+//	    		}
+//	    	} else if (direction == 3) { //down
+//	    		if (gridData.getBlockBelow(cell.getBlock()).getZ() == 1) {
+//	    			createSolutionPath(cellArray[cell.getBlock().getX()][cell.getBlock().getY()], direction);
+//	    		} else {
+//	    			createSolutionPath(cellArray[cell.getBlock().getX()][cell.getBlock().getY() + 1], direction);
+//	    		}
+//	    	} else if (direction == 4) { //left
+//	    		if (gridData.getBlockLeft(cell.getBlock()).getZ() == 1) {
+//	    			createSolutionPath(cellArray[cell.getBlock().getX()][cell.getBlock().getY()], direction);
+//	    		} else {
+//	    			createSolutionPath(cellArray[cell.getBlock().getX() - 1][cell.getBlock().getY()], direction);
+//	    		}
+//	    	}
+//    	}
+    }
+    private boolean isOppositeDirection(int direction, int previousDirection) {
+    	if ((direction == 1 && previousDirection == 3) || (direction == 3 && previousDirection == 1)) {
+    		return true;
+    	}
+    	if ((direction == 2 && previousDirection == 4) || (direction == 4 && previousDirection == 2)) {
+    		return true;
+    	}
+    	else {
+    		return false;
     	}
     }
     

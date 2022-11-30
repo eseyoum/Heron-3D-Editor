@@ -90,23 +90,4 @@ public class CellUI extends Rectangle {
     public boolean isCornerCell() {
     	return ((block.getX() == 0 && block.getY() == 0) || (block.getX() == 0 && block.getY() == gridBoard.getGridData().getHeight() - 1) || (block.getX() == gridBoard.getGridData().getWidth() - 1 && block.getY() == 0) || (block.getX() == gridBoard.getGridData().getWidth() - 1 && block.getY() == gridBoard.getGridData().getHeight() - 1));
     }
-    
-    public boolean isThreeAdjacentTilesSame(int level) {
-    	int count = 0;
-    	if (gridBoard.getCell(block.getX() + 1, block.getY()).getBlock().getZ() == level) {
-    		count = count + 1;
-    	}
-    	if (gridBoard.getCell(block.getX() -1, block.getY()).getBlock().getZ() == level) {
-    		count = count + 1;
-    	}
-    	if (gridBoard.getCell(block.getX(), block.getY() - 1).getBlock().getZ() == level) {
-    		count = count + 1;
-    	}
-    	if (gridBoard.getCell(block.getX(), block.getY() + 1).getBlock().getZ() == level) {
-    		count = count + 1;
-    	}
-    	
-    	return (count == 3); //returns true if there are 3 adjacent cells with the level
-    }
-
 }
