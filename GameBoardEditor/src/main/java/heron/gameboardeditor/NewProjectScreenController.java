@@ -94,18 +94,19 @@ public class NewProjectScreenController {
     }
     
     @FXML
+    /**
+     * When the user clicks on Set Size button, this method get the number of rows and columns from the user's input 
+     * and change the size of the board based them.
+     * 
+     */
     void setSizeAction(ActionEvent event) {
     	if (!numRow.getText().isBlank()) {
     		rows = Integer.parseInt(numRow.getText());
-    	} else {
-    		rows = 10;
-    	}
+    	} 
     	
     	if (!numColumn.getText().isBlank()) {
     		columns = Integer.parseInt(numColumn.getText());
-    	} else {
-    		columns = 10;
-    	}
+    	} 
     	
     	mapDisplay.getChildren().clear(); // clear the old gird
     	App.resizeGrid(columns, rows);
