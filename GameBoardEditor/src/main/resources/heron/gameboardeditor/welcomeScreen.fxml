@@ -11,9 +11,9 @@
 
 <BorderPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: EFCA08;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="heron.gameboardeditor.WelcomeScreenController">
    <top>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="257.0" prefWidth="869.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="154.0" fitWidth="131.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="112.0" fitWidth="118.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Icons/logo.png" />
                </image>
@@ -28,7 +28,7 @@
                   <Insets />
                </VBox.margin>
             </Label>
-            <Label alignment="CENTER" prefHeight="104.0" prefWidth="900.0" text="TabelTopDawgz LLC presents a 3-D game boards terrain design software." textAlignment="CENTER" textOverrun="CLIP">
+            <Label alignment="CENTER" prefHeight="65.0" prefWidth="903.0" text="TabelTopDawgz LLC presents a 3-D game boards terrain design software." textAlignment="CENTER" textOverrun="CLIP">
                <padding>
                   <Insets bottom="20.0" top="20.0" />
                </padding>
@@ -40,11 +40,11 @@
       </VBox>
    </top>
    <center>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="291.0" prefWidth="900.0" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" onAction="#switchToNewProject" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 20px;" textAlignment="CENTER">
                <VBox.margin>
-                  <Insets bottom="15.0" left="20.0" top="30.0" />
+                  <Insets bottom="15.0" left="20.0" top="5.0" />
                </VBox.margin>
                <graphic>
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="345.0" text="New Project" textAlignment="CENTER">
@@ -55,7 +55,7 @@
             </Button>
             <Button mnemonicParsing="false" onAction="#continueProject" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 20px;">
                <VBox.margin>
-                  <Insets bottom="15.0" left="20.0" top="15.0" />
+                  <Insets bottom="15.0" left="20.0" top="5.0" />
                </VBox.margin>
                <graphic>
                   <Label alignment="CENTER" prefWidth="520.0" text="Continue Project" textAlignment="CENTER">
@@ -66,14 +66,29 @@
             </Button>
             <Button mnemonicParsing="false" onAction="#switchToAboutTeamScreen" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 20px;">
                <VBox.margin>
-                  <Insets bottom="15.0" left="20.0" top="15.0" />
+                  <Insets bottom="15.0" left="20.0" top="5.0" />
                </VBox.margin>
                <graphic>
-                  <Label alignment="CENTER" prefWidth="500.0" text="About">
+                  <Label alignment="CENTER" prefWidth="500.0" text="About Team">
                      <font>
                         <Font size="25.0" />
                      </font></Label>
                </graphic>
+            </Button>
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#switchToAboutSoftwareScreen" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 20px;">
+               <graphic>
+                  <Label alignment="CENTER" prefHeight="30.0" prefWidth="307.0" text="About Software">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+               </graphic>
+               <VBox.margin>
+                  <Insets bottom="15.0" left="15.0" top="5.0" />
+               </VBox.margin>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
             </Button>
          </children>
       </VBox>
