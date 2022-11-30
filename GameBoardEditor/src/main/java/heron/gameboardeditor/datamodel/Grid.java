@@ -18,7 +18,7 @@ public class Grid {
 			}			
 		}
 	}
-	
+
 	public Block getBlockAt(int x, int y) {
 		return blockGrid[x][y];
 	}
@@ -31,6 +31,24 @@ public class Grid {
 		return height;
 	}
 	
+
+	public void resize(int newWidth, int newHeight) {
+		Block[][] newBlockGrid = new Block[newWidth][newHeight];
+		for (int x = 0; x < newWidth; x++) {
+			for (int y = 0; y < newHeight; y++) {
+				if (x >= width || y >= height) {
+					newBlockGrid[x][y] = new Block(x,y,0);
+				} else {
+					newBlockGrid[x][y] = blockGrid[x][y];
+				}
+			}			
+		}
+		this.blockGrid = newBlockGrid;
+		this.width = newWidth;
+		this.height = newHeight;
+	}
+	
+
     public boolean isEdgeBlock(Block block) {
     	return (block.getX() == this.width - 1 || block.getX() == 0 || block.getY() == this.height - 1 || block.getY() == 0);
     }
@@ -39,6 +57,7 @@ public class Grid {
     	return ((block.getX() == 0 && block.getY() == 0) || (block.getX() == 0 && block.getY() == this.height - 1) || (block.getX() == this.width - 1 && block.getY() == 0) || (block.getX() == this.width - 1 && block.getY() == this.height - 1));
     }
     
+
 	public Grid clone() {
 		try {
 			Grid clone = (Grid) super.clone();

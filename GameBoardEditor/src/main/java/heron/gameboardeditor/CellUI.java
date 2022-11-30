@@ -63,7 +63,7 @@ public class CellUI extends Rectangle {
 		
 		updateVisualBasedOnBlock();
 	}
-
+	
 	public void select() {
 		this.setStroke(Color.RED);
 	}

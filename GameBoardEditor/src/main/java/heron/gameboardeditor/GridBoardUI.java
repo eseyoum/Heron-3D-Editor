@@ -6,6 +6,8 @@ import java.util.Random;
 import java.util.Set;
 
 import heron.gameboardeditor.datamodel.Block;
+import java.util.List;
+
 import heron.gameboardeditor.datamodel.Grid;
 import heron.gameboardeditor.tools.DigTool;
 import heron.gameboardeditor.tools.EraserTool;
@@ -31,6 +33,7 @@ public class GridBoardUI extends AnchorPane {
     public final DigTool digTool;
     public final FillTool fillTool;
     public final SelectionTool selectionTool;
+    private List<CellUI> allClickedCells = new ArrayList<CellUI>();
 
     private UndoRedoHandler undoRedoHandler;
     
@@ -63,6 +66,19 @@ public class GridBoardUI extends AnchorPane {
 		this.setOnMouseDragged(e -> gridEditor.mouseDragged(e));
     }
     
+    public List<CellUI> getAllClickedCells(){
+    	return allClickedCells;
+    }
+    
+	public CellUI getCellContaining(int x, int y) {
+		for (CellUI cell : allClickedCells) {
+			if (cell.contains(x,y)) {
+				return cell;
+			}
+		}
+		return null;
+	}
+	
     public Grid getGridData() { //grid data represents the data of the GridUI
 		return gridData;
 	}
@@ -86,8 +102,8 @@ public class GridBoardUI extends AnchorPane {
             }
     	}
     }
-    
-    public void generateMaze() {
+
+    public void generateMaze() { //for maze
     	for (int y = 0; y < gridData.getHeight(); y++) { //may be a better way to go through the cells
             for (int x = 0; x < gridData.getWidth(); x++) {
             	cellArray[x][y].setLevel(2); //sets every cell to level 2
@@ -139,7 +155,7 @@ public class GridBoardUI extends AnchorPane {
     	}
     }
     
-    private void createSolutionPath(CellUI cell) {
+    private void createSolutionPath(CellUI cell) { //for maze
     	Random rand = new Random();
     	int direction = rand.nextInt(3) + 1;
     	cell.setLevel(1);
