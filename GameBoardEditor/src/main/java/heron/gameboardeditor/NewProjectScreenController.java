@@ -11,6 +11,7 @@ import heron.gameboardeditor.datamodel.Grid;
 import heron.gameboardeditor.datamodel.ProjectIO;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
@@ -62,7 +63,18 @@ public class NewProjectScreenController {
     private Button levelButton5;
     
     @FXML private StackPane editPanel;
-
+    
+    @FXML
+    private Button setSizeButton;
+    
+    @FXML
+    private TextField numRow;
+    
+    @FXML
+    private TextField numColumn;
+    
+    private static int rows = 10;
+    private static int columns = 10;
     private BorderPane gridMapPane;
     private VBox boardParentVBox;
     private GridBoardUI gridBoard;
@@ -77,6 +89,25 @@ public class NewProjectScreenController {
     	Platform.exit();
     }
     
+    @FXML
+    void setSizeAction(ActionEvent event) {
+    	if (!numRow.getText().isBlank()) {
+    		rows = Integer.parseInt(numRow.getText());
+    	} else {
+    		rows = 1;
+    	}
+    	
+    	if (!numColumn.getText().isBlank()) {
+    		columns = Integer.parseInt(numColumn.getText());
+    	} else {
+    		columns = 1;
+    	}
+    	
+    	mapDisplay.getChildren().clear(); // clear the old gird
+    	initialize();
+    }
+    
+  
     @FXML
     private void initialize() {
     	gridMapPane = createContent(); //creates the 2d grid
@@ -172,7 +203,7 @@ public class NewProjectScreenController {
 				
 				//createContent();
 				
-				gridBoard = new GridBoardUI(App.getGrid());
+				gridBoard = new GridBoardUI(grid);
 				
 				boardParentVBox.getChildren().clear();
 				boardParentVBox.getChildren().addAll(gridBoard);

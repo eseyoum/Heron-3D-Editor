@@ -44,7 +44,7 @@ public class CellUI extends Rectangle {
     /**
      * Updates the cell color to reflect the level of the block
      */
-    private void updateVisualBasedOnBlock() {
+    public void updateVisualBasedOnBlock() {
     	if (block.isVisible()) {
     		setFill(colorList.get(block.getZ() - 1));
     	} else {
@@ -82,5 +82,13 @@ public class CellUI extends Rectangle {
     public boolean isSelected() {
     	return isClicked;
     }
+    
+//    public boolean isEdgeCell() {
+//    	return (block.getX() == gridBoard.getGridData().getWidth() - 1 || block.getX() == 0 || block.getY() == gridBoard.getGridData().getHeight() - 1 || block.getY() == 0);
+//    }
+//    
+//    public boolean isCornerCell() {
+//    	return ((block.getX() == 0 && block.getY() == 0) || (block.getX() == 0 && block.getY() == gridBoard.getGridData().getHeight() - 1) || (block.getX() == gridBoard.getGridData().getWidth() - 1 && block.getY() == 0) || (block.getX() == gridBoard.getGridData().getWidth() - 1 && block.getY() == gridBoard.getGridData().getHeight() - 1));
+//    }
 
 }

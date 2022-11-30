@@ -63,7 +63,7 @@ public class WelcomeScreenController {
 
     @FXML
     void initialize() {
-    	Grid grid = App.getGrid();
+    	App.useNewGrid(10, 10);
         //assert NewProject != null : "fx:id=\"NewProject\" was not injected: check your FXML file 'welcomeScreen.fxml'.";
     }
     

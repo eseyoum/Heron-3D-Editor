@@ -18,8 +18,8 @@ public class App extends Application {
 
     private static Scene scene;
     private static Stage mainWindow;
-    private static Grid gridData = new Grid(10, 10); //creates the data for the grid
-
+    private static Grid gridData;// = new Grid(10, 10); //creates the data for the grid
+    
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("welcomeScreen"), 900, 600);
@@ -46,10 +46,14 @@ public class App extends Application {
         launch();
     }
     
+    public static void useNewGrid(int rows, int columns) {
+    	gridData = new Grid(rows,columns);
+    }
+
     public static Grid getGrid() {
     	return gridData;
     }
-    
+        
     public static Stage getMainWindow() {
     	return mainWindow;
     }
