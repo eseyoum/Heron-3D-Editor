@@ -98,17 +98,17 @@ public class NewProjectScreenController {
     	if (!numRow.getText().isBlank()) {
     		rows = Integer.parseInt(numRow.getText());
     	} else {
-    		rows = 1;
+    		rows = 10;
     	}
     	
     	if (!numColumn.getText().isBlank()) {
     		columns = Integer.parseInt(numColumn.getText());
     	} else {
-    		columns = 1;
+    		columns = 10;
     	}
     	
     	mapDisplay.getChildren().clear(); // clear the old gird
-    	App.useNewGrid(rows, columns);
+    	App.resizeGrid(columns, rows);
     	initialize();
     }
     

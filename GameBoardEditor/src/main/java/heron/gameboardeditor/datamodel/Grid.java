@@ -31,7 +31,7 @@ public class Grid {
 		return height;
 	}
 	
-
+	
 	public void resize(int newWidth, int newHeight) {
 		Block[][] newBlockGrid = new Block[newWidth][newHeight];
 		for (int x = 0; x < newWidth; x++) {

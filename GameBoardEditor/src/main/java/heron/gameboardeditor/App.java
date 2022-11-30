@@ -46,9 +46,15 @@ public class App extends Application {
         launch();
     }
     
-    public static void useNewGrid(int rows, int columns) {
-    	gridData = new Grid(rows,columns);
+    public static void useNewGrid(int columns, int rows) {
+    	gridData = new Grid(columns, rows);
     }
+    
+    public static void resizeGrid(int newWidth, int newHeight) {
+    	gridData.resize(newWidth, newHeight);
+    }
+    
+    
 
     public static Grid getGrid() {
     	return gridData;

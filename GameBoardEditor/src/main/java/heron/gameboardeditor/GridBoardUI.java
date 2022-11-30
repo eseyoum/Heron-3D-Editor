@@ -102,7 +102,11 @@ public class GridBoardUI extends AnchorPane {
             }
     	}
     }
-
+    
+    public void resize(int newWidth, int newHeight) {
+    	gridData.resize(newWidth, newHeight);
+    }
+    
     public void generateMaze() { //for maze
     	for (int y = 0; y < gridData.getHeight(); y++) { //may be a better way to go through the cells
             for (int x = 0; x < gridData.getWidth(); x++) {
