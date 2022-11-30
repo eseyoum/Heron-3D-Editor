@@ -22,7 +22,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 
-
 public class NewProjectScreenController {
     @FXML 
     private AnchorPane mapDisplay;

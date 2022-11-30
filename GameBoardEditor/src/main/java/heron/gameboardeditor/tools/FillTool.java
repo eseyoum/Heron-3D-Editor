@@ -1,5 +1,8 @@
 package heron.gameboardeditor.tools;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import heron.gameboardeditor.CellUI;
 import heron.gameboardeditor.GridBoardUI;
 import heron.gameboardeditor.UndoRedoHandler;
@@ -13,7 +16,7 @@ public class FillTool extends Tool {
 	private GridBoardUI gridBoard;
 	private Grid gridData;
 	private boolean fillToolOn;
-	
+
 	public FillTool(GridBoardUI gridBoard, Grid gridData, UndoRedoHandler handler) {
 		super(handler);
 		this.gridBoard = gridBoard;
@@ -36,6 +39,7 @@ public class FillTool extends Tool {
     public void mousePressed(MouseEvent e) {
     	CellUI cellClicked = gridBoard.getCell((int) e.getX() / CellUI.TILE_SIZE, (int) e.getY() / CellUI.TILE_SIZE); //the initial cell which is clicked
     	fill(cellClicked.getBlock(), cellClicked.getBlock().getZ(), gridBoard.getLevel());
+    	gridBoard.getAllClickedCells().add(cellClicked);
     }
     
 	public void fill(Block block, int startingLevel, int turnToLevel) {

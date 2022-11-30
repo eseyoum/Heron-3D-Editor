@@ -1,5 +1,8 @@
 package heron.gameboardeditor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import heron.gameboardeditor.datamodel.Grid;
 import heron.gameboardeditor.tools.DigTool;
 import heron.gameboardeditor.tools.EraserTool;
@@ -25,6 +28,7 @@ public class GridBoardUI extends AnchorPane {
     public final DigTool digTool;
     public final FillTool fillTool;
     public final SelectionTool selectionTool;
+    private List<CellUI> allClickedCells = new ArrayList<CellUI>();
 
     private UndoRedoHandler undoRedoHandler;
 
@@ -54,6 +58,19 @@ public class GridBoardUI extends AnchorPane {
 		this.setOnMouseDragged(e -> gridEditor.mouseDragged(e));
     }
     
+    public List<CellUI> getAllClickedCells(){
+    	return allClickedCells;
+    }
+    
+	public CellUI getCellContaining(int x, int y) {
+		for (CellUI cell : allClickedCells) {
+			if (cell.contains(x,y)) {
+				return cell;
+			}
+		}
+		return null;
+	}
+	
     public Grid getGridData() { //grid data represents the data of the GridUI
 		return gridData;
 	}
