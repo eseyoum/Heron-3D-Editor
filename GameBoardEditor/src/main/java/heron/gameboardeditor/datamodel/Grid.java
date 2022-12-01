@@ -7,13 +7,13 @@ import java.util.Set;
 
 import heron.gameboardeditor.CellUI;
 import heron.gameboardeditor.GridEditor;
+import java.util.Set;
 
 /**
  * This class represents the data of the GridBoardUI class
  */
+public class Grid implements Cloneable {
 
-public class Grid {
-	//data field
 	private Block[][] blockGrid;
 	private int width;
 	private int height;
@@ -118,7 +118,7 @@ public class Grid {
     	return ((block.getX() == 0 && block.getY() == 0) || (block.getX() == 0 && block.getY() == this.height - 1) || (block.getX() == this.width - 1 && block.getY() == 0) || (block.getX() == this.width - 1 && block.getY() == this.height - 1));
     }
     
-    public void generateMaze() { //for maze
+    public void generateMaze() { //for maze	
     	for (int y = 0; y < this.getHeight(); y++) { //may be a better way to go through the blocks
             for (int x = 0; x < this.getWidth(); x++) {
             	blockGrid[x][y].setZ(2);
@@ -171,6 +171,9 @@ public class Grid {
     	} else if (direction == 4) { //left
     		createSolutionPath(blockGrid[block.getX() - 1][block.getY()], direction, block);
     	}
+    	
+    	edgeBlocks.clear();
+    	solutionPathBlocks.clear();
     }
     
     private void createSolutionPath(Block block, int direction, Block previousBlock) { //for maze  	
@@ -301,7 +304,7 @@ public class Grid {
 			clone.blockGrid = new Block[width][height];
 			for (int x = 0; x < width; x++) {
 				for (int y = 0; y < height; y++) {
-					clone.blockGrid[x][y] = new Block(x,y,0);
+					clone.blockGrid[x][y] = this.blockGrid[x][y].clone();
 				}			
 			}
 			return clone;
@@ -309,6 +312,26 @@ public class Grid {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	public void cutAndPaste(Set<Block> selectedBlocks, int changeInXIndex, int changeInYIndex) {
+    	Grid originalData = this.clone();
+    	System.out.println(selectedBlocks);
+
+    	for (Block block : selectedBlocks) {
+    		int srcX = block.getX();
+    		int srcY = block.getY();
+    		blockGrid[srcX][srcY].setVisible(false);
+    	}
+
+    	for (Block block : selectedBlocks) {
+    		int srcX = block.getX();
+    		int srcY = block.getY();
+    		int destX = srcX + changeInXIndex;
+    		int destY = srcY + changeInYIndex;
+    		System.out.println(srcX + " "+ srcY + " to " + destX + " " + destY );
+    		blockGrid[destX][destY] = originalData.blockGrid[srcX][srcY];
+    	}
 	}
 	
 

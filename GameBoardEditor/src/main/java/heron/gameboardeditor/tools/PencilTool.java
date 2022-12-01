@@ -22,13 +22,11 @@ public class PencilTool extends Tool {
 	public void mousePressed(MouseEvent e) {
 		CellUI cellClicked = gridBoard.getCell((int) e.getX() / CellUI.TILE_SIZE, (int) e.getY() / CellUI.TILE_SIZE);
 		cellClicked.setLevel(gridBoard.getLevel());
-		gridBoard.getAllClickedCells().add(cellClicked);
 	}
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		CellUI cellClicked = gridBoard.getCell((int) e.getX() / CellUI.TILE_SIZE, (int) e.getY() / CellUI.TILE_SIZE);
 		cellClicked.setLevel(gridBoard.getLevel());
-		gridBoard.getAllClickedCells().add(cellClicked);
 	}
 }

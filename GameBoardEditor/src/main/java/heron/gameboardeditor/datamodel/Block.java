@@ -5,12 +5,16 @@ public class Block {
     private int x;
     private int y;
     private int z;
-    private boolean visible  = false; //whether or not the CellUI should be visible. If the level is zero, it should not be visible
+    private boolean visible  = false; // If the level is zero, it should not be visible
     
     public Block(int x, int y, int z) {
+    	this(x,y,z,false);
+    }
+    private Block(int x, int y, int z, boolean visible) {
     	this.x = x;
     	this.y = y;
     	this.z = z;
+    	this.visible = visible;
     }
 
 	public boolean isVisible() {
@@ -36,4 +40,10 @@ public class Block {
 	public void setZ(int z) {
 		this.z = z;
 	}
+
+	public Block clone() {
+		return new Block(x,y,z,visible);
+		
+	}
+
 }

@@ -16,15 +16,17 @@ public class CellUI extends Rectangle {
     private static List<Color> colorList = generateColors(); //list of colors for each level of the depth map
     
     private final GridBoardUI gridBoard;
-    private Block block;
+    private int xIndex;
+    private int yIndex;
     private boolean isClicked;
     
-    public CellUI(GridBoardUI gridBoard, Block block) {
+    public CellUI(GridBoardUI gridBoard, int xIndex, int yIndex) {
         super(TILE_SIZE - 1, TILE_SIZE - 1); //a CellUI object is a rectangle
 		this.gridBoard = gridBoard;
-		this.block = block;
+		this.xIndex=xIndex;
+		this.yIndex=yIndex;
 		updateVisualBasedOnBlock();
-		this.deselect();
+		this.setSelected(false);
     }
     
     /**
@@ -45,6 +47,7 @@ public class CellUI extends Rectangle {
      * Updates the cell color to reflect the level of the block
      */
     public void updateVisualBasedOnBlock() {
+    	Block block = getBlock();
     	if (block.isVisible()) {
     		setFill(colorList.get(block.getZ() - 1));
     	} else {
@@ -53,6 +56,7 @@ public class CellUI extends Rectangle {
 	}
 	
 	public void setLevel(int level) {
+		Block block = getBlock();
 		block.setZ(level);
 		
 		if (level != 0) {
@@ -63,31 +67,28 @@ public class CellUI extends Rectangle {
 		
 		updateVisualBasedOnBlock();
 	}
-	
-	public void select() {
-		this.setStroke(Color.RED);
-	}
-	
-	public void deselect() {
-		this.setStroke(Color.BLACK);
-	}
-	
+		
     public Block getBlock() {
-    	return block;
+    	return gridBoard.getGridData().getBlockAt(xIndex, yIndex);
     }
     
     public void setSelected(boolean status) {
     	isClicked = status;
+    	if (isClicked) {
+    		this.setStroke(Color.RED);
+    	} else {
+    		this.setStroke(Color.BLACK);
+    	}
     }
     public boolean isSelected() {
     	return isClicked;
     }
     
     public boolean isEdgeCell() {
-    	return (block.getX() == gridBoard.getGridData().getWidth() - 1 || block.getX() == 0 || block.getY() == gridBoard.getGridData().getHeight() - 1 || block.getY() == 0);
+    	return (xIndex == gridBoard.getGridData().getWidth() - 1 || xIndex == 0 || yIndex == gridBoard.getGridData().getHeight() - 1 || yIndex == 0);
     }
     
     public boolean isCornerCell() {
-    	return ((block.getX() == 0 && block.getY() == 0) || (block.getX() == 0 && block.getY() == gridBoard.getGridData().getHeight() - 1) || (block.getX() == gridBoard.getGridData().getWidth() - 1 && block.getY() == 0) || (block.getX() == gridBoard.getGridData().getWidth() - 1 && block.getY() == gridBoard.getGridData().getHeight() - 1));
+    	return ((xIndex == 0 && yIndex == 0) || (xIndex == 0 && yIndex == gridBoard.getGridData().getHeight() - 1) || (xIndex == gridBoard.getGridData().getWidth() - 1 && yIndex == 0) || (xIndex == gridBoard.getGridData().getWidth() - 1 && yIndex == gridBoard.getGridData().getHeight() - 1));
     }
 }
