@@ -185,6 +185,13 @@ public class NewProjectScreenController {
     }
     
     @FXML
+    void show3DPreview(ActionEvent event) {
+    	Board3DViewController preview3D = new Board3DViewController(gridBoard.getGridData());
+    	preview3D.show();
+    }
+
+    
+    @FXML
     void saveProject(ActionEvent event) {
     	FileChooser saveChooser = new FileChooser();
     	FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Heron game (*.heron)", "*.heron");

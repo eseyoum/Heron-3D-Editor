@@ -96,7 +96,7 @@
         </Menu>
             <Menu mnemonicParsing="false" text="3D">
               <items>
-                  <MenuItem mnemonicParsing="false" text="3D Preview" />
+                  <MenuItem mnemonicParsing="false" onAction="#show3DPreview" text="3D Preview" />
               </items>
             </Menu>
       </menus>
