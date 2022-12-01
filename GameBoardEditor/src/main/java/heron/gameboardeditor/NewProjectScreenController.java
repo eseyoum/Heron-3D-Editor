@@ -255,6 +255,4 @@ public class NewProjectScreenController {
     	}
     	return file;
     }
-    
-    
 }

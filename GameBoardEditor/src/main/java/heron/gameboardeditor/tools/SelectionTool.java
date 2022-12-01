@@ -64,9 +64,10 @@ public class SelectionTool extends Tool {
 	public void mouseDragged(MouseEvent e) {
 		if (pressedInSelectedCell) {
 			int x = (int) (((e.getX() / CellUI.TILE_SIZE) % (gridBoard.getWidth() / CellUI.TILE_SIZE)) * CellUI.TILE_SIZE);
-			int y = (int) (((e.getY() / CellUI.TILE_SIZE) % (gridBoard.getHeight() / CellUI.TILE_SIZE)) * CellUI.TILE_SIZE);
-			//moveSelectedCells(x - origin.getX(), y - origin.getY());
-			//origin = new Point2D(x,y);
+			int y = (int) (((e.getY() / CellUI.TILE_SIZE) % (gridBoard.getHeight() / CellUI.TILE_SIZE)) * CellUI.TILE_SIZE);		
+			int eventXIndex = (int) (e.getX());
+			int eventYIndex= (int) (e.getY());
+//			drag(eventXIndex, eventYIndex);
 		} else {
 			selectionRectangle.setX(Math.min(e.getX(), initialSelectX));
 			selectionRectangle.setWidth(Math.abs(e.getX() - initialSelectX));
@@ -80,10 +81,10 @@ public class SelectionTool extends Tool {
 		
 		if (pressedInSelectedCell) {
 			int xStartIndex = (int) (initialSelectX/ CellUI.TILE_SIZE);
-			int yStartIndex = (int) (initialSelectY / CellUI.TILE_SIZE);
+			int yStartIndex = (int) (initialSelectY/ CellUI.TILE_SIZE);
 			int xEndIndex = (int) (e.getX() / CellUI.TILE_SIZE);
-			int yEndIndex = (int) (e.getX() / CellUI.TILE_SIZE);
-			cutAndPaste(xStartIndex, yStartIndex, xEndIndex, yEndIndex);
+			int yEndIndex = (int) (e.getY() / CellUI.TILE_SIZE);
+			cutAndPaste(xStartIndex, yStartIndex, xEndIndex, yEndIndex); 
 			
 		} else {
 			int xStartIndex = (int) selectionRectangle.getX() / CellUI.TILE_SIZE;
@@ -112,30 +113,30 @@ public class SelectionTool extends Tool {
 	public Set<CellUI> getSelectedCells() {
 		return selectedCells;
 	}
-		
-//	public void moveSelectedCells(double dx, double dy) {
-//		for (CellUI cell : selectedCells) {
-//			if (cell.isSelected()) {
-//				cell = new CellUI(gridBoard, cell.getBlock());
-//				cell.setLayoutX(cell.getX() + dx);
-//				cell.setLayoutY(cell.getY() + dy);
-//			}
-//		}
-//	}
 	
     public void cutAndPaste(int startXIndex, int startYIndex, int endXIndex, int endYIndex) {
     	Set<Block> selectedBlocks = new HashSet<>();
     	
     	for (CellUI cell: selectedCells) {
     		selectedBlocks.add(cell.getBlock());
-    	}
+    	} 
     	int changeInXIndex = endXIndex - startXIndex;
     	int changeInYIndex = endYIndex - startYIndex;
     	gridBoard.getGridData().cutAndPaste(selectedBlocks, changeInXIndex, changeInYIndex);
     	
     	gridBoard.updateVisual();	
     }
+    
+    public void drag(int eventXIndex, int eventYIndex) {
+    	Set<Block> selectedBlocks = new HashSet<>();
+    	
+    	for (CellUI cell: selectedCells) {
+    		selectedBlocks.add(cell.getBlock());
+    	} 
+    	gridBoard.getGridData().drag(selectedBlocks, eventXIndex, eventYIndex);
+    	
+    	gridBoard.updateVisual();	
+    }
 
-	
 	
 }
