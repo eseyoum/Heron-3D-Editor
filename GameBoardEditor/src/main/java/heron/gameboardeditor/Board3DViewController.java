@@ -66,6 +66,31 @@ public class Board3DViewController {
        stage3D = new Stage();  
        stage3D.setTitle("Genuine Coder");
        stage3D.setScene(scene);
+       
+     //Add keyboard control.
+       stage3D.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+         switch (event.getCode()) {
+           case W:
+             group.translateZProperty().set(group.getTranslateZ() + 100);
+             break;
+           case S:
+             group.translateZProperty().set(group.getTranslateZ() - 100);
+             break;
+           case Q:
+             group.rotateByX(10);
+             break;
+           case E:
+             group.rotateByX(-10);
+             break;
+           case NUMPAD6:
+             group.rotateByY(10);
+             break;
+           case NUMPAD4:
+             group.rotateByY(-10);
+             break;
+         }
+       });
+    
     }
     
    
