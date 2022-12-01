@@ -36,9 +36,6 @@ public class GridBoardUI extends AnchorPane {
 
     private UndoRedoHandler undoRedoHandler;
     
-	private ArrayList<CellUI> edgeCells = new ArrayList<CellUI>(); //stores all cells on the edge of the gridBoard. Used for generating the maze
-	private Set<CellUI>solutionPathCells = new HashSet<CellUI>(); //represents the cells in the solution path of the maze
-	
     public GridBoardUI(Grid grid) {
         this.gridData = grid;
         cellArray = new CellUI[grid.getWidth()][grid.getHeight()];
@@ -99,138 +96,9 @@ public class GridBoardUI extends AnchorPane {
     	gridData.resize(newWidth, newHeight);
     }
     
-    public void generateMaze() { //for maze
-    	for (int y = 0; y < gridData.getHeight(); y++) { //may be a better way to go through the cells
-            for (int x = 0; x < gridData.getWidth(); x++) {
-            	cellArray[x][y].setLevel(2); //sets every cell to level 2
-            }
-    	}
-    	
-    	int edgeCellCount = 0;
-    	
-    	for (int y = 0; y < gridData.getHeight(); y++) { //may be a better way to go through the cells
-            for (int x = 0; x < gridData.getWidth(); x++) {
-            	if (cellArray[x][y].isEdgeCell()) {
-            		edgeCells.add(cellArray[x][y]); //adds all edge cells to an array
-            		edgeCellCount = edgeCellCount + 1;
-            	}
-            }
-    	}
-    	
-    	Random rand = new Random();
-    	CellUI cell = edgeCells.get(rand.nextInt(edgeCellCount)); //randomly chooses an edge cell for the start of the maze
-    	
-    	//createSolutionPath(cell);
-    	
-    	int direction = 0; //1-up, 2-right, 3-down, 4-left
-    	cell.setLevel(1);
-    	solutionPathCells.add(cell);
-
-    	Block block = cell.getBlock();
-    	if (block.getX() == 0) { //cell is on left edge of grid
-    		direction = 2;
-    	}
-    	if (block.getX() == gridData.getWidth() - 1) { //cell is on right edge of grid
-    		direction = 4;
-    	}
-    	if (block.getY() == gridData.getHeight() - 1) { //cell is on bottom edge of grid
-    		direction = 1;
-    	}
-    	if (block.getY() == 0) { //cell is on top of grid
-    		direction = 3;
-    	}
-    	
-    	if (direction == 1) { //up
-    		createSolutionPath(cellArray[cell.getBlock().getX()][cell.getBlock().getY() - 1], direction, cell);
-    	} else if (direction == 2) { //right
-    		createSolutionPath(cellArray[cell.getBlock().getX() + 1][cell.getBlock().getY()], direction, cell);
-    	} else if (direction == 3) { //down
-    		createSolutionPath(cellArray[cell.getBlock().getX()][cell.getBlock().getY() + 1], direction, cell);
-    	} else if (direction == 4) { //left
-    		createSolutionPath(cellArray[cell.getBlock().getX() - 1][cell.getBlock().getY()], direction, cell);
-    	}
-    }
-    
-    private void createSolutionPath(CellUI cell, int previousDirection, CellUI previousCell) { //for maze
-    	Random rand = new Random();
-    	int direction = rand.nextInt(4) + 1;
-    	while (isOppositeDirection(direction, previousDirection)) { //the path should not go backwards
-    		direction = rand.nextInt(4) + 1;
-    	}
-    	
-    	if (cell.isEdgeCell()) { //once the path reaches the edge, the path is finished
-        	cell.setLevel(1);
-        	solutionPathCells.add(cell);
-    		return;
-    	}
-    	
-    	if (gridData.isThreeAdjacentBlocksSameLevel(cell.getBlock(), 2)) {
-        	cell.setLevel(1);
-        	solutionPathCells.add(cell);
-    		if (direction == 1) { //up
-	    		createSolutionPath(cellArray[cell.getBlock().getX()][cell.getBlock().getY() - 1], direction, cell);
-	    	} else if (direction == 2) { //right
-	    		createSolutionPath(cellArray[cell.getBlock().getX() + 1][cell.getBlock().getY()], direction, cell);
-	    	} else if (direction == 3) { //down
-	    		createSolutionPath(cellArray[cell.getBlock().getX()][cell.getBlock().getY() + 1], direction, cell);
-	    	} else if (direction == 4) { //left
-	    		createSolutionPath(cellArray[cell.getBlock().getX() - 1][cell.getBlock().getY()], direction, cell);
-	    	}
-    	} else {
-    		//if the direction the path tried to go in is not valid
-    		createSolutionPath(previousCell, previousDirection, previousCell); //alse need an if there is no direction to go
-    	}
-    	
-//    	if (cell.isThreeAdjacentTilesSame(2)) {
-//	    	if (direction == 1 && previousDirection != 3) { //up
-//	    		createSolutionPath(cellArray[cell.getBlock().getX()][cell.getBlock().getY() - 1], direction);
-//	    	} else if (direction == 2 && previousDirection != 4) { //right
-//	    		createSolutionPath(cellArray[cell.getBlock().getX() + 1][cell.getBlock().getY()], direction);
-//	    	} else if (direction == 3 && previousDirection != 1) { //down
-//	    		createSolutionPath(cellArray[cell.getBlock().getX()][cell.getBlock().getY() + 1], direction);
-//	    	} else if (direction == 4 && previousDirection!= 2) { //left
-//	    		createSolutionPath(cellArray[cell.getBlock().getX() - 1][cell.getBlock().getY()], direction);
-//	    	}
-//    	}
-    	
-//    	if (cell.isThreeAdjacentTilesSame(2)) {
-//	    	if (direction == 1) { //up
-//	    		if (gridData.getBlockAbove(cell.getBlock()).getZ() == 1) {
-//	    			createSolutionPath(cellArray[cell.getBlock().getX()][cell.getBlock().getY()], direction);
-//	    		} else {
-//	    			createSolutionPath(cellArray[cell.getBlock().getX()][cell.getBlock().getY() - 1], direction);
-//	    		}
-//	    	} else if (direction == 2) { //right
-//	    		if (gridData.getBlockRight(cell.getBlock()).getZ() == 1) {
-//	    			createSolutionPath(cellArray[cell.getBlock().getX()][cell.getBlock().getY()], direction);
-//	    		} else {
-//	    			createSolutionPath(cellArray[cell.getBlock().getX() + 1][cell.getBlock().getY()], direction);
-//	    		}
-//	    	} else if (direction == 3) { //down
-//	    		if (gridData.getBlockBelow(cell.getBlock()).getZ() == 1) {
-//	    			createSolutionPath(cellArray[cell.getBlock().getX()][cell.getBlock().getY()], direction);
-//	    		} else {
-//	    			createSolutionPath(cellArray[cell.getBlock().getX()][cell.getBlock().getY() + 1], direction);
-//	    		}
-//	    	} else if (direction == 4) { //left
-//	    		if (gridData.getBlockLeft(cell.getBlock()).getZ() == 1) {
-//	    			createSolutionPath(cellArray[cell.getBlock().getX()][cell.getBlock().getY()], direction);
-//	    		} else {
-//	    			createSolutionPath(cellArray[cell.getBlock().getX() - 1][cell.getBlock().getY()], direction);
-//	    		}
-//	    	}
-//    	}
-    }
-    private boolean isOppositeDirection(int direction, int previousDirection) {
-    	if ((direction == 1 && previousDirection == 3) || (direction == 3 && previousDirection == 1)) {
-    		return true;
-    	}
-    	if ((direction == 2 && previousDirection == 4) || (direction == 4 && previousDirection == 2)) {
-    		return true;
-    	}
-    	else {
-    		return false;
-    	}
+    public void generateMaze() {
+    	gridData.generateMaze();
+    	updateVisual();
     }
     
     public class State {

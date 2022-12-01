@@ -200,10 +200,15 @@ public class NewProjectScreenController {
     	gridBoard.generateMaze();
     }
     
-    @FXML
-    void newFile(ActionEvent event) throws IOException {
-    	mapDisplay.getChildren().clear();
-    	App.setRoot("newProjectScreen");
+//    @FXML
+//    void newFile(ActionEvent event) throws IOException {
+//    	mapDisplay.getChildren().clear();
+//    	App.setRoot("newProjectScreen");
+//    }
+
+    void show3DPreview(ActionEvent event) {
+    	Board3DViewController preview3D = new Board3DViewController(gridBoard.getGridData());
+    	preview3D.show();
     }
     
     @FXML
