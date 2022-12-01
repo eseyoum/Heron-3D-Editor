@@ -18,7 +18,7 @@ public class App extends Application {
 
     private static Scene scene;
     private static Stage mainWindow;
-    private static Grid gridData;// = new Grid(10, 10); //creates the data for the grid
+    private static Grid gridData;//creates the data for the grid
     
     @Override
     public void start(Stage stage) throws IOException {
@@ -68,8 +68,6 @@ public class App extends Application {
     	gridData.resize(newWidth, newHeight);
     }
     
-    
-
     public static Grid getGrid() {
     	return gridData;
     }

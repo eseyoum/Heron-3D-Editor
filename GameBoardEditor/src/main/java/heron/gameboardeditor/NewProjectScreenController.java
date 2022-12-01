@@ -18,6 +18,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -28,6 +29,7 @@ import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 
 public class NewProjectScreenController {
+	
     @FXML 
     private AnchorPane mapDisplay;
 	
@@ -93,6 +95,9 @@ public class NewProjectScreenController {
     @FXML
     private TextField numColumn;
     
+    @FXML
+    private Slider levelSlider;
+    
     private static int rows = 10;
     private static int columns = 10;
     private BorderPane gridMapPane;
@@ -154,24 +159,8 @@ public class NewProjectScreenController {
     }
     
     @FXML
-    void changeLevelTo1(ActionEvent event) {
-    	gridBoard.setLevel(1);
-    }
-    @FXML
-    void changeLevelTo2(ActionEvent event) {
-    	gridBoard.setLevel(2);
-    }
-    @FXML
-    void changeLevelTo3(ActionEvent event) {
-    	gridBoard.setLevel(3);
-    }
-    @FXML
-    void changeLevelTo4(ActionEvent event) {
-    	gridBoard.setLevel(4);
-    }
-    @FXML
-    void changeLevelTo5(ActionEvent event) {
-    	gridBoard.setLevel(5);
+    void changeLevel(MouseEvent event) {
+    	gridBoard.setLevel((int)levelSlider.getValue());
     }
     
     @FXML

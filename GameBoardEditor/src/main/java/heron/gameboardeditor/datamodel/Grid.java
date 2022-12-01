@@ -178,22 +178,27 @@ public class Grid implements Cloneable {
     
     private void createSolutionPath(Block block, int direction, Block previousBlock) { //for maze  	
     	if (isEdgeBlock(block)) { //once the path reaches the edge, the path is finished
-	    		block.setZ(1);
-	        	solutionPathBlocks.add(block);
-	        	return;
-    	}
-    	if (isValidPath(block, 2, direction)) {
-    		block.setZ(1);
-    		block.setVisible(true);
-        	solutionPathBlocks.add(block);
-        	Random rand = new Random();
-        	int newDirection = rand.nextInt(4) + 1;
-        	while (isOppositeDirection(newDirection, direction)) { //the path should not go backwards
-        		newDirection = rand.nextInt(4) + 1;
-        	}
-        	attemptMovement(block, newDirection);
+	    		if (solutionPathBlocks.size() < (width + height) / 2) {
+	    			handleInvalidPath(previousBlock, direction);
+	    		} else {
+	    			block.setZ(1);
+		        	solutionPathBlocks.add(block);
+		        	return;
+	    		}
     	} else {
-    		handleInvalidPath(previousBlock, direction);
+	    	if (isValidPath(block, 2, direction)) {
+	    		block.setZ(1);
+	    		block.setVisible(true);
+	        	solutionPathBlocks.add(block);
+	        	Random rand = new Random();
+	        	int newDirection = rand.nextInt(4) + 1;
+	        	while (isOppositeDirection(newDirection, direction)) { //the path should not go backwards
+	        		newDirection = rand.nextInt(4) + 1;
+	        	}
+	        	attemptMovement(block, newDirection);
+	    	} else {
+	    		handleInvalidPath(previousBlock, direction);
+	    	}
     	}
     }
     
