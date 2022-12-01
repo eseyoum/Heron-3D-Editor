@@ -3,6 +3,7 @@ package heron.gameboardeditor;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Optional;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,7 +12,9 @@ import heron.gameboardeditor.datamodel.Grid;
 import heron.gameboardeditor.datamodel.ProjectIO;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
@@ -30,40 +33,53 @@ public class NewProjectScreenController {
 	
 	@FXML 
 	private ToggleGroup toolButtonToggleGroup;	
+	
 	@FXML
     private ToggleButton eraserToggle;
+	
 	@FXML
 	private ToggleButton digToggle;
-    @FXML
+    
+	@FXML
     private ToggleButton fillToolToggle;
-    @FXML
+    
+	@FXML
     private ToggleButton pencilToggle;
-    @FXML
+    
+	@FXML
     private ToggleButton selectToggle;
     
-    @FXML
+	@FXML
     private MenuItem generateMazeButton;
-
-    @FXML // fx:id="x1"
-    private Font x1; // Value injected by FXMLLoader
-    @FXML // fx:id="x2"
-    private Color x2; // Value injected by FXMLLoader
-    @FXML // fx:id="x21"
-    private Color x21; // Value injected by FXMLLoader
-    @FXML // fx:id="x3"
-    private Font x3; // Value injected by FXMLLoader
-    @FXML // fx:id="x4"
-    private Color x4; // Value injected by FXMLLoader
     
-    @FXML
+	@FXML
+    private Font x1;
+    
+	@FXML
+    private Color x2;
+    
+	@FXML
+    private Color x21;
+    
+	@FXML
+    private Font x3;
+    
+	@FXML
+    private Color x4;
+    
+	@FXML
     private Button levelButton1;
-    @FXML
+    
+	@FXML
     private Button levelButton2;
-    @FXML
+    
+	@FXML
     private Button levelButton3;
-    @FXML
+    
+	@FXML
     private Button levelButton4;
-    @FXML
+    
+	@FXML
     private Button levelButton5;
     
     @FXML private StackPane editPanel;
@@ -84,13 +100,14 @@ public class NewProjectScreenController {
     private GridBoardUI gridBoard;
     
     @FXML
-    private void switchToSecondary() throws IOException {
-        App.setRoot("welcomeScreen");
-    }
-    
-    @FXML
     void exitTheSceen(ActionEvent event) {
-    	Platform.exit();
+    	Alert alert = new Alert(AlertType.WARNING, "Are you sure you want to quit?", ButtonType.YES, ButtonType.NO);
+    	
+    	Optional<ButtonType> result = alert.showAndWait();
+    	if (result.get() == ButtonType.YES) {
+    		Platform.exit();
+    	}
+    	
     }
     
     @FXML
@@ -113,7 +130,6 @@ public class NewProjectScreenController {
     	initialize();
     }
     
-  
     @FXML
     private void initialize() {
     	gridMapPane = createContent(); //creates the 2d grid
@@ -185,45 +201,34 @@ public class NewProjectScreenController {
     }
     
     @FXML
+    void newFile(ActionEvent event) throws IOException {
+    	mapDisplay.getChildren().clear();
+    	App.setRoot("newProjectScreen");
+    }
+    
+    @FXML
     void saveProject(ActionEvent event) {
-    	FileChooser saveChooser = new FileChooser();
-    	FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Heron game (*.heron)", "*.heron");
-    	saveChooser.getExtensionFilters().add(extFilter);
-    	File outputFile = saveChooser.showSaveDialog(App.getMainWindow());
-    	if (outputFile != null) {
+    	File file = saveLoadHelper("save");
+    	if (file != null) {
     		Grid grid = App.getGrid();
     		try {
-				ProjectIO.save(grid, outputFile);
+				ProjectIO.save(grid, file);
 			} catch (IOException ex) {
 	    		new Alert(AlertType.ERROR, "An I/O error occurred while trying to save this file.").showAndWait();			
 			}
     	}
-    	
     }
     
     @FXML
     void openProject(ActionEvent event) {
-    	FileChooser fileChooser = new FileChooser();
-		FileChooser.ExtensionFilter fileExtension = new FileChooser.ExtensionFilter("Heron game (*.heron)", "*.heron");
-		fileChooser.getExtensionFilters().add(fileExtension);
-		File input = fileChooser.showOpenDialog(App.getMainWindow());
-		if (input != null) {
+    	File file = saveLoadHelper("open");
+		if (file != null) {
 			try {
-				Grid grid = ProjectIO.load(input);
+				Grid grid = ProjectIO.load(file);
 				App.setGrid(grid);
-				
-				//createContent();
-				
 				gridBoard = new GridBoardUI(grid);
-				
 				boardParentVBox.getChildren().clear();
 				boardParentVBox.getChildren().addAll(gridBoard);
-				
-				
-				//App.setRoot("newProjectScreen");
-				//myBoard = grid;
-		    	
-		    	
 			} catch (FileNotFoundException ex) {
 				new Alert(AlertType.ERROR, "The file you tried to open could not be found.").showAndWait();
 			} catch (IOException ex) {
@@ -231,5 +236,19 @@ public class NewProjectScreenController {
 			}
 		}
     }
+    
+    private File saveLoadHelper(String dialog) {
+    	FileChooser chooser = new FileChooser();
+    	FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Heron game (*.heron)", "*.heron");
+    	chooser.getExtensionFilters().add(extFilter);
+    	File file;
+    	if(dialog == "open") {
+    		file = chooser.showOpenDialog(App.getMainWindow());
+    	} else {
+    		file = chooser.showSaveDialog(App.getMainWindow());
+    	}
+    	return file;
+    }
+    
     
 }

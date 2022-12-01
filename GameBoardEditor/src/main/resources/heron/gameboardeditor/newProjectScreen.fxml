@@ -63,12 +63,9 @@
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
-            <MenuItem fx:id="newfile" mnemonicParsing="false" text="New" />
+            <MenuItem fx:id="newfile" mnemonicParsing="false" onAction="#newFile" text="New" />
             <MenuItem mnemonicParsing="false" onAction="#openProject" text="Open…" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Close" />
             <MenuItem mnemonicParsing="false" onAction="#saveProject" text="Save" />
-            <SeparatorMenuItem mnemonicParsing="false" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem fx:id="quit" mnemonicParsing="false" onAction="#exitTheSceen" text="Quit" />
           </items>

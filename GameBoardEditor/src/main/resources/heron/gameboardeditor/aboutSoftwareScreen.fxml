@@ -10,11 +10,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: EFCA08;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="heron.gameboardeditor.WelcomeScreenController">
+<BorderPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: EFCA08;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="heron.gameboardeditor.AboutScreensController">
    <top>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="47.0" style="-fx-background-color: EFCA08 EFCA08;">
+            <Button mnemonicParsing="false" onAction="#switchToWelcomeScreen" prefHeight="36.0" prefWidth="47.0" style="-fx-background-color: EFCA08 EFCA08;">
                <graphic>
                   <ImageView fitHeight="29.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -57,7 +57,7 @@
    <left>
       <VBox prefHeight="327.0" prefWidth="901.0" style="-fx-background-radius: 20 px;" BorderPane.alignment="CENTER">
          <children>
-            <TextArea prefHeight="296.0" prefWidth="500.0" text="Our software allows users to....">
+            <TextArea fx:id="credits" prefHeight="296.0" prefWidth="500.0" text="Our software allows users to....">
                <font>
                   <Font size="25.0" />
                </font>

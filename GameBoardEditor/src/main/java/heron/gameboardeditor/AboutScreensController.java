@@ -5,7 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 
-public class AboutTeamScreenController {
+public class AboutScreensController {
 	
 	@FXML
     private TextArea credits;
