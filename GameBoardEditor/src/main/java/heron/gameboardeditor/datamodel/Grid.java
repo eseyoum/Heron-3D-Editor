@@ -5,10 +5,6 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-import heron.gameboardeditor.CellUI;
-import heron.gameboardeditor.GridEditor;
-import java.util.Set;
-
 /**
  * This class represents the data of the GridBoardUI class
  */

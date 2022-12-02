@@ -1,5 +1,4 @@
 package heron.gameboardeditor.datamodel;
-import java.util.Objects;
 
 public class Block {
     private int x;

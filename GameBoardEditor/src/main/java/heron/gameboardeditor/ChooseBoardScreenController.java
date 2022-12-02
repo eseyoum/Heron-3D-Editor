@@ -1,18 +1,10 @@
 package heron.gameboardeditor;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 public class ChooseBoardScreenController {
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
     
 	@FXML
     void switchToWelcomeScreen(ActionEvent event) throws IOException {

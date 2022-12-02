@@ -30,65 +30,9 @@ import javafx.stage.FileChooser;
 
 public class NewProjectScreenController {
 	
-    @FXML 
+	@FXML 
     private AnchorPane mapDisplay;
 	
-	@FXML 
-	private ToggleGroup toolButtonToggleGroup;	
-	
-	@FXML
-    private ToggleButton eraserToggle;
-	
-	@FXML
-	private ToggleButton digToggle;
-    
-	@FXML
-    private ToggleButton fillToolToggle;
-    
-	@FXML
-    private ToggleButton pencilToggle;
-    
-	@FXML
-    private ToggleButton selectToggle;
-    
-	@FXML
-    private MenuItem generateMazeButton;
-    
-	@FXML
-    private Font x1;
-    
-	@FXML
-    private Color x2;
-    
-	@FXML
-    private Color x21;
-    
-	@FXML
-    private Font x3;
-    
-	@FXML
-    private Color x4;
-    
-	@FXML
-    private Button levelButton1;
-    
-	@FXML
-    private Button levelButton2;
-    
-	@FXML
-    private Button levelButton3;
-    
-	@FXML
-    private Button levelButton4;
-    
-	@FXML
-    private Button levelButton5;
-    
-    @FXML private StackPane editPanel;
-    
-    @FXML
-    private Button setSizeButton;
-    
     @FXML
     private TextField numRow;
     
@@ -98,23 +42,30 @@ public class NewProjectScreenController {
     @FXML
     private Slider levelSlider;
     
-    private static int rows = 10;
-    private static int columns = 10;
+    private static int rows;
+    private static int columns;
     private BorderPane gridMapPane;
     private VBox boardParentVBox;
     private GridBoardUI gridBoard;
     
-    @FXML
-    void exitTheSceen(ActionEvent event) {
-    	Alert alert = new Alert(AlertType.WARNING, "Are you sure you want to quit?", ButtonType.YES, ButtonType.NO);
-    	
-    	Optional<ButtonType> result = alert.showAndWait();
-    	if (result.get() == ButtonType.YES) {
-    		Platform.exit();
-    	}
-    	
+    /**
+     * Creates the grid
+     * @return the root, which is a BorderPane containing a VBox with a grid in it
+     */
+    private BorderPane createContent() {
+        BorderPane root = new BorderPane();
+        root.setPrefSize(600, 800);
+        gridBoard = new GridBoardUI(App.getGrid()); //creates a GridBoardUI, which is the grid the user can see
+
+        boardParentVBox = new VBox(50, gridBoard); //creates a vbox with myBoard for children
+        boardParentVBox.setAlignment(Pos.CENTER);
+
+        root.setCenter(boardParentVBox);
+
+        return root;
     }
     
+    //Tools
     @FXML
     /**
      * When the user clicks on Set Size button, this method get the number of rows and columns from the user's input 
@@ -136,29 +87,6 @@ public class NewProjectScreenController {
     }
     
     @FXML
-    private void initialize() {
-    	gridMapPane = createContent(); //creates the 2d grid
-    	mapDisplay.getChildren().addAll(gridMapPane);
-    }
-
-    /**
-     * Creates the grid
-     * @return the root, which is a BorderPane containing a VBox with a grid in it
-     */
-    private BorderPane createContent() {
-        BorderPane root = new BorderPane();
-        root.setPrefSize(600, 800);
-        gridBoard = new GridBoardUI(App.getGrid()); //creates a GridBoardUI, which is the grid the user can see
-
-        boardParentVBox = new VBox(50, gridBoard); //creates a vbox with myBoard for children
-        boardParentVBox.setAlignment(Pos.CENTER);
-
-        root.setCenter(boardParentVBox);
-
-        return root;
-    }
-    
-    @FXML
     void changeLevel(MouseEvent event) {
     	gridBoard.setLevel((int)levelSlider.getValue());
     }
@@ -167,18 +95,22 @@ public class NewProjectScreenController {
     void pencilButtonOn(ActionEvent event) {
     	gridBoard.gridEditor.setCurrentTool(gridBoard.pencilTool);
     }
+    
     @FXML
     void eraserButtonOn(ActionEvent event) {
     	gridBoard.gridEditor.setCurrentTool(gridBoard.eraserTool);
     }
+    
     @FXML
     void digButtonOn(ActionEvent event) {
     	gridBoard.gridEditor.setCurrentTool(gridBoard.digTool);
     }
+    
     @FXML
     void fillToolOn(ActionEvent event) {
     	gridBoard.gridEditor.setCurrentTool(gridBoard.fillTool);
     }
+    
     @FXML
     void selectToolOn(ActionEvent event) {
     	gridBoard.gridEditor.setCurrentTool(gridBoard.selectionTool);
@@ -189,29 +121,12 @@ public class NewProjectScreenController {
     	gridBoard.generateMaze();
     }
     
+    
+    //File menu bar
     @FXML
     void newFile(ActionEvent event) throws IOException {
     	mapDisplay.getChildren().clear();
     	App.setRoot("newProjectScreen");
-    }
-    
-    @FXML
-    void show3DPreview(ActionEvent event) {
-    	Board3DViewController preview3D = new Board3DViewController(gridBoard.getGridData());
-    	preview3D.show();
-    }
-    
-    @FXML
-    void saveProject(ActionEvent event) {
-    	File file = saveLoadHelper("save");
-    	if (file != null) {
-    		Grid grid = App.getGrid();
-    		try {
-				ProjectIO.save(grid, file);
-			} catch (IOException ex) {
-	    		new Alert(AlertType.ERROR, "An I/O error occurred while trying to save this file.").showAndWait();			
-			}
-    	}
     }
     
     @FXML
@@ -232,6 +147,19 @@ public class NewProjectScreenController {
 		}
     }
     
+    @FXML
+    void saveProject(ActionEvent event) {
+    	File file = saveLoadHelper("save");
+    	if (file != null) {
+    		Grid grid = App.getGrid();
+    		try {
+				ProjectIO.save(grid, file);
+			} catch (IOException ex) {
+	    		new Alert(AlertType.ERROR, "An I/O error occurred while trying to save this file.").showAndWait();			
+			}
+    	}
+    }
+    
     private File saveLoadHelper(String dialog) {
     	FileChooser chooser = new FileChooser();
     	FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Heron game (*.heron)", "*.heron");
@@ -245,5 +173,27 @@ public class NewProjectScreenController {
     	return file;
     }
     
+    @FXML
+    void exitTheSceen(ActionEvent event) {
+    	Alert alert = new Alert(AlertType.WARNING, "Are you sure you want to quit?", ButtonType.YES, ButtonType.NO);
+    	
+    	Optional<ButtonType> result = alert.showAndWait();
+    	if (result.get() == ButtonType.YES) {
+    		Platform.exit();
+    	}
+    }
+    
+    //3D menu bar
+    @FXML
+    void show3DPreview(ActionEvent event) {
+    	Board3DViewController preview3D = new Board3DViewController(gridBoard.getGridData());
+    	preview3D.show();
+    }
+    
+    @FXML
+    private void initialize() {
+    	gridMapPane = createContent(); //creates the 2d grid
+    	mapDisplay.getChildren().addAll(gridMapPane);
+    }
     
 }

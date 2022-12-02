@@ -1,19 +1,10 @@
 package heron.gameboardeditor;
 
-import heron.gameboardeditor.datamodel.Block;
 import heron.gameboardeditor.datamodel.Grid;
-
-import heron.gameboardeditor.tools.DigTool;
-import heron.gameboardeditor.tools.EraserTool;
-import heron.gameboardeditor.tools.FillTool;
-import heron.gameboardeditor.tools.PencilTool;
-import heron.gameboardeditor.tools.SelectionTool;
 import javafx.scene.Group;
 import javafx.scene.shape.Box;
-import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
-import javafx.application.Application;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Camera;

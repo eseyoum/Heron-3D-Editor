@@ -1,13 +1,5 @@
 package heron.gameboardeditor;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
-
-import heron.gameboardeditor.datamodel.Block;
-import java.util.List;
-
 import heron.gameboardeditor.datamodel.Grid;
 import heron.gameboardeditor.tools.DigTool;
 import heron.gameboardeditor.tools.EraserTool;
