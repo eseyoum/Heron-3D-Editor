@@ -1,5 +1,4 @@
 package heron.gameboardeditor.datamodel;
-import java.util.Objects;
 
 public class Block {
     private int x;
@@ -37,13 +36,20 @@ public class Block {
 		return z;
 	}
 
+	public void setX(int x) {
+		this.x = x;
+	}
+	
+	public void setY(int y) {
+		this.y = y;
+	}
+	
 	public void setZ(int z) {
 		this.z = z;
 	}
 
 	public Block clone() {
 		return new Block(x,y,z,visible);
-		
 	}
 
 }

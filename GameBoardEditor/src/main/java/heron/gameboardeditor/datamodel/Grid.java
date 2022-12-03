@@ -5,10 +5,6 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-import heron.gameboardeditor.CellUI;
-import heron.gameboardeditor.GridEditor;
-import java.util.Set;
-
 /**
  * This class represents the data of the GridBoardUI class
  */
@@ -390,7 +386,7 @@ public class Grid implements Cloneable {
 		}
 	}
 
-	public void cutAndPaste(Set<Block> selectedBlocks, int changeInXIndex, int changeInYIndex) {
+	public void cutAndPaste(Set<Block> selectedBlocks, int changeInXIndex, int changeInYIndex) throws ArrayIndexOutOfBoundsException {
     	Grid originalData = this.clone();
     	System.out.println(selectedBlocks);
 
@@ -404,11 +400,18 @@ public class Grid implements Cloneable {
     		int srcX = block.getX();
     		int srcY = block.getY();
     		int destX = srcX + changeInXIndex;
-    		int destY = srcY + changeInYIndex;
-    		System.out.println(srcX + " "+ srcY + " to " + destX + " " + destY );
+    		int destY = srcY + changeInYIndex;             
+    		System.out.println(srcX + " " + srcY + " to " + destX + " " + destY );
     		blockGrid[destX][destY] = originalData.blockGrid[srcX][srcY];
     	}
 	}
+
+	public void drag(Set<Block> selectedBlocks, int changeInXIndex, int changeInYIndex) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 	
 
 }
