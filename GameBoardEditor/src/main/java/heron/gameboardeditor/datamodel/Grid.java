@@ -1,7 +1,6 @@
 package heron.gameboardeditor.datamodel;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
@@ -15,14 +14,13 @@ public class Grid implements Cloneable {
 	private int height;
 	
 	private ArrayList<Block> edgeBlocks = new ArrayList<Block>(); //stores all blocks on the edge of the gridBoard. Used for generating the maze
-	private ArrayList<Block>solutionPathBlocks = new ArrayList<Block>(); //represents the blocks in the solution path of the maze
 	private Block failedMovementMazeBlock = new Block (0, 0, 0); //when creating the maze, this represents a block which cannot move in a certain direction
 	private int failedDirectionCount; //count of failed directions. If a failedMovementMazeBlock has 3 failed directions, it cannot move
-	private int maxAttempts = 1000;
-	private int attempts = 0;
-	private boolean mazeFailed;
 	private ArrayList<Block>mazeBranchBlocks = new ArrayList<Block>();
 	private Block possibleEndBlock;
+	private int numBranches = 4; //the number of times branches should be made off of each other
+	private int mazeBorderLevel = 2; //the level of the borders of the maze
+	private int mazePathLevel = 1; //the level of the path of the maze
 	
 	/**
 	 * Constructs a grid 
@@ -97,6 +95,22 @@ public class Grid implements Cloneable {
 		this.height = newHeight;
 	}
 	
+	public void allBlocksSetZ(int level) {
+		boolean isVisible; //for if every block should be visible or not
+		if (level == 0) {
+    		isVisible = false;
+    	} else {
+    		isVisible = true;
+    	}
+		
+		for (int y = 0; y < this.getHeight(); y++) {
+            for (int x = 0; x < this.getWidth(); x++) {
+            	blockGrid[x][y].setZ(level);
+            	blockGrid[x][y].setVisible(isVisible);
+            }
+    	}
+	}
+	
 	public Block getBlockRight(Block block) {
 		return this.getBlockAt(block.getX() + 1, block.getY());
 	}
@@ -121,14 +135,7 @@ public class Grid implements Cloneable {
     	return ((block.getX() == 0 && block.getY() == 0) || (block.getX() == 0 && block.getY() == this.height - 1) || (block.getX() == this.width - 1 && block.getY() == 0) || (block.getX() == this.width - 1 && block.getY() == this.height - 1));
     }
     
-    public void generateMaze() { //for maze	
-    	for (int y = 0; y < this.getHeight(); y++) { //may be a better way to go through the blocks
-            for (int x = 0; x < this.getWidth(); x++) {
-            	blockGrid[x][y].setZ(2);
-            	blockGrid[x][y].setVisible(true);
-            }
-    	}
-    	
+    public Block getRandomEdgeBlock() {
     	int edgeBlockCount = 0;
     	
     	for (int y = 0; y < this.getHeight(); y++) { //may be a better way to go through the blocks
@@ -147,149 +154,63 @@ public class Grid implements Cloneable {
     		block = edgeBlocks.get(rand.nextInt(edgeBlockCount));
     	}
     	
-    	int direction = 0; //1-up, 2-right, 3-down, 4-left
-    	block.setZ(1);
+    	edgeBlocks.clear();
+    	
+    	return block;
+    }
+    
+    /**
+     * The generate maze methods creates a randomized maze. It works by first setting
+     * all of the blocks in the grid to a certain level. The method then starts at the edge
+     * of the grid and carves out a path. This method then creates more paths which branch off of that one.
+     */
+    public void generateMaze() {
+    	allBlocksSetZ(mazeBorderLevel);
+    	
+    	Block block = getRandomEdgeBlock(); //gets the starting point for the maze
+    	block.setZ(mazePathLevel);
     	block.setVisible(true);
-    	solutionPathBlocks.add(block);
     	
-    	if (block.getX() == 0) { //block is on left edge of grid
-    		direction = 2;
-    	}
-    	if (block.getX() == width - 1) { //block is on right edge of grid
-    		direction = 4;
-    	}
-    	if (block.getY() == height - 1) { //block is on bottom edge of grid
-    		direction = 1;
-    	}
-    	if (block.getY() == 0) { //block is on top of grid
-    		direction = 3;
-    	}
-    	try {
-//	    	if (direction == 1) { //up
-//	    		createSolutionPath(blockGrid[block.getX()][block.getY() - 1], direction, block);
-//	    	} else if (direction == 2) { //right
-//	    		createSolutionPath(blockGrid[block.getX() + 1][block.getY()], direction, block);
-//	    	} else if (direction == 3) { //down
-//	    		createSolutionPath(blockGrid[block.getX()][block.getY() + 1], direction, block);
-//	    	} else if (direction == 4) { //left
-//	    		createSolutionPath(blockGrid[block.getX() - 1][block.getY()], direction, block);
-//	    	}
-	    	if (direction == 1) { //up
-	    		createMazeBranch(blockGrid[block.getX()][block.getY() - 1], direction, block);
-	    	} else if (direction == 2) { //right
-	    		createMazeBranch(blockGrid[block.getX() + 1][block.getY()], direction, block);
-	    	} else if (direction == 3) { //down
-	    		createMazeBranch(blockGrid[block.getX()][block.getY() + 1], direction, block);
-	    	} else if (direction == 4) { //left
-	    		createMazeBranch(blockGrid[block.getX() - 1][block.getY()], direction, block);
-	    	}
-    	} catch (Exception e){
-    		System.out.println("failed");
-    	}
+    	//direction is an integer which represents the direction the maze path is going in. 1 is up, 2 is right, 3 is down, 4 is left
+    	int direction = getInitialDirection(block); //finds the initial direction the path of the maze should go in
     	
-    	if (mazeFailed) { //if the solution path was unable to be made, try again
-    		mazeFailed = false;
-    		
-    		//reset
-        	edgeBlocks.clear();
-        	solutionPathBlocks.clear();
-        	mazeBranchBlocks.clear();
-        	failedDirectionCount = 0;
-        	failedMovementMazeBlock = new Block(0, 0, 0);
-        	attempts = 0;
-    		generateMaze();
-    		
-    		return;
-    	}
+    	attemptMazeMovement(block, direction); //creates the first path of the maze
     	
-    	failedDirectionCount = 0;
-    	failedMovementMazeBlock = new Block(0, 0, 0);
-    	attempts = 0;
-    	
-//    	createMazeBranches(solutionPathBlocks); //for making paths which aren't part of the solution path
-    	createMazeBranches(mazeBranchBlocks); //for making paths which aren't part of the initial path
-    	int numBranches = 4; //the number of times branches should be made off of each other
+    	createMazeBranches(mazeBranchBlocks); //for building off of the initial path of the maze with more paths
     	int count = 0;
     	while (count < numBranches) {
-    		createMazeBranches(mazeBranchBlocks); //for making paths which aren't part of the solution path
+    		createMazeBranches(mazeBranchBlocks); //for branching off of branches and making more paths
     		mazeBranchBlocks.clear();
     		count = count + 1;
     	}
-//    	createMazeBranches(mazeBranchBlocks);
-//    	Block lastMazeBlock = mazeBranchBlocks.get(mazeBranchBlocks.size() - 1);
     	
-    	//place the final maze block to finish the maze
-//    	if (isEdgeBlock(getBlockAbove(lastMazeBlock))) {
-//    		getBlockAbove(lastMazeBlock).setZ(1);
-//    	} if (isEdgeBlock(getBlockRight(lastMazeBlock))) {
-//    		getBlockRight(lastMazeBlock).setZ(1);
-//    	} if (isEdgeBlock(getBlockBelow(lastMazeBlock))) {
-//    		getBlockBelow(lastMazeBlock).setZ(1);
-//    	} if (isEdgeBlock(getBlockLeft(lastMazeBlock))) {
-//    		getBlockLeft(lastMazeBlock).setZ(1);
-//    	}
-    	
-    	possibleEndBlock.setZ(1);
-    	
-    	edgeBlocks.clear();
-    	
-    	solutionPathBlocks.clear();
+    	//the possibleEndBlock is a block on the edge of the grid which is next to the end of a random path
+    	possibleEndBlock.setZ(mazePathLevel); //places the last block to complete the maze
     }
     
-    private void createSolutionPath(Block possiblePathBlock, int direction, Block previousBlock) { //for maze
-		attempts = attempts + 1;
-		
-		if (attempts > maxAttempts) {
-			System.out.println("maxAttempted");
-			mazeFailed = true;
-			return;
-		}
-		
-    	if (isEdgeBlock(possiblePathBlock)) { //once the path reaches the edge, the path is finished
-		    	if ((solutionPathBlocks.size() < width / 2 ) || (solutionPathBlocks.size() < height / 2)) {
-	    			handleInvalidPath(previousBlock, direction); //the path should not end if the path is not long enough
-	    		} else {
-	    			possiblePathBlock.setZ(1);
-		        	solutionPathBlocks.add(possiblePathBlock);
-		        	return;
-	    		}
-	    		
-    	} else {
-	    	if (isValidPath(possiblePathBlock, 2, direction)) {
-	        	addNewPathBlock(possiblePathBlock);
-	        	int newDirection = generateNewDirection(direction);
-	        	attemptMovement(possiblePathBlock, newDirection);
-	    	} else {
-	    		handleInvalidPath(previousBlock, direction); //the possiblePathBlock is not possible. Must go back to previous block and try a new direction
-	    	}
+    private int getInitialDirection(Block block) {
+    	int direction;
+    	
+    	if (block.getX() == 0) { //block is on left edge of grid
+    		direction = 2;
+    	} else if (block.getX() == width - 1) { //block is on right edge of grid
+    		direction = 4;
+    	} else if (block.getY() == height - 1) { //block is on bottom edge of grid
+    		direction = 1;
+    	} else { //block is on top of grid
+    		direction = 3;
     	}
+    	
+    	return direction;
     }
     
-    private int generateNewDirection(int lastDirection) {
+    private int generateNewDirection(int previousDireciton) {
     	Random rand = new Random();
     	int newDirection = rand.nextInt(4) + 1;
-    	while (isOppositeDirection(newDirection, lastDirection)) { //the path should not go backwards
+    	while (isOppositeDirection(newDirection, previousDireciton)) { //the path should not go backwards
     		newDirection = rand.nextInt(4) + 1;
     	}
     	return newDirection;
-    }
-    
-    private void addNewPathBlock(Block newPathBlock) {
-    	newPathBlock.setZ(1);
-		newPathBlock.setVisible(true);
-    	solutionPathBlocks.add(newPathBlock);
-    }
-    
-    private void attemptMovement(Block block, int newDirection) {
-		if (newDirection == 1) { //up
-    		createSolutionPath(blockGrid[block.getX()][block.getY() - 1], newDirection, block);
-    	} else if (newDirection == 2) { //right
-    		createSolutionPath(blockGrid[block.getX() + 1][block.getY()], newDirection, block);
-    	} else if (newDirection == 3) { //down
-    		createSolutionPath(blockGrid[block.getX()][block.getY() + 1], newDirection, block);
-    	} else if (newDirection == 4) { //left
-    		createSolutionPath(blockGrid[block.getX() - 1][block.getY()], newDirection, block);
-    	}
     }
     
     private boolean isOppositeDirection(int direction, int previousDirection) {
@@ -303,107 +224,81 @@ public class Grid implements Cloneable {
     		return false;
     	}
     }
-	private void handleInvalidPath(Block block, int failedDirection) {
-		if (failedMovementMazeBlock.equals(block)) { //used for deciding if the last block in the path cannot move in any direction
-			failedDirectionCount = failedDirectionCount + 1;
-		} else {
-			failedMovementMazeBlock = block;
-			failedDirectionCount = 1;
-		}
-		
-		if (failedDirectionCount == 4) { //failed to move in every direction
-			handleUnableToMove(block);
-		} else {
-			int newDirection = 0;
-			if (failedDirection == 4) {
-				newDirection = 1;
-			} else {
-				newDirection = failedDirection + 1;
-			}
-	    	attemptMovement(block, newDirection);
-		}
-	}
 	
-	private void handleUnableToMove(Block failedBlock) { //failedBlock is the last block in the path that can't move in any direciton
-		failedMovementMazeBlock = new Block(0, 0, 0); //reset the failedMovementMazeBlock
-		
-		Block lastBlock = solutionPathBlocks.get(solutionPathBlocks.size() - 2); //the last block in the path (the block before the failedBlock)
-		int directionOfFailedBlock = getDirectionOfPathBlock(failedBlock, lastBlock);
-		
-		solutionPathBlocks.remove(failedBlock); //failedBlock is no longer in the path
-		failedBlock.setZ(2); //change 2
-		
-		handleInvalidPath(lastBlock, directionOfFailedBlock);
-	}
-	
-	private int getDirectionOfPathBlock(Block block, Block previousBlock) { //gets the direction the block moved in
-		int direction = 1;
-		if (getBlockAbove(block).equals(previousBlock)) { //block moved down //move to a  method
-			direction = 3;
-		} else if (getBlockRight(block).equals(previousBlock)) { //block moved left
-			direction = 4;
-		} else if (getBlockBelow(block).equals(previousBlock)) { //block moved up
-			direction = 1;
-		} else if (getBlockLeft(block).equals(previousBlock)) { //block moved right
-			direction = 2;
-		}
-		return direction;
-	}
-	
-	private void createMazeBranches(ArrayList<Block> blocks) {
+    /**
+     * Randomly branches off of a path to create new paths
+     * 
+     * @param path- the path of blocks which will have branches
+     */
+	private void createMazeBranches(ArrayList<Block> path) {
 		Random rand = new Random();
-		//int branchNum = (blocks.size() - 1) * 2; //CAN CHANGE
-		int branchNum = (blocks.size() - 1); //CAN CHANGE
+		int branchNum = (path.size() - 1); //the number of branches which should be made
+		
 		for (int i = 0; i < branchNum; i++) { //creating every branch
-			int randomNum = rand.nextInt(blocks.size() - 1);
-			Block randomInitialBlock = blocks.get(randomNum);
-			while (isEdgeBlock(randomInitialBlock)) { //the starting point can't be an edge block
-				randomInitialBlock = blocks.get(rand.nextInt(solutionPathBlocks.size() - 1));
+			Block initialBlock = path.get(rand.nextInt(path.size() - 1)); //finds a random block in the path to start branching off of
+			
+			while (isEdgeBlock(initialBlock)) { //the starting point of the branch can't be an edge block
+				initialBlock = path.get(rand.nextInt(mazeBranchBlocks.size() - 1));
 			}
-			int initalDirection = 1; ////first try to move up
-			Block possiblePathBlock = blockGrid[randomInitialBlock.getX()][randomInitialBlock.getY() - 1]; //first try to move up
-//        	mazeBranchBlocks.clear();
-			createMazeBranch(possiblePathBlock, initalDirection, randomInitialBlock);
-//			int branchCount = 0; //number of branches to make
-////			while (branchCount < 1) {
-////				createMazeBranches(mazeBranchBlocks);
-////				branchCount = branchCount + 1;
-////			}
+			
+    		//int initialDirection = rand.nextInt(4) + 1; //the first direction the path should move in
+    		int initialDirection = 1;
+			Block possiblePathBlock = blockGrid[initialBlock.getX()][initialBlock.getY() - 1];
+			createMazePath(possiblePathBlock, initialDirection, initialBlock);
 		}
 	}
 	
-	private void createMazeBranch(Block possiblePathBlock, int direction, Block previousBlock) {
-		if (isEdgeBlock(possiblePathBlock)) {
-			//return; //once the branch reaches the edge, it should end
-			possibleEndBlock = possiblePathBlock;
-			handleInvalidMazeBranch(previousBlock, direction);
+	/**
+	 * Creates a path in the maze
+	 * 
+	 * @param possibleBlock - a block in the grid which may or may not become part of the path
+	 * @param direction - the direction from the previousBlock in the path to the possibleBlock
+	 * @param previousBlock - the previousBlock in the path
+	 */
+	private void createMazePath(Block possibleBlock, int direction, Block previousBlock) {
+		if (isEdgeBlock(possibleBlock)) {
+			possibleEndBlock = possibleBlock;
+			handleInvalidMovement(previousBlock, direction);
 		} else {
-			if (isValidPath(possiblePathBlock, 2, direction)) {
-				possiblePathBlock.setZ(1);
-				mazeBranchBlocks.add(possiblePathBlock);
+			if (isValidPath(possibleBlock, mazeBorderLevel, direction)) {
+				Block newBlock = possibleBlock;
+				newBlock.setZ(mazePathLevel);
+				mazeBranchBlocks.add(newBlock);
 				int newDirection = generateNewDirection(direction);
-				attemptMazeMovement(possiblePathBlock, newDirection);
+				attemptMazeMovement(newBlock, newDirection);
 			} else {
-				handleInvalidMazeBranch(previousBlock, direction);
+				handleInvalidMovement(previousBlock, direction);
 			}
 		}
 	}
 	
-    private void attemptMazeMovement(Block block, int newDirection) { //shouldn't have 2
+	/**
+	 * Attempts to add a new block to a path in the maze
+	 * 
+	 * @param block - the previous block in the path
+	 * @param newDirection - the direction the path will go in
+	 */
+    private void attemptMazeMovement(Block block, int newDirection) {
 		if (newDirection == 1) { //up
-    		createMazeBranch(blockGrid[block.getX()][block.getY() - 1], newDirection, block);
+    		createMazePath(blockGrid[block.getX()][block.getY() - 1], newDirection, block);
     	}
 		else if (newDirection == 2) { //right
-    		createMazeBranch(blockGrid[block.getX() + 1][block.getY()], newDirection, block);
+    		createMazePath(blockGrid[block.getX() + 1][block.getY()], newDirection, block);
     	} else if (newDirection == 3) { //down
-    		createMazeBranch(blockGrid[block.getX()][block.getY() + 1], newDirection, block);
+    		createMazePath(blockGrid[block.getX()][block.getY() + 1], newDirection, block);
     	} else if (newDirection == 4) { //left
-    		createMazeBranch(blockGrid[block.getX() - 1][block.getY()], newDirection, block);
+    		createMazePath(blockGrid[block.getX() - 1][block.getY()], newDirection, block);
     	}
     }
     
-	private void handleInvalidMazeBranch(Block block, int failedDirection) {
-		if (failedMovementMazeBlock.equals(block)) { //used for deciding if the last block in the path cannot move in any direction
+    /**
+     * Handles if the path is unable to add new block in a certain direction
+     * 
+     * @param block - the block which failed to move (add a new block to the path) in a certain direction
+     * @param failedDirection - the failed direction of the block
+     */
+	private void handleInvalidMovement(Block block, int failedDirection) {
+		if (failedMovementMazeBlock.equals(block)) { //if the block has already failed to move (add a new block) in one direction
 			failedDirectionCount = failedDirectionCount + 1;
 		} else {
 			failedMovementMazeBlock = block;
@@ -413,9 +308,9 @@ public class Grid implements Cloneable {
 		if (failedDirectionCount == 4) { //failed to move in every direction
 			failedDirectionCount = 0;
 			failedMovementMazeBlock = new Block(0, 0, 0);
-			return; //if can't move, the branch should end
-		} else {
-			int newDirection = 0;
+			return; //if cannot move, the branch should end
+		} else { //try moving in a new direction
+			int newDirection;
 			if (failedDirection == 4) {
 				newDirection = 1;
 			} else {
@@ -424,6 +319,26 @@ public class Grid implements Cloneable {
 	    	attemptMazeMovement(block, newDirection);
 		}
 	}
+	
+//  private void addNewPathBlock(Block newPathBlock) {
+//	newPathBlock.setZ(1);
+//	newPathBlock.setVisible(true);
+//	solutionPathBlocks.add(newPathBlock);
+//}
+	
+//	private int getDirectionOfPathBlock(Block block, Block previousBlock) { //gets the direction the block moved in
+//	int direction = 1;
+//	if (getBlockAbove(block).equals(previousBlock)) { //block moved down //move to a  method
+//		direction = 3;
+//	} else if (getBlockRight(block).equals(previousBlock)) { //block moved left
+//		direction = 4;
+//	} else if (getBlockBelow(block).equals(previousBlock)) { //block moved up
+//		direction = 1;
+//	} else if (getBlockLeft(block).equals(previousBlock)) { //block moved right
+//		direction = 2;
+//	}
+//	return direction;
+//}
 	
     public boolean isThreeAdjacentBlocksSameLevel(Block block, int level) {
     	int count = countBlocksInFourDirections(block, level);
