@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Set;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+
 /**
  * This class represents the data of the GridBoardUI class
  */
@@ -165,6 +168,14 @@ public class Grid implements Cloneable {
      * of the grid and carves out a path. This method then creates more paths which branch off of that one.
      */
     public void generateMaze() {
+    	if (height < 3 || width < 3) {
+    		Alert errorAlert = new Alert(AlertType.ERROR); //taken help from James_D on Stack Overflow https://stackoverflow.com/questions/39149242/how-can-i-do-an-error-messages-in-javafx
+    		errorAlert.setHeaderText("Error");
+    		errorAlert.setContentText("The grid is too small!");
+    		errorAlert.showAndWait();
+    		return;
+    	}
+    	
     	allBlocksSetZ(mazeBorderLevel);
     	
     	Block block = getRandomEdgeBlock(); //gets the starting point for the maze
