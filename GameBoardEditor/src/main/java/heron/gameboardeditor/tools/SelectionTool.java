@@ -133,7 +133,7 @@ public class SelectionTool extends Tool {
     	int changeInYIndex = endYIndex - startYIndex;
     	gridBoard.getGridData().cutAndPaste(selectedBlocks, changeInXIndex, changeInYIndex);
     	
-    	gridBoard.updateVisual();	
+    	gridBoard.updateVisual();
     }
 
 	

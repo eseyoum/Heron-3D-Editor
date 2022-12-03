@@ -68,8 +68,6 @@ public class App extends Application {
     	gridData.resize(newWidth, newHeight);
     }
     
-    
-
     public static Grid getGrid() {
     	return gridData;
     }
