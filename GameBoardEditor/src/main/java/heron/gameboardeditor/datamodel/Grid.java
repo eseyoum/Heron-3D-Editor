@@ -22,6 +22,7 @@ public class Grid implements Cloneable {
 	private int attempts = 0;
 	private boolean mazeFailed;
 	private ArrayList<Block>mazeBranchBlocks = new ArrayList<Block>();
+	private Block possibleEndBlock;
 	
 	/**
 	 * Constructs a grid 
@@ -164,14 +165,23 @@ public class Grid implements Cloneable {
     		direction = 3;
     	}
     	try {
+//	    	if (direction == 1) { //up
+//	    		createSolutionPath(blockGrid[block.getX()][block.getY() - 1], direction, block);
+//	    	} else if (direction == 2) { //right
+//	    		createSolutionPath(blockGrid[block.getX() + 1][block.getY()], direction, block);
+//	    	} else if (direction == 3) { //down
+//	    		createSolutionPath(blockGrid[block.getX()][block.getY() + 1], direction, block);
+//	    	} else if (direction == 4) { //left
+//	    		createSolutionPath(blockGrid[block.getX() - 1][block.getY()], direction, block);
+//	    	}
 	    	if (direction == 1) { //up
-	    		createSolutionPath(blockGrid[block.getX()][block.getY() - 1], direction, block);
+	    		createMazeBranch(blockGrid[block.getX()][block.getY() - 1], direction, block);
 	    	} else if (direction == 2) { //right
-	    		createSolutionPath(blockGrid[block.getX() + 1][block.getY()], direction, block);
+	    		createMazeBranch(blockGrid[block.getX() + 1][block.getY()], direction, block);
 	    	} else if (direction == 3) { //down
-	    		createSolutionPath(blockGrid[block.getX()][block.getY() + 1], direction, block);
+	    		createMazeBranch(blockGrid[block.getX()][block.getY() + 1], direction, block);
 	    	} else if (direction == 4) { //left
-	    		createSolutionPath(blockGrid[block.getX() - 1][block.getY()], direction, block);
+	    		createMazeBranch(blockGrid[block.getX() - 1][block.getY()], direction, block);
 	    	}
     	} catch (Exception e){
     		System.out.println("failed");
@@ -183,6 +193,7 @@ public class Grid implements Cloneable {
     		//reset
         	edgeBlocks.clear();
         	solutionPathBlocks.clear();
+        	mazeBranchBlocks.clear();
         	failedDirectionCount = 0;
         	failedMovementMazeBlock = new Block(0, 0, 0);
         	attempts = 0;
@@ -195,14 +206,31 @@ public class Grid implements Cloneable {
     	failedMovementMazeBlock = new Block(0, 0, 0);
     	attempts = 0;
     	
-    	createMazeBranches(solutionPathBlocks); //for making paths which aren't part of the solution path
-    	int numBranches = 5; //the number of times branches should be made off of each other
+//    	createMazeBranches(solutionPathBlocks); //for making paths which aren't part of the solution path
+    	createMazeBranches(mazeBranchBlocks); //for making paths which aren't part of the initial path
+    	int numBranches = 4; //the number of times branches should be made off of each other
     	int count = 0;
     	while (count < numBranches) {
     		createMazeBranches(mazeBranchBlocks); //for making paths which aren't part of the solution path
     		mazeBranchBlocks.clear();
     		count = count + 1;
     	}
+//    	createMazeBranches(mazeBranchBlocks);
+//    	Block lastMazeBlock = mazeBranchBlocks.get(mazeBranchBlocks.size() - 1);
+    	
+    	//place the final maze block to finish the maze
+//    	if (isEdgeBlock(getBlockAbove(lastMazeBlock))) {
+//    		getBlockAbove(lastMazeBlock).setZ(1);
+//    	} if (isEdgeBlock(getBlockRight(lastMazeBlock))) {
+//    		getBlockRight(lastMazeBlock).setZ(1);
+//    	} if (isEdgeBlock(getBlockBelow(lastMazeBlock))) {
+//    		getBlockBelow(lastMazeBlock).setZ(1);
+//    	} if (isEdgeBlock(getBlockLeft(lastMazeBlock))) {
+//    		getBlockLeft(lastMazeBlock).setZ(1);
+//    	}
+    	
+    	possibleEndBlock.setZ(1);
+    	
     	edgeBlocks.clear();
     	
     	solutionPathBlocks.clear();
@@ -347,6 +375,7 @@ public class Grid implements Cloneable {
 	private void createMazeBranch(Block possiblePathBlock, int direction, Block previousBlock) {
 		if (isEdgeBlock(possiblePathBlock)) {
 			//return; //once the branch reaches the edge, it should end
+			possibleEndBlock = possiblePathBlock;
 			handleInvalidMazeBranch(previousBlock, direction);
 		} else {
 			if (isValidPath(possiblePathBlock, 2, direction)) {
