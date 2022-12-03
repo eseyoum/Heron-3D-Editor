@@ -1,6 +1,6 @@
 package heron.gameboardeditor;
 
-import java.io.File;
+import java.io.File; 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
@@ -12,6 +12,7 @@ import heron.gameboardeditor.datamodel.Grid;
 import heron.gameboardeditor.datamodel.ProjectIO;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -34,6 +35,12 @@ public class NewProjectScreenController {
     
     @FXML
     private Slider levelSlider;
+    
+    @FXML
+    private MenuItem mountainTerrainObject;
+    
+    @FXML
+    private MenuItem volcanoTerrainObject;
     
     private static int rows;
     private static int columns;
@@ -107,6 +114,11 @@ public class NewProjectScreenController {
     @FXML
     void selectToolOn(ActionEvent event) {
     	gridBoard.gridEditor.setCurrentTool(gridBoard.selectionTool);
+    }
+    
+    @FXML
+    void terrainToolOn(ActionEvent event) {
+    	gridBoard.gridEditor.setCurrentTool(gridBoard.terrainTool);
     }
     
     @FXML

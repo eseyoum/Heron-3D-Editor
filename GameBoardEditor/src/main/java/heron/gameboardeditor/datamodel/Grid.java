@@ -72,6 +72,16 @@ public class Grid implements Cloneable {
 		return height;
 	}
 	
+	public boolean isCoordinateInGrid(int x, int y) {
+		if ((x < 0) || (x > width - 1)) {
+			return false;
+		} else if ((y < 0) || (y > height - 1)) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
 	/**
 	 * This method allows us to resize the grid by creating a new gird (with a new width and a new height) 
 	 * and set the data field blockGrid to this new grid. 
@@ -98,13 +108,18 @@ public class Grid implements Cloneable {
 		this.height = newHeight;
 	}
 	
-	public void allBlocksSetZ(int level) {
-		boolean isVisible; //for if every block should be visible or not
+	public boolean isVisibleLevel(int level) { //if the level should be visible
+		boolean isVisible;
 		if (level == 0) {
     		isVisible = false;
     	} else {
     		isVisible = true;
     	}
+		return isVisible;
+	}
+	
+	public void allBlocksSetZ(int level) {
+		boolean isVisible = isVisibleLevel(level);
 		
 		for (int y = 0; y < this.getHeight(); y++) {
             for (int x = 0; x < this.getWidth(); x++) {
