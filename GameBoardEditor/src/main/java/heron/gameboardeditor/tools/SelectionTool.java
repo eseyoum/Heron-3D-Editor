@@ -135,7 +135,7 @@ public class SelectionTool extends Tool {
     	System.out.println("AFTER:");
     	gridBoard.getGridData().printGrid();
     	
-    	gridBoard.updateVisual();	
+    	gridBoard.updateVisual();
     }
     
     public void drag(int eventXIndex, int eventYIndex) {

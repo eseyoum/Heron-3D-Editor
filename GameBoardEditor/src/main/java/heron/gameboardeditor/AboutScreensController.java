@@ -15,7 +15,6 @@ public class AboutScreensController {
 		App.setRoot("welcomeScreen");
     }
 	
-	//Avoid users from editing the text
 	@FXML
     void initialize() {
 		credits.setEditable(false);

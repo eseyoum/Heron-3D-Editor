@@ -3,8 +3,6 @@ package heron.gameboardeditor;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import heron.gameboardeditor.datamodel.Grid;
 import heron.gameboardeditor.datamodel.ProjectIO;
 import javafx.event.ActionEvent;
@@ -18,7 +16,6 @@ import javafx.stage.FileChooser;
 
 public class WelcomeScreenController {
 	
-
 	@FXML
     private Button newProjectButton;
 	
@@ -29,8 +26,6 @@ public class WelcomeScreenController {
     private GridBoardUI gridBoard;
     private VBox boardParentVBox;
 	
-	
-    
     @FXML
     private void switchToNewProject() throws IOException {
     	App.setRoot("chooseBoardScreen");
@@ -92,10 +87,7 @@ public class WelcomeScreenController {
 
     @FXML
     void initialize() {
-    	App.useNewGrid(10, 10);
-        //assert NewProject != null : "fx:id=\"NewProject\" was not injected: check your FXML file 'welcomeScreen.fxml'.";
+    	App.useNewGrid(20, 20);
     }
     
-
 }
-

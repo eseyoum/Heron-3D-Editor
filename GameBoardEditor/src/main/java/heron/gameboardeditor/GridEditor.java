@@ -30,5 +30,4 @@ public class GridEditor {
 	public void mouseDragged(MouseEvent e) {
 		currentTool.mouseDragged(e);
 	}
-
 }

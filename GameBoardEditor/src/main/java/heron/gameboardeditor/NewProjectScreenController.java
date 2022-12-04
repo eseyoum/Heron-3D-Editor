@@ -1,6 +1,6 @@
 package heron.gameboardeditor;
 
-import java.io.File;
+import java.io.File; 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
@@ -12,84 +12,22 @@ import heron.gameboardeditor.datamodel.Grid;
 import heron.gameboardeditor.datamodel.ProjectIO;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 
 public class NewProjectScreenController {
 	
-    @FXML 
+	@FXML 
     private AnchorPane mapDisplay;
 	
-	@FXML 
-	private ToggleGroup toolButtonToggleGroup;	
-	
-	@FXML
-    private ToggleButton eraserToggle;
-	
-	@FXML
-	private ToggleButton digToggle;
-    
-	@FXML
-    private ToggleButton fillToolToggle;
-    
-	@FXML
-    private ToggleButton pencilToggle;
-    
-	@FXML
-    private ToggleButton selectToggle;
-    
-	@FXML
-    private MenuItem generateMazeButton;
-    
-	@FXML
-    private Font x1;
-    
-	@FXML
-    private Color x2;
-    
-	@FXML
-    private Color x21;
-    
-	@FXML
-    private Font x3;
-    
-	@FXML
-    private Color x4;
-    
-	@FXML
-    private Button levelButton1;
-    
-	@FXML
-    private Button levelButton2;
-    
-	@FXML
-    private Button levelButton3;
-    
-	@FXML
-    private Button levelButton4;
-    
-	@FXML
-    private Button levelButton5;
-    
-    @FXML private StackPane editPanel;
-    
-    @FXML
-    private Button setSizeButton;
-    
     @FXML
     private TextField numRow;
     
@@ -99,23 +37,19 @@ public class NewProjectScreenController {
     @FXML
     private Slider levelSlider;
     
-    private static int rows = 10;
-    private static int columns = 10;
+    @FXML
+    private MenuItem mountainTerrainObject;
+    
+    @FXML
+    private MenuItem volcanoTerrainObject;
+    
+    private static int rows;
+    private static int columns;
     private BorderPane gridMapPane;
     private VBox boardParentVBox;
     private GridBoardUI gridBoard;
     
-    @FXML
-    void exitTheSceen(ActionEvent event) {
-    	Alert alert = new Alert(AlertType.WARNING, "Are you sure you want to quit?", ButtonType.YES, ButtonType.NO);
-    	
-    	Optional<ButtonType> result = alert.showAndWait();
-    	if (result.get() == ButtonType.YES) {
-    		Platform.exit();
-    	}
-    	
-    }
-    
+    //Tools
     @FXML
     /**
      * When the user clicks on Set Size button, this method get the number of rows and columns from the user's input 
@@ -167,21 +101,43 @@ public class NewProjectScreenController {
     void pencilButtonOn(ActionEvent event) {
     	gridBoard.gridEditor.setCurrentTool(gridBoard.pencilTool);
     }
+    
     @FXML
     void eraserButtonOn(ActionEvent event) {
     	gridBoard.gridEditor.setCurrentTool(gridBoard.eraserTool);
     }
+    
     @FXML
     void digButtonOn(ActionEvent event) {
     	gridBoard.gridEditor.setCurrentTool(gridBoard.digTool);
     }
+    
     @FXML
     void fillToolOn(ActionEvent event) {
     	gridBoard.gridEditor.setCurrentTool(gridBoard.fillTool);
     }
+    
     @FXML
     void selectToolOn(ActionEvent event) {
     	gridBoard.gridEditor.setCurrentTool(gridBoard.selectionTool);
+    }
+    
+    @FXML
+    void terrainToolOn(ActionEvent event) {
+    	gridBoard.terrainTool.setCurrentTerrainObject(null);
+    	gridBoard.gridEditor.setCurrentTool(gridBoard.terrainTool);
+    }
+    
+    @FXML
+    void terrainToolMountain(ActionEvent event) {
+    	gridBoard.terrainTool.setCurrentTerrainObject("Mountain");
+    	gridBoard.gridEditor.setCurrentTool(gridBoard.terrainTool);
+    }
+    
+    @FXML
+    void terrainToolVolcano(ActionEvent event) {
+    	gridBoard.terrainTool.setCurrentTerrainObject("Volcano");
+    	gridBoard.gridEditor.setCurrentTool(gridBoard.terrainTool);
     }
     
     @FXML
@@ -189,29 +145,12 @@ public class NewProjectScreenController {
     	gridBoard.generateMaze();
     }
     
+    
+    //File menu bar
     @FXML
     void newFile(ActionEvent event) throws IOException {
     	mapDisplay.getChildren().clear();
     	App.setRoot("newProjectScreen");
-    }
-    
-    @FXML
-    void show3DPreview(ActionEvent event) {
-    	Board3DViewController preview3D = new Board3DViewController(gridBoard.getGridData());
-    	preview3D.show();
-    }
-    
-    @FXML
-    void saveProject(ActionEvent event) {
-    	File file = saveLoadHelper("save");
-    	if (file != null) {
-    		Grid grid = App.getGrid();
-    		try {
-				ProjectIO.save(grid, file);
-			} catch (IOException ex) {
-	    		new Alert(AlertType.ERROR, "An I/O error occurred while trying to save this file.").showAndWait();			
-			}
-    	}
     }
     
     @FXML
@@ -232,6 +171,19 @@ public class NewProjectScreenController {
 		}
     }
     
+    @FXML
+    void saveProject(ActionEvent event) {
+    	File file = saveLoadHelper("save");
+    	if (file != null) {
+    		Grid grid = App.getGrid();
+    		try {
+				ProjectIO.save(grid, file);
+			} catch (IOException ex) {
+	    		new Alert(AlertType.ERROR, "An I/O error occurred while trying to save this file.").showAndWait();			
+			}
+    	}
+    }
+    
     private File saveLoadHelper(String dialog) {
     	FileChooser chooser = new FileChooser();
     	FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Heron game (*.heron)", "*.heron");
@@ -243,5 +195,22 @@ public class NewProjectScreenController {
     		file = chooser.showSaveDialog(App.getMainWindow());
     	}
     	return file;
+    }
+    
+    @FXML
+    void exitTheSceen(ActionEvent event) {
+    	Alert alert = new Alert(AlertType.WARNING, "Are you sure you want to quit?", ButtonType.YES, ButtonType.NO);
+    	
+    	Optional<ButtonType> result = alert.showAndWait();
+    	if (result.get() == ButtonType.YES) {
+    		Platform.exit();
+    	}
+    }
+    
+    //3D menu bar
+    @FXML
+    void show3DPreview(ActionEvent event) {
+    	Board3DViewController preview3D = new Board3DViewController(gridBoard.getGridData());
+    	preview3D.show();
     }
 }

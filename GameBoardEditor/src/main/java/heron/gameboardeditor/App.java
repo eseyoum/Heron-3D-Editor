@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -46,7 +45,6 @@ public class App extends Application {
         launch();
     }
     
-    
     /**
      * This method will create a new grid based on the number of rows and columns
      * 
@@ -56,7 +54,6 @@ public class App extends Application {
     public static void useNewGrid(int columns, int rows) {
     	gridData = new Grid(columns, rows);
     }
-    
     
     /**
      * This method will expand or crop the gridData based on the number of rows and columns the user inputs

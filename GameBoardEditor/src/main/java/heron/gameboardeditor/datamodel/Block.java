@@ -48,7 +48,6 @@ public class Block {
 
 	public Block clone() {
 		return new Block(x,y,z);
-		
 	}
 
 }
