@@ -55,7 +55,6 @@ public class GridBoardUI extends AnchorPane {
 		this.setOnMousePressed(e -> gridEditor.mousePressed(e));
 		this.setOnMouseReleased(e -> gridEditor.mouseReleased(e));
 		this.setOnMouseDragged(e -> gridEditor.mouseDragged(e));
-		this.setOnMouseClicked(e -> gridEditor.mouseClicked(e));
     }
 	
     public Grid getGridData() { //grid data represents the data of the GridUI
