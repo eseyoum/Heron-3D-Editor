@@ -94,7 +94,8 @@
         </Menu>
             <Menu mnemonicParsing="false" text="3D">
               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#show3DPreview" text="3D Preview" />
+                  <MenuItem mnemonicParsing="false" onAction="#show3DPreview" text="Preview" />
+                  <MenuItem mnemonicParsing="false" onAction="#exportToObj" text="Export" />
               </items>
             </Menu>
       </menus>

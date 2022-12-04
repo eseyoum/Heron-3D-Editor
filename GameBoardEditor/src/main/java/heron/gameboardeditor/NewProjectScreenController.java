@@ -2,6 +2,7 @@ package heron.gameboardeditor;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Optional;
 import javafx.application.Platform;
@@ -181,6 +182,13 @@ public class NewProjectScreenController {
     void show3DPreview(ActionEvent event) {
     	Board3DViewController preview3D = new Board3DViewController(gridBoard.getGridData());
     	preview3D.show();
+    }
+    
+    @FXML
+    void exportToObj() throws IOException {
+    	FileWriter writer = new FileWriter("box.obj");
+    	writer.write("jldf");
+    	writer.close();
     }
     
     @FXML
