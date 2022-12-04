@@ -20,6 +20,8 @@ public class TerrainTool extends Tool {
 	private TerrainObject defaultMountain;
 	private TerrainObject defaultVolcano;
 	
+	private ArrayList<TerrainObject> terrainObjects; //list of available terrain objects
+	
 	public TerrainTool(GridBoardUI gridBoard, UndoRedoHandler handler) {
 		super(handler);
 		this.gridBoard = gridBoard;
@@ -27,14 +29,26 @@ public class TerrainTool extends Tool {
 		
 		defaultMountain = createMountain();
 		defaultVolcano = createVolcano();
+		
+		terrainObjects = new ArrayList<TerrainObject>();
+		terrainObjects.add(defaultMountain);
+		terrainObjects.add(defaultVolcano);
 	}
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
 		CellUI cellClicked = gridBoard.getCell((int) e.getX() / CellUI.TILE_SIZE, (int) e.getY() / CellUI.TILE_SIZE);
 		Block initialBlock = cellClicked.getBlock();
-		drawTerrainObject(defaultMountain, initialBlock);
+		drawTerrainObject(terrainObject, initialBlock);
 		gridBoard.updateVisual();
+	}
+	
+	public void setCurrentTerrainObject(String terrainObjectString) {
+		for (TerrainObject terrainObject : terrainObjects) {
+			if (terrainObject.name.equals(terrainObjectString)) {
+				this.terrainObject = terrainObject;
+			}
+		}
 	}
 	
 	private void drawTerrainObject(TerrainObject terrainObject, Block initialBlock) {
@@ -57,7 +71,7 @@ public class TerrainTool extends Tool {
 		TerrainData initialTerrainData = new TerrainData(0, 0, 5); //top of the mountian
 		mountainList = buildMountain();
 		
-		TerrainObject mountain = new TerrainObject(mountainList, initialTerrainData);
+		TerrainObject mountain = new TerrainObject("Mountain", mountainList, initialTerrainData);
 		return mountain;
 	}
 	
@@ -98,15 +112,17 @@ public class TerrainTool extends Tool {
 		ArrayList<TerrainData> volcanoList = new ArrayList<TerrainData>();
 		TerrainData initialTerrainData = new TerrainData(0, 0, 1); //top of the volcano
 		volcanoList = buildMountain();
-		TerrainObject volcano = new TerrainObject(volcanoList, initialTerrainData);
+		TerrainObject volcano = new TerrainObject("Volcano", volcanoList, initialTerrainData);
 		return volcano;
 	}
 	
 	private class TerrainObject {
 		private ArrayList<TerrainData> terrainList;
-		TerrainData initialTerrainData;
+		private TerrainData initialTerrainData;
+		private String name;
 		
-		private TerrainObject(ArrayList<TerrainData> terrainList, TerrainData initialTerrainData) {
+		private TerrainObject(String name, ArrayList<TerrainData> terrainList, TerrainData initialTerrainData) {
+			this.name = name;
 			this.terrainList = terrainList;
 			this.initialTerrainData = initialTerrainData;
 		}

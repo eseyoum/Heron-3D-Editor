@@ -118,6 +118,19 @@ public class NewProjectScreenController {
     
     @FXML
     void terrainToolOn(ActionEvent event) {
+    	gridBoard.terrainTool.setCurrentTerrainObject(null);
+    	gridBoard.gridEditor.setCurrentTool(gridBoard.terrainTool);
+    }
+    
+    @FXML
+    void terrainToolMountain(ActionEvent event) {
+    	gridBoard.terrainTool.setCurrentTerrainObject("Mountain");
+    	gridBoard.gridEditor.setCurrentTool(gridBoard.terrainTool);
+    }
+    
+    @FXML
+    void terrainToolVolcano(ActionEvent event) {
+    	gridBoard.terrainTool.setCurrentTerrainObject("Volcano");
     	gridBoard.gridEditor.setCurrentTool(gridBoard.terrainTool);
     }
     

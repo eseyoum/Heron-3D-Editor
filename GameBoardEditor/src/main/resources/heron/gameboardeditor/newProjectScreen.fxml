@@ -163,8 +163,8 @@
                         <ToggleButton fx:id="selectToggle" layoutX="49.0" layoutY="362.0" mnemonicParsing="false" onAction="#selectToolOn" text="SELECT" toggleGroup="$toolButtonToggleGroup" />
                         <MenuButton layoutX="29.0" layoutY="417.0" mnemonicParsing="false" text="TerrainTool">
                           <items>
-                            <MenuItem fx:id="mountainTerrainObject" mnemonicParsing="false" onAction="#terrainToolOn" text="Mountain" />
-                            <MenuItem fx:id="volcanoTerrainObject" mnemonicParsing="false" onAction="#terrainToolOn" text="Volcano" />
+                            <MenuItem fx:id="mountainTerrainObject" mnemonicParsing="false" onAction="#terrainToolMountain" text="Mountain" />
+                            <MenuItem fx:id="volcanoTerrainObject" mnemonicParsing="false" onAction="#terrainToolVolcano" text="Volcano" />
                           </items>
                         </MenuButton>
                      </children>
