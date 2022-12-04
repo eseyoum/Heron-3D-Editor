@@ -1,12 +1,5 @@
 package heron.gameboardeditor;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
-
-import heron.gameboardeditor.datamodel.Block;
-import java.util.List;
 
 import heron.gameboardeditor.datamodel.Grid;
 import heron.gameboardeditor.tools.DigTool;
@@ -40,8 +33,8 @@ public class GridBoardUI extends AnchorPane {
         this.gridData = grid;
         cellArray = new CellUI[grid.getWidth()][grid.getHeight()];
         
-        for (int y = 0; y < grid.getHeight(); y++) { //creates the grid
-            for (int x = 0; x < grid.getWidth(); x++) {
+        for (int x = 0; x < grid.getWidth(); x++) {
+        	for (int y = 0; y < grid.getHeight(); y++) { //creates the grid
                 cellArray[x][y] = new CellUI(this, x, y);
                 cellArray[x][y].setLayoutX(x * CellUI.TILE_SIZE); //spaces out the tiles based on TILE_SIZE
                 cellArray[x][y].setLayoutY(y * CellUI.TILE_SIZE);
@@ -85,8 +78,8 @@ public class GridBoardUI extends AnchorPane {
     }
     
     public void updateVisual() {
-    	for (int y = 0; y < gridData.getHeight(); y++) { //may be a better way to go through the cells
-            for (int x = 0; x < gridData.getWidth(); x++) {
+    	for (int x = 0; x < gridData.getWidth(); x++) {
+    		for (int y = 0; y < gridData.getHeight(); y++) { //may be a better way to go through the cells
             	cellArray[x][y].updateVisualBasedOnBlock();
             }
     	}

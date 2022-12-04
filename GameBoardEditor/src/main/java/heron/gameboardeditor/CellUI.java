@@ -47,7 +47,7 @@ public class CellUI extends Rectangle {
      * Updates the cell color to reflect the level of the block
      */
     public void updateVisualBasedOnBlock() {
-    	Block block = getBlock();
+    	Block block = getBlock(); 
     	if (block.isVisible()) {
     		setFill(colorList.get(block.getZ() - 1));
     	} else {
@@ -57,18 +57,11 @@ public class CellUI extends Rectangle {
 	
 	public void setLevel(int level) {
 		Block block = getBlock();
-		block.setZ(level);
-		
-		if (level != 0) {
-			block.setVisible(true);
-		} else {
-			block.setVisible(false); //if cell level is zero it should not be visible
-		}
-		
+		block.setZ(level);//if cell level is zero it should not be visible
 		updateVisualBasedOnBlock();
 	}
 		
-    public Block getBlock() {
+    public Block getBlock() { 
     	return gridBoard.getGridData().getBlockAt(xIndex, yIndex);
     }
     

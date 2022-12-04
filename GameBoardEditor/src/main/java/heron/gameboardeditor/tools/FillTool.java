@@ -32,12 +32,10 @@ public class FillTool extends Tool {
 //    	CellUI initialCellClicked = gridBoard.getCell(block.getX(), block.getY());
 //    	initialCellClicked.setLevel(turnToLevel);
     	block.setZ(turnToLevel);
-    	block.setVisible(true);
     	
     	if (gridData.isEdgeBlock(block)) {
     		//initialCellClicked.setLevel(turnToLevel);
     		block.setZ(turnToLevel);
-    		block.setVisible(true);
     		handleEdgeBlock(block, startingLevel, turnToLevel);
     	} else {
     		fillSurroundingCells(block, startingLevel, turnToLevel);
@@ -53,12 +51,10 @@ public class FillTool extends Tool {
     		if (gridData.isEdgeBlock(block)) {
     			//cellClicked.setLevel(turnToLevel);
     			block.setZ(turnToLevel);
-    			block.setVisible(true);
     			handleEdgeBlock(block, startingLevel, turnToLevel);
     		} else {
     			//gridBoard.getCell(block.getX(), block.getY()).setLevel(turnToLevel);
     			block.setZ(turnToLevel);
-    			block.setVisible(true);
     			fillSurroundingCells(block, startingLevel, turnToLevel);
     		}
     		return;

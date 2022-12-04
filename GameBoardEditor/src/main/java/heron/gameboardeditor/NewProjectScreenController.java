@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import heron.gameboardeditor.datamodel.Grid;
 import heron.gameboardeditor.datamodel.ProjectIO;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -149,9 +150,8 @@ public class NewProjectScreenController {
         BorderPane root = new BorderPane();
         root.setPrefSize(600, 800);
         gridBoard = new GridBoardUI(App.getGrid()); //creates a GridBoardUI, which is the grid the user can see
-
         boardParentVBox = new VBox(50, gridBoard); //creates a vbox with myBoard for children
-        boardParentVBox.setAlignment(Pos.CENTER);
+        boardParentVBox.setAlignment(Pos.TOP_RIGHT);
 
         root.setCenter(boardParentVBox);
 

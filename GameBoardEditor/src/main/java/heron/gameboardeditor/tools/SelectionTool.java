@@ -20,7 +20,7 @@ public class SelectionTool extends Tool {
 	private double initialSelectX;
 	private double initialSelectY;
 	private Set<CellUI>selectedCells = new HashSet<CellUI>();
-	
+	private Set<Block> selectedBlocks = new HashSet<Block>();
 
 	private boolean pressedInSelectedCell;
 		
@@ -65,9 +65,17 @@ public class SelectionTool extends Tool {
 		if (pressedInSelectedCell) {
 			int x = (int) (((e.getX() / CellUI.TILE_SIZE) % (gridBoard.getWidth() / CellUI.TILE_SIZE)) * CellUI.TILE_SIZE);
 			int y = (int) (((e.getY() / CellUI.TILE_SIZE) % (gridBoard.getHeight() / CellUI.TILE_SIZE)) * CellUI.TILE_SIZE);		
-			int eventXIndex = (int) (e.getX());
-			int eventYIndex= (int) (e.getY());
-//			drag(eventXIndex, eventYIndex);
+			
+			int startDragXIndex = (int) (e.getX());
+			int startDragYIndex = (int) (e.getY());
+			int endDragXIndex = (int) e.getSceneX() - startDragXIndex;
+			int endDragYIndex = (int) e.getSceneY() - startDragYIndex;
+//			for (CellUI cell : selectedCells) {
+//				cell.setX(endDragXIndex);
+//				cell.setY(endDragYIndex);
+//			}
+//			drag(endDragXIndex, endDragYIndex);
+			
 		} else {
 			selectionRectangle.setX(Math.min(e.getX(), initialSelectX));
 			selectionRectangle.setWidth(Math.abs(e.getX() - initialSelectX));
@@ -85,7 +93,6 @@ public class SelectionTool extends Tool {
 			int xEndIndex = (int) (e.getX() / CellUI.TILE_SIZE);
 			int yEndIndex = (int) (e.getY() / CellUI.TILE_SIZE);
 			cutAndPaste(xStartIndex, yStartIndex, xEndIndex, yEndIndex); 
-			
 		} else {
 			int xStartIndex = (int) selectionRectangle.getX() / CellUI.TILE_SIZE;
 			int yStartIndex = (int) selectionRectangle.getY() / CellUI.TILE_SIZE;
@@ -115,14 +122,18 @@ public class SelectionTool extends Tool {
 	}
 	
     public void cutAndPaste(int startXIndex, int startYIndex, int endXIndex, int endYIndex) {
-    	Set<Block> selectedBlocks = new HashSet<>();
+//    	Set<Block> selectedBlocks = new HashSet<>();
     	
     	for (CellUI cell: selectedCells) {
     		selectedBlocks.add(cell.getBlock());
     	} 
     	int changeInXIndex = endXIndex - startXIndex;
     	int changeInYIndex = endYIndex - startYIndex;
+    	System.out.println("BEFORE:");
+    	gridBoard.getGridData().printGrid();
     	gridBoard.getGridData().cutAndPaste(selectedBlocks, changeInXIndex, changeInYIndex);
+    	System.out.println("AFTER:");
+    	gridBoard.getGridData().printGrid();
     	
     	gridBoard.updateVisual();	
     }
@@ -134,9 +145,7 @@ public class SelectionTool extends Tool {
     		selectedBlocks.add(cell.getBlock());
     	} 
     	gridBoard.getGridData().drag(selectedBlocks, eventXIndex, eventYIndex);
-    	
+
     	gridBoard.updateVisual();	
     }
-
-	
 }

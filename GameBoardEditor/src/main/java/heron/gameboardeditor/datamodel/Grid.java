@@ -20,7 +20,7 @@ public class Grid implements Cloneable {
 	
 	private ArrayList<Block> edgeBlocks = new ArrayList<Block>(); //stores all blocks on the edge of the gridBoard. Used for generating the maze
 	private Set<Block>solutionPathBlocks = new HashSet<Block>(); //represents the blocks in the solution path of the maze
-	
+	private Grid originalData;
 	/**
 	 * Constructs a grid 
 	 * 
@@ -122,7 +122,6 @@ public class Grid implements Cloneable {
     	for (int y = 0; y < this.getHeight(); y++) { //may be a better way to go through the blocks
             for (int x = 0; x < this.getWidth(); x++) {
             	blockGrid[x][y].setZ(2);
-            	blockGrid[x][y].setVisible(true);
             }
     	}
     	
@@ -146,7 +145,6 @@ public class Grid implements Cloneable {
     	
     	int direction = 0; //1-up, 2-right, 3-down, 4-left
     	block.setZ(1);
-    	block.setVisible(true);
     	solutionPathBlocks.add(block);
     	
     	if (block.getX() == 0) { //block is on left edge of grid
@@ -188,7 +186,6 @@ public class Grid implements Cloneable {
     	} else {
 	    	if (isValidPath(block, 2, direction)) {
 	    		block.setZ(1);
-	    		block.setVisible(true);
 	        	solutionPathBlocks.add(block);
 	        	Random rand = new Random();
 	        	int newDirection = rand.nextInt(4) + 1;
@@ -326,7 +323,7 @@ public class Grid implements Cloneable {
     	for (Block block : selectedBlocks) {
     		int srcX = block.getX();
     		int srcY = block.getY();
-    		blockGrid[srcX][srcY].setVisible(false);
+    		blockGrid[srcX][srcY].setZ(0);
     	}
 
     	for (Block block : selectedBlocks) {
@@ -336,15 +333,36 @@ public class Grid implements Cloneable {
     		int destY = srcY + changeInYIndex;             
     		System.out.println(srcX + " " + srcY + " to " + destX + " " + destY );
     		blockGrid[destX][destY] = originalData.blockGrid[srcX][srcY];
+    		}
+	}
+	
+	public void drag(Set<Block> selectedBlocks, int eventXIndex, int eventYIndex) {
+		originalData = this.clone();
+    	System.out.println(selectedBlocks);
+
+    	for (Block block : selectedBlocks) {
+    		int srcX = block.getX();
+    		int srcY = block.getY();
+    	}
+    	
+    	for (Block block : selectedBlocks) {
+    		int srcX = block.getX();
+    		int srcY = block.getY();
+    		int destX = srcX + eventXIndex;
+    		int destY = srcY + eventYIndex;             
+    		System.out.println(srcX + " " + srcY + " to " + destX + " " + destY );
+    		blockGrid[destX][destY].setZ(blockGrid[srcX][srcY].getZ());
     	}
 	}
-
-	public void drag(Set<Block> selectedBlocks, int changeInXIndex, int changeInYIndex) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
 	
-
+	public void printGrid() {
+		System.out.println("Printing grid " + width + "x" +height);
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				System.out.print(" " + blockGrid[x][y].getZ()) ;
+			}			
+			System.out.println();
+		}
+	
+	}
 }
