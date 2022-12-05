@@ -7,12 +7,6 @@ import javafx.scene.control.Button;
 
 public class WelcomeScreenController {
 	
-	@FXML
-    private Button newProjectButton;
-	
-	@FXML
-    private Button continueProjectButton;
-	
     @FXML
     private void switchToNewProject() throws IOException {
     	App.setRoot("chooseBoardScreen");

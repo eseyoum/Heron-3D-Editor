@@ -1,6 +1,6 @@
 package heron.gameboardeditor;
 
-import java.io.File;
+import java.io.File; 
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -9,10 +9,13 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import heron.gameboardeditor.datamodel.Block;
 import heron.gameboardeditor.datamodel.Grid;
 import heron.gameboardeditor.datamodel.ProjectIO;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -36,28 +39,17 @@ public class NewProjectScreenController {
     @FXML
     private Slider levelSlider;
     
+    @FXML
+    private MenuItem mountainTerrainObject;
+    
+    @FXML
+    private MenuItem volcanoTerrainObject;
+    
     private static int rows;
     private static int columns;
     private BorderPane gridMapPane;
     private VBox boardParentVBox;
     private GridBoardUI gridBoard;
-    
-    /**
-     * Creates the grid
-     * @return the root, which is a BorderPane containing a VBox with a grid in it
-     */
-    private BorderPane createContent() {
-        BorderPane root = new BorderPane();
-        root.setPrefSize(600, 800);
-        gridBoard = new GridBoardUI(App.getGrid()); //creates a GridBoardUI, which is the grid the user can see
-
-        boardParentVBox = new VBox(50, gridBoard); //creates a vbox with myBoard for children
-        boardParentVBox.setAlignment(Pos.CENTER);
-
-        root.setCenter(boardParentVBox);
-
-        return root;
-    }
     
     //Tools
     @FXML
@@ -78,6 +70,22 @@ public class NewProjectScreenController {
     	mapDisplay.getChildren().clear(); // clear the old gird
     	App.resizeGrid(columns, rows);
     	initialize();
+    }
+
+    /**
+     * Creates the grid
+     * @return the root, which is a BorderPane containing a VBox with a grid in it
+     */
+    private BorderPane createContent() {
+        BorderPane root = new BorderPane();
+        root.setPrefSize(600, 800);
+        gridBoard = new GridBoardUI(App.getGrid()); //creates a GridBoardUI, which is the grid the user can see
+        boardParentVBox = new VBox(50, gridBoard); //creates a vbox with myBoard for children
+        boardParentVBox.setAlignment(Pos.TOP_RIGHT);
+
+        root.setCenter(boardParentVBox);
+
+        return root;
     }
     
     @FXML
@@ -111,6 +119,24 @@ public class NewProjectScreenController {
     }
     
     @FXML
+    void terrainToolOn(ActionEvent event) {
+    	gridBoard.terrainTool.setCurrentTerrainObject(null);
+    	gridBoard.gridEditor.setCurrentTool(gridBoard.terrainTool);
+    }
+    
+    @FXML
+    void terrainToolMountain(ActionEvent event) {
+    	gridBoard.terrainTool.setCurrentTerrainObject("Mountain");
+    	gridBoard.gridEditor.setCurrentTool(gridBoard.terrainTool);
+    }
+    
+    @FXML
+    void terrainToolVolcano(ActionEvent event) {
+    	gridBoard.terrainTool.setCurrentTerrainObject("Volcano");
+    	gridBoard.gridEditor.setCurrentTool(gridBoard.terrainTool);
+    }
+    
+    @FXML
     void generateMaze(ActionEvent event) {
     	gridBoard.generateMaze();
     }
@@ -124,8 +150,8 @@ public class NewProjectScreenController {
     }
     
     @FXML
-    void openProject(ActionEvent event) {
-    	File file = saveLoadHelper("open");
+    void loadProject(ActionEvent event) {
+    	File file = saveLoadHelper("open", "heron");
 		if (file != null) {
 			try {
 				Grid grid = ProjectIO.load(file);
@@ -143,8 +169,8 @@ public class NewProjectScreenController {
     
     @FXML
     void saveProject(ActionEvent event) {
-    	File file = saveLoadHelper("save");
-    	if (file != null) {
+    	File file = saveLoadHelper("save", "heron");
+    	if(file != null) {
     		Grid grid = App.getGrid();
     		try {
 				ProjectIO.save(grid, file);
@@ -154,10 +180,15 @@ public class NewProjectScreenController {
     	}
     }
     
-    private File saveLoadHelper(String dialog) {
+    private File saveLoadHelper(String dialog, String fileType) {
     	FileChooser chooser = new FileChooser();
-    	FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Heron game (*.heron)", "*.heron");
-    	chooser.getExtensionFilters().add(extFilter);
+    	FileChooser.ExtensionFilter extention;
+    	if(fileType == "heron" ) {
+    		extention = new FileChooser.ExtensionFilter("Heron game (*.heron)", "*.heron");
+    	} else {
+    		extention = new FileChooser.ExtensionFilter("OBJ File (*.OBJ)", "*.OBJ");
+    	}
+    	chooser.getExtensionFilters().add(extention);
     	File file;
     	if(dialog == "open") {
     		file = chooser.showOpenDialog(App.getMainWindow());
@@ -186,9 +217,36 @@ public class NewProjectScreenController {
     
     @FXML
     void exportToObj() throws IOException {
-    	FileWriter writer = new FileWriter("box.obj");
-    	writer.write("jldf");
-    	writer.close();
+    	File file = saveLoadHelper("save", "OBJ");
+    	if(file != null) {
+    		Grid grid = App.getGrid();
+    		FileWriter writer = new FileWriter(file);
+    		for (int x = 0; x < grid.getWidth(); x++) {
+    			for (int y = 0; y < grid.getHeight(); y++) {
+    				Block blocks = grid.getBlockAt(x, y);
+    				int r = blocks.getY();
+    				int c = blocks.getX();
+    				int e = blocks.getZ();
+    				writer.write("v " + c + " " + r + " " + e + "\n");
+    				writer.write("v " + c + " " + r + " " + 0 + "\n");
+    				writer.write("v " + c + " " + (r + 1) + " " + 0 + "\n");
+    				writer.write("v " + c + " " + (r + 1) + " " + e + "\n");
+    				writer.write("v " + (c + 1) + " " + r + " " + e + "\n");
+    				writer.write("v " + (c + 1) + " " + r + " " + 0 + "\n");
+    				writer.write("v " + (c + 1) + " " + (r + 1) + " " + 0 + "\n");
+    				writer.write("v " + (c + 1) + " " + (r + 1) + " " + e + "\n");
+    			}
+    		}
+    		for(int i = 0; i < (rows * columns); i++) {
+    			writer.write("f " + (8 * i + 4) + " " + (8 * i + 3) + " " + (8 * i + 2) + " " + (8 * i + 1) + "\n");
+    			writer.write("f " + (8 * i + 2) + " " + (8 * i + 6) + " " + (8 * i + 5) + " " + (8 * i + 1) + "\n");
+    			writer.write("f " + (8 * i + 3) + " " + (8 * i + 7) + " " + (8 * i + 6) + " " + (8 * i + 2) + "\n");
+    			writer.write("f " + (8 * i + 8) + " " + (8 * i + 7) + " " + (8 * i + 3) + " " + (8 * i + 4) + "\n");
+    			writer.write("f " + (8 * i + 5) + " " + (8 * i + 8) + " " + (8 * i + 4) + " " + (8 * i + 1) + "\n");
+    			writer.write("f " + (8 * i + 6) + " " + (8 * i + 7) + " " + (8 * i + 8) + " " + (8 * i + 5) + "\n");
+    		}
+    		writer.close();
+    	}
     }
     
     @FXML

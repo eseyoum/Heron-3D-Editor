@@ -1,6 +1,5 @@
 package heron.gameboardeditor;
 
-
 import heron.gameboardeditor.tools.Tool;
 import javafx.scene.input.MouseEvent;
 
@@ -30,5 +29,4 @@ public class GridEditor {
 	public void mouseDragged(MouseEvent e) {
 		currentTool.mouseDragged(e);
 	}
-
 }
