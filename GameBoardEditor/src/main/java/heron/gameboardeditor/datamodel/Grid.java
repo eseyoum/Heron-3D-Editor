@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -31,8 +32,6 @@ public class Grid implements Cloneable {
 	private int numBranches = 4; //the number of times branches should be made off of each other
 	private int mazeBorderLevel = 2; //the level of the borders of the maze
 	private int mazePathLevel = 1; //the level of the path of the maze
-	
-
 	/**
 	 * Constructs a grid 
 	 * 
@@ -45,8 +44,8 @@ public class Grid implements Cloneable {
 		this.height = height;
 		blockGrid = new Block[width][height];
 		
-		for (int x = 0; x < width; x++) {
-			for (int y = 0; y < height; y++) {
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
 				blockGrid[x][y] = new Block(x,y,0);
 			}			
 		}
@@ -102,8 +101,8 @@ public class Grid implements Cloneable {
 	 */
 	public void resize(int newWidth, int newHeight) {
 		Block[][] newBlockGrid = new Block[newWidth][newHeight];
-		for (int x = 0; x < newWidth; x++) {
-			for (int y = 0; y < newHeight; y++) {
+		for (int y = 0; y < newHeight; y++) {
+			for (int x = 0; x < newWidth; x++) {
 				if (x >= width || y >= height) {  // if the old grid does not contain the cell, create a new cell
 					newBlockGrid[x][y] = new Block(x,y,0);
 				} else { // if the old grid contains the cell, copy the cell to the new grid
@@ -377,7 +376,7 @@ public class Grid implements Cloneable {
     	int count = countBlocksInFourDirections(block, level);
     	return (count == 3); //returns true if there are 3 adjacent blocks with the level
     }
-    
+     
     public boolean isValidPath(Block block, int level, int direction) {
     	return (isThreeAdjacentBlocksSameLevel(block, level) && (isValidPathCorners(block, level, direction)));
     }
@@ -445,11 +444,11 @@ public class Grid implements Cloneable {
 		try {
 			Grid clone = (Grid) super.clone();
 			clone.blockGrid = new Block[width][height];
-			for (int x = 0; x < width; x++) {
-				for (int y = 0; y < height; y++) {
+			for (int y = 0; y < height; y++) {
+				for (int x = 0; x < width; x++) {
 					clone.blockGrid[x][y] = this.blockGrid[x][y].clone();
 				}			
-			}
+			} 
 			return clone;
 		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();
@@ -457,11 +456,24 @@ public class Grid implements Cloneable {
 		}
 	}
 
+//	public void cutAndPaste(Set<Block> selectedBlocks, int changeInXIndex, int changeInYIndex) throws ArrayIndexOutOfBoundsException {
+//    	Grid originalData = this.clone();
+//    	System.out.println(selectedBlocks);
+//
+//    	for (Block block : selectedBlocks) {
+//    		int srcX = block.getX();
+//    		int srcY = block.getY();
+//    		int srcZ = block.getZ();
+//    		int destX = srcX + changeInXIndex;
+//    		int destY = srcY + changeInYIndex;
+//    		blockGrid[destX][destY] = new Block(srcX,srcY,srcZ);
+//    		
+//    	}
 	public void cutAndPaste(Set<Block> selectedBlocks, int changeInXIndex, int changeInYIndex) throws ArrayIndexOutOfBoundsException {
-    	Grid originalData = this.clone();
+		originalData = this.clone();
     	System.out.println(selectedBlocks);
-
-    	for (Block block : selectedBlocks) {
+    	
+		for (Block block : selectedBlocks) {
     		int srcX = block.getX();
     		int srcY = block.getY();
     		blockGrid[srcX][srcY].setZ(0);
@@ -473,28 +485,13 @@ public class Grid implements Cloneable {
     		int destX = srcX + changeInXIndex;
     		int destY = srcY + changeInYIndex;             
     		System.out.println(srcX + " " + srcY + " to " + destX + " " + destY );
+//    		blockGrid[srcX][srcY].moveTo(destX, destY);
+    		
     		blockGrid[destX][destY] = originalData.blockGrid[srcX][srcY];
+    		blockGrid[destX][destY].setZ(originalData.blockGrid[srcX][srcY].getZ());
     		}
 	}
 	
-	public void drag(Set<Block> selectedBlocks, int eventXIndex, int eventYIndex) {
-		originalData = this.clone();
-    	System.out.println(selectedBlocks);
-
-    	for (Block block : selectedBlocks) {
-    		int srcX = block.getX();
-    		int srcY = block.getY();
-    	}
-    	
-    	for (Block block : selectedBlocks) {
-    		int srcX = block.getX();
-    		int srcY = block.getY();
-    		int destX = srcX + eventXIndex;
-    		int destY = srcY + eventYIndex;             
-    		System.out.println(srcX + " " + srcY + " to " + destX + " " + destY );
-    		blockGrid[destX][destY].setZ(blockGrid[srcX][srcY].getZ());
-    	}
-	}
 	
 	public void printGrid() {
 		System.out.println("Printing grid " + width + "x" +height);

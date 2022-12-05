@@ -12,6 +12,7 @@ public class Block {
     	this.x = x;
     	this.y = y;
     	this.z = z;
+    	
     }
 
 	public boolean isVisible() {
@@ -48,6 +49,11 @@ public class Block {
 
 	public Block clone() {
 		return new Block(x,y,z);
+	}
+
+	public void moveTo(int dx, int dy) {
+		Block blockToClone = this.clone();
+		blockToClone = new Block(x + dx, y + dy,z);
 	}
 
 }
