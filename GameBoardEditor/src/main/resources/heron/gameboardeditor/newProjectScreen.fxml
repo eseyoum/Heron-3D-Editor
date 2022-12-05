@@ -66,7 +66,7 @@
         <Menu mnemonicParsing="false" text="File">
           <items>
             <MenuItem fx:id="newfile" mnemonicParsing="false" onAction="#newFile" text="New" />
-            <MenuItem mnemonicParsing="false" onAction="#openProject" text="Open…" />
+            <MenuItem mnemonicParsing="false" onAction="#loadProject" text="Open…" />
             <MenuItem mnemonicParsing="false" onAction="#saveProject" text="Save" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem fx:id="quit" mnemonicParsing="false" onAction="#exitTheSceen" text="Quit" />
@@ -95,7 +95,8 @@
         </Menu>
             <Menu mnemonicParsing="false" text="3D">
               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#show3DPreview" text="3D Preview" />
+                  <MenuItem mnemonicParsing="false" onAction="#show3DPreview" text="Preview" />
+                  <MenuItem mnemonicParsing="false" onAction="#exportToObj" text="Export" />
               </items>
             </Menu>
       </menus>
@@ -160,8 +161,8 @@
                         <ToggleButton fx:id="eraserToggle" layoutX="52.0" layoutY="231.0" mnemonicParsing="false" onAction="#eraserButtonOn" text="ERASE" toggleGroup="$toolButtonToggleGroup" />
                         <ToggleButton fx:id="digToggle" layoutX="61.0" layoutY="273.0" mnemonicParsing="false" onAction="#digButtonOn" text="DIG" toggleGroup="$toolButtonToggleGroup" />
                         <ToggleButton fx:id="fillToolToggle" layoutX="60.0" layoutY="315.0" mnemonicParsing="false" onAction="#fillToolOn" text="FILL" toggleGroup="$toolButtonToggleGroup" />
-                        <ToggleButton fx:id="selectToggle" layoutX="49.0" layoutY="362.0" mnemonicParsing="false" onAction="#selectToolOn" text="SELECT" toggleGroup="$toolButtonToggleGroup" />
-                        <MenuButton layoutX="29.0" layoutY="417.0" mnemonicParsing="false" text="TerrainTool">
+                        <ToggleButton fx:id="selectToggle" layoutX="48.0" layoutY="358.0" mnemonicParsing="false" onAction="#selectToolOn" text="SELECT" toggleGroup="$toolButtonToggleGroup" />
+                        <MenuButton layoutX="31.0" layoutY="402.0" mnemonicParsing="false" text="TerrainTool">
                           <items>
                             <MenuItem fx:id="mountainTerrainObject" mnemonicParsing="false" onAction="#terrainToolMountain" text="Mountain" />
                             <MenuItem fx:id="volcanoTerrainObject" mnemonicParsing="false" onAction="#terrainToolVolcano" text="Volcano" />
