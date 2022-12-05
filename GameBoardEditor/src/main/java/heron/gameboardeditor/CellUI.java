@@ -84,8 +84,10 @@ public class CellUI extends Rectangle {
     	isClicked = status;
     	if (isClicked) {
     		this.setStroke(Color.RED);
+    		this.setFill(Color.GREEN);
     	} else {
     		this.setStroke(Color.BLACK);
+    		this.setFill(Color.BEIGE);
     	}
     }
     public boolean isSelected() {

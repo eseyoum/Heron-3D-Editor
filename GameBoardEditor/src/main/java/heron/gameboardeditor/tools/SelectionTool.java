@@ -22,7 +22,7 @@ public class SelectionTool extends Tool {
 	private Set<CellUI>selectedCells = new HashSet<CellUI>();
 	private Set<Block> selectedBlocks = new HashSet<Block>();
 
-	private boolean pressedInSelectedCell;
+	private boolean pressedInSelectedCell; //is the clicked cell selected
 		
 	public SelectionTool(GridBoardUI gridBoard, UndoRedoHandler handler) {
 		super(handler);
@@ -49,7 +49,7 @@ public class SelectionTool extends Tool {
 			CellUI cellClicked = gridBoard.getCellAtPixelCoordinates(initialSelectX, initialSelectY);
 			pressedInSelectedCell = (cellClicked.isSelected());
 			System.out.println("pressed in selected: " + pressedInSelectedCell);
-			if (!pressedInSelectedCell)
+			if (!pressedInSelectedCell) //if the user clicks off of the selected cells
 				deselectAll();
 			if (pressedInSelectedCell && !cellClicked.isSelected()) 
 				deselectAll();
@@ -62,7 +62,7 @@ public class SelectionTool extends Tool {
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		if (pressedInSelectedCell) {
+		if (pressedInSelectedCell) { //the user is dragging the selected cells
 			int x = (int) (((e.getX() / CellUI.TILE_SIZE) % (gridBoard.getWidth() / CellUI.TILE_SIZE)) * CellUI.TILE_SIZE);
 			int y = (int) (((e.getY() / CellUI.TILE_SIZE) % (gridBoard.getHeight() / CellUI.TILE_SIZE)) * CellUI.TILE_SIZE);		
 			
@@ -87,7 +87,7 @@ public class SelectionTool extends Tool {
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		
-		if (pressedInSelectedCell) {
+		if (pressedInSelectedCell) { //user releases after dragging the selected cells
 			int xStartIndex = (int) (initialSelectX/ CellUI.TILE_SIZE);
 			int yStartIndex = (int) (initialSelectY/ CellUI.TILE_SIZE);
 			int xEndIndex = (int) (e.getX() / CellUI.TILE_SIZE);
@@ -115,6 +115,7 @@ public class SelectionTool extends Tool {
     		cell.setSelected(false);
     	}
     	selectedCells.clear();
+    	//selectedBlocks.clear(); //Corey, unsure if this helps
     }
 	
 	public Set<CellUI> getSelectedCells() {
