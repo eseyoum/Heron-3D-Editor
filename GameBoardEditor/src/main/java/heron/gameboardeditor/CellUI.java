@@ -9,13 +9,14 @@ import javafx.scene.shape.Rectangle;
 /**
  * This class represents one cell (or tile) of the GridBoardUI
  */
-public class CellUI extends Rectangle {
+public class CellUI extends Rectangle implements Cloneable {
     public static final int TILE_SIZE = 30; //size of the cells
     public static final int MAX_LEVEL = 5; //number of possible levels
     private static final Color DEFAULT_COLOR = Color.CORNFLOWERBLUE; //default color of the cells
     private static List<Color> colorList = generateColors(); //list of colors for each level of the depth map
     
-    private final GridBoardUI gridBoard;
+//    private final GridBoardUI gridBoard;
+    private GridBoardUI gridBoard;
     private int xIndex;
     private int yIndex;
     private boolean isClicked;
@@ -23,8 +24,8 @@ public class CellUI extends Rectangle {
     public CellUI(GridBoardUI gridBoard, int xIndex, int yIndex) {
         super(TILE_SIZE - 1, TILE_SIZE - 1); //a CellUI object is a rectangle
 		this.gridBoard = gridBoard;
-		this.xIndex=xIndex;
-		this.yIndex=yIndex;
+		this.xIndex = xIndex;
+		this.yIndex = yIndex;
 		updateVisualBasedOnBlock();
 		this.setSelected(false);
     }
@@ -69,8 +70,10 @@ public class CellUI extends Rectangle {
     	isClicked = status;
     	if (isClicked) {
     		this.setStroke(Color.RED);
+    		this.setFill(Color.GREEN);
     	} else {
     		this.setStroke(Color.BLACK);
+    		this.setFill(Color.BEIGE);
     	}
     }
     public boolean isSelected() {
@@ -83,5 +86,21 @@ public class CellUI extends Rectangle {
     
     public boolean isCornerCell() {
     	return ((xIndex == 0 && yIndex == 0) || (xIndex == 0 && yIndex == gridBoard.getGridData().getHeight() - 1) || (xIndex == gridBoard.getGridData().getWidth() - 1 && yIndex == 0) || (xIndex == gridBoard.getGridData().getWidth() - 1 && yIndex == gridBoard.getGridData().getHeight() - 1));
+    }
+    
+    public CellUI clone() {
+    	try {
+    		CellUI clone = (CellUI) super.clone();
+    		clone.gridBoard = gridBoard;
+    		clone.xIndex = xIndex;
+    		clone.yIndex = yIndex;
+    		clone.isClicked = isClicked;
+    		clone.updateVisualBasedOnBlock();
+    		clone.setSelected(false);
+    		return clone;
+    	} catch (CloneNotSupportedException e) {
+    		assert false;
+    		return null;
+    	}
     }
 }
