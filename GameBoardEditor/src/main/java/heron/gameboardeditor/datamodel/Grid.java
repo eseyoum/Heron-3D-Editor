@@ -496,12 +496,11 @@ public class Grid implements Cloneable {
 	
 	public void printGrid() {
 		System.out.println("Printing grid " + width + "x" +height);
-		for (int x = 0; x < width; x++) {
-			for (int y = 0; y < height; y++) {
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
 				System.out.print(" " + blockGrid[x][y].getZ()) ;
-			}			
+			}
 			System.out.println();
 		}
-	
 	}
 }
