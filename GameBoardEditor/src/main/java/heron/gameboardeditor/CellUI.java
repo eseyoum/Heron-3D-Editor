@@ -87,8 +87,7 @@ public class CellUI extends Rectangle implements Cloneable {
     		this.setStroke(Color.RED);
     		//this.setFill(Color.GREEN);
     	} else {
-    		this.setStroke(Color.ORANGE);
-    		//this.setFill(Color.BEIGE);
+    		this.setStroke(Color.BLACK);
     	}
     }
     public boolean isSelected() {

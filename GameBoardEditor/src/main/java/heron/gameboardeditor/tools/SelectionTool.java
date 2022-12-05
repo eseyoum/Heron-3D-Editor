@@ -21,13 +21,7 @@ public class SelectionTool extends Tool {
 	private double initialSelectX;
 	private double initialSelectY;
 	private Set<CellUI>selectedCells = new HashSet<CellUI>();
-//<<<<<<< HEAD
-//	private Set<Block> selectedBlocks = new HashSet<Block>();
-//
-//	private boolean pressedInSelectedCell; //is the clicked cell selected
-//=======
 	private boolean pressedInSelectedCell;
-//>>>>>>> e4a5ca9e4cae17844d6750ed03aec785a0171c42
 		
 	public SelectionTool(GridBoardUI gridBoard, UndoRedoHandler handler) {
 		super(handler);
@@ -55,7 +49,6 @@ public class SelectionTool extends Tool {
 			CellUI cellClicked = gridBoard.getCellAtPixelCoordinates(initialSelectX, initialSelectY);
 //			CellUI cellClicked = (CellUI) gridBoard.getCellAtPixelCoordinates(initialSelectX, initialSelectY).clone();
 			pressedInSelectedCell = (cellClicked.isSelected());
-			System.out.println("pressed in selected: " + pressedInSelectedCell);
 			if (!pressedInSelectedCell) //if the user clicks off of the selected cells
 				deselectAll();
 			if (pressedInSelectedCell && !cellClicked.isSelected()) 
@@ -127,13 +120,10 @@ public class SelectionTool extends Tool {
 	}
 	
 	public void deselectAll() {
-    	System.out.println("deselecting");
 		for (CellUI cell: selectedCells) {
-    		System.out.print("deslect");
 			cell.setSelected(false);
     	}
     	selectedCells.clear();
-    	//selectedBlocks.clear(); //Corey, unsure if this helps
     }
 	
 	public Set<CellUI> getSelectedCells() {
@@ -148,11 +138,7 @@ public class SelectionTool extends Tool {
     	} 
     	int changeInXIndex = endXIndex - startXIndex;
     	int changeInYIndex = endYIndex - startYIndex;
-    	System.out.println("BEFORE:");
-    	gridBoard.getGridData().printGrid();
     	gridBoard.getGridData().cutAndPaste(selectedBlocks, changeInXIndex, changeInYIndex);
-    	System.out.println("AFTER:");
-    	gridBoard.getGridData().printGrid();
     	gridBoard.updateVisual();
     }
 }

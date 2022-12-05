@@ -23,7 +23,6 @@ public class Grid implements Cloneable {
 	private ArrayList<Block> edgeBlocks = new ArrayList<Block>(); //stores all blocks on the edge of the gridBoard. Used for generating the maze
 
 	private Set<Block>solutionPathBlocks = new HashSet<Block>(); //represents the blocks in the solution path of the maze
-	private Grid originalData;
 
 	private Block failedMovementMazeBlock = new Block (0, 0, 0); //when creating the maze, this represents a block which cannot move in a certain direction
 	private int failedDirectionCount; //count of failed directions. If a failedMovementMazeBlock has 3 failed directions, it cannot move
@@ -469,9 +468,9 @@ public class Grid implements Cloneable {
 //    		blockGrid[destX][destY] = new Block(srcX,srcY,srcZ);
 //    		
 //    	}
+	
 	public void cutAndPaste(Set<Block> selectedBlocks, int changeInXIndex, int changeInYIndex) throws ArrayIndexOutOfBoundsException {
-		originalData = this.clone();
-    	System.out.println(selectedBlocks);
+		Grid originalData = this.clone();
     	
 		for (Block block : selectedBlocks) {
     		int srcX = block.getX();
@@ -483,24 +482,27 @@ public class Grid implements Cloneable {
     		int srcX = block.getX();
     		int srcY = block.getY();
     		int destX = srcX + changeInXIndex;
-    		int destY = srcY + changeInYIndex;             
-    		System.out.println(srcX + " " + srcY + " to " + destX + " " + destY );
-//    		blockGrid[srcX][srcY].moveTo(destX, destY);
-    		
-    		blockGrid[destX][destY] = originalData.blockGrid[srcX][srcY];
+    		int destY = srcY + changeInYIndex;
     		blockGrid[destX][destY].setZ(originalData.blockGrid[srcX][srcY].getZ());
     		}
 	}
 	
 	
 	public void printGrid() {
-		System.out.println("Printing grid " + width + "x" +height);
+		System.out.println(this.toString());
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder("Grid " + width + "x" +height+"\n");
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
-				System.out.print(" " + blockGrid[x][y].getZ()) ;
+				sb.append(" ");
+				sb.append(blockGrid[x][y].getZ()) ;
 			}
-			System.out.println();
+			sb.append("\n");
 		}
+		return sb.toString();
 	}
-	
+
 }
