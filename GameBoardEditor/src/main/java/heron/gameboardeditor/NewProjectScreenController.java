@@ -2,12 +2,14 @@ package heron.gameboardeditor;
 
 import java.io.File; 
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Optional;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import heron.gameboardeditor.datamodel.Block;
 import heron.gameboardeditor.datamodel.Grid;
 import heron.gameboardeditor.datamodel.ProjectIO;
 import javafx.scene.canvas.Canvas;
@@ -68,12 +70,6 @@ public class NewProjectScreenController {
     	mapDisplay.getChildren().clear(); // clear the old gird
     	App.resizeGrid(columns, rows);
     	initialize();
-    }
-    
-    @FXML
-    private void initialize() {
-    	gridMapPane = createContent(); //creates the 2d grid
-    	mapDisplay.getChildren().addAll(gridMapPane);
     }
 
     /**
@@ -154,8 +150,8 @@ public class NewProjectScreenController {
     }
     
     @FXML
-    void openProject(ActionEvent event) {
-    	File file = saveLoadHelper("open");
+    void loadProject(ActionEvent event) {
+    	File file = saveLoadHelper("open", "heron");
 		if (file != null) {
 			try {
 				Grid grid = ProjectIO.load(file);
@@ -173,8 +169,8 @@ public class NewProjectScreenController {
     
     @FXML
     void saveProject(ActionEvent event) {
-    	File file = saveLoadHelper("save");
-    	if (file != null) {
+    	File file = saveLoadHelper("save", "heron");
+    	if(file != null) {
     		Grid grid = App.getGrid();
     		try {
 				ProjectIO.save(grid, file);
@@ -184,10 +180,15 @@ public class NewProjectScreenController {
     	}
     }
     
-    private File saveLoadHelper(String dialog) {
+    private File saveLoadHelper(String dialog, String fileType) {
     	FileChooser chooser = new FileChooser();
-    	FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Heron game (*.heron)", "*.heron");
-    	chooser.getExtensionFilters().add(extFilter);
+    	FileChooser.ExtensionFilter extention;
+    	if(fileType == "heron" ) {
+    		extention = new FileChooser.ExtensionFilter("Heron game (*.heron)", "*.heron");
+    	} else {
+    		extention = new FileChooser.ExtensionFilter("OBJ File (*.OBJ)", "*.OBJ");
+    	}
+    	chooser.getExtensionFilters().add(extention);
     	File file;
     	if(dialog == "open") {
     		file = chooser.showOpenDialog(App.getMainWindow());
@@ -213,4 +214,45 @@ public class NewProjectScreenController {
     	Board3DViewController preview3D = new Board3DViewController(gridBoard.getGridData());
     	preview3D.show();
     }
+    
+    @FXML
+    void exportToObj() throws IOException {
+    	File file = saveLoadHelper("save", "OBJ");
+    	if(file != null) {
+    		Grid grid = App.getGrid();
+    		FileWriter writer = new FileWriter(file);
+    		for (int x = 0; x < grid.getWidth(); x++) {
+    			for (int y = 0; y < grid.getHeight(); y++) {
+    				Block blocks = grid.getBlockAt(x, y);
+    				int r = blocks.getY();
+    				int c = blocks.getX();
+    				int e = blocks.getZ();
+    				writer.write("v " + c + " " + r + " " + e + "\n");
+    				writer.write("v " + c + " " + r + " " + 0 + "\n");
+    				writer.write("v " + c + " " + (r + 1) + " " + 0 + "\n");
+    				writer.write("v " + c + " " + (r + 1) + " " + e + "\n");
+    				writer.write("v " + (c + 1) + " " + r + " " + e + "\n");
+    				writer.write("v " + (c + 1) + " " + r + " " + 0 + "\n");
+    				writer.write("v " + (c + 1) + " " + (r + 1) + " " + 0 + "\n");
+    				writer.write("v " + (c + 1) + " " + (r + 1) + " " + e + "\n");
+    			}
+    		}
+    		for(int i = 0; i < (rows * columns); i++) {
+    			writer.write("f " + (8 * i + 4) + " " + (8 * i + 3) + " " + (8 * i + 2) + " " + (8 * i + 1) + "\n");
+    			writer.write("f " + (8 * i + 2) + " " + (8 * i + 6) + " " + (8 * i + 5) + " " + (8 * i + 1) + "\n");
+    			writer.write("f " + (8 * i + 3) + " " + (8 * i + 7) + " " + (8 * i + 6) + " " + (8 * i + 2) + "\n");
+    			writer.write("f " + (8 * i + 8) + " " + (8 * i + 7) + " " + (8 * i + 3) + " " + (8 * i + 4) + "\n");
+    			writer.write("f " + (8 * i + 5) + " " + (8 * i + 8) + " " + (8 * i + 4) + " " + (8 * i + 1) + "\n");
+    			writer.write("f " + (8 * i + 6) + " " + (8 * i + 7) + " " + (8 * i + 8) + " " + (8 * i + 5) + "\n");
+    		}
+    		writer.close();
+    	}
+    }
+    
+    @FXML
+    private void initialize() {
+    	gridMapPane = createContent(); //creates the 2d grid
+    	mapDisplay.getChildren().addAll(gridMapPane);
+    }
+    
 }

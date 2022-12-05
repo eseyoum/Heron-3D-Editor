@@ -1,6 +1,5 @@
 package heron.gameboardeditor;
 
-
 import heron.gameboardeditor.tools.Tool;
 import javafx.scene.input.MouseEvent;
 
