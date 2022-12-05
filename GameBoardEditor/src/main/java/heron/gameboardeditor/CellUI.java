@@ -106,12 +106,6 @@ public class CellUI extends Rectangle implements Cloneable {
     public CellUI clone() {
     	try {
     		CellUI clone = (CellUI) super.clone();
-    		clone.gridBoard = gridBoard;
-    		clone.xIndex = xIndex;
-    		clone.yIndex = yIndex;
-    		clone.isClicked = isClicked;
-    		clone.updateVisualBasedOnBlock();
-    		clone.setSelected(false);
     		return clone;
     	} catch (CloneNotSupportedException e) {
     		assert false;
