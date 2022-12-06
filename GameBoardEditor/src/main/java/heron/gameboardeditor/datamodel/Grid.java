@@ -454,20 +454,6 @@ public class Grid implements Cloneable {
 			return null;
 		}
 	}
-
-//	public void cutAndPaste(Set<Block> selectedBlocks, int changeInXIndex, int changeInYIndex) throws ArrayIndexOutOfBoundsException {
-//    	Grid originalData = this.clone();
-//    	System.out.println(selectedBlocks);
-//
-//    	for (Block block : selectedBlocks) {
-//    		int srcX = block.getX();
-//    		int srcY = block.getY();
-//    		int srcZ = block.getZ();
-//    		int destX = srcX + changeInXIndex;
-//    		int destY = srcY + changeInYIndex;
-//    		blockGrid[destX][destY] = new Block(srcX,srcY,srcZ);
-//    		
-//    	}
 	
 	public void cutAndPaste(Set<Block> selectedBlocks, int changeInXIndex, int changeInYIndex) throws ArrayIndexOutOfBoundsException {
 		Grid originalData = this.clone();
