@@ -38,15 +38,6 @@ public class EditingScreenController {
     @FXML
     private Slider levelSlider;
     
-    @FXML
-    private MenuItem selectLevelButton; //may not be needed
-    
-    @FXML
-    private MenuItem mountainTerrainObject;
-    
-    @FXML
-    private MenuItem volcanoTerrainObject;
-    
     private static int rows;
     private static int columns;
     private BorderPane gridMapPane;
@@ -141,7 +132,12 @@ public class EditingScreenController {
     
     @FXML
     void selectLevel(ActionEvent event) {
-    	gridBoard.selectLevel();
+    	gridBoard.selectLevel(true);
+    }
+    
+    @FXML
+    void deselectLevel(ActionEvent event) {
+    	gridBoard.selectLevel(false);
     }
     
     @FXML

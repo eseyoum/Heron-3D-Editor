@@ -82,7 +82,8 @@
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" text="Select All" />
             <MenuItem mnemonicParsing="false" text="Unselect All" />
-                  <MenuItem fx:id="selectLevelButton" mnemonicParsing="false" onAction="#selectLevel" text="Select Level" />
+                  <MenuItem mnemonicParsing="false" onAction="#selectLevel" text="Select Level" />
+                  <MenuItem mnemonicParsing="false" onAction="#deselectLevel" text="Deselect Level" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem fx:id="generateMazeButton" mnemonicParsing="false" onAction="#generateMaze" text="Generate Maze" />
           </items>

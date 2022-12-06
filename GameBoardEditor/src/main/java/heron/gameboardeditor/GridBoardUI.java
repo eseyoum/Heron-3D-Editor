@@ -112,11 +112,15 @@ public class GridBoardUI extends AnchorPane {
     	}
     }
     
-    public void selectLevel() {
+    public void selectLevel(boolean isSelected) {
     	for (int y = 0; y < gridData.getHeight(); y++) { //may be a better way to go through the cells
     		for (int x = 0; x < gridData.getWidth(); x++) {
             	if ((cellArray[x][y]).getBlock().getZ() == level) {
-            		selectionTool.addSelectedCell(cellArray[x][y]);
+            		if (isSelected) {
+            			selectionTool.addSelectedCell(cellArray[x][y]);
+            		} else {
+            			selectionTool.removeSelectedCell(cellArray[x][y]);
+            		}
             	}
             }
     	}
