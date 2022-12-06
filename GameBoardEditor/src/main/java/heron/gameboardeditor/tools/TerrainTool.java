@@ -10,6 +10,12 @@ import heron.gameboardeditor.GridBoardUI;
 import heron.gameboardeditor.UndoRedoHandler;
 import heron.gameboardeditor.datamodel.Block;
 import heron.gameboardeditor.datamodel.Grid;
+import heron.gameboardeditor.tools.TerrainTool.TerrainObject;
+import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 
 public class TerrainTool extends Tool {
@@ -64,6 +70,26 @@ public class TerrainTool extends Tool {
 		}
 	}
 	
+	public boolean isValidName(String name, ArrayList<TerrainObject> customTerrainObjects) {
+		if (name == null || name.isBlank()) {
+    		return false;
+    	}
+		
+		boolean isValidName = true;
+    	for (TerrainObject terrainObject : customTerrainObjects) {
+    		if (terrainObject.getName().equalsIgnoreCase(name)) {
+    			isValidName = false;
+    		}
+    	}
+    	if (!isValidName) {
+        	Alert errorAlert = new Alert(AlertType.ERROR);
+        	errorAlert.setHeaderText("Error");
+        	errorAlert.setContentText("You already have a custom Terrain Object with the same name!");
+        	errorAlert.showAndWait();
+    	}
+    	return isValidName;
+	}
+	
 	public void createCustomTerrainObject(String name) {
 		Set<CellUI> selectedCells = gridBoard.selectionTool.getSelectedCells(); //the blocks which are part of the custom terrain object
 		Set<Block> terrainBlocks = gridData.getSelectedBlocks(selectedCells);
@@ -95,8 +121,6 @@ public class TerrainTool extends Tool {
 		initialBlock.setZ(terrainObject.initialTerrainData.level);
 //		initialBlock.setVisible(gridData.isVisibleLevel(terrainObject.initialTerrainData.level));
 		for (TerrainData terrainData : terrainObject.terrainList) {
-			System.out.println(terrainObject.name + "x " + terrainData.distanceX);
-			System.out.println(terrainObject.name + "y " + terrainData.distanceY);
 			int x = initialBlock.getX() + terrainData.distanceX;
 			 int y = initialBlock.getY() + terrainData.distanceY;
 			 int z = terrainData.level;
@@ -158,7 +182,11 @@ public class TerrainTool extends Tool {
 		return volcano;
 	}
 	
-	private class TerrainObject {
+	public ArrayList<TerrainObject> getCustomTerrainObjects() {
+		return customTerrainObjects;
+	}
+	
+	public class TerrainObject {
 		private ArrayList<TerrainData> terrainList;
 		private TerrainData initialTerrainData;
 		private String name;
@@ -173,6 +201,10 @@ public class TerrainTool extends Tool {
 			this.name = name;
 			this.terrainList = terrainList;
 			this.initialTerrainData = new TerrainData(0, 0, initialTerrainDataLevel);
+		}
+		
+		public String getName() {
+			return this.name;
 		}
 	}
 	

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Optional;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -13,6 +14,7 @@ import javafx.geometry.Pos;
 import heron.gameboardeditor.datamodel.Block;
 import heron.gameboardeditor.datamodel.Grid;
 import heron.gameboardeditor.datamodel.ProjectIO;
+import heron.gameboardeditor.tools.TerrainTool.TerrainObject;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuButton;
@@ -44,6 +46,8 @@ public class EditingScreenController {
     
     @FXML
     private MenuButton terrainMenuButton;
+    
+    private ArrayList<TerrainObject> customTerrainObjects = new ArrayList<TerrainObject>(); //represents all the custom terrain objects the user created
     
     private static int rows;
     private static int columns;
@@ -129,23 +133,34 @@ public class EditingScreenController {
     @FXML
     void terrainTool(ActionEvent event) {
     	MenuItem item = (MenuItem) event.getSource();
-    	System.out.println(item.getText());
     	gridBoard.terrainTool.setCurrentTerrainObject(item.getText());
     	gridBoard.gridEditor.setCurrentTool(gridBoard.terrainTool);
     }
     
     @FXML
     void terrainToolCustom(ActionEvent event) {
+    	if (gridBoard.selectionTool.getSelectedCells().size() == 0) {
+        	Alert errorAlert = new Alert(AlertType.ERROR);
+        	errorAlert.setHeaderText("Error");
+        	errorAlert.setContentText("Select the tiles you want in your custom Terrain Object!");
+        	errorAlert.showAndWait();
+        	return;
+    	}
+    	
     	TextInputDialog textInputDialog = new TextInputDialog(); //https://www.geeksforgeeks.org/javafx-textinputdialog/
     	textInputDialog.setHeaderText("Enter name of custom object: ");
-    	
-    	String name = "";
     	textInputDialog.showAndWait();
-    	name = textInputDialog.getEditor().getText();
+    	String name = textInputDialog.getResult();
+    	
+    	if (!gridBoard.terrainTool.isValidName(textInputDialog.getResult(), customTerrainObjects)) {
+    		return;
+    	}
+    	
     	MenuItem customItem = new MenuItem(name); //https://www.geeksforgeeks.org/javafx-menubutton/
     	customItem.setOnAction(e -> terrainTool(e));
     	terrainMenuButton.getItems().add(terrainMenuButton.getItems().size() - 1, customItem); //adds the custom item to the second to last of the list
     	gridBoard.terrainTool.createCustomTerrainObject(name);
+    	customTerrainObjects = gridBoard.terrainTool.getCustomTerrainObjects();
     }
     
     @FXML
