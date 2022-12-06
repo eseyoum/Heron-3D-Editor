@@ -21,6 +21,9 @@ public class TerrainTool extends Tool {
 	private TerrainObject defaultVolcano;
 	
 	private ArrayList<TerrainObject> terrainObjects; //list of available terrain objects
+	private ArrayList<TerrainObject> customTerrainObjects;
+	
+	private String name; //the name of the next created terrain object
 	
 	public TerrainTool(GridBoardUI gridBoard, UndoRedoHandler handler) {
 		super(handler);
@@ -33,6 +36,8 @@ public class TerrainTool extends Tool {
 		terrainObjects = new ArrayList<TerrainObject>();
 		terrainObjects.add(defaultMountain);
 		terrainObjects.add(defaultVolcano);
+		
+		customTerrainObjects = new ArrayList<TerrainObject>();
 	}
 	
 	@Override
@@ -43,6 +48,14 @@ public class TerrainTool extends Tool {
 		gridBoard.updateVisual();
 	}
 	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
 	public void setCurrentTerrainObject(String terrainObjectString) {
 		for (TerrainObject terrainObject : terrainObjects) {
 			if (terrainObject.name.equals(terrainObjectString)) {
@@ -51,11 +64,40 @@ public class TerrainTool extends Tool {
 		}
 	}
 	
+	public void createCustomTerrainObject(String name) {
+		Set<CellUI> selectedCells = gridBoard.selectionTool.getSelectedCells(); //the blocks which are part of the custom terrain object
+		Set<Block> terrainBlocks = gridData.getSelectedBlocks(selectedCells);
+		Block initialBlock = new Block(Integer.MAX_VALUE, Integer.MAX_VALUE, 0); //initial block represents the first block of the object
+		for (Block block : terrainBlocks) { //finds a block on the upper left of the grid, with more importance on being further left
+			int x = block.getX();
+			if (x < initialBlock.getX()) {
+				int y = block.getY();
+				if (y < initialBlock.getY()) {
+					initialBlock = block;
+				}
+			}
+		}
+		
+		ArrayList<TerrainData> customTerrainData = new ArrayList<TerrainData>();
+		terrainBlocks.remove(initialBlock);
+		for (Block block : terrainBlocks) {
+			int distX = block.getX() - initialBlock.getX();
+			int distY = block.getY() - initialBlock.getY();
+			customTerrainData.add(new TerrainData(distX, distY, block.getZ()));
+		}
+		
+		TerrainObject customTerrainObject = new TerrainObject(name, customTerrainData, initialBlock.getZ());
+		customTerrainObjects.add(customTerrainObject);
+		terrainObjects.add(customTerrainObject);
+	}
+	
 	private void drawTerrainObject(TerrainObject terrainObject, Block initialBlock) {
 		initialBlock.setZ(terrainObject.initialTerrainData.level);
 //		initialBlock.setVisible(gridData.isVisibleLevel(terrainObject.initialTerrainData.level));
 		for (TerrainData terrainData : terrainObject.terrainList) {
-			 int x = initialBlock.getX() + terrainData.distanceX;
+			System.out.println(terrainObject.name + "x " + terrainData.distanceX);
+			System.out.println(terrainObject.name + "y " + terrainData.distanceY);
+			int x = initialBlock.getX() + terrainData.distanceX;
 			 int y = initialBlock.getY() + terrainData.distanceY;
 			 int z = terrainData.level;
 			 if (gridData.isCoordinateInGrid(x, y)) {
@@ -125,6 +167,12 @@ public class TerrainTool extends Tool {
 			this.name = name;
 			this.terrainList = terrainList;
 			this.initialTerrainData = initialTerrainData;
+		}
+		
+		private TerrainObject(String name, ArrayList<TerrainData> terrainList, int initialTerrainDataLevel) {
+			this.name = name;
+			this.terrainList = terrainList;
+			this.initialTerrainData = new TerrainData(0, 0, initialTerrainDataLevel);
 		}
 	}
 	

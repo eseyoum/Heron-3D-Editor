@@ -149,10 +149,11 @@
                   <ToggleButton fx:id="digToggle" layoutX="61.0" layoutY="273.0" mnemonicParsing="false" onAction="#digButtonOn" text="DIG" toggleGroup="$toolButtonToggleGroup" />
                   <ToggleButton fx:id="fillToolToggle" layoutX="60.0" layoutY="315.0" mnemonicParsing="false" onAction="#fillToolOn" text="FILL" toggleGroup="$toolButtonToggleGroup" />
                   <ToggleButton fx:id="selectToggle" layoutX="48.0" layoutY="358.0" mnemonicParsing="false" onAction="#selectToolOn" text="SELECT" toggleGroup="$toolButtonToggleGroup" />
-                  <MenuButton layoutX="31.0" layoutY="402.0" mnemonicParsing="false" text="TerrainTool">
+                  <MenuButton fx:id="terrainMenuButton" layoutX="31.0" layoutY="402.0" mnemonicParsing="false" text="TerrainTool">
                     <items>
-                      <MenuItem fx:id="mountainTerrainObject" mnemonicParsing="false" onAction="#terrainToolMountain" text="Mountain" />
-                      <MenuItem fx:id="volcanoTerrainObject" mnemonicParsing="false" onAction="#terrainToolVolcano" text="Volcano" />
+                      <MenuItem fx:id="mountainTerrainObject" mnemonicParsing="false" onAction="#terrainTool" text="Mountain" />
+                      <MenuItem fx:id="volcanoTerrainObject" mnemonicParsing="false" onAction="#terrainTool" text="Volcano" />
+                        <MenuItem mnemonicParsing="false" onAction="#terrainToolCustom" text="Custom..." />
                     </items>
                   </MenuButton>
                </children>

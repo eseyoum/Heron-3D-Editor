@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Optional;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import heron.gameboardeditor.datamodel.Block;
@@ -14,11 +15,14 @@ import heron.gameboardeditor.datamodel.Grid;
 import heron.gameboardeditor.datamodel.ProjectIO;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -38,11 +42,15 @@ public class EditingScreenController {
     @FXML
     private Slider levelSlider;
     
+    @FXML
+    private MenuButton terrainMenuButton;
+    
     private static int rows;
     private static int columns;
     private BorderPane gridMapPane;
     private VBox boardParentVBox;
     private GridBoardUI gridBoard;
+//    private BorderPane root; //added
     
     //Tools
     @FXML
@@ -70,7 +78,7 @@ public class EditingScreenController {
      * @return the root, which is a BorderPane containing a VBox with a grid in it
      */
     private BorderPane createContent() {
-        BorderPane root = new BorderPane();
+        BorderPane root = new BorderPane(); //changed
         root.setPrefSize(600, 800);
         gridBoard = new GridBoardUI(App.getGrid()); //creates a GridBoardUI, which is the grid the user can see
         boardParentVBox = new VBox(50, gridBoard); //creates a vbox with myBoard for children
@@ -119,15 +127,25 @@ public class EditingScreenController {
     }
     
     @FXML
-    void terrainToolMountain(ActionEvent event) {
-    	gridBoard.terrainTool.setCurrentTerrainObject("Mountain");
+    void terrainTool(ActionEvent event) {
+    	MenuItem item = (MenuItem) event.getSource();
+    	System.out.println(item.getText());
+    	gridBoard.terrainTool.setCurrentTerrainObject(item.getText());
     	gridBoard.gridEditor.setCurrentTool(gridBoard.terrainTool);
     }
     
     @FXML
-    void terrainToolVolcano(ActionEvent event) {
-    	gridBoard.terrainTool.setCurrentTerrainObject("Volcano");
-    	gridBoard.gridEditor.setCurrentTool(gridBoard.terrainTool);
+    void terrainToolCustom(ActionEvent event) {
+    	TextInputDialog textInputDialog = new TextInputDialog(); //https://www.geeksforgeeks.org/javafx-textinputdialog/
+    	textInputDialog.setHeaderText("Enter name of custom object: ");
+    	
+    	String name = "";
+    	textInputDialog.showAndWait();
+    	name = textInputDialog.getEditor().getText();
+    	MenuItem customItem = new MenuItem(name); //https://www.geeksforgeeks.org/javafx-menubutton/
+    	customItem.setOnAction(e -> terrainTool(e));
+    	terrainMenuButton.getItems().add(terrainMenuButton.getItems().size() - 1, customItem); //adds the custom item to the second to last of the list
+    	gridBoard.terrainTool.createCustomTerrainObject(name);
     }
     
     @FXML

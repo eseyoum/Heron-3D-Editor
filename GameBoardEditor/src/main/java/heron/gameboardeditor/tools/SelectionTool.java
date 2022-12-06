@@ -49,9 +49,8 @@ public class SelectionTool extends Tool {
 			CellUI cellClicked = gridBoard.getCellAtPixelCoordinates(initialSelectX, initialSelectY);
 //			CellUI cellClicked = (CellUI) gridBoard.getCellAtPixelCoordinates(initialSelectX, initialSelectY).clone();
 			pressedInSelectedCell = (cellClicked.isSelected());
-			if (!pressedInSelectedCell) //if the user clicks off of the selected cells
-				deselectAll();
-			if (pressedInSelectedCell && !cellClicked.isSelected()) 
+//				deselectAll();
+			if (pressedInSelectedCell && !cellClicked.isSelected())
 				deselectAll();
 			if (pressedInSelectedCell)
 				cellClicked.setSelected(true);
