@@ -112,6 +112,16 @@ public class GridBoardUI extends AnchorPane {
     	}
     }
     
+    public void selectLevel() {
+    	for (int y = 0; y < gridData.getHeight(); y++) { //may be a better way to go through the cells
+    		for (int x = 0; x < gridData.getWidth(); x++) {
+            	if ((cellArray[x][y]).getBlock().getZ() == level) {
+            		selectionTool.addSelectedCell(cellArray[x][y]);
+            	}
+            }
+    	}
+    }
+    
     public void generateMaze() {
     	Maze maze = new Maze(gridData);
     	maze.generateMaze();

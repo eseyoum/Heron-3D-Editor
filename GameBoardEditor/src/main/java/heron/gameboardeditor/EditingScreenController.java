@@ -39,6 +39,9 @@ public class EditingScreenController {
     private Slider levelSlider;
     
     @FXML
+    private MenuItem selectLevelButton; //may not be needed
+    
+    @FXML
     private MenuItem mountainTerrainObject;
     
     @FXML
@@ -134,6 +137,11 @@ public class EditingScreenController {
     void terrainToolVolcano(ActionEvent event) {
     	gridBoard.terrainTool.setCurrentTerrainObject("Volcano");
     	gridBoard.gridEditor.setCurrentTool(gridBoard.terrainTool);
+    }
+    
+    @FXML
+    void selectLevel(ActionEvent event) {
+    	gridBoard.selectLevel();
     }
     
     @FXML

@@ -130,6 +130,11 @@ public class SelectionTool extends Tool {
 		return selectedCells;
 	}
 	
+	public void addSelectedCell(CellUI cell) {
+		cell.setSelected(true);
+		selectedCells.add(cell);
+	}
+	
     public void cutAndPaste(int startXIndex, int startYIndex, int endXIndex, int endYIndex) throws ArrayIndexOutOfBoundsException {
     	Set<Block> selectedBlocks = new HashSet<>();
     	
