@@ -1,7 +1,5 @@
 package heron.gameboardeditor;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import heron.gameboardeditor.datamodel.Block;
@@ -57,19 +55,6 @@ public class CellUI extends Rectangle implements Cloneable {
       		setFill(DEFAULT_COLOR); //if the cell is not visible, the level is zero
     	}
 	}
-    
-//    public void export() throws IOException {
-//    	FileWriter writer = new FileWriter("hi");
-//    	String file;
-//    	for (int i = 0; i < xIndex; i++) {
-//    		for(int y = 0; y < yIndex; y++) {
-//    			if()
-//    			file = "v " + ((TILE_SIZE - 1) / 2) + () + (if);
-//    		}
-//    	}
-//    	writer.write("jldf");
-//    	writer.close();
-//    }
 	
 	public void setLevel(int level) {
 		Block block = getBlock();

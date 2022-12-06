@@ -12,7 +12,6 @@ import javafx.geometry.Pos;
 import heron.gameboardeditor.datamodel.Block;
 import heron.gameboardeditor.datamodel.Grid;
 import heron.gameboardeditor.datamodel.ProjectIO;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
@@ -145,8 +144,7 @@ public class EditingScreenController {
     //File menu bar
     @FXML
     void newFile(ActionEvent event) throws IOException {
-    	mapDisplay.getChildren().clear();
-    	App.setRoot("newProjectScreen");
+    	
     }
     
     @FXML
@@ -196,6 +194,11 @@ public class EditingScreenController {
     		file = chooser.showSaveDialog(App.getMainWindow());
     	}
     	return file;
+    }
+    
+    @FXML
+    void clear(ActionEvent event) {
+    	gridBoard.clear();
     }
     
     @FXML

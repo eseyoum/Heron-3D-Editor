@@ -65,7 +65,7 @@
             <MenuItem fx:id="newfile" mnemonicParsing="false" onAction="#newFile" text="New" />
             <MenuItem mnemonicParsing="false" onAction="#loadProject" text="Open…" />
             <MenuItem mnemonicParsing="false" onAction="#saveProject" text="Save" />
-                  <MenuItem mnemonicParsing="false" text="Clear" />
+                  <MenuItem mnemonicParsing="false" onAction="#clear" text="Clear" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem fx:id="quit" mnemonicParsing="false" onAction="#exitTheSceen" text="Quit" />
           </items>
