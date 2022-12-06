@@ -1,5 +1,7 @@
 package heron.gameboardeditor;
 
+import java.util.Set;
+
 import heron.gameboardeditor.datamodel.Grid;
 import heron.gameboardeditor.generators.Maze;
 import heron.gameboardeditor.tools.DigTool;
@@ -101,6 +103,13 @@ public class GridBoardUI extends AnchorPane {
     
     public void resize(int newWidth, int newHeight) {
     	gridData.resize(newWidth, newHeight);
+    }
+    
+    public void setAllSelectedCellsToLevel(int level) {
+    	Set<CellUI> selectedCells = selectionTool.getSelectedCells();
+    	for(CellUI cell : selectedCells){
+    		cell.setLevel(level);
+    	}
     }
     
     public void generateMaze() {

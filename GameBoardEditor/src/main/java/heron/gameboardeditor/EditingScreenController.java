@@ -90,6 +90,7 @@ public class EditingScreenController {
     @FXML
     void changeLevel(MouseEvent event) {
     	gridBoard.setLevel((int)levelSlider.getValue());
+    	gridBoard.setAllSelectedCellsToLevel((int) levelSlider.getValue());
     }
     
     @FXML
