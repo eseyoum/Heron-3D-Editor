@@ -1,6 +1,7 @@
 package heron.gameboardeditor;
 
 import heron.gameboardeditor.datamodel.Grid;
+import heron.gameboardeditor.generators.Maze;
 import heron.gameboardeditor.tools.DigTool;
 import heron.gameboardeditor.tools.EraserTool;
 import heron.gameboardeditor.tools.FillTool;
@@ -92,7 +93,9 @@ public class GridBoardUI extends AnchorPane {
     }
     
     public void generateMaze() {
-    	gridData.generateMaze();
+    	Maze maze = new Maze(gridData);
+    	maze.generateMaze();
+    	//gridData.generateMaze();
     	updateVisual();
     }
     
