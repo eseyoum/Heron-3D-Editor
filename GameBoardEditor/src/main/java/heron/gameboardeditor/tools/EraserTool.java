@@ -18,17 +18,25 @@ public class EraserTool extends Tool {
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		CellUI cellClicked = gridBoard.getCell((int) e.getX() / CellUI.TILE_SIZE, (int) e.getY() / CellUI.TILE_SIZE);
-		cellClicked.setLevel(0);
-		cellClicked.setSelected(false);
-		gridBoard.selectionTool.getSelectedCells().remove(cellClicked);
+		int x = (int) e.getX() / CellUI.TILE_SIZE;
+		int y = (int) e.getY() / CellUI.TILE_SIZE;
+		if (gridBoard.getGridData().isCoordinateInGrid(x, y)) {
+			CellUI cellClicked = gridBoard.getCell(x, y);
+			cellClicked.setLevel(0);
+			cellClicked.setSelected(false);
+			gridBoard.selectionTool.getSelectedCells().remove(cellClicked);
+		}
 	}
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		CellUI cellClicked = gridBoard.getCell((int) e.getX() / CellUI.TILE_SIZE, (int) e.getY() / CellUI.TILE_SIZE);
-		cellClicked.setLevel(0);
-		cellClicked.setSelected(false);
-		gridBoard.selectionTool.getSelectedCells().remove(cellClicked);
+		int x = (int) e.getX() / CellUI.TILE_SIZE;
+		int y = (int) e.getY() / CellUI.TILE_SIZE;
+		if (gridBoard.getGridData().isCoordinateInGrid(x, y)) {
+			CellUI cellClicked = gridBoard.getCell(x, y);
+			cellClicked.setLevel(0);
+			cellClicked.setSelected(false);
+			gridBoard.selectionTool.getSelectedCells().remove(cellClicked);
+		}
 	}
 }
