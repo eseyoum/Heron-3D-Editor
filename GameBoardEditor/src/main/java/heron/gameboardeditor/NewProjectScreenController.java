@@ -237,7 +237,7 @@ public class NewProjectScreenController {
     				writer.write("v " + (c + 1) + " " + (r + 1) + " " + e + "\n");
     			}
     		}
-    		for(int i = 0; i < (rows * columns); i++) {
+    		for(int i = 0; i < (grid.getWidth() * grid.getHeight()); i++) {
     			writer.write("f " + (8 * i + 4) + " " + (8 * i + 3) + " " + (8 * i + 2) + " " + (8 * i + 1) + "\n");
     			writer.write("f " + (8 * i + 2) + " " + (8 * i + 6) + " " + (8 * i + 5) + " " + (8 * i + 1) + "\n");
     			writer.write("f " + (8 * i + 3) + " " + (8 * i + 7) + " " + (8 * i + 6) + " " + (8 * i + 2) + "\n");

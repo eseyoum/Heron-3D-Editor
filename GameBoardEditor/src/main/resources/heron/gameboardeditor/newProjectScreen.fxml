@@ -101,77 +101,72 @@
             </Menu>
       </menus>
     </MenuBar>
-    <SplitPane dividerPositions="0.1653674832962138, 0.8012249443207127" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <SplitPane dividerPositions="0.1653674832962138" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <items>
-        <AnchorPane prefHeight="485.0" prefWidth="151.0" />
-        <ScrollPane prefWidth="520.0">
+            <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="500.0" prefWidth="154.0" SplitPane.resizableWithParent="false">
+               <children>
+                  <StackPane fx:id="editPanel" prefHeight="150.0" prefWidth="160.0" />
+                  <VBox layoutX="10.0" prefHeight="127.0" prefWidth="117.0">
+                     <children>
+                        <GridPane>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="44.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="29.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="Row" />
+                              <Label text="Coumn" GridPane.rowIndex="1" />
+                              <TextField fx:id="numRow" GridPane.columnIndex="1" />
+                              <TextField fx:id="numColumn" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                           </children>
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </GridPane>
+                        <Button mnemonicParsing="false" onAction="#setSizeAction" style="-fx-background-color: EFCA08 EFCA08 EFCA08 EFCA08;" text="Set Size">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <Slider fx:id="levelSlider" blockIncrement="1.0" cacheShape="false" centerShape="false" layoutX="5.0" layoutY="142.0" majorTickUnit="1.0" max="5.0" min="1.0" minorTickCount="0" onDragDetected="#changeLevel" onMouseClicked="#changeLevel" prefHeight="38.0" prefWidth="163.0" scaleShape="false" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
+                  <ToggleButton fx:id="pencilToggle" layoutX="64.0" layoutY="189.0" mnemonicParsing="false" onAction="#pencilButtonOn" selected="true">
+                     <graphic>
+                        <ImageView fitHeight="15.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Icons/Edit.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="toolButtonToggleGroup" />
+                     </toggleGroup>
+                  </ToggleButton>
+                  <ToggleButton fx:id="eraserToggle" layoutX="52.0" layoutY="231.0" mnemonicParsing="false" onAction="#eraserButtonOn" text="ERASE" toggleGroup="$toolButtonToggleGroup" />
+                  <ToggleButton fx:id="digToggle" layoutX="61.0" layoutY="273.0" mnemonicParsing="false" onAction="#digButtonOn" text="DIG" toggleGroup="$toolButtonToggleGroup" />
+                  <ToggleButton fx:id="fillToolToggle" layoutX="60.0" layoutY="315.0" mnemonicParsing="false" onAction="#fillToolOn" text="FILL" toggleGroup="$toolButtonToggleGroup" />
+                  <ToggleButton fx:id="selectToggle" layoutX="48.0" layoutY="358.0" mnemonicParsing="false" onAction="#selectToolOn" text="SELECT" toggleGroup="$toolButtonToggleGroup" />
+                  <MenuButton layoutX="31.0" layoutY="402.0" mnemonicParsing="false" text="TerrainTool">
+                    <items>
+                      <MenuItem fx:id="mountainTerrainObject" mnemonicParsing="false" onAction="#terrainToolMountain" text="Mountain" />
+                      <MenuItem fx:id="volcanoTerrainObject" mnemonicParsing="false" onAction="#terrainToolVolcano" text="Volcano" />
+                    </items>
+                  </MenuButton>
+               </children>
+            </AnchorPane>
+        <ScrollPane prefHeight="500.0" prefWidth="691.0">
           <content>
-            <AnchorPane id="Content" fx:id="mapDisplay" focusTraversable="true" minHeight="-1.0" minWidth="-1.0" prefHeight="506.0" prefWidth="563.0" />
+            <AnchorPane id="Content" fx:id="mapDisplay" focusTraversable="true" minHeight="-1.0" minWidth="-1.0" prefHeight="506.0" prefWidth="711.0" />
           </content>
         </ScrollPane>
-            <ScrollPane prefHeight="485.0" prefWidth="252.0">
-               <content>
-                  <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="483.0" prefWidth="173.0">
-                     <children>
-                        <StackPane fx:id="editPanel" prefHeight="150.0" prefWidth="160.0" />
-                        <VBox layoutX="10.0" prefHeight="127.0" prefWidth="117.0">
-                           <children>
-                              <GridPane>
-                                <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <RowConstraints maxHeight="44.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
-                                  <RowConstraints maxHeight="29.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
-                                 <children>
-                                    <Label text="Row" />
-                                    <Label text="Coumn" GridPane.rowIndex="1" />
-                                    <TextField fx:id="numRow" GridPane.columnIndex="1" />
-                                    <TextField fx:id="numColumn" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                 </children>
-                                 <VBox.margin>
-                                    <Insets top="20.0" />
-                                 </VBox.margin>
-                              </GridPane>
-                              <Button mnemonicParsing="false" onAction="#setSizeAction" style="-fx-background-color: EFCA08 EFCA08 EFCA08 EFCA08;" text="Set Size">
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                                 <VBox.margin>
-                                    <Insets top="10.0" />
-                                 </VBox.margin>
-                              </Button>
-                           </children>
-                        </VBox>
-                        <Slider fx:id="levelSlider" blockIncrement="1.0" cacheShape="false" centerShape="false" layoutX="5.0" layoutY="142.0" majorTickUnit="1.0" max="5.0" min="1.0" minorTickCount="0" onDragDetected="#changeLevel" onMouseClicked="#changeLevel" prefHeight="38.0" prefWidth="163.0" scaleShape="false" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
-                        <ToggleButton fx:id="pencilToggle" layoutX="64.0" layoutY="189.0" mnemonicParsing="false" onAction="#pencilButtonOn" selected="true">
-                           <graphic>
-                              <ImageView fitHeight="15.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@Icons/Edit.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <toggleGroup>
-                              <ToggleGroup fx:id="toolButtonToggleGroup" />
-                           </toggleGroup>
-                        </ToggleButton>
-                        <ToggleButton fx:id="eraserToggle" layoutX="52.0" layoutY="231.0" mnemonicParsing="false" onAction="#eraserButtonOn" text="ERASE" toggleGroup="$toolButtonToggleGroup" />
-                        <ToggleButton fx:id="digToggle" layoutX="61.0" layoutY="273.0" mnemonicParsing="false" onAction="#digButtonOn" text="DIG" toggleGroup="$toolButtonToggleGroup" />
-                        <ToggleButton fx:id="fillToolToggle" layoutX="60.0" layoutY="315.0" mnemonicParsing="false" onAction="#fillToolOn" text="FILL" toggleGroup="$toolButtonToggleGroup" />
-                        <ToggleButton fx:id="selectToggle" layoutX="48.0" layoutY="358.0" mnemonicParsing="false" onAction="#selectToolOn" text="SELECT" toggleGroup="$toolButtonToggleGroup" />
-                        <MenuButton layoutX="31.0" layoutY="402.0" mnemonicParsing="false" text="TerrainTool">
-                          <items>
-                            <MenuItem fx:id="mountainTerrainObject" mnemonicParsing="false" onAction="#terrainToolMountain" text="Mountain" />
-                            <MenuItem fx:id="volcanoTerrainObject" mnemonicParsing="false" onAction="#terrainToolVolcano" text="Volcano" />
-                          </items>
-                        </MenuButton>
-                     </children>
-                  </AnchorPane>
-               </content>
-            </ScrollPane>
       </items>
     </SplitPane>
       <HBox alignment="CENTER" prefHeight="44.0" prefWidth="900.0" spacing="50.0" style="-fx-background-color: EFCA08 EFCA08;" />
