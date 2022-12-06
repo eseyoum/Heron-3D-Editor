@@ -47,18 +47,7 @@
                   <Insets bottom="15.0" left="20.0" top="5.0" />
                </VBox.margin>
                <graphic>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="345.0" text="New Project" textAlignment="CENTER">
-                     <font>
-                        <Font size="25.0" />
-                     </font></Label>
-               </graphic>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#continueProject" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 20px;">
-               <VBox.margin>
-                  <Insets bottom="15.0" left="20.0" top="5.0" />
-               </VBox.margin>
-               <graphic>
-                  <Label alignment="CENTER" prefWidth="520.0" text="Continue Project" textAlignment="CENTER">
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="345.0" text="Start" textAlignment="CENTER">
                      <font>
                         <Font size="25.0" />
                      </font></Label>

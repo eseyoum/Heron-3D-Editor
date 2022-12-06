@@ -1,115 +1,57 @@
 package heron.gameboardeditor;
 
-import java.io.File;
+import java.io.File; 
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Optional;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import heron.gameboardeditor.datamodel.Block;
 import heron.gameboardeditor.datamodel.Grid;
 import heron.gameboardeditor.datamodel.ProjectIO;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 
 public class NewProjectScreenController {
-    @FXML 
-    private AnchorPane mapDisplay;
 	
 	@FXML 
-	private ToggleGroup toolButtonToggleGroup;	
+    private AnchorPane mapDisplay;
 	
-	@FXML
-    private ToggleButton eraserToggle;
-	
-	@FXML
-	private ToggleButton digToggle;
-    
-	@FXML
-    private ToggleButton fillToolToggle;
-    
-	@FXML
-    private ToggleButton pencilToggle;
-    
-	@FXML
-    private ToggleButton selectToggle;
-    
-	@FXML
-    private MenuItem generateMazeButton;
-    
-	@FXML
-    private Font x1;
-    
-	@FXML
-    private Color x2;
-    
-	@FXML
-    private Color x21;
-    
-	@FXML
-    private Font x3;
-    
-	@FXML
-    private Color x4;
-    
-	@FXML
-    private Button levelButton1;
-    
-	@FXML
-    private Button levelButton2;
-    
-	@FXML
-    private Button levelButton3;
-    
-	@FXML
-    private Button levelButton4;
-    
-	@FXML
-    private Button levelButton5;
-    
-    @FXML private StackPane editPanel;
-    
-    @FXML
-    private Button setSizeButton;
-    
     @FXML
     private TextField numRow;
     
     @FXML
     private TextField numColumn;
     
-    private static int rows = 10;
-    private static int columns = 10;
+    @FXML
+    private Slider levelSlider;
+    
+    @FXML
+    private MenuItem mountainTerrainObject;
+    
+    @FXML
+    private MenuItem volcanoTerrainObject;
+    
+    private static int rows;
+    private static int columns;
     private BorderPane gridMapPane;
     private VBox boardParentVBox;
     private GridBoardUI gridBoard;
     
-    @FXML
-    void exitTheSceen(ActionEvent event) {
-    	Alert alert = new Alert(AlertType.WARNING, "Are you sure you want to quit?", ButtonType.YES, ButtonType.NO);
-    	
-    	Optional<ButtonType> result = alert.showAndWait();
-    	if (result.get() == ButtonType.YES) {
-    		Platform.exit();
-    	}
-    	
-    }
-    
+    //Tools
     @FXML
     /**
      * When the user clicks on Set Size button, this method get the number of rows and columns from the user's input 
@@ -129,12 +71,6 @@ public class NewProjectScreenController {
     	App.resizeGrid(columns, rows);
     	initialize();
     }
-    
-    @FXML
-    private void initialize() {
-    	gridMapPane = createContent(); //creates the 2d grid
-    	mapDisplay.getChildren().addAll(gridMapPane);
-    }
 
     /**
      * Creates the grid
@@ -144,9 +80,8 @@ public class NewProjectScreenController {
         BorderPane root = new BorderPane();
         root.setPrefSize(600, 800);
         gridBoard = new GridBoardUI(App.getGrid()); //creates a GridBoardUI, which is the grid the user can see
-
         boardParentVBox = new VBox(50, gridBoard); //creates a vbox with myBoard for children
-        boardParentVBox.setAlignment(Pos.CENTER);
+        boardParentVBox.setAlignment(Pos.TOP_RIGHT);
 
         root.setCenter(boardParentVBox);
 
@@ -154,45 +89,51 @@ public class NewProjectScreenController {
     }
     
     @FXML
-    void changeLevelTo1(ActionEvent event) {
-    	gridBoard.setLevel(1);
-    }
-    @FXML
-    void changeLevelTo2(ActionEvent event) {
-    	gridBoard.setLevel(2);
-    }
-    @FXML
-    void changeLevelTo3(ActionEvent event) {
-    	gridBoard.setLevel(3);
-    }
-    @FXML
-    void changeLevelTo4(ActionEvent event) {
-    	gridBoard.setLevel(4);
-    }
-    @FXML
-    void changeLevelTo5(ActionEvent event) {
-    	gridBoard.setLevel(5);
+    void changeLevel(MouseEvent event) {
+    	gridBoard.setLevel((int)levelSlider.getValue());
     }
     
     @FXML
     void pencilButtonOn(ActionEvent event) {
     	gridBoard.gridEditor.setCurrentTool(gridBoard.pencilTool);
     }
+    
     @FXML
     void eraserButtonOn(ActionEvent event) {
     	gridBoard.gridEditor.setCurrentTool(gridBoard.eraserTool);
     }
+    
     @FXML
     void digButtonOn(ActionEvent event) {
     	gridBoard.gridEditor.setCurrentTool(gridBoard.digTool);
     }
+    
     @FXML
     void fillToolOn(ActionEvent event) {
     	gridBoard.gridEditor.setCurrentTool(gridBoard.fillTool);
     }
+    
     @FXML
     void selectToolOn(ActionEvent event) {
     	gridBoard.gridEditor.setCurrentTool(gridBoard.selectionTool);
+    }
+    
+    @FXML
+    void terrainToolOn(ActionEvent event) {
+    	gridBoard.terrainTool.setCurrentTerrainObject(null);
+    	gridBoard.gridEditor.setCurrentTool(gridBoard.terrainTool);
+    }
+    
+    @FXML
+    void terrainToolMountain(ActionEvent event) {
+    	gridBoard.terrainTool.setCurrentTerrainObject("Mountain");
+    	gridBoard.gridEditor.setCurrentTool(gridBoard.terrainTool);
+    }
+    
+    @FXML
+    void terrainToolVolcano(ActionEvent event) {
+    	gridBoard.terrainTool.setCurrentTerrainObject("Volcano");
+    	gridBoard.gridEditor.setCurrentTool(gridBoard.terrainTool);
     }
     
     @FXML
@@ -200,6 +141,8 @@ public class NewProjectScreenController {
     	gridBoard.generateMaze();
     }
     
+    
+    //File menu bar
     @FXML
     void newFile(ActionEvent event) throws IOException {
     	mapDisplay.getChildren().clear();
@@ -207,27 +150,8 @@ public class NewProjectScreenController {
     }
     
     @FXML
-    void show3DPreview(ActionEvent event) {
-    	Board3DViewController preview3D = new Board3DViewController(gridBoard.getGridData());
-    	preview3D.show();
-    }
-    
-    @FXML
-    void saveProject(ActionEvent event) {
-    	File file = saveLoadHelper("save");
-    	if (file != null) {
-    		Grid grid = App.getGrid();
-    		try {
-				ProjectIO.save(grid, file);
-			} catch (IOException ex) {
-	    		new Alert(AlertType.ERROR, "An I/O error occurred while trying to save this file.").showAndWait();			
-			}
-    	}
-    }
-    
-    @FXML
-    void openProject(ActionEvent event) {
-    	File file = saveLoadHelper("open");
+    void loadProject(ActionEvent event) {
+    	File file = saveLoadHelper("open", "heron");
 		if (file != null) {
 			try {
 				Grid grid = ProjectIO.load(file);
@@ -243,10 +167,28 @@ public class NewProjectScreenController {
 		}
     }
     
-    private File saveLoadHelper(String dialog) {
+    @FXML
+    void saveProject(ActionEvent event) {
+    	File file = saveLoadHelper("save", "heron");
+    	if(file != null) {
+    		Grid grid = App.getGrid();
+    		try {
+				ProjectIO.save(grid, file);
+			} catch (IOException ex) {
+	    		new Alert(AlertType.ERROR, "An I/O error occurred while trying to save this file.").showAndWait();			
+			}
+    	}
+    }
+    
+    private File saveLoadHelper(String dialog, String fileType) {
     	FileChooser chooser = new FileChooser();
-    	FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Heron game (*.heron)", "*.heron");
-    	chooser.getExtensionFilters().add(extFilter);
+    	FileChooser.ExtensionFilter extention;
+    	if(fileType == "heron" ) {
+    		extention = new FileChooser.ExtensionFilter("Heron game (*.heron)", "*.heron");
+    	} else {
+    		extention = new FileChooser.ExtensionFilter("OBJ File (*.OBJ)", "*.OBJ");
+    	}
+    	chooser.getExtensionFilters().add(extention);
     	File file;
     	if(dialog == "open") {
     		file = chooser.showOpenDialog(App.getMainWindow());
@@ -256,5 +198,61 @@ public class NewProjectScreenController {
     	return file;
     }
     
+    @FXML
+    void exitTheSceen(ActionEvent event) {
+    	Alert alert = new Alert(AlertType.WARNING, "Are you sure you want to quit?", ButtonType.YES, ButtonType.NO);
+    	
+    	Optional<ButtonType> result = alert.showAndWait();
+    	if (result.get() == ButtonType.YES) {
+    		Platform.exit();
+    	}
+    }
+    
+    //3D menu bar
+    @FXML
+    void show3DPreview(ActionEvent event) {
+    	Board3DViewController preview3D = new Board3DViewController(gridBoard.getGridData());
+    	preview3D.show();
+    }
+    
+    @FXML
+    void exportToObj() throws IOException {
+    	File file = saveLoadHelper("save", "OBJ");
+    	if(file != null) {
+    		Grid grid = App.getGrid();
+    		FileWriter writer = new FileWriter(file);
+    		for (int x = 0; x < grid.getWidth(); x++) {
+    			for (int y = 0; y < grid.getHeight(); y++) {
+    				Block blocks = grid.getBlockAt(x, y);
+    				int r = blocks.getY();
+    				int c = blocks.getX();
+    				int e = blocks.getZ();
+    				writer.write("v " + c + " " + r + " " + e + "\n");
+    				writer.write("v " + c + " " + r + " " + 0 + "\n");
+    				writer.write("v " + c + " " + (r + 1) + " " + 0 + "\n");
+    				writer.write("v " + c + " " + (r + 1) + " " + e + "\n");
+    				writer.write("v " + (c + 1) + " " + r + " " + e + "\n");
+    				writer.write("v " + (c + 1) + " " + r + " " + 0 + "\n");
+    				writer.write("v " + (c + 1) + " " + (r + 1) + " " + 0 + "\n");
+    				writer.write("v " + (c + 1) + " " + (r + 1) + " " + e + "\n");
+    			}
+    		}
+    		for(int i = 0; i < (rows * columns); i++) {
+    			writer.write("f " + (8 * i + 4) + " " + (8 * i + 3) + " " + (8 * i + 2) + " " + (8 * i + 1) + "\n");
+    			writer.write("f " + (8 * i + 2) + " " + (8 * i + 6) + " " + (8 * i + 5) + " " + (8 * i + 1) + "\n");
+    			writer.write("f " + (8 * i + 3) + " " + (8 * i + 7) + " " + (8 * i + 6) + " " + (8 * i + 2) + "\n");
+    			writer.write("f " + (8 * i + 8) + " " + (8 * i + 7) + " " + (8 * i + 3) + " " + (8 * i + 4) + "\n");
+    			writer.write("f " + (8 * i + 5) + " " + (8 * i + 8) + " " + (8 * i + 4) + " " + (8 * i + 1) + "\n");
+    			writer.write("f " + (8 * i + 6) + " " + (8 * i + 7) + " " + (8 * i + 8) + " " + (8 * i + 5) + "\n");
+    		}
+    		writer.close();
+    	}
+    }
+    
+    @FXML
+    private void initialize() {
+    	gridMapPane = createContent(); //creates the 2d grid
+    	mapDisplay.getChildren().addAll(gridMapPane);
+    }
     
 }

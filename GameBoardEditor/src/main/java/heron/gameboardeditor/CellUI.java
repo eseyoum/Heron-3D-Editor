@@ -1,5 +1,7 @@
 package heron.gameboardeditor;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import heron.gameboardeditor.datamodel.Block;
@@ -9,13 +11,14 @@ import javafx.scene.shape.Rectangle;
 /**
  * This class represents one cell (or tile) of the GridBoardUI
  */
-public class CellUI extends Rectangle {
+public class CellUI extends Rectangle implements Cloneable {
     public static final int TILE_SIZE = 30; //size of the cells
     public static final int MAX_LEVEL = 5; //number of possible levels
     private static final Color DEFAULT_COLOR = Color.CORNFLOWERBLUE; //default color of the cells
     private static List<Color> colorList = generateColors(); //list of colors for each level of the depth map
     
-    private final GridBoardUI gridBoard;
+//    private final GridBoardUI gridBoard;
+    private GridBoardUI gridBoard;
     private int xIndex;
     private int yIndex;
     private boolean isClicked;
@@ -23,8 +26,8 @@ public class CellUI extends Rectangle {
     public CellUI(GridBoardUI gridBoard, int xIndex, int yIndex) {
         super(TILE_SIZE - 1, TILE_SIZE - 1); //a CellUI object is a rectangle
 		this.gridBoard = gridBoard;
-		this.xIndex=xIndex;
-		this.yIndex=yIndex;
+		this.xIndex = xIndex;
+		this.yIndex = yIndex;
 		updateVisualBasedOnBlock();
 		this.setSelected(false);
     }
@@ -47,28 +50,34 @@ public class CellUI extends Rectangle {
      * Updates the cell color to reflect the level of the block
      */
     public void updateVisualBasedOnBlock() {
-    	Block block = getBlock();
+    	Block block = getBlock(); 
     	if (block.isVisible()) {
     		setFill(colorList.get(block.getZ() - 1));
     	} else {
       		setFill(DEFAULT_COLOR); //if the cell is not visible, the level is zero
     	}
 	}
+    
+//    public void export() throws IOException {
+//    	FileWriter writer = new FileWriter("hi");
+//    	String file;
+//    	for (int i = 0; i < xIndex; i++) {
+//    		for(int y = 0; y < yIndex; y++) {
+//    			if()
+//    			file = "v " + ((TILE_SIZE - 1) / 2) + () + (if);
+//    		}
+//    	}
+//    	writer.write("jldf");
+//    	writer.close();
+//    }
 	
 	public void setLevel(int level) {
 		Block block = getBlock();
-		block.setZ(level);
-		
-		if (level != 0) {
-			block.setVisible(true);
-		} else {
-			block.setVisible(false); //if cell level is zero it should not be visible
-		}
-		
+		block.setZ(level);//if cell level is zero it should not be visible
 		updateVisualBasedOnBlock();
 	}
 		
-    public Block getBlock() {
+    public Block getBlock() { 
     	return gridBoard.getGridData().getBlockAt(xIndex, yIndex);
     }
     
@@ -76,6 +85,7 @@ public class CellUI extends Rectangle {
     	isClicked = status;
     	if (isClicked) {
     		this.setStroke(Color.RED);
+    		//this.setFill(Color.GREEN);
     	} else {
     		this.setStroke(Color.BLACK);
     	}
@@ -90,5 +100,15 @@ public class CellUI extends Rectangle {
     
     public boolean isCornerCell() {
     	return ((xIndex == 0 && yIndex == 0) || (xIndex == 0 && yIndex == gridBoard.getGridData().getHeight() - 1) || (xIndex == gridBoard.getGridData().getWidth() - 1 && yIndex == 0) || (xIndex == gridBoard.getGridData().getWidth() - 1 && yIndex == gridBoard.getGridData().getHeight() - 1));
+    }
+    
+    public CellUI clone() {
+    	try {
+    		CellUI clone = (CellUI) super.clone();
+    		return clone;
+    	} catch (CloneNotSupportedException e) {
+    		assert false;
+    		return null;
+    	}
     }
 }

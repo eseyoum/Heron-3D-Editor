@@ -1,19 +1,13 @@
 package heron.gameboardeditor;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
-
-import heron.gameboardeditor.datamodel.Block;
-import java.util.List;
-
 import heron.gameboardeditor.datamodel.Grid;
+import heron.gameboardeditor.generators.Maze;
 import heron.gameboardeditor.tools.DigTool;
 import heron.gameboardeditor.tools.EraserTool;
 import heron.gameboardeditor.tools.FillTool;
 import heron.gameboardeditor.tools.PencilTool;
 import heron.gameboardeditor.tools.SelectionTool;
+import heron.gameboardeditor.tools.TerrainTool;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -33,6 +27,7 @@ public class GridBoardUI extends AnchorPane {
     public final DigTool digTool;
     public final FillTool fillTool;
     public final SelectionTool selectionTool;
+    public final TerrainTool terrainTool;
 
     private UndoRedoHandler undoRedoHandler;
     
@@ -40,8 +35,8 @@ public class GridBoardUI extends AnchorPane {
         this.gridData = grid;
         cellArray = new CellUI[grid.getWidth()][grid.getHeight()];
         
-        for (int y = 0; y < grid.getHeight(); y++) { //creates the grid
-            for (int x = 0; x < grid.getWidth(); x++) {
+        for (int x = 0; x < grid.getWidth(); x++) {
+        	for (int y = 0; y < grid.getHeight(); y++) { //creates the grid
                 cellArray[x][y] = new CellUI(this, x, y);
                 cellArray[x][y].setLayoutX(x * CellUI.TILE_SIZE); //spaces out the tiles based on TILE_SIZE
                 cellArray[x][y].setLayoutY(y * CellUI.TILE_SIZE);
@@ -54,6 +49,7 @@ public class GridBoardUI extends AnchorPane {
         this.digTool = new DigTool(this, undoRedoHandler);
         this.fillTool = new FillTool(this, this.gridData, undoRedoHandler);
         this.selectionTool = new SelectionTool(this, undoRedoHandler);
+        this.terrainTool = new TerrainTool(this, undoRedoHandler);
         
         this.gridEditor = new GridEditor(pencilTool); //pencilTool is the default tool
         
@@ -86,7 +82,7 @@ public class GridBoardUI extends AnchorPane {
     
     public void updateVisual() {
     	for (int y = 0; y < gridData.getHeight(); y++) { //may be a better way to go through the cells
-            for (int x = 0; x < gridData.getWidth(); x++) {
+    		for (int x = 0; x < gridData.getWidth(); x++) {
             	cellArray[x][y].updateVisualBasedOnBlock();
             }
     	}
@@ -97,7 +93,9 @@ public class GridBoardUI extends AnchorPane {
     }
     
     public void generateMaze() {
-    	gridData.generateMaze();
+    	Maze maze = new Maze(gridData);
+    	maze.generateMaze();
+    	//gridData.generateMaze();
     	updateVisual();
     }
     

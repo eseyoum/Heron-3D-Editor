@@ -30,4 +30,8 @@ public abstract class Tool {
 		
 	}
 	
+	public void mouseClicked(MouseEvent e) {
+		
+	}
+	
 }

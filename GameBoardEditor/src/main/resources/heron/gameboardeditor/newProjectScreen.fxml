@@ -37,9 +37,11 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
@@ -64,7 +66,7 @@
         <Menu mnemonicParsing="false" text="File">
           <items>
             <MenuItem fx:id="newfile" mnemonicParsing="false" onAction="#newFile" text="New" />
-            <MenuItem mnemonicParsing="false" onAction="#openProject" text="Open…" />
+            <MenuItem mnemonicParsing="false" onAction="#loadProject" text="Open…" />
             <MenuItem mnemonicParsing="false" onAction="#saveProject" text="Save" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem fx:id="quit" mnemonicParsing="false" onAction="#exitTheSceen" text="Quit" />
@@ -93,7 +95,8 @@
         </Menu>
             <Menu mnemonicParsing="false" text="3D">
               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#show3DPreview" text="3D Preview" />
+                  <MenuItem mnemonicParsing="false" onAction="#show3DPreview" text="Preview" />
+                  <MenuItem mnemonicParsing="false" onAction="#exportToObj" text="Export" />
               </items>
             </Menu>
       </menus>
@@ -103,49 +106,15 @@
         <AnchorPane prefHeight="485.0" prefWidth="151.0" />
         <ScrollPane prefWidth="520.0">
           <content>
-            <AnchorPane id="Content" fx:id="mapDisplay" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
-              <children>
-                <Label alignment="CENTER" layoutX="-2.0" layoutY="-3.0" prefHeight="23.0" prefWidth="81.0" style="&#10;" text="2D Map View" textAlignment="CENTER" wrapText="false">
-                           <font>
-                              <Font size="12.0" />
-                           </font>
-                           <textFill>
-                      <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
-                           </textFill></Label>
-              </children>
-            </AnchorPane>
+            <AnchorPane id="Content" fx:id="mapDisplay" focusTraversable="true" minHeight="-1.0" minWidth="-1.0" prefHeight="506.0" prefWidth="563.0" />
           </content>
         </ScrollPane>
             <ScrollPane prefHeight="485.0" prefWidth="252.0">
                <content>
-                  <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="546.0" prefWidth="372.0">
+                  <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="483.0" prefWidth="173.0">
                      <children>
-                        <StackPane fx:id="editPanel" prefHeight="150.0" prefWidth="200.0" />
-                        <VBox layoutX="10.0" layoutY="253.0" prefHeight="257.0" prefWidth="180.0">
-                           <children>
-                              <Button fx:id="levelButton5" mnemonicParsing="false" onAction="#changeLevelTo5" style="-fx-background-color: EFCA08 EFCA08;" text="5">
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" />
-                                 </VBox.margin></Button>
-                              <Button fx:id="levelButton4" mnemonicParsing="false" onAction="#changeLevelTo4" style="-fx-background-color: EFCA08 EFCA08;" text="4">
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" />
-                                 </VBox.margin></Button>
-                              <Button fx:id="levelButton3" mnemonicParsing="false" onAction="#changeLevelTo3" style="-fx-background-color: EFCA08 EFCA08;" text="3">
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" />
-                                 </VBox.margin></Button>
-                              <Button fx:id="levelButton2" mnemonicParsing="false" onAction="#changeLevelTo2" style="-fx-background-color: EFCA08 EFCA08;" text="2">
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" />
-                                 </VBox.margin></Button>
-                              <Button fx:id="levelButton1" mnemonicParsing="false" onAction="#changeLevelTo1" style="-fx-background-color: EFCA08 EFCA08;" text="1">
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" />
-                                 </VBox.margin></Button>
-                           </children>
-                        </VBox>
-                        <VBox layoutX="10.0" prefHeight="200.0" prefWidth="117.0">
+                        <StackPane fx:id="editPanel" prefHeight="150.0" prefWidth="160.0" />
+                        <VBox layoutX="10.0" prefHeight="127.0" prefWidth="117.0">
                            <children>
                               <GridPane>
                                 <columnConstraints>
@@ -176,36 +145,36 @@
                               </Button>
                            </children>
                         </VBox>
+                        <Slider fx:id="levelSlider" blockIncrement="1.0" cacheShape="false" centerShape="false" layoutX="5.0" layoutY="142.0" majorTickUnit="1.0" max="5.0" min="1.0" minorTickCount="0" onDragDetected="#changeLevel" onMouseClicked="#changeLevel" prefHeight="38.0" prefWidth="163.0" scaleShape="false" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
+                        <ToggleButton fx:id="pencilToggle" layoutX="64.0" layoutY="189.0" mnemonicParsing="false" onAction="#pencilButtonOn" selected="true">
+                           <graphic>
+                              <ImageView fitHeight="15.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@Icons/Edit.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <toggleGroup>
+                              <ToggleGroup fx:id="toolButtonToggleGroup" />
+                           </toggleGroup>
+                        </ToggleButton>
+                        <ToggleButton fx:id="eraserToggle" layoutX="52.0" layoutY="231.0" mnemonicParsing="false" onAction="#eraserButtonOn" text="ERASE" toggleGroup="$toolButtonToggleGroup" />
+                        <ToggleButton fx:id="digToggle" layoutX="61.0" layoutY="273.0" mnemonicParsing="false" onAction="#digButtonOn" text="DIG" toggleGroup="$toolButtonToggleGroup" />
+                        <ToggleButton fx:id="fillToolToggle" layoutX="60.0" layoutY="315.0" mnemonicParsing="false" onAction="#fillToolOn" text="FILL" toggleGroup="$toolButtonToggleGroup" />
+                        <ToggleButton fx:id="selectToggle" layoutX="48.0" layoutY="358.0" mnemonicParsing="false" onAction="#selectToolOn" text="SELECT" toggleGroup="$toolButtonToggleGroup" />
+                        <MenuButton layoutX="31.0" layoutY="402.0" mnemonicParsing="false" text="TerrainTool">
+                          <items>
+                            <MenuItem fx:id="mountainTerrainObject" mnemonicParsing="false" onAction="#terrainToolMountain" text="Mountain" />
+                            <MenuItem fx:id="volcanoTerrainObject" mnemonicParsing="false" onAction="#terrainToolVolcano" text="Volcano" />
+                          </items>
+                        </MenuButton>
                      </children>
                   </AnchorPane>
                </content>
             </ScrollPane>
       </items>
     </SplitPane>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="869.0" spacing="50.0" style="-fx-background-color: EFCA08 EFCA08;">
-         <children>
-            <ToggleButton fx:id="pencilToggle" mnemonicParsing="false" onAction="#pencilButtonOn" selected="true" style="-fx-background-color: white;">
-               <graphic>
-                  <ImageView fitHeight="15.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@Icons/Edit.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <toggleGroup>
-                  <ToggleGroup fx:id="toolButtonToggleGroup" />
-               </toggleGroup>
-            </ToggleButton>
-            <ToggleButton fx:id="eraserToggle" mnemonicParsing="false" onAction="#eraserButtonOn" style="-fx-background-color: white;" text="ERASE" toggleGroup="$toolButtonToggleGroup" />
-            <ToggleButton fx:id="digToggle" mnemonicParsing="false" onAction="#digButtonOn" style="-fx-background-color: white;" text="DIG">
-               <toggleGroup>
-                  <ToggleGroup fx:id="toolButtonToggleGroup1" />
-               </toggleGroup>
-            </ToggleButton>
-            <ToggleButton fx:id="fillToolToggle" mnemonicParsing="false" onAction="#fillToolOn" style="-fx-background-color: white;" text="FILL" toggleGroup="$toolButtonToggleGroup" />
-            <ToggleButton fx:id="selectToggle" mnemonicParsing="false" onAction="#selectToolOn" style="-fx-background-color: white;" text="SELECT" toggleGroup="$toolButtonToggleGroup" />
-         </children>
-      </HBox>
+      <HBox alignment="CENTER" prefHeight="44.0" prefWidth="900.0" spacing="50.0" style="-fx-background-color: EFCA08 EFCA08;" />
     <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
       <children>
         <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Working Screen" HBox.hgrow="ALWAYS">
@@ -218,6 +187,14 @@
         </Label>
         <Pane prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: white;" HBox.hgrow="ALWAYS" />
         <Label font="$x3" maxWidth="-1.0" text="Scale" textFill="$x4" HBox.hgrow="NEVER" />
+    <Label alignment="CENTER" prefHeight="23.0" prefWidth="81.0" style="&#10;" text="2D Map View" textAlignment="CENTER" wrapText="false">
+               <font>
+                  <Font size="12.0" />
+               </font>
+               <textFill>
+          <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
+               </textFill>
+            </Label>
       </children>
       <padding>
         <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />

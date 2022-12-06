@@ -1,5 +1,6 @@
 package heron.gameboardeditor.tools;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -20,8 +21,6 @@ public class SelectionTool extends Tool {
 	private double initialSelectX;
 	private double initialSelectY;
 	private Set<CellUI>selectedCells = new HashSet<CellUI>();
-	
-
 	private boolean pressedInSelectedCell;
 		
 	public SelectionTool(GridBoardUI gridBoard, UndoRedoHandler handler) {
@@ -45,11 +44,12 @@ public class SelectionTool extends Tool {
 		selectionRectangle.setWidth(0);
 		selectionRectangle.setHeight(0);
 		selectionRectangle.setVisible(true);
+
 		try {
 			CellUI cellClicked = gridBoard.getCellAtPixelCoordinates(initialSelectX, initialSelectY);
+//			CellUI cellClicked = (CellUI) gridBoard.getCellAtPixelCoordinates(initialSelectX, initialSelectY).clone();
 			pressedInSelectedCell = (cellClicked.isSelected());
-			System.out.println("pressed in selected: " + pressedInSelectedCell);
-			if (!pressedInSelectedCell)
+			if (!pressedInSelectedCell) //if the user clicks off of the selected cells
 				deselectAll();
 			if (pressedInSelectedCell && !cellClicked.isSelected()) 
 				deselectAll();
@@ -63,10 +63,27 @@ public class SelectionTool extends Tool {
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		if (pressedInSelectedCell) {
-			int x = (int) (((e.getX() / CellUI.TILE_SIZE) % (gridBoard.getWidth() / CellUI.TILE_SIZE)) * CellUI.TILE_SIZE);
-			int y = (int) (((e.getY() / CellUI.TILE_SIZE) % (gridBoard.getHeight() / CellUI.TILE_SIZE)) * CellUI.TILE_SIZE);
-			//moveSelectedCells(x - origin.getX(), y - origin.getY());
-			//origin = new Point2D(x,y);
+//			CellUI currentCell = gridBoard.getCellAtPixelCoordinates(initialSelectX, initialSelectY); 
+//			Block currentBlock = currentCell.getBlock();
+//			currentBlock.setX((int) currentBlock.getX() - (int) cellClicked.getX());
+//			currentBlock.setY((int) currentBlock.getY() - (int) cellClicked.getY());
+//			gridBoard.updateVisual();
+//			cellClicked = currentCell;
+////			
+//			int x = (int) (((e.getX() / CellUI.TILE_SIZE) % (gridBoard.getWidth() / CellUI.TILE_SIZE)) * CellUI.TILE_SIZE);
+//			int y = (int) (((e.getY() / CellUI.TILE_SIZE) % (gridBoard.getHeight() / CellUI.TILE_SIZE)) * CellUI.TILE_SIZE);		
+//			
+//			int startDragXIndex = (int) (e.getX());
+//			int startDragYIndex = (int) (e.getY());
+//			int endDragXIndex = (int) e.getSceneX() - startDragXIndex;
+//			int endDragYIndex = (int) e.getSceneY() - startDragYIndex;
+			
+//			for (CellUI cell : selectedCells) {
+//				cell.setX(endDragXIndex);
+//				cell.setY(endDragYIndex);
+//			}
+//			drag(endDragXIndex, endDragYIndex);
+			
 		} else {
 			selectionRectangle.setX(Math.min(e.getX(), initialSelectX));
 			selectionRectangle.setWidth(Math.abs(e.getX() - initialSelectX));
@@ -77,14 +94,14 @@ public class SelectionTool extends Tool {
 	
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		
-		if (pressedInSelectedCell) {
-			int xStartIndex = (int) (initialSelectX/ CellUI.TILE_SIZE);
-			int yStartIndex = (int) (initialSelectY / CellUI.TILE_SIZE);
-			int xEndIndex = (int) (e.getX() / CellUI.TILE_SIZE);
-			int yEndIndex = (int) (e.getX() / CellUI.TILE_SIZE);
-			cutAndPaste(xStartIndex, yStartIndex, xEndIndex, yEndIndex);
+		if (pressedInSelectedCell) { //user releases after dragging the selected cells
+			int xStartIndex = (int) (initialSelectX/ CellUI.TILE_SIZE); //original x index when the cell initially gets pressed 
+			int yStartIndex = (int) (initialSelectY/ CellUI.TILE_SIZE); //original y index when the cell initially gets pressed 
 			
+			int xEndIndex = (int) (e.getX() / CellUI.TILE_SIZE);
+			int yEndIndex = (int) (e.getY() / CellUI.TILE_SIZE);
+			cutAndPaste(xStartIndex, yStartIndex, xEndIndex, yEndIndex); 
+			deselectAll();
 		} else {
 			int xStartIndex = (int) selectionRectangle.getX() / CellUI.TILE_SIZE;
 			int yStartIndex = (int) selectionRectangle.getY() / CellUI.TILE_SIZE;
@@ -103,8 +120,8 @@ public class SelectionTool extends Tool {
 	}
 	
 	public void deselectAll() {
-    	for (CellUI cell: selectedCells) {
-    		cell.setSelected(false);
+		for (CellUI cell: selectedCells) {
+			cell.setSelected(false);
     	}
     	selectedCells.clear();
     }
@@ -112,30 +129,16 @@ public class SelectionTool extends Tool {
 	public Set<CellUI> getSelectedCells() {
 		return selectedCells;
 	}
-		
-//	public void moveSelectedCells(double dx, double dy) {
-//		for (CellUI cell : selectedCells) {
-//			if (cell.isSelected()) {
-//				cell = new CellUI(gridBoard, cell.getBlock());
-//				cell.setLayoutX(cell.getX() + dx);
-//				cell.setLayoutY(cell.getY() + dy);
-//			}
-//		}
-//	}
 	
-    public void cutAndPaste(int startXIndex, int startYIndex, int endXIndex, int endYIndex) {
+    public void cutAndPaste(int startXIndex, int startYIndex, int endXIndex, int endYIndex) throws ArrayIndexOutOfBoundsException {
     	Set<Block> selectedBlocks = new HashSet<>();
     	
     	for (CellUI cell: selectedCells) {
     		selectedBlocks.add(cell.getBlock());
-    	}
+    	} 
     	int changeInXIndex = endXIndex - startXIndex;
     	int changeInYIndex = endYIndex - startYIndex;
     	gridBoard.getGridData().cutAndPaste(selectedBlocks, changeInXIndex, changeInYIndex);
-    	
-    	gridBoard.updateVisual();	
+    	gridBoard.updateVisual();
     }
-
-	
-	
 }
