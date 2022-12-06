@@ -1,6 +1,7 @@
 package heron.gameboardeditor;
 
 import heron.gameboardeditor.datamodel.Grid;
+import heron.gameboardeditor.generators.Maze;
 import heron.gameboardeditor.tools.DigTool;
 import heron.gameboardeditor.tools.EraserTool;
 import heron.gameboardeditor.tools.FillTool;
@@ -80,8 +81,8 @@ public class GridBoardUI extends AnchorPane {
     }
     
     public void updateVisual() {
-    	for (int x = 0; x < gridData.getWidth(); x++) {
-    		for (int y = 0; y < gridData.getHeight(); y++) { //may be a better way to go through the cells
+    	for (int y = 0; y < gridData.getHeight(); y++) { //may be a better way to go through the cells
+    		for (int x = 0; x < gridData.getWidth(); x++) {
             	cellArray[x][y].updateVisualBasedOnBlock();
             }
     	}
@@ -92,7 +93,9 @@ public class GridBoardUI extends AnchorPane {
     }
     
     public void generateMaze() {
-    	gridData.generateMaze();
+    	Maze maze = new Maze(gridData);
+    	maze.generateMaze();
+    	//gridData.generateMaze();
     	updateVisual();
     }
     
