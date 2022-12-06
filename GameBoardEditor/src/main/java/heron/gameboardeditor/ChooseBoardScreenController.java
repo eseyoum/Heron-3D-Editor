@@ -13,7 +13,7 @@ public class ChooseBoardScreenController {
 	
 	@FXML
     void switchToEmptyBoard(ActionEvent event) throws IOException {
-		App.setRoot("newProjectScreen");
+		App.setRoot("editingScreen");
     }
     
     @FXML

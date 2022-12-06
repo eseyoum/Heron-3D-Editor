@@ -12,7 +12,6 @@ import javafx.geometry.Pos;
 import heron.gameboardeditor.datamodel.Block;
 import heron.gameboardeditor.datamodel.Grid;
 import heron.gameboardeditor.datamodel.ProjectIO;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
@@ -25,7 +24,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 
-public class NewProjectScreenController {
+public class EditingScreenController {
 	
 	@FXML 
     private AnchorPane mapDisplay;
@@ -145,8 +144,7 @@ public class NewProjectScreenController {
     //File menu bar
     @FXML
     void newFile(ActionEvent event) throws IOException {
-    	mapDisplay.getChildren().clear();
-    	App.setRoot("newProjectScreen");
+    	
     }
     
     @FXML
@@ -199,6 +197,11 @@ public class NewProjectScreenController {
     }
     
     @FXML
+    void clear(ActionEvent event) {
+    	gridBoard.clear();
+    }
+    
+    @FXML
     void exitTheSceen(ActionEvent event) {
     	Alert alert = new Alert(AlertType.WARNING, "Are you sure you want to quit?", ButtonType.YES, ButtonType.NO);
     	
@@ -237,7 +240,7 @@ public class NewProjectScreenController {
     				writer.write("v " + (c + 1) + " " + (r + 1) + " " + e + "\n");
     			}
     		}
-    		for(int i = 0; i < (rows * columns); i++) {
+    		for(int i = 0; i < (grid.getWidth() * grid.getHeight()); i++) {
     			writer.write("f " + (8 * i + 4) + " " + (8 * i + 3) + " " + (8 * i + 2) + " " + (8 * i + 1) + "\n");
     			writer.write("f " + (8 * i + 2) + " " + (8 * i + 6) + " " + (8 * i + 5) + " " + (8 * i + 1) + "\n");
     			writer.write("f " + (8 * i + 3) + " " + (8 * i + 7) + " " + (8 * i + 6) + " " + (8 * i + 2) + "\n");
