@@ -14,8 +14,7 @@ class GridTest {
 		Grid grid = new Grid(5,4);
 		for (int x = 0; x < grid.getWidth(); x++) {
 			for (int y = 0; y < grid.getHeight(); y++) {
-				grid.getBlockAt(x, y
-						).setZ(x);
+				grid.getBlockAt(x, y).setZ(x);
 			}
 		}
 		grid.printGrid();
