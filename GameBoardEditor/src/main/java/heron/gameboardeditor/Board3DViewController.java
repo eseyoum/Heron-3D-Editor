@@ -45,16 +45,6 @@ public class Board3DViewController {
 		this.gridData = gridData;
 		int width = gridData.getWidth();
 		int height = gridData.getHeight();
-		
-		// Create box
-//		Box box1 = new Box(10, 10, 50);
-//		Box box2 = new Box(10, 10, 20);
-//		
-//		
-//		box2.translateXProperty().set(20);
-//
-//		box1.translateZProperty().set(25);
-//		box2.translateZProperty().set(10);
 	
 		//Create Material
 		PhongMaterial material = new PhongMaterial();
@@ -65,8 +55,6 @@ public class Board3DViewController {
 		
 		// Prepare transformable Group container
 		SmartGroup group = new SmartGroup();
-//		group.getChildren().add(box1);
-//		group.getChildren().add(box2);
 		
 		int level = 0;
 		int maxLevel = gridData.getMaxLevel();

@@ -78,7 +78,11 @@ public class Grid implements Cloneable {
 	}
 	
 	
-	
+	/**
+	 * This method return biggest level of the grid
+	 * 
+	 * @return max - the biggest level of the grid
+	 */
 	public int getMaxLevel() {
 		int max = -1;
 		for (int y = 0; y < width; y++) {
@@ -93,10 +97,25 @@ public class Grid implements Cloneable {
 		return max;
 	}
 	
+	/**
+	 * This method return blockGrid
+	 * 
+	 * @return blockGrid - the array array of blocks
+	 */
 	public Block[][] getBlockGrid() {
 		return blockGrid;
 	}
 	
+	/**
+	 * This method checks if a coordinate is inside the grid
+	 * 
+	 * @param x - the x coordinate
+	 * @param y - the y coordinate
+	 * 
+	 * @return true if the coordinate is inside the grid
+	 * @return false if the coordinate is not inside the grid
+	 * 
+	 */
 	public boolean isCoordinateInGrid(int x, int y) {
 		if ((x < 0) || (x > width - 1)) {
 			return false;
