@@ -28,6 +28,7 @@ public class FillTool extends Tool {
         	fill(cellClicked.getBlock(), cellClicked.getBlock().getZ(), gridBoard.getLevel());
     	}
     	gridBoard.updateVisual();
+    	undoRedoHandler.saveState();
     }
     
 	public void fill(Block block, int startingLevel, int turnToLevel) {

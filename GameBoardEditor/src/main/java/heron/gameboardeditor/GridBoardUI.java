@@ -28,10 +28,8 @@ public class GridBoardUI extends AnchorPane {
     public final FillTool fillTool;
     public final SelectionTool selectionTool;
     public final TerrainTool terrainTool;
-
-    private UndoRedoHandler undoRedoHandler;
     
-    public GridBoardUI(Grid grid) {
+	public GridBoardUI(Grid grid, UndoRedoHandler undoRedoHandler) {
         this.gridData = grid;
         cellArray = new CellUI[grid.getWidth()][grid.getHeight()];
         
@@ -43,7 +41,7 @@ public class GridBoardUI extends AnchorPane {
                 this.getChildren().add(cellArray[x][y]);
             }
         }
-       
+        
         this.pencilTool = new PencilTool(this, undoRedoHandler);
         this.eraserTool = new EraserTool(this, undoRedoHandler);
         this.digTool = new DigTool(this, undoRedoHandler);
@@ -61,7 +59,7 @@ public class GridBoardUI extends AnchorPane {
     public Grid getGridData() { //grid data represents the data of the GridUI
 		return gridData;
 	}
-    
+        
     public CellUI getCell(int xIndex, int yIndex) throws IndexOutOfBoundsException {
         return cellArray[xIndex][yIndex];
     }
@@ -110,24 +108,5 @@ public class GridBoardUI extends AnchorPane {
     	updateVisual();
     }
     
-    public class State {
-    	private Grid grid;
-    	
-    	public State() {
-    		grid = (Grid) GridBoardUI.this.gridData.clone();
-    	}
-    	
-    	public void restore() {
-    		GridBoardUI.this.gridData = (Grid) grid.clone();
-    	}
-    }
-
-	public State createMemento() {
-		return new State();
-	}
-
-	public void restoreState(State gridBoardState) {
-		gridBoardState.restore();
-	}
 
 }

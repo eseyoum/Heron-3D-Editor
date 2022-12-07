@@ -20,13 +20,19 @@ public class PencilTool extends Tool {
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		CellUI cellClicked = gridBoard.getCell((int) e.getX() / CellUI.TILE_SIZE, (int) e.getY() / CellUI.TILE_SIZE);
-		cellClicked.setLevel(gridBoard.getLevel());
+		pencil(e);
 	}
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
+		pencil(e);
+	}
+	
+	private void pencil(MouseEvent e) {
 		CellUI cellClicked = gridBoard.getCell((int) e.getX() / CellUI.TILE_SIZE, (int) e.getY() / CellUI.TILE_SIZE);
-		cellClicked.setLevel(gridBoard.getLevel());
+		if (cellClicked.getLevel() != gridBoard.getLevel()) {
+			cellClicked.setLevel(gridBoard.getLevel());
+			undoRedoHandler.saveState();		
+		}
 	}
 }
