@@ -49,9 +49,8 @@ public class SelectionTool extends Tool {
 			CellUI cellClicked = gridBoard.getCellAtPixelCoordinates(initialSelectX, initialSelectY);
 //			CellUI cellClicked = (CellUI) gridBoard.getCellAtPixelCoordinates(initialSelectX, initialSelectY).clone();
 			pressedInSelectedCell = (cellClicked.isSelected());
-			if (!pressedInSelectedCell) //if the user clicks off of the selected cells
-				deselectAll();
-			if (pressedInSelectedCell && !cellClicked.isSelected()) 
+//				deselectAll();
+			if (pressedInSelectedCell && !cellClicked.isSelected())
 				deselectAll();
 			if (pressedInSelectedCell)
 				cellClicked.setSelected(true);
@@ -95,18 +94,18 @@ public class SelectionTool extends Tool {
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		if (pressedInSelectedCell) { //user releases after dragging the selected cells
-			int xStartIndex = (int) (initialSelectX/ CellUI.DEFAULT_TILE_SIZE); //original x index when the cell initially gets pressed 
-			int yStartIndex = (int) (initialSelectY/ CellUI.DEFAULT_TILE_SIZE); //original y index when the cell initially gets pressed 
+			int xStartIndex = (int) (initialSelectX/ CellUI.TILE_SIZE); //original x index when the cell initially gets pressed 
+			int yStartIndex = (int) (initialSelectY/ CellUI.TILE_SIZE); //original y index when the cell initially gets pressed 
 			
-			int xEndIndex = (int) (e.getX() / CellUI.DEFAULT_TILE_SIZE);
-			int yEndIndex = (int) (e.getY() / CellUI.DEFAULT_TILE_SIZE);
+			int xEndIndex = (int) (e.getX() / CellUI.TILE_SIZE);
+			int yEndIndex = (int) (e.getY() / CellUI.TILE_SIZE);
 			cutAndPaste(xStartIndex, yStartIndex, xEndIndex, yEndIndex); 
 			deselectAll();
 		} else {
-			int xStartIndex = (int) selectionRectangle.getX() / CellUI.DEFAULT_TILE_SIZE;
-			int yStartIndex = (int) selectionRectangle.getY() / CellUI.DEFAULT_TILE_SIZE;
-			int xEndIndex = (int) (selectionRectangle.getX() + selectionRectangle.getWidth()) / CellUI.DEFAULT_TILE_SIZE;
-			int yEndIndex = (int) (selectionRectangle.getY() + selectionRectangle.getHeight()) / CellUI.DEFAULT_TILE_SIZE;
+			int xStartIndex = (int) selectionRectangle.getX() / CellUI.TILE_SIZE;
+			int yStartIndex = (int) selectionRectangle.getY() / CellUI.TILE_SIZE;
+			int xEndIndex = (int) (selectionRectangle.getX() + selectionRectangle.getWidth()) / CellUI.TILE_SIZE;
+			int yEndIndex = (int) (selectionRectangle.getY() + selectionRectangle.getHeight()) / CellUI.TILE_SIZE;
 			for (int xIndex = xStartIndex; xIndex <= xEndIndex; xIndex++) {
 				for (int yIndex = yStartIndex; yIndex <= yEndIndex; yIndex++) {
 					if (gridBoard.getCell(xIndex, yIndex).getBlock().isVisible()) {
@@ -128,6 +127,18 @@ public class SelectionTool extends Tool {
 	
 	public Set<CellUI> getSelectedCells() {
 		return selectedCells;
+	}
+	
+	public void addSelectedCell(CellUI cell) {
+		cell.setSelected(true);
+		selectedCells.add(cell);
+	}
+	
+	public void removeSelectedCell(CellUI cell) {
+		cell.setSelected(false);
+		if (selectedCells.contains(cell)) {
+			selectedCells.remove(cell);
+		}
 	}
 	
     public void cutAndPaste(int startXIndex, int startYIndex, int endXIndex, int endYIndex) throws ArrayIndexOutOfBoundsException {

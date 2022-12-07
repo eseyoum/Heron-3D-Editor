@@ -15,7 +15,7 @@ import javafx.scene.text.Text;
 public class CellUI extends Rectangle implements Cloneable {
 	
     //public int tileSize = 30; //size of the cells
-    public static final int DEFAULT_TILE_SIZE = 30;
+    public static final int TILE_SIZE = 30;
     public static final int MAX_LEVEL = 5; //number of possible levels
     private static final Color DEFAULT_COLOR = Color.CORNFLOWERBLUE; //default color of the cells
     private static List<Color> colorList = generateColors(); //list of colors for each level of the depth map
@@ -29,11 +29,11 @@ public class CellUI extends Rectangle implements Cloneable {
     
     
     public CellUI(GridBoardUI gridBoard, int xIndex, int yIndex) {//, int tileSize) {
-        super(DEFAULT_TILE_SIZE - 1, DEFAULT_TILE_SIZE - 1); //a CellUI object is a rectangle
+        super(TILE_SIZE - 1, TILE_SIZE - 1); //a CellUI object is a rectangle
 		this.gridBoard = gridBoard;
 		this.xIndex = xIndex;
 		this.yIndex = yIndex;
-		this.tileSize = DEFAULT_TILE_SIZE;
+		this.tileSize = TILE_SIZE;
 		updateVisualBasedOnBlock();
 		this.setSelected(false);
     }

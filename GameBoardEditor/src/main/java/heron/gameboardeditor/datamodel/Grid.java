@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+import heron.gameboardeditor.CellUI;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
@@ -152,6 +153,15 @@ public class Grid implements Cloneable {
     	}
 	}
 	
+	public Set<Block> getSelectedBlocks(Set<CellUI> selectedCells) { //gets the blocks associated with the selected cells
+		Set<Block> selectedBlocks = new HashSet<Block>();
+		for (CellUI cell : selectedCells) {
+			selectedBlocks.add(cell.getBlock());
+		}
+		
+		return selectedBlocks;
+	}
+	
 	public Block getBlockRight(Block block) {
 		return this.getBlockAt(block.getX() + 1, block.getY());
 	}
@@ -220,20 +230,6 @@ public class Grid implements Cloneable {
 			return null;
 		}
 	}
-
-//	public void cutAndPaste(Set<Block> selectedBlocks, int changeInXIndex, int changeInYIndex) throws ArrayIndexOutOfBoundsException {
-//    	Grid originalData = this.clone();
-//    	System.out.println(selectedBlocks);
-//
-//    	for (Block block : selectedBlocks) {
-//    		int srcX = block.getX();
-//    		int srcY = block.getY();
-//    		int srcZ = block.getZ();
-//    		int destX = srcX + changeInXIndex;
-//    		int destY = srcY + changeInYIndex;
-//    		blockGrid[destX][destY] = new Block(srcX,srcY,srcZ);
-//    		
-//    	}
 	
 	public void cutAndPaste(Set<Block> selectedBlocks, int changeInXIndex, int changeInYIndex) throws ArrayIndexOutOfBoundsException {
 		Grid originalData = this.clone();

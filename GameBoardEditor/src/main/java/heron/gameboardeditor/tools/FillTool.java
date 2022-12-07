@@ -23,11 +23,22 @@ public class FillTool extends Tool {
 	}
     
     public void mousePressed(MouseEvent e) {
-    	CellUI cellClicked = gridBoard.getCell((int) e.getX() / CellUI.DEFAULT_TILE_SIZE, (int) e.getY() / CellUI.DEFAULT_TILE_SIZE); //the initial cell which is clicked
-    	if (cellClicked.getBlock().getZ() != gridBoard.getLevel()) {
-        	fill(cellClicked.getBlock(), cellClicked.getBlock().getZ(), gridBoard.getLevel());
-    	}
-    	gridBoard.updateVisual();
+
+//    	CellUI cellClicked = gridBoard.getCell((int) e.getX() / CellUI.DEFAULT_TILE_SIZE, (int) e.getY() / CellUI.DEFAULT_TILE_SIZE); //the initial cell which is clicked
+//    	if (cellClicked.getBlock().getZ() != gridBoard.getLevel()) {
+//        	fill(cellClicked.getBlock(), cellClicked.getBlock().getZ(), gridBoard.getLevel());
+//    	}
+//    	gridBoard.updateVisual();
+
+		int x = (int) e.getX() / CellUI.TILE_SIZE;
+		int y = (int) e.getY() / CellUI.TILE_SIZE;
+		if (gridBoard.getGridData().isCoordinateInGrid(x, y)) {
+			CellUI cellClicked = gridBoard.getCell((int) e.getX() / CellUI.TILE_SIZE, (int) e.getY() / CellUI.TILE_SIZE); //the initial cell which is clicked
+			if (cellClicked.getBlock().getZ() != gridBoard.getLevel()) {
+				fill(cellClicked.getBlock(), cellClicked.getBlock().getZ(), gridBoard.getLevel());
+				gridBoard.updateVisual();
+			}
+		}
     }
     
 	public void fill(Block block, int startingLevel, int turnToLevel) {
