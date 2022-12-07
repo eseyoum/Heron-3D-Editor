@@ -26,6 +26,7 @@ public class DigTool extends Tool {
 	public void mousePressed(MouseEvent e) {
 		CellUI cellClicked = gridBoard.getCell((int) e.getX() / CellUI.TILE_SIZE, (int) e.getY() / CellUI.TILE_SIZE);
 		handleDig(cellClicked, e);
+		undoRedoHandler.saveState();
 	}
 	
 	@Override

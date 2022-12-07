@@ -81,7 +81,11 @@ public class CellUI extends Rectangle implements Cloneable {
 		block.setZ(level);//if cell level is zero it should not be visible
 		updateVisualBasedOnBlock();
 	}
-		
+	public int getLevel() {
+		return getBlock().getZ();	
+	}
+
+	
     public Block getBlock() { 
     	return gridBoard.getGridData().getBlockAt(xIndex, yIndex);
     }

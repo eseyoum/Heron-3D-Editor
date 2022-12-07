@@ -3,10 +3,10 @@ package heron.gameboardeditor;
 import java.util.Stack;
 
 public class UndoRedoHandler {
-	private Stack<GridBoardUI.State> undoStack, redoStack;
+	private Stack<EditingScreenController.State> undoStack, redoStack;
 	// invariant: The top state of the undoStack always is a copy of the
 	// current state of the canvas.
-	private GridBoardUI gridBoard;
+	private EditingScreenController controller;
 
 	/**
 	 * constructor
@@ -14,19 +14,19 @@ public class UndoRedoHandler {
 	 * @param canvas the DrawingCanvas whose changes are saved for later
 	 *               restoration.
 	 */
-	public UndoRedoHandler(GridBoardUI gridBoard) {
-		undoStack = new Stack<GridBoardUI.State>();
-		redoStack = new Stack<GridBoardUI.State>();
-		this.gridBoard = gridBoard;
+	public UndoRedoHandler(EditingScreenController controller) {
+		undoStack = new Stack<EditingScreenController.State>();
+		redoStack = new Stack<EditingScreenController.State>();
+		this.controller = controller;
 		// store the initial state of the canvas on the undo stack
-		undoStack.push(gridBoard.createMemento());
+		undoStack.push(controller.createMemento());
 	}
 
 	/**
 	 * saves the current state of the drawing canvas for later restoration
 	 */
 	public void saveState() {
-		GridBoardUI.State canvasState = gridBoard.createMemento();
+		EditingScreenController.State canvasState = controller.createMemento();
 		undoStack.push(canvasState);
 		redoStack.clear();
 	}
@@ -41,9 +41,9 @@ public class UndoRedoHandler {
 		if (undoStack.size() == 1) // only the current state is on the stack
 			return;
 
-		GridBoardUI.State canvasState = undoStack.pop();
+		EditingScreenController.State canvasState = undoStack.pop();
 		redoStack.push(canvasState);
-		gridBoard.restoreState(undoStack.peek());
+		controller.restoreState(undoStack.peek());
 	}
 
 	/**
@@ -55,8 +55,8 @@ public class UndoRedoHandler {
 		if (redoStack.isEmpty())
 			return;
 
-		GridBoardUI.State canvasState = redoStack.pop();
+		EditingScreenController.State canvasState = redoStack.pop();
 		undoStack.push(canvasState);
-		gridBoard.restoreState(canvasState);
+		controller.restoreState(canvasState);
 	}
 }

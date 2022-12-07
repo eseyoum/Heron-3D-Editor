@@ -16,6 +16,8 @@ public class TemplateScreenController {
 	
 	private VBox boardParentVBox;
 	private GridBoardUI gridBoard;
+	private UndoRedoHandler UndoRedoHandler;
+	private EditingScreenController controller;
 	
 	@FXML
     void switchToEmptyBoard(ActionEvent event) throws IOException {
@@ -33,7 +35,8 @@ public class TemplateScreenController {
 			try {
 				Grid grid = ProjectIO.load(file);
 				App.setGrid(grid);
-				gridBoard = new GridBoardUI(grid);
+				UndoRedoHandler = new UndoRedoHandler(controller);
+				gridBoard = new GridBoardUI(grid, UndoRedoHandler);
 				boardParentVBox.getChildren().addAll(gridBoard);
 			} catch (FileNotFoundException ex) {
 				new Alert(AlertType.ERROR, "The file you tried to open could not be found.").showAndWait();

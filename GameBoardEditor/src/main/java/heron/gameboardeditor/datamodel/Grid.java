@@ -49,6 +49,10 @@ public class Grid implements Cloneable {
 		}
 	}
 
+	public void repaint() {
+		
+	}
+	
 	/**
 	 * This method returns the block at position (x,y)
 	 * 

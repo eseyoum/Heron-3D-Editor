@@ -21,30 +21,24 @@ public class PencilTool extends Tool {
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-
-//		CellUI cellClicked = gridBoard.getCell((int) e.getX() / CellUI.DEFAULT_TILE_SIZE, (int) e.getY() / CellUI.DEFAULT_TILE_SIZE);
-//		cellClicked.setLevel(gridBoard.getLevel());
-
-		int x = (int) e.getX() / CellUI.TILE_SIZE;
-		int y = (int) e.getY() / CellUI.TILE_SIZE;
-		if (gridBoard.getGridData().isCoordinateInGrid(x, y)) {
-			CellUI cellClicked = gridBoard.getCell(x, y);
-			cellClicked.setLevel(gridBoard.getLevel());
-		}
-
+		pencil(e);
 	}
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
-
-//		CellUI cellClicked = gridBoard.getCell((int) e.getX() / CellUI.DEFAULT_TILE_SIZE, (int) e.getY() / CellUI.DEFAULT_TILE_SIZE);
-//		cellClicked.setLevel(gridBoard.getLevel());
-
+		pencil(e);
+	}
+	
+	private void pencil(MouseEvent e) {
+//		CellUI cellClicked = gridBoard.getCell((int) e.getX() / CellUI.TILE_SIZE, (int) e.getY() / CellUI.TILE_SIZE);
 		int x = (int) e.getX() / CellUI.TILE_SIZE;
 		int y = (int) e.getY() / CellUI.TILE_SIZE;
 		if (gridBoard.getGridData().isCoordinateInGrid(x, y)) {
 			CellUI cellClicked = gridBoard.getCell(x, y);
-			cellClicked.setLevel(gridBoard.getLevel());
+			if (cellClicked.getLevel() != gridBoard.getLevel()) {
+				cellClicked.setLevel(gridBoard.getLevel());
+				undoRedoHandler.saveState();	
+			}
 		}
 	}
 }

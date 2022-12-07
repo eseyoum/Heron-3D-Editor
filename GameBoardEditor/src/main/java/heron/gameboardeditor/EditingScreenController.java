@@ -1,11 +1,12 @@
 package heron.gameboardeditor;
 
-import java.io.File; 
+import java.io.File;  
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -69,7 +70,27 @@ public class EditingScreenController {
     private BorderPane gridMapPane;
     private VBox boardParentVBox;
     private GridBoardUI gridBoard;
-//    private BorderPane root; //added
+    private UndoRedoHandler undoRedoHandler;
+    
+    @FXML
+    private void initialize() {
+    	this.undoRedoHandler = new UndoRedoHandler(this);
+    	refreshUIFromGrid();
+    }
+    
+    private void refreshUIFromGrid() {
+        gridMapPane = new BorderPane();
+        gridMapPane.setPrefSize(600, 800);
+        gridBoard = new GridBoardUI(App.getGrid(), undoRedoHandler); //creates a GridBoardUI, which is the grid the user can see
+        boardParentVBox = new VBox(50, gridBoard); //creates a vbox with myBoard for children
+        boardParentVBox.setAlignment(Pos.TOP_RIGHT);
+        gridMapPane.setCenter(boardParentVBox);
+
+        mapDisplay.getChildren().clear();
+    	mapDisplay.getChildren().addAll(gridMapPane);
+    	
+    }
+
     
     //Tools
     @FXML
@@ -86,27 +107,24 @@ public class EditingScreenController {
     	if (!numColumn.getText().isBlank()) {
     		columns = Integer.parseInt(numColumn.getText());
     	} 
-
-    	this.gridBoard.resize(columns, rows);
-    	this.gridBoard.updateVisualBasedOnGrid(); //update the grid board
-    }
-
-    /**
-     * Creates the grid
-     * @return the root, which is a BorderPane containing a VBox with a grid in it
-     */
-    private BorderPane createContent() {
-        BorderPane root = new BorderPane(); //changed
-        root.setPrefSize(600, 800);
-        gridBoard = new GridBoardUI(App.getGrid()); //creates a GridBoardUI, which is the grid the user can see
-        boardParentVBox = new VBox(50, gridBoard); //creates a vbox with myBoard for children
-        boardParentVBox.setAlignment(Pos.TOP_RIGHT);
-
-        root.setCenter(boardParentVBox);
-
-        return root;
+    	App.resizeGrid(columns, rows);
+    	refreshUIFromGrid();
+    	undoRedoHandler.saveState();
     }
     
+    @FXML
+    private void menuEditUndo() {
+    	undoRedoHandler.undo();
+    }
+    
+    @FXML
+    private void menuEditRedo() {
+    	undoRedoHandler.redo();
+
+//    	this.gridBoard.resize(columns, rows);
+//    	this.gridBoard.updateVisualBasedOnGrid(); //update the grid board
+    }
+
     @FXML
     void zoomIn(MouseEvent event) {
     	gridBoard.zoomIn();
@@ -121,6 +139,9 @@ public class EditingScreenController {
     @FXML
     void changeLevel(MouseEvent event) {
     	gridBoard.setLevel((int)levelSlider.getValue());
+
+    	undoRedoHandler.saveState();
+
     	gridBoard.setAllSelectedCellsToLevel((int) levelSlider.getValue());
     }
     
@@ -129,37 +150,44 @@ public class EditingScreenController {
     	if (checkBoxDisplayLevel.isSelected()) {
     		gridBoard.updateVisualDisplayLevel();
 		}
+
     }
     
     @FXML
     void pencilButtonOn(ActionEvent event) {
     	gridBoard.gridEditor.setCurrentTool(gridBoard.pencilTool);
+    	undoRedoHandler.saveState();
     }
     
     @FXML
     void eraserButtonOn(ActionEvent event) {
     	gridBoard.gridEditor.setCurrentTool(gridBoard.eraserTool);
+    	undoRedoHandler.saveState();
     }
     
     @FXML
     void digButtonOn(ActionEvent event) {
     	gridBoard.gridEditor.setCurrentTool(gridBoard.digTool);
+    	undoRedoHandler.saveState();
     }
     
     @FXML
     void fillToolOn(ActionEvent event) {
     	gridBoard.gridEditor.setCurrentTool(gridBoard.fillTool);
+    	undoRedoHandler.saveState();
     }
     
     @FXML
     void selectToolOn(ActionEvent event) {
     	gridBoard.gridEditor.setCurrentTool(gridBoard.selectionTool);
+    	undoRedoHandler.saveState();
     }
     
     @FXML
     void terrainToolOn(ActionEvent event) {
     	gridBoard.terrainTool.setCurrentTerrainObject(null);
     	gridBoard.gridEditor.setCurrentTool(gridBoard.terrainTool);
+    	undoRedoHandler.saveState();
     }
     
     @FXML
@@ -167,6 +195,7 @@ public class EditingScreenController {
     	MenuItem item = (MenuItem) event.getSource();
     	gridBoard.terrainTool.setCurrentTerrainObject(item.getText());
     	gridBoard.gridEditor.setCurrentTool(gridBoard.terrainTool);
+    	undoRedoHandler.saveState();
     }
     
     @FXML
@@ -208,6 +237,7 @@ public class EditingScreenController {
     @FXML
     void generateMaze(ActionEvent event) {
     	gridBoard.generateMaze();
+    	undoRedoHandler.saveState();
     }
     
     
@@ -224,7 +254,8 @@ public class EditingScreenController {
 			try {
 				Grid grid = ProjectIO.load(file);
 				App.setGrid(grid);
-				gridBoard = new GridBoardUI(grid);
+				undoRedoHandler = new UndoRedoHandler(this);
+				gridBoard = new GridBoardUI(grid, undoRedoHandler);
 				boardParentVBox.getChildren().clear();
 				boardParentVBox.getChildren().addAll(gridBoard);
 			} catch (FileNotFoundException ex) {
@@ -269,6 +300,7 @@ public class EditingScreenController {
     @FXML
     void clear(ActionEvent event) {
     	gridBoard.clear();
+    	undoRedoHandler.saveState();
     }
     
     @FXML
@@ -322,10 +354,27 @@ public class EditingScreenController {
     	}
     }
     
-    @FXML
-    private void initialize() {
-    	gridMapPane = createContent(); //creates the 2d grid
-    	mapDisplay.getChildren().addAll(gridMapPane);
-    }
     
+    public class State {
+    	private Grid grid;
+    	
+    	public State() {
+    		grid = (Grid) App.getGrid().clone();
+    	}
+    	
+    	public void restore() {
+    		App.setGrid(grid.clone());
+    		refreshUIFromGrid();
+    	}
+    }
+
+	public State createMemento() {
+		return new State();
+	}
+
+	public void restoreState(State gridBoardState) {
+		gridBoardState.restore();
+		
+	}
+
 }

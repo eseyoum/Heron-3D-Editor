@@ -52,6 +52,7 @@ public class TerrainTool extends Tool {
 		Block initialBlock = cellClicked.getBlock();
 		drawTerrainObject(terrainObject, initialBlock);
 		gridBoard.updateVisual();
+    	undoRedoHandler.saveState();
 	}
 	
 	public void setName(String name) {
