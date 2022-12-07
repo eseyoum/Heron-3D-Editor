@@ -70,7 +70,7 @@ public class SelectionTool extends Tool {
 //			}
 			
 			
-			
+	
 			if (pressedInSelectedCell)
 				cellClicked.setSelected(true);
 				selectedRegionOfCells.add(cellClicked);
@@ -148,6 +148,18 @@ public class SelectionTool extends Tool {
 				cell.setSelected(false);
 				selectedRegionOfCells.remove(cell);
 			}
+		}
+	}
+	
+	public void addSelectedCell(CellUI cell) {
+		cell.setSelected(true);
+		selectedRegionOfCells.add(cell);
+	}
+	
+	public void removeSelectedCell(CellUI cell) {
+		cell.setSelected(false);
+		if (selectedRegionOfCells.contains(cell)) {
+			selectedRegionOfCells.remove(cell);
 		}
 	}
 	

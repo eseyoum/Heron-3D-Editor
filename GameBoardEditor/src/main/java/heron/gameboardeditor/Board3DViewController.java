@@ -25,6 +25,8 @@ public class Board3DViewController {
 	private static final int WIDTH = 1400;
 	private static final int HEIGHT = 800;
 	private static final int BLOCK_SIZE = 10;
+	private static final int BLOCK_Z_HEIGHT = 10;
+	
 
 	private Stage stage3D;
 
@@ -67,19 +69,20 @@ public class Board3DViewController {
 //		group.getChildren().add(box2);
 		
 		int level = 0;
+		int maxLevel = gridData.getMaxLevel();
 		
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				Block block = gridData.getBlockAt(x, y);
 				level = block.getZ();
 				
-				Box box = new Box( BLOCK_SIZE, BLOCK_SIZE, level*10);
+				Box box = new Box( BLOCK_SIZE, BLOCK_SIZE, level*BLOCK_Z_HEIGHT);
 				
 
-				box.translateXProperty().set(BLOCK_SIZE*x);
-				box.translateYProperty().set(BLOCK_SIZE*y);
+				box.translateXProperty().set( BLOCK_SIZE*(x - width/2));
+				box.translateYProperty().set( BLOCK_SIZE*(y - height/2));
 				
-				box.translateZProperty().set(-(level*10)/2);
+				box.translateZProperty().set(-(level*BLOCK_Z_HEIGHT)/2 + (maxLevel*BLOCK_Z_HEIGHT)/2);
 				
 				group.getChildren().add(box);
 				box.setMaterial(material);
@@ -94,8 +97,6 @@ public class Board3DViewController {
 		scene.setFill(Color.SILVER);
 		scene.setCamera(camera);
 		// Movoe to center of the screen
-	
-		
 		group.translateXProperty().set(WIDTH / 2);
 		group.translateYProperty().set(HEIGHT / 2);
 		group.translateZProperty().set(-1200);

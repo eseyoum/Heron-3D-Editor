@@ -3,14 +3,19 @@ package heron.gameboardeditor;
 import java.util.ArrayList;
 import java.util.List;
 import heron.gameboardeditor.datamodel.Block;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 
 /**
  * This class represents one cell (or tile) of the GridBoardUI
  */
 public class CellUI extends Rectangle implements Cloneable {
-    public static final int TILE_SIZE = 30; //size of the cells
+	
+    //public int tileSize = 30; //size of the cells
+    public static final int TILE_SIZE = 30;
     public static final int MAX_LEVEL = 5; //number of possible levels
     private static final Color DEFAULT_COLOR = Color.CORNFLOWERBLUE; //default color of the cells
     private static List<Color> colorList = generateColors(); //list of colors for each level of the depth map
@@ -20,12 +25,15 @@ public class CellUI extends Rectangle implements Cloneable {
     private int xIndex;
     private int yIndex;
     private boolean isClicked;
+    private int tileSize;
     
-    public CellUI(GridBoardUI gridBoard, int xIndex, int yIndex) {
+    
+    public CellUI(GridBoardUI gridBoard, int xIndex, int yIndex) {//, int tileSize) {
         super(TILE_SIZE - 1, TILE_SIZE - 1); //a CellUI object is a rectangle
 		this.gridBoard = gridBoard;
 		this.xIndex = xIndex;
 		this.yIndex = yIndex;
+		this.tileSize = TILE_SIZE;
 		updateVisualBasedOnBlock();
 		this.setSelected(false);
     }
@@ -55,8 +63,20 @@ public class CellUI extends Rectangle implements Cloneable {
       		setFill(DEFAULT_COLOR); //if the cell is not visible, the level is zero
     	}
 	}
+    
+
+    public void updateVisualDisplayLevel() {
+    	//Block block = getBlock(); 
+    	//int level = block.getZ();
+    	//Label levelLabel = new Label(String.valueOf(level));
+    	
+    	Text text = new Text("Level");
+    	StackPane stackPane = new StackPane();
+    	stackPane.getChildren().addAll(text, this);
+	}
 	
 	public void setLevel(int level) {
+		
 		Block block = getBlock();
 		block.setZ(level);//if cell level is zero it should not be visible
 		updateVisualBasedOnBlock();
@@ -90,6 +110,14 @@ public class CellUI extends Rectangle implements Cloneable {
     public boolean isCornerCell() {
     	return ((xIndex == 0 && yIndex == 0) || (xIndex == 0 && yIndex == gridBoard.getGridData().getHeight() - 1) || (xIndex == gridBoard.getGridData().getWidth() - 1 && yIndex == 0) || (xIndex == gridBoard.getGridData().getWidth() - 1 && yIndex == gridBoard.getGridData().getHeight() - 1));
     }
+    
+    public void zoomIn() {
+    	this.tileSize += 10;
+	}
+    
+    public void zoomOut() {
+    	this.tileSize -= 10;
+	}
     
     public CellUI clone() {
     	try {

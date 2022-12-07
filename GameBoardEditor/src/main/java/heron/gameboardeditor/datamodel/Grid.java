@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+import heron.gameboardeditor.CellUI;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
@@ -80,6 +81,22 @@ public class Grid implements Cloneable {
 		return height;
 	}
 	
+	
+	
+	public int getMaxLevel() {
+		int max = -1;
+		for (int y = 0; y < width; y++) {
+			for (int x = 0; x < height; x++) {
+				Block block = getBlockAt(x, y);
+				int level = block.getZ();
+				if (level > max) {
+					max = level;
+				}
+			}			
+		}
+		return max;
+	}
+	
 	public Block[][] getBlockGrid() {
 		return blockGrid;
 	}
@@ -138,6 +155,15 @@ public class Grid implements Cloneable {
             	blockGrid[x][y].setZ(level);
             }
     	}
+	}
+	
+	public Set<Block> getSelectedBlocks(Set<CellUI> selectedCells) { //gets the blocks associated with the selected cells
+		Set<Block> selectedBlocks = new HashSet<Block>();
+		for (CellUI cell : selectedCells) {
+			selectedBlocks.add(cell.getBlock());
+		}
+		
+		return selectedBlocks;
 	}
 	
 	public Block getBlockRight(Block block) {

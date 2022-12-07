@@ -27,13 +27,18 @@ public class EraserTool extends Tool {
 	}
 	
 	private void erase(MouseEvent e) {
-		CellUI cellClicked = gridBoard.getCell((int) e.getX() / CellUI.TILE_SIZE, (int) e.getY() / CellUI.TILE_SIZE);
-		if (cellClicked.getLevel() > 0) {
-			cellClicked.setLevel(0);
-			cellClicked.setSelected(false);
-			gridBoard.selectionTool.getSelectedCells().remove(cellClicked);
-			undoRedoHandler.saveState();
+//		CellUI cellClicked = gridBoard.getCell((int) e.getX() / CellUI.TILE_SIZE, (int) e.getY() / CellUI.TILE_SIZE);
+		int x = (int) e.getX() / CellUI.TILE_SIZE;
+		int y = (int) e.getY() / CellUI.TILE_SIZE;
+		if (gridBoard.getGridData().isCoordinateInGrid(x, y)) {
+			CellUI cellClicked = gridBoard.getCell(x, y);
+			if (cellClicked.getLevel() > 0) {
+				cellClicked.setLevel(0);
+				cellClicked.setSelected(false);
+				gridBoard.selectionTool.getSelectedCells().remove(cellClicked);
+				undoRedoHandler.saveState();
+			}
 		}
-		
+
 	}
 }

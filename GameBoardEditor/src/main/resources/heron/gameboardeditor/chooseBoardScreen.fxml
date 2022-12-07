@@ -70,7 +70,7 @@
                   <Insets bottom="15.0" left="20.0" top="15.0" />
                </VBox.margin>
                <graphic>
-                  <Label alignment="CENTER" prefWidth="500.0" text="Random Board">
+                  <Label alignment="CENTER" prefWidth="500.0" text="Templates">
                      <font>
                         <Font size="25.0" />
                      </font></Label>

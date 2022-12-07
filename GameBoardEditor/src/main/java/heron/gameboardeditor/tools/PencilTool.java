@@ -1,6 +1,7 @@
 package heron.gameboardeditor.tools;
 
 import java.util.ArrayList;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -29,10 +30,15 @@ public class PencilTool extends Tool {
 	}
 	
 	private void pencil(MouseEvent e) {
-		CellUI cellClicked = gridBoard.getCell((int) e.getX() / CellUI.TILE_SIZE, (int) e.getY() / CellUI.TILE_SIZE);
-		if (cellClicked.getLevel() != gridBoard.getLevel()) {
-			cellClicked.setLevel(gridBoard.getLevel());
-			undoRedoHandler.saveState();		
+//		CellUI cellClicked = gridBoard.getCell((int) e.getX() / CellUI.TILE_SIZE, (int) e.getY() / CellUI.TILE_SIZE);
+		int x = (int) e.getX() / CellUI.TILE_SIZE;
+		int y = (int) e.getY() / CellUI.TILE_SIZE;
+		if (gridBoard.getGridData().isCoordinateInGrid(x, y)) {
+			CellUI cellClicked = gridBoard.getCell(x, y);
+			if (cellClicked.getLevel() != gridBoard.getLevel()) {
+				cellClicked.setLevel(gridBoard.getLevel());
+				undoRedoHandler.saveState();	
+			}
 		}
 	}
 }
