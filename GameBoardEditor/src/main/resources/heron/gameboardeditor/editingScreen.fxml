@@ -34,6 +34,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -90,6 +91,15 @@
               <items>
                   <MenuItem mnemonicParsing="false" onAction="#show3DPreview" text="Preview" />
                   <MenuItem mnemonicParsing="false" onAction="#exportToObj" text="Export" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Templates">
+              <items>
+                <MenuItem mnemonicParsing="false" text="All Templates" />
+                  <MenuItem mnemonicParsing="false" text="Temple 1" />
+                  <MenuItem mnemonicParsing="false" text="Temple 2" />
+                  <MenuItem mnemonicParsing="false" text="Temple 3" />
+                  <MenuItem mnemonicParsing="false" text="Temple 4" />
               </items>
             </Menu>
       </menus>
@@ -153,6 +163,9 @@
                       <MenuItem fx:id="volcanoTerrainObject" mnemonicParsing="false" onAction="#terrainToolVolcano" text="Volcano" />
                     </items>
                   </MenuButton>
+                  <CheckBox fx:id="checkBoxDisplayLevel" layoutX="39.0" layoutY="447.0" mnemonicParsing="false" onAction="#changeLevel" text="Display Level" />
+                  <Button fx:id="zoomInButton" layoutX="17.0" layoutY="476.0" mnemonicParsing="false" onAction="#zoomIn" text="Zoom in" />
+                  <Button fx:id="zoomOutButton" layoutX="83.0" layoutY="476.0" mnemonicParsing="false" onAction="#zoomOut" text="Zoom out" />
                </children>
             </AnchorPane>
         <ScrollPane prefHeight="500.0" prefWidth="691.0">

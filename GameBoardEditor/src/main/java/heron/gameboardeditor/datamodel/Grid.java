@@ -76,6 +76,22 @@ public class Grid implements Cloneable {
 		return height;
 	}
 	
+	
+	
+	public int getMaxLevel() {
+		int max = -1;
+		for (int y = 0; y < width; y++) {
+			for (int x = 0; x < height; x++) {
+				Block block = getBlockAt(x, y);
+				int level = block.getZ();
+				if (level > max) {
+					max = level;
+				}
+			}			
+		}
+		return max;
+	}
+	
 	public Block[][] getBlockGrid() {
 		return blockGrid;
 	}

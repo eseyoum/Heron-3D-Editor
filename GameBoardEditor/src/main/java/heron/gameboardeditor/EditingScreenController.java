@@ -14,11 +14,13 @@ import heron.gameboardeditor.datamodel.Grid;
 import heron.gameboardeditor.datamodel.ProjectIO;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -44,6 +46,17 @@ public class EditingScreenController {
     @FXML
     private MenuItem volcanoTerrainObject;
     
+	@FXML
+	private CheckBox checkBoxDisplayLevel;
+	
+	@FXML
+	private Button zoomInButton;
+	
+	@FXML
+	private Button zoomOutButton;
+	
+
+	
     private static int rows;
     private static int columns;
     private BorderPane gridMapPane;
@@ -88,8 +101,26 @@ public class EditingScreenController {
     }
     
     @FXML
+    void zoomIn(MouseEvent event) {
+    	gridBoard.zoomIn();
+    }
+    
+    
+    @FXML
+    void zoomOut(MouseEvent event) {
+    	gridBoard.zoomOut();
+    }
+    
+    @FXML
     void changeLevel(MouseEvent event) {
     	gridBoard.setLevel((int)levelSlider.getValue());
+    }
+    
+    @FXML
+    void displayLevelOn(MouseEvent event) {
+    	if (checkBoxDisplayLevel.isSelected()) {
+    		gridBoard.updateVisualDisplayLevel();
+		}
     }
     
     @FXML

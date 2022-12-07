@@ -1,5 +1,6 @@
 package heron.gameboardeditor;
 
+
 import heron.gameboardeditor.datamodel.Grid;
 import heron.gameboardeditor.generators.Maze;
 import heron.gameboardeditor.tools.DigTool;
@@ -28,6 +29,7 @@ public class GridBoardUI extends AnchorPane {
     public final FillTool fillTool;
     public final SelectionTool selectionTool;
     public final TerrainTool terrainTool;
+    
 
     private UndoRedoHandler undoRedoHandler;
     
@@ -38,8 +40,8 @@ public class GridBoardUI extends AnchorPane {
         for (int x = 0; x < grid.getWidth(); x++) {
         	for (int y = 0; y < grid.getHeight(); y++) { //creates the grid
                 cellArray[x][y] = new CellUI(this, x, y);
-                cellArray[x][y].setLayoutX(x * CellUI.TILE_SIZE); //spaces out the tiles based on TILE_SIZE
-                cellArray[x][y].setLayoutY(y * CellUI.TILE_SIZE);
+                cellArray[x][y].setLayoutX(x * CellUI.DEFAULT_TILE_SIZE); //spaces out the tiles based on TILE_SIZE
+                cellArray[x][y].setLayoutY(y * CellUI.DEFAULT_TILE_SIZE);
                 this.getChildren().add(cellArray[x][y]);
             }
         }
@@ -67,8 +69,8 @@ public class GridBoardUI extends AnchorPane {
     }
     
     public CellUI getCellAtPixelCoordinates(double x, double y) throws IndexOutOfBoundsException {
-    	int xIndex = (int) (x / CellUI.TILE_SIZE);
-    	int yIndex = (int) (y / CellUI.TILE_SIZE);
+    	int xIndex = (int) (x / CellUI.DEFAULT_TILE_SIZE);
+    	int yIndex = (int) (y / CellUI.DEFAULT_TILE_SIZE);
     	return cellArray[xIndex][yIndex];
     }
     
@@ -87,6 +89,34 @@ public class GridBoardUI extends AnchorPane {
             }
     	}
     }
+    
+    
+    public void updateVisualDisplayLevel() {
+    	for (int y = 0; y < gridData.getHeight(); y++) { //may be a better way to go through the cells
+    		for (int x = 0; x < gridData.getWidth(); x++) {
+            	cellArray[x][y].updateVisualDisplayLevel();
+            }
+    	}
+    }
+    
+    
+    public void zoomIn() { 
+    	for (int y = 0; y < gridData.getHeight(); y++) { 
+    		for (int x = 0; x < gridData.getWidth(); x++) {
+            	cellArray[x][y].zoomIn();
+            }
+    	}
+	}
+    
+    
+    public void zoomOut() { 
+    	for (int y = 0; y < gridData.getHeight(); y++) { 
+    		for (int x = 0; x < gridData.getWidth(); x++) {
+            	cellArray[x][y].zoomOut();
+            }
+    	}
+	}
+    
     
     public void clear() {
     	for (int y = 0; y < gridData.getHeight(); y++) { //may be a better way to go through the cells
