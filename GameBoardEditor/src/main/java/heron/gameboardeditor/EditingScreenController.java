@@ -71,10 +71,9 @@ public class EditingScreenController {
     	if (!numColumn.getText().isBlank()) {
     		columns = Integer.parseInt(numColumn.getText());
     	} 
-    	
-    	mapDisplay.getChildren().clear(); // clear the old gird
-    	App.resizeGrid(columns, rows);
-    	initialize();
+
+    	this.gridBoard.resize(columns, rows);
+    	this.gridBoard.updateVisualBasedOnGrid(); //update the grid board
     }
 
     /**
