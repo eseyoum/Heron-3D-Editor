@@ -114,7 +114,6 @@ public class TerrainTool extends Tool {
 	
 	private void drawTerrainObject(TerrainObject terrainObject, Block initialBlock) {
 		initialBlock.setZ(terrainObject.initialTerrainData.level);
-//		initialBlock.setVisible(gridData.isVisibleLevel(terrainObject.initialTerrainData.level));
 		for (TerrainData terrainData : terrainObject.terrainList) {
 			int x = initialBlock.getX() + terrainData.distanceX;
 			 int y = initialBlock.getY() + terrainData.distanceY;
@@ -122,7 +121,6 @@ public class TerrainTool extends Tool {
 			 if (gridData.isCoordinateInGrid(x, y)) {
 				 Block block = gridData.getBlockAt(x, y);
 				 block.setZ(z);
-//				 block.setVisible(gridData.isVisibleLevel(z));
 			 }
 		}
 	}

@@ -110,7 +110,7 @@ public class EditingScreenController {
     	} 
     	if (!numRow.getText().isBlank() && !numColumn.getText().isBlank()) {
         	App.resizeGrid(columns, rows);
-        	refreshUIFromGrid( );
+        	gridBoard.updateVisualBasedOnGrid();
         	undoRedoHandler.saveState();
     	}
 

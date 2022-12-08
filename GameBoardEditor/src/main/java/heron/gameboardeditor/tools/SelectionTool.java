@@ -49,54 +49,20 @@ public class SelectionTool extends Tool {
 		try {
 			CellUI cellClicked = gridBoard.getCellAtPixelCoordinates(initialSelectX, initialSelectY);
 			pressedInSelectedCell = (cellClicked.isSelected() == true);
-//			if (!pressedInSelectedCell ) //if the user clicks off of the selected cells
-//				cellClicked.setSelected(false);
-//				selectedRegionOfCells.remove(cellClicked);
-//				System.out.println(cellClicked.getX() + " " + cellClicked.getY());
-//				deselectAll();
 
 			if (pressedInSelectedCell && !cellClicked.isSelected()) //if user clicks on the selected cells (the modified ones) but the cell doesn't get selected somehow (red)
-//				cellClicked.setSelected(false);
-//				selectedRegionOfCells.remove(cellClicked);
 				deselectAll();
 
-//			storedCell = cellClicked;
-//			storedCell.setSelected(cellClicked.getStatus());
-			
-//			if(e.getClickCount() == 2 && pressedInSelectedCell){
-//				cellClicked.setSelected(false);
-//				selectedRegionOfCells.remove(cellClicked);
-//				System.out.println(cellClicked.getBlock().getX() + " " + cellClicked.getBlock().getY());
-//			}
-			
-			
-	
 			if (pressedInSelectedCell)
 				cellClicked.setSelected(true);
-				selectedRegionOfCells.add(cellClicked);
-				
-//				System.out.println(cellClicked.getBlock().getX() + " " + cellClicked.getBlock().getY());
 		} catch (IndexOutOfBoundsException ex) {
 			//ignore, because user just clicked outside of the grid
 		}
-		
-//		if (e.getButton().equals(MouseButton.SECONDARY)) { //if the user right clicks
-//			CellUI emptyCellClicked = gridBoard.getCellAtPixelCoordinates(initialSelectX, initialSelectY);
-//			emptyCellClicked.setSelected(true);
-//			selectedCells.add(emptyCellClicked);
-//		} 
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-//		CellUI cellClicked = gridBoard.getCellAtPixelCoordinates(initialSelectX, initialSelectY);
-//		pressedInSelectedCell = (cellClicked.isSelected());
-		if (pressedInSelectedCell) {
-//			cellClicked.setSelected(true);
-//			selectedRegionOfCells.add(cellClicked);
-//		if (cellClicked.equals(removeSelectedCell)) { 
-//			remove(e, cellClicked);
-		} else {
+		if (!pressedInSelectedCell) {
 			selectionRectangle.setX(Math.min(e.getX(), initialSelectX));
 			selectionRectangle.setWidth(Math.abs(e.getX() - initialSelectX));
 			selectionRectangle.setY(Math.min(e.getY(), initialSelectY));
@@ -174,11 +140,4 @@ public class SelectionTool extends Tool {
     	gridBoard.getGridData().cutAndPaste(selectedBlocks, changeInXIndex, changeInYIndex);
     	gridBoard.updateVisual();
     }
-    
-//    public void remove(MouseEvent e, CellUI cellClicked) {
-//    	if (e.getButton().equals(MouseButton.SECONDARY)) {
-//    		removeSelectedCell(cellClicked.getBlock().getX(), cellClicked.getBlock().getY());
-//    	}
-//    	removeSelectedCell = cellClicked;
-//    }
 }
