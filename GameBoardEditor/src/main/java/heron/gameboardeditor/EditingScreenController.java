@@ -63,19 +63,18 @@ public class EditingScreenController {
 	@FXML
 	private Button zoomOutButton;
 	
-
 	
-    private static int rows;
-    private static int columns;
     private BorderPane gridMapPane;
     private VBox boardParentVBox;
     private GridBoardUI gridBoard;
     private UndoRedoHandler undoRedoHandler;
+    private double tileSize;
     
     @FXML
     private void initialize() {
     	this.undoRedoHandler = new UndoRedoHandler(this);
     	refreshUIFromGrid();
+    	tileSize = CellUI.TILE_SIZE;
     }
     
     private void refreshUIFromGrid() {
@@ -100,16 +99,22 @@ public class EditingScreenController {
      * 
      */
     void setSizeAction(ActionEvent event) {
+        int rows = -1;
+        int columns = -1;
     	if (!numRow.getText().isBlank()) {
     		rows = Integer.parseInt(numRow.getText());
     	} 
     	
     	if (!numColumn.getText().isBlank()) {
     		columns = Integer.parseInt(numColumn.getText());
+    		
     	} 
-    	App.resizeGrid(columns, rows);
-    	refreshUIFromGrid();
-    	undoRedoHandler.saveState();
+    	if (!numRow.getText().isBlank() && !numColumn.getText().isBlank()) {
+        	App.resizeGrid(columns, rows);
+        	refreshUIFromGrid( );
+        	undoRedoHandler.saveState();
+    	}
+
     }
     
     @FXML
@@ -120,20 +125,20 @@ public class EditingScreenController {
     @FXML
     private void menuEditRedo() {
     	undoRedoHandler.redo();
-
-//    	this.gridBoard.resize(columns, rows);
-//    	this.gridBoard.updateVisualBasedOnGrid(); //update the grid board
     }
 
     @FXML
-    void zoomIn(MouseEvent event) {
-    	gridBoard.zoomIn();
+    void zoomIn() {
+    	gridBoard.setTileSize(tileSize += 10);
     }
     
     
     @FXML
-    void zoomOut(MouseEvent event) {
-    	gridBoard.zoomOut();
+    void zoomOut() {
+    	if (tileSize > 10) {
+    		gridBoard.setTileSize(tileSize -= 10);
+    	}
+    	
     }
     
     @FXML
@@ -143,14 +148,6 @@ public class EditingScreenController {
     	undoRedoHandler.saveState();
 
     	gridBoard.setAllSelectedCellsToLevel((int) levelSlider.getValue());
-    }
-    
-    @FXML
-    void displayLevelOn(MouseEvent event) {
-    	if (checkBoxDisplayLevel.isSelected()) {
-    		gridBoard.updateVisualDisplayLevel();
-		}
-
     }
     
     @FXML

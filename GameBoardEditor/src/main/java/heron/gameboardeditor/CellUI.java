@@ -26,6 +26,7 @@ public class CellUI extends StackPane implements Cloneable {
     private int xIndex;
     private int yIndex;
     private boolean isClicked;
+
     private int tileSize;
     private String displayLevel;
     private Rectangle colorRect;
@@ -41,7 +42,6 @@ public class CellUI extends StackPane implements Cloneable {
     	this.gridBoard = gridBoard;
 		this.xIndex = xIndex;
 		this.yIndex = yIndex;
-		this.tileSize = TILE_SIZE;
 		updateVisualBasedOnBlock();
 		this.setSelected(false);
     }
@@ -96,6 +96,7 @@ public class CellUI extends StackPane implements Cloneable {
 		block.setZ(level);//if cell level is zero it should not be visible
 		updateVisualBasedOnBlock();
 	}
+	
 	public int getLevel() {
 		return getBlock().getZ();	
 	}
@@ -125,15 +126,7 @@ public class CellUI extends StackPane implements Cloneable {
     public boolean isCornerCell() {
     	return ((xIndex == 0 && yIndex == 0) || (xIndex == 0 && yIndex == gridBoard.getGridData().getHeight() - 1) || (xIndex == gridBoard.getGridData().getWidth() - 1 && yIndex == 0) || (xIndex == gridBoard.getGridData().getWidth() - 1 && yIndex == gridBoard.getGridData().getHeight() - 1));
     }
-    
-    public void zoomIn() {
-    	this.tileSize += 10;
-	}
-    
-    public void zoomOut() {
-    	this.tileSize -= 10;
-	}
-    
+        
     public CellUI clone() {
     	try {
     		CellUI clone = (CellUI) super.clone();
