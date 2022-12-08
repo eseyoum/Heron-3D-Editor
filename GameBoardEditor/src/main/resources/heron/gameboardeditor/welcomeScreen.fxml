@@ -42,42 +42,32 @@
    <center>
       <VBox alignment="CENTER" prefHeight="291.0" prefWidth="900.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#switchToNewProject" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 20px;" textAlignment="CENTER">
+            <Button mnemonicParsing="false" onAction="#switchToNewProject" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 20px;" text="Start" textAlignment="CENTER">
                <VBox.margin>
                   <Insets bottom="15.0" left="20.0" top="5.0" />
                </VBox.margin>
-               <graphic>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="345.0" text="Start" textAlignment="CENTER">
-                     <font>
-                        <Font size="25.0" />
-                     </font></Label>
-               </graphic>
+               <font>
+                  <Font size="25.0" />
+               </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#switchToAboutTeamScreen" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 20px;">
+            <Button mnemonicParsing="false" onAction="#switchToAboutTeamScreen" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 20px;" text="About Team">
                <VBox.margin>
                   <Insets bottom="15.0" left="20.0" top="5.0" />
                </VBox.margin>
-               <graphic>
-                  <Label alignment="CENTER" prefWidth="500.0" text="About Team">
-                     <font>
-                        <Font size="25.0" />
-                     </font></Label>
-               </graphic>
+               <font>
+                  <Font size="25.0" />
+               </font>
             </Button>
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#switchToAboutSoftwareScreen" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 20px;">
-               <graphic>
-                  <Label alignment="CENTER" prefHeight="30.0" prefWidth="307.0" text="About Software">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </Label>
-               </graphic>
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#switchToAboutSoftwareScreen" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 20px;" text="About Software">
                <VBox.margin>
                   <Insets bottom="15.0" left="15.0" top="5.0" />
                </VBox.margin>
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
+               <font>
+                  <Font size="25.0" />
+               </font>
             </Button>
          </children>
       </VBox>

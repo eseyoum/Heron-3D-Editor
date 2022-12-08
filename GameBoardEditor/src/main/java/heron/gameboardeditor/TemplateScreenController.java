@@ -20,8 +20,8 @@ public class TemplateScreenController {
 	private EditingScreenController controller;
 	
 	@FXML
-    void switchToEmptyBoard(ActionEvent event) throws IOException {
-		App.setRoot("editingScreen");
+    void switchToChooseScreen(ActionEvent event) throws IOException {
+		App.setRoot("chooseBoardScreen");
     }
 	
 	@FXML
@@ -48,7 +48,7 @@ public class TemplateScreenController {
 	
 	@FXML
     void initialize() {
-    	App.useNewGrid(10, 10);
+    	
     }
 	
 }
