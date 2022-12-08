@@ -107,17 +107,17 @@ public class SelectionTool extends Tool {
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		if (pressedInSelectedCell) { //user releases after dragging the selected cells
-			int xStartIndex = (int) (initialSelectX/ CellUI.TILE_SIZE); //original x index when the cell initially gets pressed 
-			int yStartIndex = (int) (initialSelectY/ CellUI.TILE_SIZE); //original y index when the cell initially gets pressed 
-			int xEndIndex = (int) (e.getX() / CellUI.TILE_SIZE);
-			int yEndIndex = (int) (e.getY() / CellUI.TILE_SIZE);
+			int xStartIndex = (int) (initialSelectX/ (int) gridBoard.getTileSize()); //original x index when the cell initially gets pressed 
+			int yStartIndex = (int) (initialSelectY/ (int) gridBoard.getTileSize()); //original y index when the cell initially gets pressed 
+			int xEndIndex = (int) (e.getX() / (int) gridBoard.getTileSize());
+			int yEndIndex = (int) (e.getY() / (int) gridBoard.getTileSize());
 			cutAndPaste(xStartIndex, yStartIndex, xEndIndex, yEndIndex); 
 			deselectAll();
 		} else {
-			int xStartIndex = (int) selectionRectangle.getX() / CellUI.TILE_SIZE;
-			int yStartIndex = (int) selectionRectangle.getY() / CellUI.TILE_SIZE;
-			int xEndIndex = (int) (selectionRectangle.getX() + selectionRectangle.getWidth()) / CellUI.TILE_SIZE;
-			int yEndIndex = (int) (selectionRectangle.getY() + selectionRectangle.getHeight()) / CellUI.TILE_SIZE;
+			int xStartIndex = (int) selectionRectangle.getX() / (int) gridBoard.getTileSize();
+			int yStartIndex = (int) selectionRectangle.getY() / (int) gridBoard.getTileSize();
+			int xEndIndex = (int) (selectionRectangle.getX() + selectionRectangle.getWidth()) / (int) gridBoard.getTileSize();
+			int yEndIndex = (int) (selectionRectangle.getY() + selectionRectangle.getHeight()) / (int) gridBoard.getTileSize();
 			for (int xIndex = xStartIndex; xIndex <= xEndIndex; xIndex++) {
 				for (int yIndex = yStartIndex; yIndex <= yEndIndex; yIndex++) {
 					if (gridBoard.getCell(xIndex, yIndex).getBlock().isVisible()) {

@@ -30,9 +30,9 @@ public class CellUI extends StackPane implements Cloneable {
     private int tileSize;
     private String displayLevel;
     private Rectangle colorRect;
-    private Text levelText;
+	private Text levelText;
     
-    
+   
     public CellUI(GridBoardUI gridBoard, int xIndex, int yIndex) {//, int tileSize) {
         //super(TILE_SIZE - 1, TILE_SIZE - 1); //a CellUI object is a rectangle
 		super();
@@ -106,6 +106,14 @@ public class CellUI extends StackPane implements Cloneable {
     	return gridBoard.getGridData().getBlockAt(xIndex, yIndex);
     }
     
+    public String getDisplayLevel() {
+  		return displayLevel;
+  	}
+
+  	public Rectangle getColorRect() {
+  		return colorRect;
+  	}
+  	
     public void setSelected(boolean status) {
     	isClicked = status;
     	if (isClicked) {

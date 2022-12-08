@@ -1,8 +1,6 @@
 package heron.gameboardeditor.tools;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import heron.gameboardeditor.CellUI;
@@ -10,11 +8,7 @@ import heron.gameboardeditor.GridBoardUI;
 import heron.gameboardeditor.UndoRedoHandler;
 import heron.gameboardeditor.datamodel.Block;
 import heron.gameboardeditor.datamodel.Grid;
-import heron.gameboardeditor.tools.TerrainTool.TerrainObject;
-import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 
@@ -48,7 +42,7 @@ public class TerrainTool extends Tool {
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		CellUI cellClicked = gridBoard.getCell((int) e.getX() / CellUI.TILE_SIZE, (int) e.getY() / CellUI.TILE_SIZE);
+		CellUI cellClicked = gridBoard.getCell((int) e.getX() / (int) gridBoard.getTileSize(), (int) e.getY() / (int) gridBoard.getTileSize());
 		Block initialBlock = cellClicked.getBlock();
 		drawTerrainObject(terrainObject, initialBlock);
 		gridBoard.updateVisual();

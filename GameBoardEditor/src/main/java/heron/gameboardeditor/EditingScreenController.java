@@ -68,7 +68,7 @@ public class EditingScreenController {
     private VBox boardParentVBox;
     private GridBoardUI gridBoard;
     private UndoRedoHandler undoRedoHandler;
-    private double tileSize;
+    private int tileSize;
     
     @FXML
     private void initialize() {

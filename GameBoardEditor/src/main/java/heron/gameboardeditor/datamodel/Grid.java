@@ -19,17 +19,6 @@ public class Grid implements Cloneable {
 	private int width;
 	private int height;
 	
-//	private ArrayList<Block> edgeBlocks = new ArrayList<Block>(); //stores all blocks on the edge of the gridBoard. Used for generating the maze
-//
-//	private Set<Block>solutionPathBlocks = new HashSet<Block>(); //represents the blocks in the solution path of the maze
-//
-//	private Block failedMovementMazeBlock = new Block (0, 0, 0); //when creating the maze, this represents a block which cannot move in a certain direction
-//	private int failedDirectionCount; //count of failed directions. If a failedMovementMazeBlock has 3 failed directions, it cannot move
-//	private ArrayList<Block>mazeBranchBlocks = new ArrayList<Block>();
-//	private Block possibleEndBlock;
-//	private int numBranches = 4; //the number of times branches should be made off of each other
-//	private int mazeBorderLevel = 2; //the level of the borders of the maze
-//	private int mazePathLevel = 1; //the level of the path of the maze
 	/**
 	 * Constructs a grid 
 	 * 
@@ -268,8 +257,10 @@ public class Grid implements Cloneable {
     		int srcY = block.getY();
     		int destX = srcX + changeInXIndex;
     		int destY = srcY + changeInYIndex;
-    		blockGrid[destX][destY].setZ(originalData.blockGrid[srcX][srcY].getZ());
+    		if (destX < width && destY < height) {
+    			blockGrid[destX][destY].setZ(originalData.blockGrid[srcX][srcY].getZ());
     		}
+    	}
 	}
 	
 	public void printGrid() {

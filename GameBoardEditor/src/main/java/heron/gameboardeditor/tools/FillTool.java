@@ -25,10 +25,10 @@ public class FillTool extends Tool {
     public void mousePressed(MouseEvent e) {
 //    	CellUI cellClicked = gridBoard.getCell((int) e.getX() / CellUI.TILE_SIZE, (int) e.getY() / CellUI.TILE_SIZE); //the initial cell which is clicked
 //    	if (cellClicked.getBlock().getZ() != gridBoard.getLevel()) {
-		int x = (int) e.getX() / CellUI.TILE_SIZE;
-		int y = (int) e.getY() / CellUI.TILE_SIZE;
+		int x = (int) e.getX() / (int) gridBoard.getTileSize();
+		int y = (int) e.getY() / (int) gridBoard.getTileSize();
 		if (gridBoard.getGridData().isCoordinateInGrid(x, y)) {
-			CellUI cellClicked = gridBoard.getCell((int) e.getX() / CellUI.TILE_SIZE, (int) e.getY() / CellUI.TILE_SIZE); //the initial cell which is clicked
+			CellUI cellClicked = gridBoard.getCell((int) e.getX() / (int) gridBoard.getTileSize(), (int) e.getY() / (int) gridBoard.getTileSize()); //the initial cell which is clicked
         	fill(cellClicked.getBlock(), cellClicked.getBlock().getZ(), gridBoard.getLevel());
     	}
     	gridBoard.updateVisual();
