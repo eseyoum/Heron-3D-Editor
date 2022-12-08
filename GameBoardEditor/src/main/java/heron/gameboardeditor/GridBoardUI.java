@@ -24,7 +24,7 @@ public class GridBoardUI extends AnchorPane {
 	private CellUI[][] cellArray;
     private int width; //number of cells of the width
     private int height; //number of cells of the height
-	
+  	
 	private int level = 1; //the level of the depth map the user is currently working on. The user starts on level 1
     
     public GridEditor gridEditor; //controls which tool the user is currently using
@@ -36,6 +36,8 @@ public class GridBoardUI extends AnchorPane {
     public final SelectionTool selectionTool;
     public final TerrainTool terrainTool;
     private UndoRedoHandler undoRedoHandler;
+    
+    private double tileSize;
     
 	public GridBoardUI(Grid grid, UndoRedoHandler undoRedoHandler) {
         this.gridData = grid;
@@ -94,6 +96,10 @@ public class GridBoardUI extends AnchorPane {
     	this.width = gridData.getWidth();
     	this.height = gridData.getHeight();
     }
+    
+    public double getTileSize() { 
+		return tileSize;
+	}
 	
     public Grid getGridData() { //grid data represents the data of the GridUI
 		return gridData;
@@ -124,34 +130,22 @@ public class GridBoardUI extends AnchorPane {
             }
     	}
     }
+
     
-    
-    public void updateVisualDisplayLevel() {
-    	for (int y = 0; y < gridData.getHeight(); y++) { //may be a better way to go through the cells
-    		for (int x = 0; x < gridData.getWidth(); x++) {
-            	cellArray[x][y].updateVisualDisplayLevel();
-            }
-    	}
-    }
-    
-    
-    public void zoomIn() { 
+    public void setTileSize(double size) { 
+    	this.tileSize = size;
     	for (int y = 0; y < gridData.getHeight(); y++) { 
     		for (int x = 0; x < gridData.getWidth(); x++) {
-            	cellArray[x][y].zoomIn();
+               	cellArray[x][y].setWidth(size-1);
+            	cellArray[x][y].setHeight(size-1);
+ 
+            	cellArray[x][y].setLayoutX(x*size);
+            	cellArray[x][y].setLayoutY(y*size);
             }
     	}
 	}
     
-    
-    public void zoomOut() { 
-    	for (int y = 0; y < gridData.getHeight(); y++) { 
-    		for (int x = 0; x < gridData.getWidth(); x++) {
-            	cellArray[x][y].zoomOut();
-            }
-    	}
-	}
-    
+  
     
     public void clear() {
     	for (int y = 0; y < gridData.getHeight(); y++) { //may be a better way to go through the cells
