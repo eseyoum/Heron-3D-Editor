@@ -18,7 +18,6 @@ public class Grid implements Cloneable {
 	private Block[][] blockGrid;
 	private int width;
 	private int height;
-	
 	/**
 	 * Constructs a grid 
 	 * 
@@ -255,10 +254,11 @@ public class Grid implements Cloneable {
     	for (Block block : selectedBlocks) {
     		int srcX = block.getX();
     		int srcY = block.getY();
-    		int destX = srcX + changeInXIndex;
-    		int destY = srcY + changeInYIndex;
-    		if (!(destX >= width || destY >= height)) {
-    			blockGrid[destX][destY].setZ(originalData.blockGrid[srcX][srcY].getZ());
+	    	int destX = srcX + changeInXIndex;
+	    	int destY = srcY + changeInYIndex;
+//    		if (!(destX >= width || destY >= height)) { //if the block is not moved outside of the grid
+    		if (destX < width && destY < height) {
+	    		blockGrid[destX][destY].setZ(originalData.blockGrid[srcX][srcY].getZ());
     		}
     	}
 	}

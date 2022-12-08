@@ -20,7 +20,7 @@ public class CellUI extends StackPane implements Cloneable {
     public static final int MAX_LEVEL = 5; //number of possible levels
     private static final Color DEFAULT_COLOR = Color.CORNFLOWERBLUE; //default color of the cells
     private static List<Color> colorList = generateColors(); //list of colors for each level of the depth map
-    
+
 //    private final GridBoardUI gridBoard;
     private GridBoardUI gridBoard;
     private int xIndex;
@@ -37,13 +37,14 @@ public class CellUI extends StackPane implements Cloneable {
         //super(TILE_SIZE - 1, TILE_SIZE - 1); //a CellUI object is a rectangle
 		super();
 		this.colorRect = new Rectangle(TILE_SIZE - 1, TILE_SIZE - 1);
-		this.levelText = new Text(String.valueOf(1));
+		this.levelText = new Text("");
 		this.getChildren().addAll(colorRect, levelText);
     	this.gridBoard = gridBoard;
 		this.xIndex = xIndex;
 		this.yIndex = yIndex;
 		updateVisualBasedOnBlock();
 		this.setSelected(false);
+		
     }
     
     /**
@@ -84,14 +85,11 @@ public class CellUI extends StackPane implements Cloneable {
 	}
 	
     public void displayLevel(int level) {
-    	Block block = getBlock();
-    	Text levelText = new Text(String.valueOf(level));
-    
-    	
+    	this.levelText = new Text(String.valueOf(level));
+		this.getChildren().addAll(colorRect, levelText);
     }
     
 	public void setLevel(int level) {
-		
 		Block block = getBlock();
 		block.setZ(level);//if cell level is zero it should not be visible
 		updateVisualBasedOnBlock();
