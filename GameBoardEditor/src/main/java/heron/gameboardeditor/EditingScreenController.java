@@ -346,7 +346,7 @@ public class EditingScreenController {
     				writer.write("v " + (c + 1) + " " + (r + 1) + " " + 0 + "\n");
     				writer.write("v " + (c + 1) + " " + (r + 1) + " " + e + "\n");
     				
-//    				writer.write("v " + (c + 1) + " " + (r + 1) + " " + (e + 1) + "\n");
+//    				writer.write("v " + (c + 0.5) + " " + (r + 0.5) + " " + (e + 0.5) + "\n");
     			}
     		}
     		for(int i = 0; i < (grid.getWidth() * grid.getHeight()); i++) {
