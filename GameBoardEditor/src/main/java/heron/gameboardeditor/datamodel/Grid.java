@@ -257,7 +257,7 @@ public class Grid implements Cloneable {
     		int srcY = block.getY();
     		int destX = srcX + changeInXIndex;
     		int destY = srcY + changeInYIndex;
-    		if (destX < width && destY < height) {
+    		if (!(destX >= width || destY >= height)) {
     			blockGrid[destX][destY].setZ(originalData.blockGrid[srcX][srcY].getZ());
     		}
     	}

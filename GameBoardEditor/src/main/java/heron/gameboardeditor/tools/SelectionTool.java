@@ -55,10 +55,10 @@ public class SelectionTool extends Tool {
 //				System.out.println(cellClicked.getX() + " " + cellClicked.getY());
 //				deselectAll();
 
-//			if (pressedInSelectedCell && !cellClicked.isSelected()) //if user clicks on the selected cells (the modified ones) but the cell doesn't get selected somehow (red)
-////				cellClicked.setSelected(false);
-////				selectedRegionOfCells.remove(cellClicked);
-//				deselectAll();
+			if (pressedInSelectedCell && !cellClicked.isSelected()) //if user clicks on the selected cells (the modified ones) but the cell doesn't get selected somehow (red)
+//				cellClicked.setSelected(false);
+//				selectedRegionOfCells.remove(cellClicked);
+				deselectAll();
 
 //			storedCell = cellClicked;
 //			storedCell.setSelected(cellClicked.getStatus());
@@ -89,7 +89,7 @@ public class SelectionTool extends Tool {
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		CellUI cellClicked = gridBoard.getCellAtPixelCoordinates(initialSelectX, initialSelectY);
+//		CellUI cellClicked = gridBoard.getCellAtPixelCoordinates(initialSelectX, initialSelectY);
 //		pressedInSelectedCell = (cellClicked.isSelected());
 		if (pressedInSelectedCell) {
 //			cellClicked.setSelected(true);
@@ -107,17 +107,17 @@ public class SelectionTool extends Tool {
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		if (pressedInSelectedCell) { //user releases after dragging the selected cells
-			int xStartIndex = (int) (initialSelectX/ (int) gridBoard.getTileSize()); //original x index when the cell initially gets pressed 
-			int yStartIndex = (int) (initialSelectY/ (int) gridBoard.getTileSize()); //original y index when the cell initially gets pressed 
-			int xEndIndex = (int) (e.getX() / (int) gridBoard.getTileSize());
-			int yEndIndex = (int) (e.getY() / (int) gridBoard.getTileSize());
+			int xStartIndex = (int) (initialSelectX/ gridBoard.getTileSize()); //original x index when the cell initially gets pressed 
+			int yStartIndex = (int) (initialSelectY/ gridBoard.getTileSize()); //original y index when the cell initially gets pressed 
+			int xEndIndex = (int) (e.getX() / gridBoard.getTileSize());
+			int yEndIndex = (int) (e.getY() / gridBoard.getTileSize());
 			cutAndPaste(xStartIndex, yStartIndex, xEndIndex, yEndIndex); 
 			deselectAll();
 		} else {
-			int xStartIndex = (int) selectionRectangle.getX() / (int) gridBoard.getTileSize();
-			int yStartIndex = (int) selectionRectangle.getY() / (int) gridBoard.getTileSize();
-			int xEndIndex = (int) (selectionRectangle.getX() + selectionRectangle.getWidth()) / (int) gridBoard.getTileSize();
-			int yEndIndex = (int) (selectionRectangle.getY() + selectionRectangle.getHeight()) / (int) gridBoard.getTileSize();
+			int xStartIndex = (int) selectionRectangle.getX() / gridBoard.getTileSize();
+			int yStartIndex = (int) selectionRectangle.getY() / gridBoard.getTileSize();
+			int xEndIndex = (int) (selectionRectangle.getX() + selectionRectangle.getWidth()) /  gridBoard.getTileSize();
+			int yEndIndex = (int) (selectionRectangle.getY() + selectionRectangle.getHeight()) / gridBoard.getTileSize();
 			for (int xIndex = xStartIndex; xIndex <= xEndIndex; xIndex++) {
 				for (int yIndex = yStartIndex; yIndex <= yEndIndex; yIndex++) {
 					if (gridBoard.getCell(xIndex, yIndex).getBlock().isVisible()) {

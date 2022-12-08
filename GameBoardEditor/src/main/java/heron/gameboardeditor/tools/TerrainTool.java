@@ -42,7 +42,7 @@ public class TerrainTool extends Tool {
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		CellUI cellClicked = gridBoard.getCell((int) e.getX() / (int) gridBoard.getTileSize(), (int) e.getY() / (int) gridBoard.getTileSize());
+		CellUI cellClicked = gridBoard.getCell((int) e.getX() / gridBoard.getTileSize(), (int) e.getY() /  gridBoard.getTileSize());
 		Block initialBlock = cellClicked.getBlock();
 		drawTerrainObject(terrainObject, initialBlock);
 		gridBoard.updateVisual();

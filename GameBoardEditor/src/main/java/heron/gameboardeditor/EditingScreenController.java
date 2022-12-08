@@ -9,7 +9,6 @@ import java.util.Optional;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import heron.gameboardeditor.datamodel.Block;
@@ -132,7 +131,7 @@ public class EditingScreenController {
     	gridBoard.setTileSize(tileSize += 10);
     }
     
-    
+   
     @FXML
     void zoomOut() {
     	if (tileSize > 10) {

@@ -28,8 +28,8 @@ public class EraserTool extends Tool {
 	
 	private void erase(MouseEvent e) {
 //		CellUI cellClicked = gridBoard.getCell((int) e.getX() / CellUI.TILE_SIZE, (int) e.getY() / CellUI.TILE_SIZE);
-		int x = (int) e.getX() / (int) gridBoard.getTileSize();
-		int y = (int) e.getY() / (int) gridBoard.getTileSize();
+		int x = (int) e.getX() / gridBoard.getTileSize();
+		int y = (int) e.getY() / gridBoard.getTileSize();
 		if (gridBoard.getGridData().isCoordinateInGrid(x, y)) {
 			CellUI cellClicked = gridBoard.getCell(x, y);
 			if (cellClicked.getLevel() > 0) {

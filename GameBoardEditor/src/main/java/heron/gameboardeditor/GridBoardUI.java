@@ -36,18 +36,17 @@ public class GridBoardUI extends AnchorPane {
     public final SelectionTool selectionTool;
     public final TerrainTool terrainTool;
     private UndoRedoHandler undoRedoHandler;
-    
     private int tileSize;
     
 	public GridBoardUI(Grid grid, UndoRedoHandler undoRedoHandler) {
         this.gridData = grid;
         cellArray = new CellUI[grid.getWidth()][grid.getHeight()];
-        
+        this.tileSize = CellUI.TILE_SIZE;
         for (int x = 0; x < grid.getWidth(); x++) {
         	for (int y = 0; y < grid.getHeight(); y++) { //creates the grid
                 cellArray[x][y] = new CellUI(this, x, y);
-                cellArray[x][y].setLayoutX(x * CellUI.TILE_SIZE); //spaces out the tiles based on TILE_SIZE
-                cellArray[x][y].setLayoutY(y * CellUI.TILE_SIZE);
+                cellArray[x][y].setLayoutX(x * tileSize); //spaces out the tiles based on TILE_SIZE
+                cellArray[x][y].setLayoutY(y * tileSize);
                 this.getChildren().add(cellArray[x][y]);
             }
         }
@@ -75,8 +74,8 @@ public class GridBoardUI extends AnchorPane {
         	for (int y = 0; y < gridData.getHeight(); y++) {
         		if (x >= width || y >= height) { //if grid board must add new cells
         			newCellArray[x][y] = new CellUI(this, x, y);
-                    newCellArray[x][y].setLayoutX(x * CellUI.TILE_SIZE);
-                    newCellArray[x][y].setLayoutY(y * CellUI.TILE_SIZE);
+                    newCellArray[x][y].setLayoutX(x * tileSize);
+                    newCellArray[x][y].setLayoutY(y * tileSize);
                     this.getChildren().add(newCellArray[x][y]);
         		} else { //if contains cell, copy the cell to the new array
         			newCellArray[x][y] = cellArray[x][y];
@@ -97,9 +96,10 @@ public class GridBoardUI extends AnchorPane {
     	this.height = gridData.getHeight();
     }
     
-    public double getTileSize() { 
+    public int getTileSize() { 
 		return tileSize;
 	}
+    
 	
     public Grid getGridData() { //grid data represents the data of the GridUI
 		return gridData;
@@ -132,7 +132,7 @@ public class GridBoardUI extends AnchorPane {
     }
 
     
-    public void setTileSize(int size) { 
+    public void setTileSize(int size) throws ArithmeticException { 
     	this.tileSize = size;
     	for (int y = 0; y < gridData.getHeight(); y++) { 
     		for (int x = 0; x < gridData.getWidth(); x++) {
@@ -140,7 +140,6 @@ public class GridBoardUI extends AnchorPane {
                	cellArray[x][y].getColorRect().setHeight(size - 1);
             	cellArray[x][y].setLayoutX(x*size);
             	cellArray[x][y].setLayoutY(y*size);
-            	System.out.println(cellArray[x][y].getBlock().getX() + " " + cellArray[x][y].getBlock().getY());
             	updateVisual();
             }
     	}

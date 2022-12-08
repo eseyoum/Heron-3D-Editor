@@ -24,14 +24,14 @@ public class DigTool extends Tool {
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		CellUI cellClicked = gridBoard.getCell((int) e.getX() / (int) gridBoard.getTileSize(), (int) e.getY() / (int) gridBoard.getTileSize());
+		CellUI cellClicked = gridBoard.getCell((int) e.getX() / gridBoard.getTileSize(), (int) e.getY() / gridBoard.getTileSize());
 		handleDig(cellClicked, e);
 		undoRedoHandler.saveState();
 	}
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		CellUI cellClicked = gridBoard.getCell((int) e.getX() / (int) gridBoard.getTileSize(), (int) e.getY() / (int) gridBoard.getTileSize());
+		CellUI cellClicked = gridBoard.getCell((int) e.getX() / gridBoard.getTileSize(), (int) e.getY() / gridBoard.getTileSize());
 		
 		if (!cellClicked.equals(cellLastClicked)) { 
 			handleDig(cellClicked, e);
