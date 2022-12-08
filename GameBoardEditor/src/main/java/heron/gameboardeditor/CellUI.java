@@ -20,7 +20,7 @@ public class CellUI extends StackPane implements Cloneable {
     public static final int MAX_LEVEL = 5; //number of possible levels
     private static final Color DEFAULT_COLOR = Color.CORNFLOWERBLUE; //default color of the cells
     private static List<Color> colorList = generateColors(); //list of colors for each level of the depth map
-    
+
 //    private final GridBoardUI gridBoard;
     private GridBoardUI gridBoard;
     private int xIndex;
