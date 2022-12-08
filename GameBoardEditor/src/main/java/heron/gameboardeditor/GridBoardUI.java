@@ -130,7 +130,23 @@ public class GridBoardUI extends AnchorPane {
             }
     	}
     }
-
+    
+    public void updateVisualDisplayLevel() {
+    	for (int y = 0; y < gridData.getHeight(); y++) { //may be a better way to go through the cells
+    		for (int x = 0; x < gridData.getWidth(); x++) {
+            	cellArray[x][y].updateVisualDisplayLevel();
+            }
+    	}
+    }
+    
+    public void updateVisualRemoveLevel() {
+    	for (int y = 0; y < gridData.getHeight(); y++) { //may be a better way to go through the cells
+    		for (int x = 0; x < gridData.getWidth(); x++) {
+            	cellArray[x][y].updateVisualRemoveLevel();
+            }
+    	}
+    }
+    
     
     public void setTileSize(int size) throws ArithmeticException { 
     	this.tileSize = size;
@@ -138,6 +154,7 @@ public class GridBoardUI extends AnchorPane {
     		for (int x = 0; x < gridData.getWidth(); x++) {
                	cellArray[x][y].getColorRect().setWidth(size - 1);
                	cellArray[x][y].getColorRect().setHeight(size - 1);
+               	
             	cellArray[x][y].setLayoutX(x*size);
             	cellArray[x][y].setLayoutY(y*size);
             	updateVisual();

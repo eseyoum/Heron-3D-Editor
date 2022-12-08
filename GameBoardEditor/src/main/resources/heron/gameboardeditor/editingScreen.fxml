@@ -166,7 +166,7 @@
                         <MenuItem mnemonicParsing="false" onAction="#terrainToolCustom" text="Custom..." />
                     </items>
                   </MenuButton>
-                  <CheckBox fx:id="checkBoxDisplayLevel" layoutX="39.0" layoutY="447.0" mnemonicParsing="false" onAction="#changeLevel" text="Display Level" />
+                  <CheckBox fx:id="checkBoxDisplayLevel" layoutX="39.0" layoutY="447.0" mnemonicParsing="false" onAction="#displayLevel" text="Display Level" />
                   <Button fx:id="zoomInButton" layoutX="17.0" layoutY="476.0" mnemonicParsing="false" onAction="#zoomIn" text="Zoom in" />
                   <Button fx:id="zoomOutButton" layoutX="83.0" layoutY="476.0" mnemonicParsing="false" onAction="#zoomOut" text="Zoom out" />
                </children>
