@@ -247,6 +247,19 @@ public class EditingScreenController {
     }
     
     @FXML
+    void setMaxLevel(ActionEvent event) {
+    	TextInputDialog textInputDialog = new TextInputDialog(); //may need to refactor and combine with terrain tool's text box
+    	textInputDialog.setHeaderText("Enter number of possible levels to work on: ");
+    	textInputDialog.showAndWait();
+    	int newMaxLevel = Integer.parseInt(textInputDialog.getResult());
+    	
+    	levelSlider.setMax(newMaxLevel);
+    	//gridBoard.getGridData().setNewLevel(); eventually do this which will handle if level is lower
+    	CellUI.setMaxLevel(newMaxLevel);
+    	gridBoard.updateVisual();
+    }
+    
+    @FXML
     void generateMaze(ActionEvent event) {
     	gridBoard.generateMaze();
     	undoRedoHandler.saveState();

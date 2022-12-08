@@ -86,6 +86,8 @@
                   <MenuItem mnemonicParsing="false" onAction="#selectLevel" text="Select Level" />
                   <MenuItem mnemonicParsing="false" onAction="#deselectLevel" text="Deselect Level" />
                   <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#setMaxLevel" text="Set Number of Levels" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem fx:id="generateMazeButton" mnemonicParsing="false" onAction="#generateMaze" text="Generate Maze" />
           </items>
         </Menu>
@@ -111,7 +113,7 @@
             <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="500.0" prefWidth="154.0" SplitPane.resizableWithParent="false">
                <children>
                   <StackPane fx:id="editPanel" prefHeight="150.0" prefWidth="160.0" />
-                  <VBox layoutX="7.0" prefHeight="127.0" prefWidth="151.0">
+                  <VBox layoutX="7.0" prefHeight="124.0" prefWidth="151.0">
                      <children>
                         <GridPane>
                           <columnConstraints>

@@ -58,7 +58,7 @@ public class DigTool extends Tool {
 	}
 	
 	public void build(CellUI cellClicked, MouseEvent e) {
-		if (cellClicked.getBlock().getZ() >= cellClicked.MAX_LEVEL) {
+		if (cellClicked.getBlock().getZ() >= CellUI.getMaxLevel()) {
 			return;
 		} else {
 			cellClicked.setLevel(cellClicked.getBlock().getZ() + 1);
