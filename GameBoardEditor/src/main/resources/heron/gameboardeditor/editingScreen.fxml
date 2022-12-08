@@ -97,7 +97,7 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Templates">
               <items>
-                <MenuItem mnemonicParsing="false" text="All Templates" />
+                <MenuItem mnemonicParsing="false" onAction="#switchToTemplateScreen" text="All Templates" />
                   <MenuItem mnemonicParsing="false" text="Temple 1" />
                   <MenuItem mnemonicParsing="false" text="Temple 2" />
                   <MenuItem mnemonicParsing="false" text="Temple 3" />

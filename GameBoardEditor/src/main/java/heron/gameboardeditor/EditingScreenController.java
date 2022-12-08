@@ -126,6 +126,13 @@ public class EditingScreenController {
     	undoRedoHandler.redo();
     }
 
+    
+    @FXML
+    private void switchToTemplateScreen(ActionEvent event) throws IOException {
+    	App.setRoot("templateScreen");
+    }
+
+    
     @FXML
     void zoomIn() {
     	gridBoard.setTileSize(tileSize += 10);
