@@ -272,7 +272,6 @@ public class Grid implements Cloneable {
     		}
 	}
 	
-	
 	public void printGrid() {
 		System.out.println(this.toString());
 	}

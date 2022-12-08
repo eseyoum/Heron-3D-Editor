@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import heron.gameboardeditor.datamodel.Block;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -12,7 +13,7 @@ import javafx.scene.text.Text;
 /**
  * This class represents one cell (or tile) of the GridBoardUI
  */
-public class CellUI extends Rectangle implements Cloneable {
+public class CellUI extends StackPane implements Cloneable {
 	
     //public int tileSize = 30; //size of the cells
     public static final int TILE_SIZE = 30;
@@ -26,11 +27,18 @@ public class CellUI extends Rectangle implements Cloneable {
     private int yIndex;
     private boolean isClicked;
     private int tileSize;
+    private String displayLevel;
+    private Rectangle colorRect;
+    private Text levelText;
     
     
     public CellUI(GridBoardUI gridBoard, int xIndex, int yIndex) {//, int tileSize) {
-        super(TILE_SIZE - 1, TILE_SIZE - 1); //a CellUI object is a rectangle
-		this.gridBoard = gridBoard;
+        //super(TILE_SIZE - 1, TILE_SIZE - 1); //a CellUI object is a rectangle
+		super();
+		this.colorRect = new Rectangle(TILE_SIZE - 1, TILE_SIZE - 1);
+		this.levelText = new Text(String.valueOf(1));
+		this.getChildren().addAll(colorRect, levelText);
+    	this.gridBoard = gridBoard;
 		this.xIndex = xIndex;
 		this.yIndex = yIndex;
 		this.tileSize = TILE_SIZE;
@@ -58,9 +66,9 @@ public class CellUI extends Rectangle implements Cloneable {
     public void updateVisualBasedOnBlock() {
     	Block block = getBlock(); 
     	if (block.isVisible()) {
-    		setFill(colorList.get(block.getZ() - 1));
+    		colorRect.setFill(colorList.get(block.getZ() - 1));
     	} else {
-      		setFill(DEFAULT_COLOR); //if the cell is not visible, the level is zero
+      		colorRect.setFill(DEFAULT_COLOR); //if the cell is not visible, the level is zero
     	}
 	}
     
@@ -75,6 +83,13 @@ public class CellUI extends Rectangle implements Cloneable {
     	stackPane.getChildren().addAll(text, this);
 	}
 	
+    public void displayLevel(int level) {
+    	Block block = getBlock();
+    	Text levelText = new Text(String.valueOf(level));
+    
+    	
+    }
+    
 	public void setLevel(int level) {
 		
 		Block block = getBlock();
@@ -93,10 +108,10 @@ public class CellUI extends Rectangle implements Cloneable {
     public void setSelected(boolean status) {
     	isClicked = status;
     	if (isClicked) {
-    		this.setStroke(Color.RED);
+    		colorRect.setStroke(Color.RED);
     		//this.setFill(Color.GREEN);
     	} else {
-    		this.setStroke(Color.BLACK);
+    		colorRect.setStroke(Color.BLACK);
     	}
     }
     public boolean isSelected() {
