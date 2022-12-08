@@ -136,11 +136,12 @@ public class GridBoardUI extends AnchorPane {
     	this.tileSize = size;
     	for (int y = 0; y < gridData.getHeight(); y++) { 
     		for (int x = 0; x < gridData.getWidth(); x++) {
-               	cellArray[x][y].setWidth(size-1);
-            	cellArray[x][y].setHeight(size-1);
+//              cellArray[x][y].setWidth(size-1);
+//            	cellArray[x][y].setHeight(size-1);
+               	cellArray[x][y].resize(size-1, size-1);
  
-            	cellArray[x][y].setLayoutX(x*size);
-            	cellArray[x][y].setLayoutY(y*size);
+//            	cellArray[x][y].setLayoutX(x*size);
+//            	cellArray[x][y].setLayoutY(y*size);
             }
     	}
 	}
