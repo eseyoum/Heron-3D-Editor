@@ -137,7 +137,16 @@ public class EditingScreenController {
     	if (tileSize > 10) {
     		gridBoard.setTileSize(tileSize -= 10);
     	}
-    	
+    }
+    
+    
+    @FXML
+    void displayLevel() {
+    	if (checkBoxDisplayLevel.isSelected()) {
+    		gridBoard.updateVisualDisplayLevel();
+    	} else {
+    		gridBoard.updateVisualRemoveLevel();
+    	}
     }
     
     @FXML

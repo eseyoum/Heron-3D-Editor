@@ -31,17 +31,19 @@ public class CellUI extends StackPane implements Cloneable {
     private String displayLevel;
     private Rectangle colorRect;
 	private Text levelText;
+	private boolean showLevel = false;
+	
     
    
-    public CellUI(GridBoardUI gridBoard, int xIndex, int yIndex) {//, int tileSize) {
-        //super(TILE_SIZE - 1, TILE_SIZE - 1); //a CellUI object is a rectangle
+    public CellUI(GridBoardUI gridBoard, int xIndex, int yIndex) {
 		super();
 		this.colorRect = new Rectangle(TILE_SIZE - 1, TILE_SIZE - 1);
-		this.levelText = new Text("");
-		this.getChildren().addAll(colorRect, levelText);
+		//this.levelText = new Text("");
+		this.getChildren().addAll(colorRect);
     	this.gridBoard = gridBoard;
 		this.xIndex = xIndex;
 		this.yIndex = yIndex;
+		this.levelText = new Text("");
 		updateVisualBasedOnBlock();
 		this.setSelected(false);
 		
@@ -71,23 +73,31 @@ public class CellUI extends StackPane implements Cloneable {
     	} else {
       		colorRect.setFill(DEFAULT_COLOR); //if the cell is not visible, the level is zero
     	}
+    	if (showLevel) {
+        	updateVisualDisplayLevel();
+    	}
 	}
     
 
     public void updateVisualDisplayLevel() {
-    	//Block block = getBlock(); 
-    	//int level = block.getZ();
-    	//Label levelLabel = new Label(String.valueOf(level));
-    	
-    	Text text = new Text("Level");
-    	StackPane stackPane = new StackPane();
-    	stackPane.getChildren().addAll(text, this);
+    	updateVisualRemoveLevel();
+
+    	Block block = getBlock(); 
+    	int level = block.getZ();
+    	Text text = new Text(String.valueOf(level));
+    	this.levelText = text;
+		this.getChildren().addAll(levelText);
+		showLevel = true;
+	}
+    
+    
+    public void updateVisualRemoveLevel() {
+    	Block block = getBlock(); 
+    	int level = block.getZ();
+		this.getChildren().remove(this.levelText);
+		showLevel = false;
 	}
 	
-    public void displayLevel(int level) {
-    	this.levelText = new Text(String.valueOf(level));
-		this.getChildren().addAll(colorRect, levelText);
-    }
     
 	public void setLevel(int level) {
 		Block block = getBlock();
