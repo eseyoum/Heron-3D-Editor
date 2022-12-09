@@ -18,7 +18,7 @@ public class ChooseBoardScreenController {
 	
 	@FXML
     void switchToTemplateScreen(ActionEvent event) throws IOException {
-		App.setRoot("templateScreen");
+		App.setRoot("templatesScreen");
     }
     
     @FXML

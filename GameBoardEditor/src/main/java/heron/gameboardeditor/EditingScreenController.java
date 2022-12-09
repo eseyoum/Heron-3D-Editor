@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonSyntaxException;
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -126,6 +129,13 @@ public class EditingScreenController {
     	undoRedoHandler.redo();
     }
 
+    
+    @FXML
+    private void switchToTemplateScreen(ActionEvent event) throws IOException {
+    	App.setRoot("templateScreen");
+    }
+
+    
     @FXML
     void zoomIn() {
     	gridBoard.setTileSize(tileSize += 10);
@@ -176,6 +186,13 @@ public class EditingScreenController {
     	undoRedoHandler.saveState();
     }
     
+    @FXML
+    void levelPickerOn(ActionEvent event) {
+    	gridBoard.levelPickerTool.addSlider(levelSlider);
+    	gridBoard.gridEditor.setCurrentTool(gridBoard.levelPickerTool);
+    	levelSlider.setValue(gridBoard.getLevel());
+    	undoRedoHandler.saveState();
+    }
     @FXML
     void fillToolOn(ActionEvent event) {
     	gridBoard.gridEditor.setCurrentTool(gridBoard.fillTool);
@@ -240,11 +257,57 @@ public class EditingScreenController {
     }
     
     @FXML
+    void setMaxLevel(ActionEvent event) {
+    	TextInputDialog textInputDialog = new TextInputDialog(); //may need to refactor and combine with terrain tool's text box
+    	textInputDialog.setHeaderText("Enter number of possible levels to work on: ");
+    	textInputDialog.showAndWait();
+    	int newMaxLevel = Integer.parseInt(textInputDialog.getResult());
+    	
+    	levelSlider.setMax(newMaxLevel);
+    	if (newMaxLevel < CellUI.getMaxLevel()) {
+    		gridBoard.getGridData().lowerBlocksHigherThan(newMaxLevel);
+    	}
+    	CellUI.setMaxLevel(newMaxLevel);
+    	gridBoard.updateVisual();
+    }
+    
+    @FXML
     void generateMaze(ActionEvent event) {
     	gridBoard.generateMaze();
     	undoRedoHandler.saveState();
     }
     
+    @FXML
+    void templateOne(ActionEvent event) throws JsonSyntaxException, JsonIOException, IOException {
+    	templetLoaderHelper("/Users/ezanaseyoum/GitHub/HeronRepo/GameBoardEditor/src/main/resources/heron/gameboardeditor/Templates/Augie_A.heron");
+    }
+    
+    @FXML
+    void templateTwo(ActionEvent event) throws JsonSyntaxException, JsonIOException, IOException {
+    	templetLoaderHelper("/Users/ezanaseyoum/GitHub/HeronRepo/GameBoardEditor/src/main/resources/heron/gameboardeditor/Templates/Galaxy.heron");
+    }
+
+    @FXML
+    void templateThree(ActionEvent event) throws JsonSyntaxException, JsonIOException, IOException {
+    	templetLoaderHelper("/Users/ezanaseyoum/GitHub/HeronRepo/GameBoardEditor/src/main/resources/heron/gameboardeditor/Templates/Maze.heron");
+    }
+    
+    @FXML
+    void templateFour(ActionEvent event) throws JsonSyntaxException, JsonIOException, IOException {
+    	templetLoaderHelper("/Users/ezanaseyoum/GitHub/HeronRepo/GameBoardEditor/src/main/resources/heron/gameboardeditor/Templates/Tree.heron");
+    }
+    
+    private void templetLoaderHelper(String path) throws JsonSyntaxException, JsonIOException, IOException {
+    	File file = new File(path);
+    	if (file != null) {
+	    		Grid grid = ProjectIO.load(file);
+	        	App.setGrid(grid);
+	        	undoRedoHandler = new UndoRedoHandler(this);
+	    		gridBoard = new GridBoardUI(grid, undoRedoHandler);
+	    		boardParentVBox.getChildren().clear();
+	    		boardParentVBox.getChildren().addAll(gridBoard);
+    	}
+    }
     
     //File menu bar
     @FXML
@@ -285,6 +348,7 @@ public class EditingScreenController {
     }
     
     private File saveLoadHelper(String dialog, String fileType) {
+    	File file;
     	FileChooser chooser = new FileChooser();
     	FileChooser.ExtensionFilter extention;
     	if(fileType == "heron" ) {
@@ -293,7 +357,6 @@ public class EditingScreenController {
     		extention = new FileChooser.ExtensionFilter("OBJ File (*.OBJ)", "*.OBJ");
     	}
     	chooser.getExtensionFilters().add(extention);
-    	File file;
     	if(dialog == "open") {
     		file = chooser.showOpenDialog(App.getMainWindow());
     	} else {
