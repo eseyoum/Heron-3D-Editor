@@ -157,21 +157,81 @@
                         <ToggleGroup fx:id="toolButtonToggleGroup" />
                      </toggleGroup>
                   </ToggleButton>
+<<<<<<< HEAD
+                  <ToggleButton fx:id="eraserToggle" layoutX="15.0" layoutY="243.0" mnemonicParsing="false" onAction="#eraserButtonOn" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08;" toggleGroup="$toolButtonToggleGroup">
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Icons/Erase.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></ToggleButton>
+                  <ToggleButton fx:id="digToggle" layoutX="91.0" layoutY="193.0" mnemonicParsing="false" onAction="#digButtonOn" text="DIG/ Change level?" toggleGroup="$toolButtonToggleGroup" />
+                  <ToggleButton fx:id="fillToolToggle" layoutX="92.0" layoutY="247.0" mnemonicParsing="false" onAction="#fillToolOn" text="FILL" toggleGroup="$toolButtonToggleGroup" />
+                  <ToggleButton fx:id="selectToggle" layoutX="17.0" layoutY="293.0" mnemonicParsing="false" onAction="#selectToolOn" style="-fx-background-color: EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08;" text="SELECT" toggleGroup="$toolButtonToggleGroup">
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Icons/icons8-select-24%20copy.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></ToggleButton>
+                  <MenuButton fx:id="terrainMenuButton" layoutX="17.0" layoutY="343.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="107.0" style="-fx-background-color: EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08;" text="TerrainTool">
+=======
                   <ToggleButton fx:id="eraserToggle" layoutX="52.0" layoutY="231.0" mnemonicParsing="false" onAction="#eraserButtonOn" text="ERASE" toggleGroup="$toolButtonToggleGroup" />
                   <ToggleButton fx:id="digToggle" layoutX="61.0" layoutY="273.0" mnemonicParsing="false" onAction="#digButtonOn" text="DIG" toggleGroup="$toolButtonToggleGroup" />
                   <ToggleButton layoutX="36.0" layoutY="310.0" mnemonicParsing="false" onAction="#levelPickerOn" text="LEVEL PICKER" toggleGroup="$toolButtonToggleGroup" />
                   <ToggleButton fx:id="fillToolToggle" layoutX="60.0" layoutY="348.0" mnemonicParsing="false" onAction="#fillToolOn" text="FILL" toggleGroup="$toolButtonToggleGroup" />
                   <ToggleButton fx:id="selectToggle" layoutX="49.0" layoutY="382.0" mnemonicParsing="false" onAction="#selectToolOn" text="SELECT" toggleGroup="$toolButtonToggleGroup" />
                   <MenuButton fx:id="terrainMenuButton" layoutX="32.0" layoutY="427.0" mnemonicParsing="false" text="TerrainTool">
+>>>>>>> 164c41305d791c3130a70f54a7a91137b16223e7
                     <items>
                       <MenuItem fx:id="mountainTerrainObject" mnemonicParsing="false" onAction="#terrainTool" text="Mountain" />
                       <MenuItem fx:id="volcanoTerrainObject" mnemonicParsing="false" onAction="#terrainTool" text="Volcano" />
                         <MenuItem mnemonicParsing="false" onAction="#terrainToolCustom" text="Custom..." />
                     </items>
                   </MenuButton>
+<<<<<<< HEAD
+                  <CheckBox fx:id="checkBoxDisplayLevel" layoutX="17.0" layoutY="397.0" mnemonicParsing="false" onAction="#displayLevel" prefHeight="25.0" prefWidth="109.0" style="-fx-background-color: EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08;" text="Show Level" />
+                  <Button fx:id="zoomInButton" layoutX="17.0" layoutY="476.0" mnemonicParsing="false" onAction="#zoomIn" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08;">
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Icons/zoom_in.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button fx:id="zoomOutButton" layoutX="83.0" layoutY="476.0" mnemonicParsing="false" onAction="#zoomOut" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08;">
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Icons/zoom_out.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button layoutX="17.0" layoutY="434.0" mnemonicParsing="false" onAction="#menuEditUndo" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08;">
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Icons/undo.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button layoutX="84.0" layoutY="435.0" mnemonicParsing="false" onAction="#menuEditRedo" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08;">
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Icons/redo.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+=======
                   <Button fx:id="zoomInButton" layoutX="18.0" layoutY="489.0" mnemonicParsing="false" onAction="#zoomIn" text="Zoom in" />
                   <Button fx:id="zoomOutButton" layoutX="89.0" layoutY="489.0" mnemonicParsing="false" onAction="#zoomOut" text="Zoom out" />
                   <CheckBox fx:id="checkBoxDisplayLevel" layoutX="37.0" layoutY="460.0" mnemonicParsing="false" onAction="#displayLevel" text="Display Level" />
+>>>>>>> 164c41305d791c3130a70f54a7a91137b16223e7
                </children>
             </AnchorPane>
         <ScrollPane prefHeight="500.0" prefWidth="691.0">
