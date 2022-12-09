@@ -113,16 +113,28 @@ public class TerrainTool extends Tool {
 	}
 	
 	private void drawTerrainObject(TerrainObject terrainObject, Block initialBlock) {
-		initialBlock.setZ(terrainObject.initialTerrainData.level);
+		
+		//initialBlock.setZ(terrainObject.initialTerrainData.level);
+		initialBlock.setZ(setZ(terrainObject.initialTerrainData));
 		for (TerrainData terrainData : terrainObject.terrainList) {
 			int x = initialBlock.getX() + terrainData.distanceX;
 			 int y = initialBlock.getY() + terrainData.distanceY;
-			 int z = terrainData.level;
+			 int z = setZ(terrainData);
 			 if (gridData.isCoordinateInGrid(x, y)) {
 				 Block block = gridData.getBlockAt(x, y);
 				 block.setZ(z);
 			 }
 		}
+	}
+	
+	private int setZ(TerrainData terrainData) {
+		int z = terrainData.level;
+		if (terrainData.level > CellUI.getMaxLevel()) {
+			 System.out.println("terrainZ too big = " + z);
+			 z = CellUI.getMaxLevel();
+			 System.out.println("newZ = " + z);
+		 }
+		return z;
 	}
 	
 	private TerrainObject createMountain() {
