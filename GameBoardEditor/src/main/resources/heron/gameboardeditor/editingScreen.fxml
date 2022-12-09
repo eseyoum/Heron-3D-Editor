@@ -166,6 +166,7 @@
                         </ImageView>
                      </graphic></ToggleButton>
                   <ToggleButton fx:id="digToggle" layoutX="91.0" layoutY="193.0" mnemonicParsing="false" onAction="#digButtonOn" text="DIG/ Change level?" toggleGroup="$toolButtonToggleGroup" />
+                  <Button layoutX="150.0" layoutY="247.0" mnemonicParsing="false" onAction="#levelPickerOn" text="Level Picker" />
                   <ToggleButton fx:id="fillToolToggle" layoutX="92.0" layoutY="247.0" mnemonicParsing="false" onAction="#fillToolOn" text="FILL" toggleGroup="$toolButtonToggleGroup" />
                   <ToggleButton fx:id="selectToggle" layoutX="17.0" layoutY="293.0" mnemonicParsing="false" onAction="#selectToolOn" style="-fx-background-color: EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08 EFCA08;" text="SELECT" toggleGroup="$toolButtonToggleGroup">
                      <graphic>
