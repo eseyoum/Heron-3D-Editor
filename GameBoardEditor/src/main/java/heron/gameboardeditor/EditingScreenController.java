@@ -255,6 +255,9 @@ public class EditingScreenController {
     	
     	levelSlider.setMax(newMaxLevel);
     	//gridBoard.getGridData().setNewLevel(); eventually do this which will handle if level is lower
+    	if (newMaxLevel < CellUI.getMaxLevel()) {
+    		gridBoard.getGridData().lowerBlocksHigherThan(newMaxLevel);
+    	}
     	CellUI.setMaxLevel(newMaxLevel);
     	gridBoard.updateVisual();
     }
