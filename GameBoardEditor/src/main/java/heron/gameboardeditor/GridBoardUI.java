@@ -175,6 +175,17 @@ public class GridBoardUI extends AnchorPane {
     	}
     }
     
+    public Boolean isEmpty() {
+    	for (int y = 0; y < gridData.getHeight(); y++) { //may be a better way to go through the cells
+    		for (int x = 0; x < gridData.getWidth(); x++) {
+    			if(gridData.getBlockAt(x, y).getZ() != 0) {
+    				return false;
+				}
+            }
+    	}
+    	return true;
+    }
+    
     public void resize(int newWidth, int newHeight) {
     	gridData.resize(newWidth, newHeight);
     }
