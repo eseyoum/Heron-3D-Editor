@@ -269,6 +269,7 @@ public class EditingScreenController {
     		gridBoard.getGridData().lowerBlocksHigherThan(newMaxLevel);
     	}
     	CellUI.setMaxLevel(newMaxLevel);
+    	gridBoard.setLevel(newMaxLevel);
     	gridBoard.updateVisual();
     }
     
