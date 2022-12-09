@@ -10,6 +10,7 @@ import heron.gameboardeditor.generators.Maze;
 import heron.gameboardeditor.tools.DigTool;
 import heron.gameboardeditor.tools.EraserTool;
 import heron.gameboardeditor.tools.FillTool;
+import heron.gameboardeditor.tools.LevelPickerTool;
 import heron.gameboardeditor.tools.PencilTool;
 import heron.gameboardeditor.tools.SelectionTool;
 import heron.gameboardeditor.tools.TerrainTool;
@@ -32,9 +33,11 @@ public class GridBoardUI extends AnchorPane {
     public final PencilTool pencilTool;
     public final EraserTool eraserTool;
     public final DigTool digTool;
+    public final LevelPickerTool levelPickerTool;
     public final FillTool fillTool;
     public final SelectionTool selectionTool;
     public final TerrainTool terrainTool;
+    
     private UndoRedoHandler undoRedoHandler;
     private int tileSize;
     
@@ -54,6 +57,7 @@ public class GridBoardUI extends AnchorPane {
         this.pencilTool = new PencilTool(this, undoRedoHandler);
         this.eraserTool = new EraserTool(this, undoRedoHandler);
         this.digTool = new DigTool(this, undoRedoHandler);
+        this.levelPickerTool = new LevelPickerTool(this, undoRedoHandler);
         this.fillTool = new FillTool(this, this.gridData, undoRedoHandler);
         this.selectionTool = new SelectionTool(this, undoRedoHandler);
         this.terrainTool = new TerrainTool(this, undoRedoHandler);
@@ -173,6 +177,17 @@ public class GridBoardUI extends AnchorPane {
 				}
             }
     	}
+    }
+    
+    public Boolean isEmpty() {
+    	for (int y = 0; y < gridData.getHeight(); y++) { //may be a better way to go through the cells
+    		for (int x = 0; x < gridData.getWidth(); x++) {
+    			if(gridData.getBlockAt(x, y).getZ() != 0) {
+    				return false;
+				}
+            }
+    	}
+    	return true;
     }
     
     public void resize(int newWidth, int newHeight) {

@@ -164,6 +164,16 @@ public class Grid implements Cloneable {
     	}
 	}
 	
+	public void lowerBlocksHigherThan(int level) {
+		for (int y = 0; y < this.getHeight(); y++) {
+            for (int x = 0; x < this.getWidth(); x++) {
+            	if (blockGrid[x][y].getZ() > level) {
+            		blockGrid[x][y].setZ(level);
+            	}
+            }
+    	}
+	}
+	
 	public Set<Block> getSelectedBlocks(Set<CellUI> selectedCells) { //gets the blocks associated with the selected cells
 		Set<Block> selectedBlocks = new HashSet<Block>();
 		for (CellUI cell : selectedCells) {
