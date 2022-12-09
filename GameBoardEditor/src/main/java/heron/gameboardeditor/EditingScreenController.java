@@ -193,6 +193,7 @@ public class EditingScreenController {
     	levelSlider.setValue(gridBoard.getLevel());
     	undoRedoHandler.saveState();
     }
+    
     @FXML
     void fillToolOn(ActionEvent event) {
     	gridBoard.gridEditor.setCurrentTool(gridBoard.fillTool);
