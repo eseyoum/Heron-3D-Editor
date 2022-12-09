@@ -346,7 +346,7 @@ public class EditingScreenController {
     				writer.write("v " + (c + 1) + " " + (r + 1) + " " + 0 + "\n");
     				writer.write("v " + (c + 1) + " " + (r + 1) + " " + e + "\n");
     				
-//    				writer.write("v " + (c + 0.5) + " " + (r + 0.5) + " " + (e + 0.5) + "\n");
+//    				writer.write("v " + (c + 0.5) + " " + (r + 0.5) + " " + (e + 3) + "\n");
     			}
     		}
     		for(int i = 0; i < (grid.getWidth() * grid.getHeight()); i++) {
@@ -357,10 +357,10 @@ public class EditingScreenController {
     			writer.write("f " + (8 * i + 5) + " " + (8 * i + 8) + " " + (8 * i + 4) + " " + (8 * i + 1) + "\n");
     			writer.write("f " + (8 * i + 6) + " " + (8 * i + 7) + " " + (8 * i + 8) + " " + (8 * i + 5) + "\n");
     			
-//    			writer.write("f " + (8 * i + 9) + " " + (8 * i + 4) + " " + (8 * i + 1) + "\n");
-//    			writer.write("f " + (8 * i + 9) + " " + (8 * i + 4) + " " + (8 * i + 8) + "\n");
 //    			writer.write("f " + (8 * i + 9) + " " + (8 * i + 8) + " " + (8 * i + 5) + "\n");
-//    			writer.write("f " + (8 * i + 9) + " " + (8 * i + 5) + " " + (8 * i + 1) + "\n");
+//    			writer.write("f " + (8 * i + 9) + " " + (8 * i + 8) + " " + (8 * i + 7) + "\n");
+//    			writer.write("f " + (8 * i + 9) + " " + (8 * i + 6) + " " + (8 * i + 7) + "\n");
+//    			writer.write("f " + (8 * i + 9) + " " + (8 * i + 6) + " " + (8 * i + 5) + "\n");
     		}
     		writer.close();
     	}
