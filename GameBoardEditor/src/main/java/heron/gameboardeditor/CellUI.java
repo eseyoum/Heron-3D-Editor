@@ -9,6 +9,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.scene.effect.ColorAdjust; 
+
 
 /**
  * This class represents one cell (or tile) of the GridBoardUI
@@ -17,9 +19,11 @@ public class CellUI extends StackPane implements Cloneable {
 	
     //public int tileSize = 30; //size of the cells
     public static final int TILE_SIZE = 30;
-    public static final int MAX_LEVEL = 5; //number of possible levels
     private static final Color DEFAULT_COLOR = Color.CORNFLOWERBLUE; //default color of the cells
-    private static List<Color> colorList = generateColors(); //list of colors for each level of the depth map
+    
+    private static int maxLevel; //number of possible levels
+    private static List<Color> colorList; //list of colors for each level of the depth map
+    private static Color firstLevelColor = Color.DARKGREY.darker().darker().darker(); //color for the first level
 
 //    private final GridBoardUI gridBoard;
     private GridBoardUI gridBoard;
@@ -46,7 +50,8 @@ public class CellUI extends StackPane implements Cloneable {
 		this.levelText = new Text("");
 		updateVisualBasedOnBlock();
 		this.setSelected(false);
-		
+		maxLevel = 5;
+		colorList = generateColors();
     }
     
     /**
@@ -54,16 +59,36 @@ public class CellUI extends StackPane implements Cloneable {
      */
     private static List<Color> generateColors() {
     	List<Color> colors = new ArrayList<>();
-    	Color color = Color.DARKGREY.darker().darker().darker(); //color for the first level
+    	Color color = firstLevelColor;
     	colors.add(color);
-        for (int i = 0; i < MAX_LEVEL - 1; i++) {
-        	color = color.brighter(); //higher levels are brighter colors 
+    	double initialBrightness = color.getBrightness();
+    	double brightnessIncrease = ((double) 1 - initialBrightness) / ((double) maxLevel - (double) 1); //how much each level's color should be increased from the previous
+        for (int i = 0; i < maxLevel - 1; i++) {
+        	color = brightenColor(color, brightnessIncrease);
         	colors.add(color);
         }
+        colorList = colors;
         return colors;
     }
     
-    /**
+    private static Color brightenColor(Color color, double brightnessIncrease) {
+    	double newBrightness = color.getBrightness() + brightnessIncrease;
+    	if (newBrightness > 1) { //1 is the highest brightness can be
+    		newBrightness = 1;
+    	}
+    	return Color.hsb(color.getHue(), color.getSaturation(), newBrightness, color.getOpacity());
+    }
+    
+    public static int getMaxLevel() {
+		return maxLevel;
+	}
+
+	public static void setMaxLevel(int maxLevel) {
+		CellUI.maxLevel = maxLevel;
+		generateColors();
+	}
+
+	/**
      * Updates the cell color to reflect the level of the block
      */
     public void updateVisualBasedOnBlock() {

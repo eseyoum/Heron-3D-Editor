@@ -187,6 +187,13 @@ public class EditingScreenController {
     }
     
     @FXML
+    void levelPickerOn(ActionEvent event) {
+    	gridBoard.levelPickerTool.addSlider(levelSlider);
+    	gridBoard.gridEditor.setCurrentTool(gridBoard.levelPickerTool);
+    	levelSlider.setValue(gridBoard.getLevel());
+    	undoRedoHandler.saveState();
+    }
+    @FXML
     void fillToolOn(ActionEvent event) {
     	gridBoard.gridEditor.setCurrentTool(gridBoard.fillTool);
     	undoRedoHandler.saveState();
@@ -247,6 +254,21 @@ public class EditingScreenController {
     @FXML
     void deselectLevel(ActionEvent event) {
     	gridBoard.selectLevel(false);
+    }
+    
+    @FXML
+    void setMaxLevel(ActionEvent event) {
+    	TextInputDialog textInputDialog = new TextInputDialog(); //may need to refactor and combine with terrain tool's text box
+    	textInputDialog.setHeaderText("Enter number of possible levels to work on: ");
+    	textInputDialog.showAndWait();
+    	int newMaxLevel = Integer.parseInt(textInputDialog.getResult());
+    	
+    	levelSlider.setMax(newMaxLevel);
+    	if (newMaxLevel < CellUI.getMaxLevel()) {
+    		gridBoard.getGridData().lowerBlocksHigherThan(newMaxLevel);
+    	}
+    	CellUI.setMaxLevel(newMaxLevel);
+    	gridBoard.updateVisual();
     }
     
     @FXML
