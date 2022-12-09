@@ -184,6 +184,13 @@ public class EditingScreenController {
     }
     
     @FXML
+    void levelPickerOn(ActionEvent event) {
+    	gridBoard.levelPickerTool.addSlider(levelSlider);
+    	gridBoard.gridEditor.setCurrentTool(gridBoard.levelPickerTool);
+    	levelSlider.setValue(gridBoard.getLevel());
+    	undoRedoHandler.saveState();
+    }
+    @FXML
     void fillToolOn(ActionEvent event) {
     	gridBoard.gridEditor.setCurrentTool(gridBoard.fillTool);
     	undoRedoHandler.saveState();
@@ -254,7 +261,6 @@ public class EditingScreenController {
     	int newMaxLevel = Integer.parseInt(textInputDialog.getResult());
     	
     	levelSlider.setMax(newMaxLevel);
-    	//gridBoard.getGridData().setNewLevel(); eventually do this which will handle if level is lower
     	if (newMaxLevel < CellUI.getMaxLevel()) {
     		gridBoard.getGridData().lowerBlocksHigherThan(newMaxLevel);
     	}
