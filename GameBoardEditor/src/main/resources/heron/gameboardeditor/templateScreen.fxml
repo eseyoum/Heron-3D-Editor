@@ -10,11 +10,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: EFCA08;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="heron.gameboardeditor.WelcomeScreenController">
+<BorderPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: EFCA08;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="heron.gameboardeditor.TemplateScreenController">
    <top>
       <HBox prefHeight="80.0" prefWidth="900.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#switchToWelcomeScreen" prefHeight="36.0" prefWidth="47.0" style="-fx-background-color: EFCA08 EFCA08;">
+            <Button mnemonicParsing="false" onAction="#switchToChooseScreen" prefHeight="36.0" prefWidth="47.0" style="-fx-background-color: EFCA08 EFCA08;">
                <graphic>
                   <ImageView fitHeight="29.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -27,6 +27,9 @@
                <font>
                   <Font name="DIN Condensed Bold" size="53.0" />
                </font>
+               <HBox.margin>
+                  <Insets right="47.0" />
+               </HBox.margin>
             </Label>
          </children>
       </HBox>
@@ -36,32 +39,39 @@
          <children>
             <VBox prefHeight="200.0" prefWidth="450.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="240.0" prefWidth="400.0">
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="240.0" prefWidth="400.0" style="-fx-background-color: EFCA08;">
                      <graphic>
-                        <ImageView fitHeight="150.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="224.0" fitWidth="236.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Templates_Image/Tree.png" />
+                           </image></ImageView>
                      </graphic>
                      <VBox.margin>
                         <Insets left="30.0" />
                      </VBox.margin>
                   </Button>
-                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="450.0" text="Label">
+                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="450.0" text="Tree">
                      <font>
                         <Font name="DIN Condensed Bold" size="19.0" />
                      </font>
                   </Label>
                </children>
             </VBox>
-            <VBox prefHeight="260.0" prefWidth="500.0">
+            <VBox prefHeight="260.0" prefWidth="450.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="240.0" prefWidth="400.0">
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="240.0" prefWidth="400.0" style="-fx-background-color: EFCA08;">
                      <graphic>
-                        <ImageView fitHeight="150.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="224.0" fitWidth="236.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Templates_Image/Maze.png" />
+                           </image>
+                        </ImageView>
                      </graphic>
                      <VBox.margin>
-                        <Insets left="30.0" />
+                        <Insets left="30.0" right="40.0" />
                      </VBox.margin>
                   </Button>
-                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="450.0" text="Label">
+                  <Label alignment="CENTER" prefHeight="26.0" prefWidth="477.0" text="Maze">
                      <font>
                         <Font name="DIN Condensed Bold" size="19.0" />
                      </font>
@@ -76,15 +86,18 @@
          <children>
             <VBox prefHeight="260.0" prefWidth="450.0">
                <children>
-                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="240.0" prefWidth="400.0">
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="240.0" prefWidth="400.0" style="-fx-background-color: EFCA08;">
                      <graphic>
-                        <ImageView fitHeight="150.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="224.0" fitWidth="236.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Templates_Image/Augie%20A.png" />
+                           </image></ImageView>
                      </graphic>
                      <VBox.margin>
                         <Insets left="30.0" />
                      </VBox.margin>
                   </Button>
-                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="450.0" text="Label">
+                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="450.0" text="Augie A">
                      <font>
                         <Font name="DIN Condensed Bold" size="19.0" />
                      </font>
@@ -93,15 +106,18 @@
             </VBox>
             <VBox prefHeight="260.0" prefWidth="455.0">
                <children>
-                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="240.0" prefWidth="400.0">
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="240.0" prefWidth="400.0" style="-fx-background-color: EFCA08 EFCA08;">
                      <graphic>
-                        <ImageView fitHeight="150.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="224.0" fitWidth="236.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Templates_Image/Galaxy.png" />
+                           </image></ImageView>
                      </graphic>
                      <VBox.margin>
                         <Insets left="30.0" right="40.0" />
                      </VBox.margin>
                   </Button>
-                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="450.0" text="Label">
+                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="450.0" text="Galaxy">
                      <font>
                         <Font name="DIN Condensed Bold" size="19.0" />
                      </font>

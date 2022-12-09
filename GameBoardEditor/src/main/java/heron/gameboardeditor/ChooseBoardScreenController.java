@@ -15,6 +15,11 @@ public class ChooseBoardScreenController {
     void switchToEmptyBoard(ActionEvent event) throws IOException {
 		App.setRoot("editingScreen");
     }
+	
+	@FXML
+    void switchToTemplateScreen(ActionEvent event) throws IOException {
+		App.setRoot("templateScreen");
+    }
     
     @FXML
     void initialize() {

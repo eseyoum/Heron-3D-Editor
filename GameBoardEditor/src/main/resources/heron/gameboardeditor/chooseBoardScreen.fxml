@@ -54,27 +54,21 @@
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#switchToEmptyBoard" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 20px;">
+            <Button mnemonicParsing="false" onAction="#switchToEmptyBoard" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 20px;" text="Empty Board">
                <VBox.margin>
                   <Insets bottom="15.0" left="20.0" top="15.0" />
                </VBox.margin>
-               <graphic>
-                  <Label alignment="CENTER" prefWidth="520.0" text="Empty Board" textAlignment="CENTER">
-                     <font>
-                        <Font size="25.0" />
-                     </font></Label>
-               </graphic>
+               <font>
+                  <Font size="25.0" />
+               </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 20px;">
+            <Button mnemonicParsing="false" onAction="#switchToTemplateScreen" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 20px;" text="Templates">
                <VBox.margin>
                   <Insets bottom="15.0" left="20.0" top="15.0" />
                </VBox.margin>
-               <graphic>
-                  <Label alignment="CENTER" prefWidth="500.0" text="Templates">
-                     <font>
-                        <Font size="25.0" />
-                     </font></Label>
-               </graphic>
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
             </Button>
          </children>
       </VBox>

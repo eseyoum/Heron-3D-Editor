@@ -110,7 +110,7 @@ public class EditingScreenController {
     	} 
     	if (!numRow.getText().isBlank() && !numColumn.getText().isBlank()) {
         	App.resizeGrid(columns, rows);
-        	refreshUIFromGrid( );
+        	gridBoard.updateVisualBasedOnGrid();
         	undoRedoHandler.saveState();
     	}
 
@@ -126,6 +126,13 @@ public class EditingScreenController {
     	undoRedoHandler.redo();
     }
 
+    
+    @FXML
+    private void switchToTemplateScreen(ActionEvent event) throws IOException {
+    	App.setRoot("templateScreen");
+    }
+
+    
     @FXML
     void zoomIn() {
     	gridBoard.setTileSize(tileSize += 10);
@@ -137,7 +144,16 @@ public class EditingScreenController {
     	if (tileSize > 10) {
     		gridBoard.setTileSize(tileSize -= 10);
     	}
-    	
+    }
+    
+    
+    @FXML
+    void displayLevel() {
+    	if (checkBoxDisplayLevel.isSelected()) {
+    		gridBoard.updateVisualDisplayLevel();
+    	} else {
+    		gridBoard.updateVisualRemoveLevel();
+    	}
     }
     
     @FXML
@@ -228,6 +244,19 @@ public class EditingScreenController {
     @FXML
     void deselectLevel(ActionEvent event) {
     	gridBoard.selectLevel(false);
+    }
+    
+    @FXML
+    void setMaxLevel(ActionEvent event) {
+    	TextInputDialog textInputDialog = new TextInputDialog(); //may need to refactor and combine with terrain tool's text box
+    	textInputDialog.setHeaderText("Enter number of possible levels to work on: ");
+    	textInputDialog.showAndWait();
+    	int newMaxLevel = Integer.parseInt(textInputDialog.getResult());
+    	
+    	levelSlider.setMax(newMaxLevel);
+    	//gridBoard.getGridData().setNewLevel(); eventually do this which will handle if level is lower
+    	CellUI.setMaxLevel(newMaxLevel);
+    	gridBoard.updateVisual();
     }
     
     @FXML
@@ -336,6 +365,8 @@ public class EditingScreenController {
     				writer.write("v " + (c + 1) + " " + r + " " + 0 + "\n");
     				writer.write("v " + (c + 1) + " " + (r + 1) + " " + 0 + "\n");
     				writer.write("v " + (c + 1) + " " + (r + 1) + " " + e + "\n");
+    				
+//    				writer.write("v " + (c + 0.5) + " " + (r + 0.5) + " " + (e + 0.5) + "\n");
     			}
     		}
     		for(int i = 0; i < (grid.getWidth() * grid.getHeight()); i++) {
@@ -345,6 +376,11 @@ public class EditingScreenController {
     			writer.write("f " + (8 * i + 8) + " " + (8 * i + 7) + " " + (8 * i + 3) + " " + (8 * i + 4) + "\n");
     			writer.write("f " + (8 * i + 5) + " " + (8 * i + 8) + " " + (8 * i + 4) + " " + (8 * i + 1) + "\n");
     			writer.write("f " + (8 * i + 6) + " " + (8 * i + 7) + " " + (8 * i + 8) + " " + (8 * i + 5) + "\n");
+    			
+//    			writer.write("f " + (8 * i + 9) + " " + (8 * i + 4) + " " + (8 * i + 1) + "\n");
+//    			writer.write("f " + (8 * i + 9) + " " + (8 * i + 4) + " " + (8 * i + 8) + "\n");
+//    			writer.write("f " + (8 * i + 9) + " " + (8 * i + 8) + " " + (8 * i + 5) + "\n");
+//    			writer.write("f " + (8 * i + 9) + " " + (8 * i + 5) + " " + (8 * i + 1) + "\n");
     		}
     		writer.close();
     	}

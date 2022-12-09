@@ -256,8 +256,7 @@ public class Grid implements Cloneable {
     		int srcY = block.getY();
 	    	int destX = srcX + changeInXIndex;
 	    	int destY = srcY + changeInYIndex;
-//    		if (!(destX >= width || destY >= height)) { //if the block is not moved outside of the grid
-    		if (destX < width && destY < height) {
+    		if (destX < width && destX >= 0 && destY < height && destY >= 0) { //if block is in the grid
 	    		blockGrid[destX][destY].setZ(originalData.blockGrid[srcX][srcY].getZ());
     		}
     	}
