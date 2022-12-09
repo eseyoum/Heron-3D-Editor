@@ -279,22 +279,22 @@ public class EditingScreenController {
     
     @FXML
     void templateOne(ActionEvent event) throws JsonSyntaxException, JsonIOException, IOException {
-    	templetLoaderHelper("/Users/levinhngoc/Desktop/Heron/HeronRepo/GameBoardEditor/src/main/resources/heron/gameboardeditor/Templates/Augie_A.heron");
+    	templetLoaderHelper("/Users/ezanaseyoum/GitHub/HeronRepo/GameBoardEditor/src/main/resources/heron/gameboardeditor/Templates/Augie_A.heron");
     }
     
     @FXML
     void templateTwo(ActionEvent event) throws JsonSyntaxException, JsonIOException, IOException {
-    	templetLoaderHelper("/Users/levinhngoc/Desktop/Heron/HeronRepo/GameBoardEditor/src/main/resources/heron/gameboardeditor/Templates/Galaxy.heron");
+    	templetLoaderHelper("/Users/ezanaseyoum/GitHub/HeronRepo/GameBoardEditor/src/main/resources/heron/gameboardeditor/Templates/Galaxy.heron");
     }
 
     @FXML
     void templateThree(ActionEvent event) throws JsonSyntaxException, JsonIOException, IOException {
-    	templetLoaderHelper("/Users/levinhngoc/Desktop/Heron/HeronRepo/GameBoardEditor/src/main/resources/heron/gameboardeditor/Templates/Maze.heron");
+    	templetLoaderHelper("/Users/ezanaseyoum/GitHub/HeronRepo/GameBoardEditor/src/main/resources/heron/gameboardeditor/Templates/Maze.heron");
     }
     
     @FXML
     void templateFour(ActionEvent event) throws JsonSyntaxException, JsonIOException, IOException {
-    	templetLoaderHelper("/Users/levinhngoc/Desktop/Heron/HeronRepo/GameBoardEditor/src/main/resources/heron/gameboardeditor/Templates/tree.heron");
+    	templetLoaderHelper("/Users/ezanaseyoum/GitHub/HeronRepo/GameBoardEditor/src/main/resources/heron/gameboardeditor/Templates/Tree.heron");
     }
     
     private void templetLoaderHelper(String path) throws JsonSyntaxException, JsonIOException, IOException {
@@ -409,7 +409,7 @@ public class EditingScreenController {
     				writer.write("v " + (c + 1) + " " + (r + 1) + " " + 0 + "\n");
     				writer.write("v " + (c + 1) + " " + (r + 1) + " " + e + "\n");
     				
-//    				writer.write("v " + (c + 0.5) + " " + (r + 0.5) + " " + (e + 0.5) + "\n");
+//    				writer.write("v " + (c + 0.5) + " " + (r + 0.5) + " " + (e + 3) + "\n");
     			}
     		}
     		for(int i = 0; i < (grid.getWidth() * grid.getHeight()); i++) {
@@ -420,10 +420,10 @@ public class EditingScreenController {
     			writer.write("f " + (8 * i + 5) + " " + (8 * i + 8) + " " + (8 * i + 4) + " " + (8 * i + 1) + "\n");
     			writer.write("f " + (8 * i + 6) + " " + (8 * i + 7) + " " + (8 * i + 8) + " " + (8 * i + 5) + "\n");
     			
-//    			writer.write("f " + (8 * i + 9) + " " + (8 * i + 4) + " " + (8 * i + 1) + "\n");
-//    			writer.write("f " + (8 * i + 9) + " " + (8 * i + 4) + " " + (8 * i + 8) + "\n");
 //    			writer.write("f " + (8 * i + 9) + " " + (8 * i + 8) + " " + (8 * i + 5) + "\n");
-//    			writer.write("f " + (8 * i + 9) + " " + (8 * i + 5) + " " + (8 * i + 1) + "\n");
+//    			writer.write("f " + (8 * i + 9) + " " + (8 * i + 8) + " " + (8 * i + 7) + "\n");
+//    			writer.write("f " + (8 * i + 9) + " " + (8 * i + 6) + " " + (8 * i + 7) + "\n");
+//    			writer.write("f " + (8 * i + 9) + " " + (8 * i + 6) + " " + (8 * i + 5) + "\n");
     		}
     		writer.close();
     	}
