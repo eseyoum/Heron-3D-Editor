@@ -218,6 +218,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
+                  <Button layoutX="36.0" layoutY="548.0" mnemonicParsing="false" onAction="#pointyToolOn" text="Pointy" />
                </children>
             </AnchorPane>
         <ScrollPane prefHeight="500.0" prefWidth="691.0">

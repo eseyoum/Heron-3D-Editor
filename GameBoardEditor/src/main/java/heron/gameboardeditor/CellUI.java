@@ -36,6 +36,8 @@ public class CellUI extends StackPane implements Cloneable {
     private Rectangle colorRect;
 	private Text levelText;
 	private boolean showLevel = false;
+
+
 	
     
    
@@ -83,6 +85,7 @@ public class CellUI extends StackPane implements Cloneable {
 		return maxLevel;
 	}
 
+    
 	public static void setMaxLevel(int maxLevel) {
 		CellUI.maxLevel = maxLevel;
 		generateColors();
@@ -97,10 +100,21 @@ public class CellUI extends StackPane implements Cloneable {
     		colorRect.setFill(colorList.get(block.getZ() - 1));
     	} else {
       		colorRect.setFill(DEFAULT_COLOR); //if the cell is not visible, the level is zero
+      		
     	}
     	if (showLevel) {
         	updateVisualDisplayLevel();
     	}
+    	
+    	if (block.isPointy()) {
+    		colorRect.setStroke(Color.GREEN);
+    	}
+	}
+    
+	public void setPointy(boolean pointy) {
+		Block block = getBlock(); 
+		block.setPointy(pointy);
+		updateVisualBasedOnBlock();
 	}
     
 

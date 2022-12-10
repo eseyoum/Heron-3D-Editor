@@ -12,6 +12,7 @@ import heron.gameboardeditor.tools.EraserTool;
 import heron.gameboardeditor.tools.FillTool;
 import heron.gameboardeditor.tools.LevelPickerTool;
 import heron.gameboardeditor.tools.PencilTool;
+import heron.gameboardeditor.tools.PointyTool;
 import heron.gameboardeditor.tools.SelectionTool;
 import heron.gameboardeditor.tools.TerrainTool;
 import javafx.scene.layout.AnchorPane;
@@ -37,6 +38,7 @@ public class GridBoardUI extends AnchorPane {
     public final FillTool fillTool;
     public final SelectionTool selectionTool;
     public final TerrainTool terrainTool;
+    public final PointyTool pointyTool;
     
     private UndoRedoHandler undoRedoHandler;
     private int tileSize;
@@ -61,6 +63,7 @@ public class GridBoardUI extends AnchorPane {
         this.fillTool = new FillTool(this, this.gridData, undoRedoHandler);
         this.selectionTool = new SelectionTool(this, undoRedoHandler);
         this.terrainTool = new TerrainTool(this, undoRedoHandler);
+        this.pointyTool = new PointyTool(this, undoRedoHandler);
         
         this.gridEditor = new GridEditor(pencilTool); //pencilTool is the default tool
         
@@ -103,6 +106,8 @@ public class GridBoardUI extends AnchorPane {
     public int getTileSize() { 
 		return tileSize;
 	}
+    
+    
     
 	
     public Grid getGridData() { //grid data represents the data of the GridUI
