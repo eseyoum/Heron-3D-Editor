@@ -30,8 +30,8 @@ public class LevelPickerTool extends Tool {
 	}
 	
 	public void pickLevel(MouseEvent e) {
-		int x = (int) e.getX() / CellUI.TILE_SIZE;
-		int y = (int) e.getY() / CellUI.TILE_SIZE;
+		int x = (int) e.getX() / CellUI.DEFAULT_TILE_SIZE;
+		int y = (int) e.getY() / CellUI.DEFAULT_TILE_SIZE;
 		if (gridBoard.getGridData().isCoordinateInGrid(x, y)) {
 			CellUI cellClicked = gridBoard.getCell(x, y);
 			if (cellClicked.getLevel() > 0) {

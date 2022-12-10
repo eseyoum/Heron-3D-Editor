@@ -70,19 +70,23 @@ public class EditingScreenController {
     private VBox boardParentVBox;
     private GridBoardUI gridBoard;
     private UndoRedoHandler undoRedoHandler;
-    private int tileSize;
     
     @FXML
     private void initialize() {
     	this.undoRedoHandler = new UndoRedoHandler(this);
     	refreshUIFromGrid();
-    	tileSize = CellUI.TILE_SIZE;
     }
     
     private void refreshUIFromGrid() {
         gridMapPane = new BorderPane();
         gridMapPane.setPrefSize(600, 800);
-        gridBoard = new GridBoardUI(App.getGrid(), undoRedoHandler); //creates a GridBoardUI, which is the grid the user can see
+        
+    	int tileSize = CellUI.DEFAULT_TILE_SIZE;
+        if (gridBoard != null) {
+        	tileSize = gridBoard.getTileSize();
+        }
+        gridBoard = new GridBoardUI(App.getGrid(), undoRedoHandler, tileSize); //creates a GridBoardUI, which is the grid the user can see
+        
         boardParentVBox = new VBox(50, gridBoard); //creates a vbox with myBoard for children
         boardParentVBox.setAlignment(Pos.TOP_RIGHT);
         gridMapPane.setCenter(boardParentVBox);
@@ -138,17 +142,33 @@ public class EditingScreenController {
     
     @FXML
     void zoomIn() {
-    	gridBoard.setTileSize(tileSize += 10);
+    	gridBoard.setTileSize(gridBoard.getTileSize()+10);
+//    	undoRedoHandler.saveState();
+    	
     }
     
    
     @FXML
     void zoomOut() {
-    	if (tileSize > 10) {
-    		gridBoard.setTileSize(tileSize -= 10);
+    	if (gridBoard.getTileSize() > 10) {
+    		gridBoard.setTileSize(gridBoard.getTileSize()-10);
     	}
+//    	undoRedoHandler.saveState();
     }
     
+//    public void setTileSize(int size) throws ArithmeticException { 
+//    	//this.tileSize = size;
+//    	for (int y = 0; y < gridBoard.getHeight(); y++) { 
+//    		for (int x = 0; x < gridBoard.getWidth(); x++) {
+//    			gridBoard.getCell(x,y).getColorRect().setWidth(size - 1);
+//    			gridBoard.getCell(x,y).getColorRect().setHeight(size - 1);
+//               	
+//    			gridBoard.getCell(x,y).setLayoutX(x*size);
+//    			gridBoard.getCell(x,y).setLayoutY(y*size);
+//    			gridBoard.updateVisual();
+//            }
+//    	}
+//	}
     
     @FXML
     void displayLevel() {
@@ -303,7 +323,7 @@ public class EditingScreenController {
 	    		Grid grid = ProjectIO.load(file);
 	        	App.setGrid(grid);
 	        	undoRedoHandler = new UndoRedoHandler(this);
-	    		gridBoard = new GridBoardUI(grid, undoRedoHandler);
+	    		gridBoard = new GridBoardUI(grid, undoRedoHandler, CellUI.DEFAULT_TILE_SIZE);
 	    		boardParentVBox.getChildren().clear();
 	    		boardParentVBox.getChildren().addAll(gridBoard);
     	}
@@ -323,7 +343,7 @@ public class EditingScreenController {
 				Grid grid = ProjectIO.load(file);
 				App.setGrid(grid);
 				undoRedoHandler = new UndoRedoHandler(this);
-				gridBoard = new GridBoardUI(grid, undoRedoHandler);
+				gridBoard = new GridBoardUI(grid, undoRedoHandler, CellUI.DEFAULT_TILE_SIZE);
 				boardParentVBox.getChildren().clear();
 				boardParentVBox.getChildren().addAll(gridBoard);
 			} catch (FileNotFoundException ex) {
