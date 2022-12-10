@@ -21,6 +21,7 @@ import javafx.scene.layout.AnchorPane;
  */
 public class GridBoardUI extends AnchorPane {
 
+	
 	private Grid gridData;
 	private CellUI[][] cellArray;
     private int width; //number of cells of the width

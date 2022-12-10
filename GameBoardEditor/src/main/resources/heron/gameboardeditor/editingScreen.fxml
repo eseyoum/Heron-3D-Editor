@@ -73,8 +73,8 @@
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#menuEditUndo" text="Undo" />
-            <MenuItem mnemonicParsing="false" onAction="#menuEditRedo" text="Redo" />
+            <MenuItem mnemonicParsing="false" onAction="#undoAction" text="Undo" />
+            <MenuItem mnemonicParsing="false" onAction="#redoAction" text="Redo" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" text="Cut" />
             <MenuItem mnemonicParsing="false" text="Copy" />
@@ -108,7 +108,7 @@
             </Menu>
       </menus>
     </MenuBar>
-    <SplitPane dividerPositions="0.16553701772679874, 0.8005735140771637" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <SplitPane dividerPositions="0.1259124087591241, 0.8005735140771637" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <items>
             <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="500.0" prefWidth="154.0" SplitPane.resizableWithParent="false">
                <children>
@@ -144,7 +144,7 @@
                         </Button>
                      </children>
                   </VBox>
-                  <Slider fx:id="levelSlider" blockIncrement="1.0" cacheShape="false" centerShape="false" layoutX="5.0" layoutY="142.0" majorTickUnit="1.0" max="5.0" min="1.0" minorTickCount="0" onDragDetected="#changeLevel" onMouseClicked="#changeLevel" prefHeight="38.0" prefWidth="163.0" scaleShape="false" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
+                  <Slider fx:id="levelSlider" blockIncrement="1.0" cacheShape="false" centerShape="false" layoutX="5.0" layoutY="142.0" majorTickUnit="1.0" max="5.0" min="1.0" minorTickCount="0" onDragDetected="#changeLevel" onMouseClicked="#changeLevel" prefHeight="38.0" prefWidth="224.0" scaleShape="false" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
                   <ToggleButton fx:id="pencilToggle" layoutX="15.0" layoutY="190.0" mnemonicParsing="false" onAction="#pencilButtonOn" prefHeight="30.0" prefWidth="40.0" selected="true">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
@@ -183,8 +183,8 @@
                         <MenuItem mnemonicParsing="false" onAction="#terrainToolCustom" text="Custom..." />
                     </items>
                   </MenuButton>
-                  <CheckBox fx:id="checkBoxDisplayLevel" layoutX="17.0" layoutY="397.0" mnemonicParsing="false" onAction="#displayLevel" prefHeight="25.0" prefWidth="109.0" text="Show Level" />
-                  <Button fx:id="zoomInButton" layoutX="17.0" layoutY="476.0" mnemonicParsing="false" onAction="#zoomIn" prefHeight="30.0" prefWidth="40.0">
+                  <CheckBox fx:id="checkBoxDisplayLevel" layoutX="16.0" layoutY="410.0" mnemonicParsing="false" onAction="#displayLevel" prefHeight="25.0" prefWidth="109.0" text="Show Level" />
+                  <Button fx:id="zoomInButton" layoutX="16.0" layoutY="486.0" mnemonicParsing="false" onAction="#zoomIn" prefHeight="30.0" prefWidth="40.0">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -192,7 +192,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button fx:id="zoomOutButton" layoutX="83.0" layoutY="476.0" mnemonicParsing="false" onAction="#zoomOut" prefHeight="30.0" prefWidth="40.0">
+                  <Button fx:id="zoomOutButton" layoutX="82.0" layoutY="486.0" mnemonicParsing="false" onAction="#zoomOut" prefHeight="30.0" prefWidth="40.0">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -200,7 +200,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button layoutX="17.0" layoutY="434.0" mnemonicParsing="false" onAction="#menuEditUndo" prefHeight="30.0" prefWidth="40.0">
+                  <Button fx:id="undoButton" layoutX="16.0" layoutY="444.0" mnemonicParsing="false" onAction="#undoAction" prefHeight="30.0" prefWidth="40.0">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -209,7 +209,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button layoutX="84.0" layoutY="435.0" mnemonicParsing="false" onAction="#menuEditRedo" prefHeight="30.0" prefWidth="40.0">
+                  <Button fx:id="redoButton" layoutX="83.0" layoutY="445.0" mnemonicParsing="false" onAction="#redoAction" prefHeight="30.0" prefWidth="40.0">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -218,6 +218,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
+                  <CheckBox fx:id="pointyTile" layoutX="17.0" layoutY="385.0" mnemonicParsing="false" onAction="#pointyTileAction" prefHeight="25.0" prefWidth="62.0" text="Pointy" />
                </children>
             </AnchorPane>
         <ScrollPane prefHeight="500.0" prefWidth="691.0">

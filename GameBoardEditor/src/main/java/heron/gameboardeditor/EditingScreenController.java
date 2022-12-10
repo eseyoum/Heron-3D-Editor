@@ -6,10 +6,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
-
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
-
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,15 +18,14 @@ import heron.gameboardeditor.datamodel.ProjectIO;
 import heron.gameboardeditor.tools.TerrainTool.TerrainObject;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-
 import javafx.scene.control.CheckBox;
-
 import javafx.scene.control.MenuButton;
-
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -41,36 +38,34 @@ public class EditingScreenController {
 	
 	@FXML 
     private AnchorPane mapDisplay;
-	
     @FXML
     private TextField numRow;
-    
     @FXML
     private TextField numColumn;
-    
     @FXML
     private Slider levelSlider;
-    
     @FXML
     private MenuButton terrainMenuButton;
-    
-    private ArrayList<TerrainObject> customTerrainObjects = new ArrayList<TerrainObject>(); //represents all the custom terrain objects the user created
-    
 	@FXML
 	private CheckBox checkBoxDisplayLevel;
-	
 	@FXML
 	private Button zoomInButton;
-	
 	@FXML
 	private Button zoomOutButton;
-	
+	@FXML
+	private Button undoButton;
+	@FXML
+	private Button redoButton;
+	@FXML
+    private CheckBox pointyTile;
 	
     private BorderPane gridMapPane;
     private VBox boardParentVBox;
     private GridBoardUI gridBoard;
     private UndoRedoHandler undoRedoHandler;
     private int tileSize;
+    private ArrayList<TerrainObject> customTerrainObjects = new ArrayList<TerrainObject>(); //represents all the custom terrain objects the user created
+
     
     @FXML
     private void initialize() {
@@ -120,16 +115,26 @@ public class EditingScreenController {
     }
     
     @FXML
-    private void menuEditUndo() {
+    private void undoAction() {
+    	undoButton.setTooltip(new Tooltip("Undo"));
     	undoRedoHandler.undo();
     }
     
     @FXML
-    private void menuEditRedo() {
+    private void redoAction() {
+    	redoButton.setTooltip(new Tooltip("Redo"));
     	undoRedoHandler.redo();
     }
-
     
+    @FXML
+    Boolean pointyTileAction() {
+    	if(pointyTile.isSelected()) {
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
+
     @FXML
     private void switchToTemplateScreen(ActionEvent event) throws IOException {
     	App.setRoot("templateScreen");
@@ -138,12 +143,14 @@ public class EditingScreenController {
     
     @FXML
     void zoomIn() {
+    	zoomInButton.setTooltip(new Tooltip("Zoom In"));
     	gridBoard.setTileSize(tileSize += 10);
     }
     
    
     @FXML
     void zoomOut() {
+    	zoomOutButton.setTooltip(new Tooltip("Zoom Out"));
     	if (tileSize > 10) {
     		gridBoard.setTileSize(tileSize -= 10);
     	}
@@ -279,22 +286,22 @@ public class EditingScreenController {
     
     @FXML
     void templateOne(ActionEvent event) throws JsonSyntaxException, JsonIOException, IOException {
-    	templetLoaderHelper("/Users/ezanaseyoum/GitHub/HeronRepo/GameBoardEditor/src/main/resources/heron/gameboardeditor/Templates/Augie_A.heron");
+    	templetLoaderHelper("src/main/resources/heron/gameboardeditor/Templates/Augie_A.heron");
     }
     
     @FXML
     void templateTwo(ActionEvent event) throws JsonSyntaxException, JsonIOException, IOException {
-    	templetLoaderHelper("/Users/ezanaseyoum/GitHub/HeronRepo/GameBoardEditor/src/main/resources/heron/gameboardeditor/Templates/Galaxy.heron");
+    	templetLoaderHelper("src/main/resources/heron/gameboardeditor/Templates/Galaxy.heron");
     }
 
     @FXML
     void templateThree(ActionEvent event) throws JsonSyntaxException, JsonIOException, IOException {
-    	templetLoaderHelper("/Users/ezanaseyoum/GitHub/HeronRepo/GameBoardEditor/src/main/resources/heron/gameboardeditor/Templates/Maze.heron");
+    	templetLoaderHelper("src/main/resources/heron/gameboardeditor/Templates/Maze.heron");
     }
     
     @FXML
     void templateFour(ActionEvent event) throws JsonSyntaxException, JsonIOException, IOException {
-    	templetLoaderHelper("/Users/ezanaseyoum/GitHub/HeronRepo/GameBoardEditor/src/main/resources/heron/gameboardeditor/Templates/Tree.heron");
+    	templetLoaderHelper("src/main/resources/heron/gameboardeditor/Templates/Tree.heron");
     }
     
     private void templetLoaderHelper(String path) throws JsonSyntaxException, JsonIOException, IOException {
@@ -408,8 +415,9 @@ public class EditingScreenController {
     				writer.write("v " + (c + 1) + " " + r + " " + 0 + "\n");
     				writer.write("v " + (c + 1) + " " + (r + 1) + " " + 0 + "\n");
     				writer.write("v " + (c + 1) + " " + (r + 1) + " " + e + "\n");
-    				
-//    				writer.write("v " + (c + 0.5) + " " + (r + 0.5) + " " + (e + 3) + "\n");
+//    				if(pointyTile.isSelected()) {
+//        				writer.write("v " + (c + 0.5) + " " + (r + 0.5) + " " + (e + 1) + "\n");
+//    				}
     			}
     		}
     		for(int i = 0; i < (grid.getWidth() * grid.getHeight()); i++) {
@@ -419,11 +427,15 @@ public class EditingScreenController {
     			writer.write("f " + (8 * i + 8) + " " + (8 * i + 7) + " " + (8 * i + 3) + " " + (8 * i + 4) + "\n");
     			writer.write("f " + (8 * i + 5) + " " + (8 * i + 8) + " " + (8 * i + 4) + " " + (8 * i + 1) + "\n");
     			writer.write("f " + (8 * i + 6) + " " + (8 * i + 7) + " " + (8 * i + 8) + " " + (8 * i + 5) + "\n");
-    			
-//    			writer.write("f " + (8 * i + 9) + " " + (8 * i + 8) + " " + (8 * i + 5) + "\n");
-//    			writer.write("f " + (8 * i + 9) + " " + (8 * i + 8) + " " + (8 * i + 7) + "\n");
-//    			writer.write("f " + (8 * i + 9) + " " + (8 * i + 6) + " " + (8 * i + 7) + "\n");
-//    			writer.write("f " + (8 * i + 9) + " " + (8 * i + 6) + " " + (8 * i + 5) + "\n");
+//    			if(pointyTile.isSelected()) {
+//        			writer.write("f " + (i + 9) + " " + (i + 1) + " " + (i + 4) + "\n");
+//        			writer.write("f " + (i + 9) + " " + (i + 4) + " " + (i + 8) + "\n");
+//        			writer.write("f " + (i + 9) + " " + (i + 8) + " " + (i + 5) + "\n");
+//        			writer.write("f " + (i + 9) + " " + (i + 5) + " " + (i + 1) + "\n");
+//        			i += 8;
+//    			} else {
+    				//i += 7;
+//    			}
     		}
     		writer.close();
     	}
