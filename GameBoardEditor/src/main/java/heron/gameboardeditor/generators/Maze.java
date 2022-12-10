@@ -13,8 +13,6 @@ public class Maze {
 	
 	private ArrayList<Block> edgeBlocks = new ArrayList<Block>(); //stores all blocks on the edge of the gridBoard. Used for generating the maze
 
-	//private Set<Block>solutionPathBlocks = new HashSet<Block>(); //represents the blocks in the solution path of the maze
-
 	private Block failedMovementMazeBlock = new Block (0, 0, 0); //when creating the maze, this represents a block which cannot move in a certain direction
 	private int failedDirectionCount; //count of failed directions. If a failedMovementMazeBlock has 3 failed directions, it cannot move
 	private ArrayList<Block>mazeBranchBlocks = new ArrayList<Block>();
@@ -115,8 +113,6 @@ public class Maze {
 			while (grid.isEdgeBlock(initialBlock)) { //the starting point of the branch can't be an edge block
 				initialBlock = path.get(rand.nextInt(mazeBranchBlocks.size() - 1));
 			}
-			
-    		//int initialDirection = rand.nextInt(4) + 1; //the first direction the path should move in
     		int initialDirection = 1;
 			Block possiblePathBlock = grid.getBlockGrid()[initialBlock.getX()][initialBlock.getY() - 1];
 			createMazePath(possiblePathBlock, initialDirection, initialBlock);
@@ -194,26 +190,6 @@ public class Maze {
 	    	attemptMazeMovement(block, newDirection);
 		}
 	}
-	
-//  private void addNewPathBlock(Block newPathBlock) {
-//	newPathBlock.setZ(1);
-//	newPathBlock.setVisible(true);
-//	solutionPathBlocks.add(newPathBlock);
-//}
-	
-//	private int getDirectionOfPathBlock(Block block, Block previousBlock) { //gets the direction the block moved in
-//	int direction = 1;
-//	if (getBlockAbove(block).equals(previousBlock)) { //block moved down //move to a  method
-//		direction = 3;
-//	} else if (getBlockRight(block).equals(previousBlock)) { //block moved left
-//		direction = 4;
-//	} else if (getBlockBelow(block).equals(previousBlock)) { //block moved up
-//		direction = 1;
-//	} else if (getBlockLeft(block).equals(previousBlock)) { //block moved right
-//		direction = 2;
-//	}
-//	return direction;
-//}
 	
     public boolean isThreeAdjacentBlocksSameLevel(Block block, int level) {
     	int count = countBlocksInFourDirections(block, level);
