@@ -281,22 +281,22 @@ public class EditingScreenController {
     
     @FXML
     void templateOne(ActionEvent event) throws JsonSyntaxException, JsonIOException, IOException {
-    	templetLoaderHelper("/Users/ezanaseyoum/GitHub/HeronRepo/GameBoardEditor/src/main/resources/heron/gameboardeditor/Templates/Augie_A.heron");
+    	templetLoaderHelper("src/main/resources/heron/gameboardeditor/Templates/Augie_A.heron");
     }
     
     @FXML
     void templateTwo(ActionEvent event) throws JsonSyntaxException, JsonIOException, IOException {
-    	templetLoaderHelper("/Users/ezanaseyoum/GitHub/HeronRepo/GameBoardEditor/src/main/resources/heron/gameboardeditor/Templates/Galaxy.heron");
+    	templetLoaderHelper("src/main/resources/heron/gameboardeditor/Templates/Galaxy.heron");
     }
 
     @FXML
     void templateThree(ActionEvent event) throws JsonSyntaxException, JsonIOException, IOException {
-    	templetLoaderHelper("/Users/ezanaseyoum/GitHub/HeronRepo/GameBoardEditor/src/main/resources/heron/gameboardeditor/Templates/Maze.heron");
+    	templetLoaderHelper("src/main/resources/heron/gameboardeditor/Templates/Maze.heron");
     }
     
     @FXML
     void templateFour(ActionEvent event) throws JsonSyntaxException, JsonIOException, IOException {
-    	templetLoaderHelper("/Users/ezanaseyoum/GitHub/HeronRepo/GameBoardEditor/src/main/resources/heron/gameboardeditor/Templates/Tree.heron");
+    	templetLoaderHelper("src/main/resources/heron/gameboardeditor/Templates/Tree.heron");
     }
     
     private void templetLoaderHelper(String path) throws JsonSyntaxException, JsonIOException, IOException {
