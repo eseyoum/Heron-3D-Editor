@@ -70,19 +70,23 @@ public class EditingScreenController {
     private VBox boardParentVBox;
     private GridBoardUI gridBoard;
     private UndoRedoHandler undoRedoHandler;
-    private int tileSize;
     
     @FXML
     private void initialize() {
     	this.undoRedoHandler = new UndoRedoHandler(this);
     	refreshUIFromGrid();
-    	tileSize = CellUI.TILE_SIZE;
     }
     
     private void refreshUIFromGrid() {
         gridMapPane = new BorderPane();
         gridMapPane.setPrefSize(600, 800);
-        gridBoard = new GridBoardUI(App.getGrid(), undoRedoHandler); //creates a GridBoardUI, which is the grid the user can see
+        
+    	int tileSize = CellUI.DEFAULT_TILE_SIZE;
+        if (gridBoard != null) {
+        	tileSize = gridBoard.getTileSize();
+        }
+        gridBoard = new GridBoardUI(App.getGrid(), undoRedoHandler, tileSize); //creates a GridBoardUI, which is the grid the user can see
+        
         boardParentVBox = new VBox(50, gridBoard); //creates a vbox with myBoard for children
         boardParentVBox.setAlignment(Pos.TOP_RIGHT);
         gridMapPane.setCenter(boardParentVBox);
@@ -138,17 +142,33 @@ public class EditingScreenController {
     
     @FXML
     void zoomIn() {
-    	gridBoard.setTileSize(tileSize += 10);
+    	gridBoard.setTileSize(gridBoard.getTileSize()+10);
+//    	undoRedoHandler.saveState();
+    	
     }
     
    
     @FXML
     void zoomOut() {
-    	if (tileSize > 10) {
-    		gridBoard.setTileSize(tileSize -= 10);
+    	if (gridBoard.getTileSize() > 10) {
+    		gridBoard.setTileSize(gridBoard.getTileSize()-10);
     	}
+//    	undoRedoHandler.saveState();
     }
     
+//    public void setTileSize(int size) throws ArithmeticException { 
+//    	//this.tileSize = size;
+//    	for (int y = 0; y < gridBoard.getHeight(); y++) { 
+//    		for (int x = 0; x < gridBoard.getWidth(); x++) {
+//    			gridBoard.getCell(x,y).getColorRect().setWidth(size - 1);
+//    			gridBoard.getCell(x,y).getColorRect().setHeight(size - 1);
+//               	
+//    			gridBoard.getCell(x,y).setLayoutX(x*size);
+//    			gridBoard.getCell(x,y).setLayoutY(y*size);
+//    			gridBoard.updateVisual();
+//            }
+//    	}
+//	}
     
     @FXML
     void displayLevel() {
@@ -247,6 +267,13 @@ public class EditingScreenController {
     	customTerrainObjects = gridBoard.terrainTool.getCustomTerrainObjects();
     }
     
+    
+    @FXML
+    void pointyToolOn(ActionEvent event) {
+    	gridBoard.gridEditor.setCurrentTool(gridBoard.pointyTool);
+    	undoRedoHandler.saveState();
+    }
+    
     @FXML
     void selectLevel(ActionEvent event) {
     	gridBoard.selectLevel(true);
@@ -305,7 +332,7 @@ public class EditingScreenController {
 	    		Grid grid = ProjectIO.load(file);
 	        	App.setGrid(grid);
 	        	undoRedoHandler = new UndoRedoHandler(this);
-	    		gridBoard = new GridBoardUI(grid, undoRedoHandler);
+	    		gridBoard = new GridBoardUI(grid, undoRedoHandler, CellUI.DEFAULT_TILE_SIZE);
 	    		boardParentVBox.getChildren().clear();
 	    		boardParentVBox.getChildren().addAll(gridBoard);
     	}
@@ -325,7 +352,7 @@ public class EditingScreenController {
 				Grid grid = ProjectIO.load(file);
 				App.setGrid(grid);
 				undoRedoHandler = new UndoRedoHandler(this);
-				gridBoard = new GridBoardUI(grid, undoRedoHandler);
+				gridBoard = new GridBoardUI(grid, undoRedoHandler, CellUI.DEFAULT_TILE_SIZE);
 				boardParentVBox.getChildren().clear();
 				boardParentVBox.getChildren().addAll(gridBoard);
 			} catch (FileNotFoundException ex) {
@@ -390,6 +417,48 @@ public class EditingScreenController {
     	preview3D.show();
     }
     
+//    @FXML
+//    void exportToObj() throws IOException {
+//    	File file = saveLoadHelper("save", "OBJ");
+//    	if(file != null) {
+//    		Grid grid = App.getGrid();
+//    		FileWriter writer = new FileWriter(file);
+//    		for (int x = 0; x < grid.getWidth(); x++) {
+//    			for (int y = 0; y < grid.getHeight(); y++) {
+//    				Block blocks = grid.getBlockAt(x, y);
+//    				int r = blocks.getY();
+//    				int c = blocks.getX();
+//    				int e = blocks.getZ();
+//    				writer.write("v " + c + " " + r + " " + e + "\n");
+//    				writer.write("v " + c + " " + r + " " + 0 + "\n");
+//    				writer.write("v " + c + " " + (r + 1) + " " + 0 + "\n");
+//    				writer.write("v " + c + " " + (r + 1) + " " + e + "\n");
+//    				writer.write("v " + (c + 1) + " " + r + " " + e + "\n");
+//    				writer.write("v " + (c + 1) + " " + r + " " + 0 + "\n");
+//    				writer.write("v " + (c + 1) + " " + (r + 1) + " " + 0 + "\n");
+//    				writer.write("v " + (c + 1) + " " + (r + 1) + " " + e + "\n");
+//    				
+////    				writer.write("v " + (c + 0.5) + " " + (r + 0.5) + " " + (e + 0.5) + "\n");
+//    			}
+//    		}
+//    		for(int i = 0; i < (grid.getWidth() * grid.getHeight()); i++) {
+//    			writer.write("f " + (8 * i + 4) + " " + (8 * i + 3) + " " + (8 * i + 2) + " " + (8 * i + 1) + "\n");
+//    			writer.write("f " + (8 * i + 2) + " " + (8 * i + 6) + " " + (8 * i + 5) + " " + (8 * i + 1) + "\n");
+//    			writer.write("f " + (8 * i + 3) + " " + (8 * i + 7) + " " + (8 * i + 6) + " " + (8 * i + 2) + "\n");
+//    			writer.write("f " + (8 * i + 8) + " " + (8 * i + 7) + " " + (8 * i + 3) + " " + (8 * i + 4) + "\n");
+//    			writer.write("f " + (8 * i + 5) + " " + (8 * i + 8) + " " + (8 * i + 4) + " " + (8 * i + 1) + "\n");
+//    			writer.write("f " + (8 * i + 6) + " " + (8 * i + 7) + " " + (8 * i + 8) + " " + (8 * i + 5) + "\n");
+//    			
+////    			writer.write("f " + (8 * i + 9) + " " + (8 * i + 4) + " " + (8 * i + 1) + "\n");
+////    			writer.write("f " + (8 * i + 9) + " " + (8 * i + 4) + " " + (8 * i + 8) + "\n");
+////    			writer.write("f " + (8 * i + 9) + " " + (8 * i + 8) + " " + (8 * i + 5) + "\n");
+////    			writer.write("f " + (8 * i + 9) + " " + (8 * i + 5) + " " + (8 * i + 1) + "\n");
+//    		}
+//    		writer.close();
+//    	}
+//    }
+//    
+    
     @FXML
     void exportToObj() throws IOException {
     	File file = saveLoadHelper("save", "OBJ");
@@ -410,8 +479,9 @@ public class EditingScreenController {
     				writer.write("v " + (c + 1) + " " + r + " " + 0 + "\n");
     				writer.write("v " + (c + 1) + " " + (r + 1) + " " + 0 + "\n");
     				writer.write("v " + (c + 1) + " " + (r + 1) + " " + e + "\n");
-    				
+		
 //    				writer.write("v " + (c + 0.5) + " " + (r + 0.5) + " " + (e + 3) + "\n");
+
     			}
     		}
     		for(int i = 0; i < (grid.getWidth() * grid.getHeight()); i++) {
@@ -421,16 +491,11 @@ public class EditingScreenController {
     			writer.write("f " + (8 * i + 8) + " " + (8 * i + 7) + " " + (8 * i + 3) + " " + (8 * i + 4) + "\n");
     			writer.write("f " + (8 * i + 5) + " " + (8 * i + 8) + " " + (8 * i + 4) + " " + (8 * i + 1) + "\n");
     			writer.write("f " + (8 * i + 6) + " " + (8 * i + 7) + " " + (8 * i + 8) + " " + (8 * i + 5) + "\n");
-    			
-//    			writer.write("f " + (8 * i + 9) + " " + (8 * i + 8) + " " + (8 * i + 5) + "\n");
-//    			writer.write("f " + (8 * i + 9) + " " + (8 * i + 8) + " " + (8 * i + 7) + "\n");
-//    			writer.write("f " + (8 * i + 9) + " " + (8 * i + 6) + " " + (8 * i + 7) + "\n");
-//    			writer.write("f " + (8 * i + 9) + " " + (8 * i + 6) + " " + (8 * i + 5) + "\n");
+
     		}
     		writer.close();
     	}
     }
-    
     
     public class State {
     	private Grid grid;

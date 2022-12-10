@@ -36,7 +36,7 @@ public class TemplateScreenController {
 				Grid grid = ProjectIO.load(file);
 				App.setGrid(grid);
 				UndoRedoHandler = new UndoRedoHandler(controller);
-				gridBoard = new GridBoardUI(grid, UndoRedoHandler);
+				gridBoard = new GridBoardUI(grid, UndoRedoHandler, CellUI.DEFAULT_TILE_SIZE);
 				boardParentVBox.getChildren().addAll(gridBoard);
 			} catch (FileNotFoundException ex) {
 				new Alert(AlertType.ERROR, "The file you tried to open could not be found.").showAndWait();
