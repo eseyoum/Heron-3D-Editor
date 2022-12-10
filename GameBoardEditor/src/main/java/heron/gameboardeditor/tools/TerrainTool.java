@@ -91,11 +91,9 @@ public class TerrainTool extends Tool {
 		Block initialBlock = new Block(Integer.MAX_VALUE, Integer.MAX_VALUE, 0); //initial block represents the first block of the object
 		for (Block block : terrainBlocks) { //finds a block on the upper left of the grid, with more importance on being further left
 			int x = block.getX();
-			if (x < initialBlock.getX()) {
-				int y = block.getY();
-				if (y < initialBlock.getY()) {
-					initialBlock = block;
-				}
+			int y = block.getY();
+			if (x < initialBlock.getX() || (x == initialBlock.getX() && y < initialBlock.getY())) {
+				initialBlock = block;
 			}
 		}
 		
@@ -113,16 +111,26 @@ public class TerrainTool extends Tool {
 	}
 	
 	private void drawTerrainObject(TerrainObject terrainObject, Block initialBlock) {
-		initialBlock.setZ(terrainObject.initialTerrainData.level);
+		initialBlock.setZ(setZ(terrainObject.initialTerrainData));
 		for (TerrainData terrainData : terrainObject.terrainList) {
 			int x = initialBlock.getX() + terrainData.distanceX;
 			 int y = initialBlock.getY() + terrainData.distanceY;
-			 int z = terrainData.level;
+			 int z = setZ(terrainData);
 			 if (gridData.isCoordinateInGrid(x, y)) {
 				 Block block = gridData.getBlockAt(x, y);
 				 block.setZ(z);
 			 }
 		}
+	}
+	
+	private int setZ(TerrainData terrainData) {
+		int z = terrainData.level;
+		if (terrainData.level > CellUI.getMaxLevel()) {
+			 System.out.println("terrainZ too big = " + z);
+			 z = CellUI.getMaxLevel();
+			 System.out.println("newZ = " + z);
+		 }
+		return z;
 	}
 	
 	private TerrainObject createMountain() {

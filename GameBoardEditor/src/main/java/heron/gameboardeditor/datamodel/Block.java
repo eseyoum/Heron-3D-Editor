@@ -4,6 +4,8 @@ public class Block {
     private int x;
     private int y;
     private int z;  // If the level is zero, it should not be visible
+    private boolean isPointy = false;
+    
     
 //    public Block(int x, int y, int z) {
 //    	this(x,y,z,false);
@@ -47,6 +49,16 @@ public class Block {
 		this.z = z;
 	}
 
+	
+	public void setPointy(boolean pointy) {
+		this.isPointy = pointy;
+	}
+	
+	public boolean isPointy() {
+		return(this.isPointy);
+	}
+
+	
 	public Block clone() {
 		return new Block(x,y,z);
 	}

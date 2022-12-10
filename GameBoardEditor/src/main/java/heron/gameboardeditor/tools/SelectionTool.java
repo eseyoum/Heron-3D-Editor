@@ -62,7 +62,7 @@ public class SelectionTool extends Tool {
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		if (!pressedInSelectedCell) {
+		if (!pressedInSelectedCell) { //&& gridBoard.getGridData().isCoordinateInGrid((int) e.getX() / CellUI.TILE_SIZE, (int) e.getY() / CellUI.TILE_SIZE)) {
 			selectionRectangle.setX(Math.min(e.getX(), initialSelectX));
 			selectionRectangle.setWidth(Math.abs(e.getX() - initialSelectX));
 			selectionRectangle.setY(Math.min(e.getY(), initialSelectY));
@@ -86,9 +86,11 @@ public class SelectionTool extends Tool {
 			int yEndIndex = (int) (selectionRectangle.getY() + selectionRectangle.getHeight()) / gridBoard.getTileSize();
 			for (int xIndex = xStartIndex; xIndex <= xEndIndex; xIndex++) {
 				for (int yIndex = yStartIndex; yIndex <= yEndIndex; yIndex++) {
-					if (gridBoard.getCell(xIndex, yIndex).getBlock().isVisible()) {
-						selectedRegionOfCells.add(gridBoard.getCell(xIndex, yIndex));
-						gridBoard.getCell(xIndex, yIndex).setSelected(true);
+					if (gridBoard.getGridData().isCoordinateInGrid(xIndex, yIndex)) {
+						if (gridBoard.getCell(xIndex, yIndex).getBlock().isVisible()) {
+							selectedRegionOfCells.add(gridBoard.getCell(xIndex, yIndex));
+							gridBoard.getCell(xIndex, yIndex).setSelected(true);
+						}
 					}
 				}
 			}

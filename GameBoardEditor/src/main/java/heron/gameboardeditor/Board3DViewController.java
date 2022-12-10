@@ -24,8 +24,8 @@ public class Board3DViewController {
 	private Grid gridData;
 	private static final int WIDTH = 1400;
 	private static final int HEIGHT = 800;
-	private static final int BLOCK_SIZE = 10;
-	private static final int BLOCK_Z_HEIGHT = 10;
+	private static final int BLOCK_SIZE = 50;
+	private static final int BLOCK_Z_HEIGHT = 15;
 	
 
 	private Stage stage3D;
@@ -71,6 +71,27 @@ public class Board3DViewController {
 				box.translateYProperty().set( BLOCK_SIZE*(y - height/2));
 				
 				box.translateZProperty().set(-(level*BLOCK_Z_HEIGHT)/2 + (maxLevel*BLOCK_Z_HEIGHT)/2);
+				
+				if (block.isPointy()) {
+					int size = BLOCK_SIZE;
+					int zForFlatBox = level * BLOCK_Z_HEIGHT;
+
+					for (int i = 0; i < 50; i ++) {
+						Box pointyBox = new Box( size, size, 1);
+						size -= 1;
+						
+						pointyBox.translateXProperty().set( BLOCK_SIZE*(x - width/2));
+						pointyBox.translateYProperty().set( BLOCK_SIZE*(y - height/2));
+						
+						pointyBox.translateZProperty().set(-(zForFlatBox) + zForFlatBox/2);
+						zForFlatBox += 1;
+						
+						group.getChildren().add(pointyBox);
+					}
+				}
+				
+				
+				
 				
 				group.getChildren().add(box);
 				box.setMaterial(material);

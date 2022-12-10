@@ -6,8 +6,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
+
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,14 +20,15 @@ import heron.gameboardeditor.datamodel.ProjectIO;
 import heron.gameboardeditor.tools.TerrainTool.TerrainObject;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+
 import javafx.scene.control.CheckBox;
+
 import javafx.scene.control.MenuButton;
+
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -56,14 +59,11 @@ public class EditingScreenController {
 	private Button undoButton;
 	@FXML
 	private Button redoButton;
-	@FXML
-    private CheckBox pointyTile;
 	
     private BorderPane gridMapPane;
     private VBox boardParentVBox;
     private GridBoardUI gridBoard;
     private UndoRedoHandler undoRedoHandler;
-    private int tileSize;
     private ArrayList<TerrainObject> customTerrainObjects = new ArrayList<TerrainObject>(); //represents all the custom terrain objects the user created
 
     
@@ -71,13 +71,18 @@ public class EditingScreenController {
     private void initialize() {
     	this.undoRedoHandler = new UndoRedoHandler(this);
     	refreshUIFromGrid();
-    	tileSize = CellUI.TILE_SIZE;
     }
     
     private void refreshUIFromGrid() {
         gridMapPane = new BorderPane();
         gridMapPane.setPrefSize(600, 800);
-        gridBoard = new GridBoardUI(App.getGrid(), undoRedoHandler); //creates a GridBoardUI, which is the grid the user can see
+        
+    	int tileSize = CellUI.DEFAULT_TILE_SIZE;
+        if (gridBoard != null) {
+        	tileSize = gridBoard.getTileSize();
+        }
+        gridBoard = new GridBoardUI(App.getGrid(), undoRedoHandler, tileSize); //creates a GridBoardUI, which is the grid the user can see
+        
         boardParentVBox = new VBox(50, gridBoard); //creates a vbox with myBoard for children
         boardParentVBox.setAlignment(Pos.TOP_RIGHT);
         gridMapPane.setCenter(boardParentVBox);
@@ -86,7 +91,6 @@ public class EditingScreenController {
     	mapDisplay.getChildren().addAll(gridMapPane);
     	
     }
-
     
     //Tools
     @FXML
@@ -116,23 +120,12 @@ public class EditingScreenController {
     
     @FXML
     private void undoAction() {
-    	undoButton.setTooltip(new Tooltip("Undo"));
     	undoRedoHandler.undo();
     }
     
     @FXML
     private void redoAction() {
-    	redoButton.setTooltip(new Tooltip("Redo"));
     	undoRedoHandler.redo();
-    }
-    
-    @FXML
-    Boolean pointyTileAction() {
-    	if(pointyTile.isSelected()) {
-    		return true;
-    	} else {
-    		return false;
-    	}
     }
 
     @FXML
@@ -140,22 +133,32 @@ public class EditingScreenController {
     	App.setRoot("templateScreen");
     }
 
-    
     @FXML
     void zoomIn() {
-    	zoomInButton.setTooltip(new Tooltip("Zoom In"));
-    	gridBoard.setTileSize(tileSize += 10);
+    	gridBoard.setTileSize(gridBoard.getTileSize()+10);
     }
     
    
     @FXML
     void zoomOut() {
-    	zoomOutButton.setTooltip(new Tooltip("Zoom Out"));
-    	if (tileSize > 10) {
-    		gridBoard.setTileSize(tileSize -= 10);
+    	if (gridBoard.getTileSize() > 10) {
+    		gridBoard.setTileSize(gridBoard.getTileSize() - 10);
     	}
     }
     
+//    public void setTileSize(int size) throws ArithmeticException { 
+//    	//this.tileSize = size;
+//    	for (int y = 0; y < gridBoard.getHeight(); y++) { 
+//    		for (int x = 0; x < gridBoard.getWidth(); x++) {
+//    			gridBoard.getCell(x,y).getColorRect().setWidth(size - 1);
+//    			gridBoard.getCell(x,y).getColorRect().setHeight(size - 1);
+//               	
+//    			gridBoard.getCell(x,y).setLayoutX(x*size);
+//    			gridBoard.getCell(x,y).setLayoutY(y*size);
+//    			gridBoard.updateVisual();
+//            }
+//    	}
+//	}
     
     @FXML
     void displayLevel() {
@@ -200,6 +203,7 @@ public class EditingScreenController {
     	levelSlider.setValue(gridBoard.getLevel());
     	undoRedoHandler.saveState();
     }
+    
     @FXML
     void fillToolOn(ActionEvent event) {
     	gridBoard.gridEditor.setCurrentTool(gridBoard.fillTool);
@@ -253,6 +257,13 @@ public class EditingScreenController {
     	customTerrainObjects = gridBoard.terrainTool.getCustomTerrainObjects();
     }
     
+    
+    @FXML
+    void pointyToolOn(ActionEvent event) {
+    	gridBoard.gridEditor.setCurrentTool(gridBoard.pointyTool);
+    	undoRedoHandler.saveState();
+    }
+    
     @FXML
     void selectLevel(ActionEvent event) {
     	gridBoard.selectLevel(true);
@@ -275,6 +286,7 @@ public class EditingScreenController {
     		gridBoard.getGridData().lowerBlocksHigherThan(newMaxLevel);
     	}
     	CellUI.setMaxLevel(newMaxLevel);
+    	gridBoard.setLevel(newMaxLevel);
     	gridBoard.updateVisual();
     }
     
@@ -310,18 +322,13 @@ public class EditingScreenController {
 	    		Grid grid = ProjectIO.load(file);
 	        	App.setGrid(grid);
 	        	undoRedoHandler = new UndoRedoHandler(this);
-	    		gridBoard = new GridBoardUI(grid, undoRedoHandler);
+	    		gridBoard = new GridBoardUI(grid, undoRedoHandler, CellUI.DEFAULT_TILE_SIZE);
 	    		boardParentVBox.getChildren().clear();
 	    		boardParentVBox.getChildren().addAll(gridBoard);
     	}
     }
     
     //File menu bar
-    @FXML
-    void newFile(ActionEvent event) throws IOException {
-    	
-    }
-    
     @FXML
     void loadProject(ActionEvent event) {
     	File file = saveLoadHelper("open", "heron");
@@ -330,7 +337,7 @@ public class EditingScreenController {
 				Grid grid = ProjectIO.load(file);
 				App.setGrid(grid);
 				undoRedoHandler = new UndoRedoHandler(this);
-				gridBoard = new GridBoardUI(grid, undoRedoHandler);
+				gridBoard = new GridBoardUI(grid, undoRedoHandler, CellUI.DEFAULT_TILE_SIZE);
 				boardParentVBox.getChildren().clear();
 				boardParentVBox.getChildren().addAll(gridBoard);
 			} catch (FileNotFoundException ex) {
@@ -415,27 +422,32 @@ public class EditingScreenController {
     				writer.write("v " + (c + 1) + " " + r + " " + 0 + "\n");
     				writer.write("v " + (c + 1) + " " + (r + 1) + " " + 0 + "\n");
     				writer.write("v " + (c + 1) + " " + (r + 1) + " " + e + "\n");
-//    				if(pointyTile.isSelected()) {
-//        				writer.write("v " + (c + 0.5) + " " + (r + 0.5) + " " + (e + 1) + "\n");
-//    				}
+    				if(grid.getBlockAt(x, y).isPointy()) {
+        				writer.write("v " + (c + 0.5) + " " + (r + 0.5) + " " + (e + 1) + "\n");
+    				}
+
     			}
     		}
-    		for(int i = 0; i < (grid.getWidth() * grid.getHeight()); i++) {
-    			writer.write("f " + (8 * i + 4) + " " + (8 * i + 3) + " " + (8 * i + 2) + " " + (8 * i + 1) + "\n");
-    			writer.write("f " + (8 * i + 2) + " " + (8 * i + 6) + " " + (8 * i + 5) + " " + (8 * i + 1) + "\n");
-    			writer.write("f " + (8 * i + 3) + " " + (8 * i + 7) + " " + (8 * i + 6) + " " + (8 * i + 2) + "\n");
-    			writer.write("f " + (8 * i + 8) + " " + (8 * i + 7) + " " + (8 * i + 3) + " " + (8 * i + 4) + "\n");
-    			writer.write("f " + (8 * i + 5) + " " + (8 * i + 8) + " " + (8 * i + 4) + " " + (8 * i + 1) + "\n");
-    			writer.write("f " + (8 * i + 6) + " " + (8 * i + 7) + " " + (8 * i + 8) + " " + (8 * i + 5) + "\n");
-//    			if(pointyTile.isSelected()) {
-//        			writer.write("f " + (i + 9) + " " + (i + 1) + " " + (i + 4) + "\n");
-//        			writer.write("f " + (i + 9) + " " + (i + 4) + " " + (i + 8) + "\n");
-//        			writer.write("f " + (i + 9) + " " + (i + 8) + " " + (i + 5) + "\n");
-//        			writer.write("f " + (i + 9) + " " + (i + 5) + " " + (i + 1) + "\n");
-//        			i += 8;
-//    			} else {
-    				//i += 7;
-//    			}
+    		
+    		int i = 0;
+    		for (int x = 0; x < grid.getWidth(); x++) {
+    			for (int y = 0; y < grid.getHeight(); y++) {
+    				writer.write("f " + (i + 4) + " " + (i + 3) + " " + (i + 2) + " " + (i + 1) + "\n");
+        			writer.write("f " + (i + 2) + " " + (i + 6) + " " + (i + 5) + " " + (i + 1) + "\n");
+        			writer.write("f " + (i + 3) + " " + (i + 7) + " " + (i + 6) + " " + (i + 2) + "\n");
+        			writer.write("f " + (i + 8) + " " + (i + 7) + " " + (i + 3) + " " + (i + 4) + "\n");
+        			writer.write("f " + (i + 5) + " " + (i + 8) + " " + (i + 4) + " " + (i + 1) + "\n");
+        			writer.write("f " + (i + 6) + " " + (i + 7) + " " + (i + 8) + " " + (i + 5) + "\n");
+        			if(grid.getBlockAt(x, y).isPointy()) {
+            			writer.write("f " + (i + 9) + " " + (i + 1) + " " + (i + 4) + "\n");
+            			writer.write("f " + (i + 9) + " " + (i + 4) + " " + (i + 8) + "\n");
+            			writer.write("f " + (i + 9) + " " + (i + 8) + " " + (i + 5) + "\n");
+            			writer.write("f " + (i + 9) + " " + (i + 5) + " " + (i + 1) + "\n");
+            			i = i + 9;
+        			} else {
+        				i += 8;
+        			}
+    			}
     		}
     		writer.close();
     	}
@@ -463,5 +475,4 @@ public class EditingScreenController {
 		gridBoardState.restore();
 		
 	}
-
 }

@@ -9,18 +9,18 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: EFCA08;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="heron.gameboardeditor.WelcomeScreenController">
+<BorderPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: EFCA08;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="heron.gameboardeditor.WelcomeScreenController">
    <top>
       <VBox alignment="CENTER" prefHeight="257.0" prefWidth="869.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="112.0" fitWidth="118.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="206.0" fitWidth="215.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Icons/logo.png" />
                </image>
                <VBox.margin>
-                  <Insets top="150.0" />
+                  <Insets top="50.0" />
                </VBox.margin></ImageView>
-            <Label alignment="CENTER" prefHeight="128.0" prefWidth="900.0" text="Welcome to Heron 3D Editor" textAlignment="CENTER" wrapText="true">
+            <Label alignment="CENTER" prefHeight="90.0" prefWidth="1954.0" text="Welcome to Heron 3D Editor" textAlignment="CENTER" wrapText="true">
                <font>
                   <Font name="DIN Condensed Bold" size="70.0" />
                </font>
@@ -28,12 +28,12 @@
                   <Insets />
                </VBox.margin>
             </Label>
-            <Label alignment="CENTER" prefHeight="65.0" prefWidth="903.0" text="TabelTopDawgz LLC presents a 3-D game boards terrain design software." textAlignment="CENTER" textOverrun="CLIP">
+            <Label alignment="CENTER" prefHeight="64.0" prefWidth="1927.0" text="TabelTopDawgz LLC presents a 3-D game boards terrain design software." textAlignment="CENTER" textOverrun="CLIP">
                <padding>
                   <Insets bottom="20.0" top="20.0" />
                </padding>
                <font>
-                  <Font name="Gill Sans" size="20.0" />
+                  <Font name="Gill Sans" size="30.0" />
                </font>
             </Label>
          </children>
@@ -42,7 +42,7 @@
    <center>
       <VBox alignment="CENTER" prefHeight="291.0" prefWidth="900.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#switchToNewProject" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 20px;" text="Start" textAlignment="CENTER">
+            <Button mnemonicParsing="false" onAction="#switchToEditingScreen" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 20px;" text="Start" textAlignment="CENTER">
                <VBox.margin>
                   <Insets bottom="15.0" left="20.0" top="5.0" />
                </VBox.margin>

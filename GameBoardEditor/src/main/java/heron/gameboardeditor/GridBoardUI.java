@@ -1,3 +1,4 @@
+
 package heron.gameboardeditor;
 
 
@@ -12,6 +13,7 @@ import heron.gameboardeditor.tools.EraserTool;
 import heron.gameboardeditor.tools.FillTool;
 import heron.gameboardeditor.tools.LevelPickerTool;
 import heron.gameboardeditor.tools.PencilTool;
+import heron.gameboardeditor.tools.PointyTool;
 import heron.gameboardeditor.tools.SelectionTool;
 import heron.gameboardeditor.tools.TerrainTool;
 import javafx.scene.layout.AnchorPane;
@@ -38,17 +40,18 @@ public class GridBoardUI extends AnchorPane {
     public final FillTool fillTool;
     public final SelectionTool selectionTool;
     public final TerrainTool terrainTool;
+    public final PointyTool pointyTool;
     
     private UndoRedoHandler undoRedoHandler;
     private int tileSize;
     
-	public GridBoardUI(Grid grid, UndoRedoHandler undoRedoHandler) {
+	public GridBoardUI(Grid grid, UndoRedoHandler undoRedoHandler, int tileSize) {
         this.gridData = grid;
         cellArray = new CellUI[grid.getWidth()][grid.getHeight()];
-        this.tileSize = CellUI.TILE_SIZE;
+        this.tileSize = tileSize;
         for (int x = 0; x < grid.getWidth(); x++) {
         	for (int y = 0; y < grid.getHeight(); y++) { //creates the grid
-                cellArray[x][y] = new CellUI(this, x, y);
+                cellArray[x][y] = new CellUI(this, x, y, tileSize);
                 cellArray[x][y].setLayoutX(x * tileSize); //spaces out the tiles based on TILE_SIZE
                 cellArray[x][y].setLayoutY(y * tileSize);
                 this.getChildren().add(cellArray[x][y]);
@@ -62,6 +65,7 @@ public class GridBoardUI extends AnchorPane {
         this.fillTool = new FillTool(this, this.gridData, undoRedoHandler);
         this.selectionTool = new SelectionTool(this, undoRedoHandler);
         this.terrainTool = new TerrainTool(this, undoRedoHandler);
+        this.pointyTool = new PointyTool(this, undoRedoHandler);
         
         this.gridEditor = new GridEditor(pencilTool); //pencilTool is the default tool
         
@@ -78,7 +82,7 @@ public class GridBoardUI extends AnchorPane {
     	for (int x = 0; x < gridData.getWidth(); x++) {
         	for (int y = 0; y < gridData.getHeight(); y++) {
         		if (x >= width || y >= height) { //if grid board must add new cells
-        			newCellArray[x][y] = new CellUI(this, x, y);
+        			newCellArray[x][y] = new CellUI(this, x, y, tileSize);
                     newCellArray[x][y].setLayoutX(x * tileSize);
                     newCellArray[x][y].setLayoutY(y * tileSize);
                     this.getChildren().add(newCellArray[x][y]);
@@ -104,7 +108,22 @@ public class GridBoardUI extends AnchorPane {
     public int getTileSize() { 
 		return tileSize;
 	}
-    
+
+
+    public void setTileSize(int size) throws ArithmeticException { 
+    	this.tileSize = size;
+    	for (int y = 0; y < gridData.getHeight(); y++) { 
+    		for (int x = 0; x < gridData.getWidth(); x++) {
+               	cellArray[x][y].getColorRect().setWidth(size - 1);
+               	cellArray[x][y].getColorRect().setHeight(size - 1);
+               	
+            	cellArray[x][y].setLayoutX(x*size);
+            	cellArray[x][y].setLayoutY(y*size);
+            	updateVisual();
+            }
+    	}
+	}
+
 	
     public Grid getGridData() { //grid data represents the data of the GridUI
 		return gridData;
@@ -115,8 +134,8 @@ public class GridBoardUI extends AnchorPane {
     }
     
     public CellUI getCellAtPixelCoordinates(double x, double y) throws IndexOutOfBoundsException {
-    	int xIndex = (int) (x / CellUI.TILE_SIZE);
-    	int yIndex = (int) (y / CellUI.TILE_SIZE);
+    	int xIndex = (int) (x / CellUI.DEFAULT_TILE_SIZE);
+    	int yIndex = (int) (y / CellUI.DEFAULT_TILE_SIZE);
     	return cellArray[xIndex][yIndex];
     }
     
@@ -152,21 +171,7 @@ public class GridBoardUI extends AnchorPane {
     	}
     }
     
-    
-    public void setTileSize(int size) throws ArithmeticException { 
-    	this.tileSize = size;
-    	for (int y = 0; y < gridData.getHeight(); y++) { 
-    		for (int x = 0; x < gridData.getWidth(); x++) {
-               	cellArray[x][y].getColorRect().setWidth(size - 1);
-               	cellArray[x][y].getColorRect().setHeight(size - 1);
-               	
-            	cellArray[x][y].setLayoutX(x*size);
-            	cellArray[x][y].setLayoutY(y*size);
-            	updateVisual();
-            }
-    	}
-	}
-    
+        
   
     
     public void clear() {

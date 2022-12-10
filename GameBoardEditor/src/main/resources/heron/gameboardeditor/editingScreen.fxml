@@ -63,7 +63,6 @@
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
-            <MenuItem fx:id="newfile" mnemonicParsing="false" onAction="#newFile" text="New" />
             <MenuItem mnemonicParsing="false" onAction="#loadProject" text="Open…" />
             <MenuItem mnemonicParsing="false" onAction="#saveProject" text="Save" />
                   <MenuItem mnemonicParsing="false" onAction="#clear" text="Clear" />
@@ -81,8 +80,6 @@
             <MenuItem mnemonicParsing="false" text="Paste" />
             <MenuItem mnemonicParsing="false" text="Delete" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Select All" />
-            <MenuItem mnemonicParsing="false" text="Unselect All" />
                   <MenuItem mnemonicParsing="false" onAction="#selectLevel" text="Select Level" />
                   <MenuItem mnemonicParsing="false" onAction="#deselectLevel" text="Deselect Level" />
                   <SeparatorMenuItem mnemonicParsing="false" />
@@ -97,18 +94,9 @@
                   <MenuItem mnemonicParsing="false" onAction="#exportToObj" text="Export" />
               </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Templates">
-              <items>
-                <MenuItem mnemonicParsing="false" onAction="#switchToTemplateScreen" text="All Templates" />
-                  <MenuItem mnemonicParsing="false" text="Temple 1" />
-                  <MenuItem mnemonicParsing="false" text="Temple 2" />
-                  <MenuItem mnemonicParsing="false" text="Temple 3" />
-                  <MenuItem mnemonicParsing="false" text="Temple 4" />
-              </items>
-            </Menu>
       </menus>
     </MenuBar>
-    <SplitPane dividerPositions="0.1259124087591241, 0.8005735140771637" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <SplitPane dividerPositions="0.1259124087591241, 0.8308133472367049" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <items>
             <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="500.0" prefWidth="154.0" SplitPane.resizableWithParent="false">
                <children>
@@ -183,8 +171,8 @@
                         <MenuItem mnemonicParsing="false" onAction="#terrainToolCustom" text="Custom..." />
                     </items>
                   </MenuButton>
-                  <CheckBox fx:id="checkBoxDisplayLevel" layoutX="16.0" layoutY="410.0" mnemonicParsing="false" onAction="#displayLevel" prefHeight="25.0" prefWidth="109.0" text="Show Level" />
-                  <Button fx:id="zoomInButton" layoutX="16.0" layoutY="486.0" mnemonicParsing="false" onAction="#zoomIn" prefHeight="30.0" prefWidth="40.0">
+                  <CheckBox fx:id="checkBoxDisplayLevel" layoutX="17.0" layoutY="391.0" mnemonicParsing="false" onAction="#displayLevel" prefHeight="25.0" prefWidth="109.0" text="Show Level" />
+                  <Button fx:id="zoomInButton" layoutX="6.0" layoutY="467.0" mnemonicParsing="false" onAction="#zoomIn" prefHeight="30.0" prefWidth="40.0">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -192,7 +180,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button fx:id="zoomOutButton" layoutX="82.0" layoutY="486.0" mnemonicParsing="false" onAction="#zoomOut" prefHeight="30.0" prefWidth="40.0">
+                  <Button fx:id="zoomOutButton" layoutX="72.0" layoutY="467.0" mnemonicParsing="false" onAction="#zoomOut" prefHeight="30.0" prefWidth="40.0">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -200,7 +188,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button fx:id="undoButton" layoutX="16.0" layoutY="444.0" mnemonicParsing="false" onAction="#undoAction" prefHeight="30.0" prefWidth="40.0">
+                  <Button fx:id="undoButton" layoutX="6.0" layoutY="425.0" mnemonicParsing="false" onAction="#undoAction" prefHeight="30.0" prefWidth="40.0">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -209,7 +197,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="redoButton" layoutX="83.0" layoutY="445.0" mnemonicParsing="false" onAction="#redoAction" prefHeight="30.0" prefWidth="40.0">
+                  <Button fx:id="redoButton" layoutX="73.0" layoutY="426.0" mnemonicParsing="false" onAction="#redoAction" prefHeight="30.0" prefWidth="40.0">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -218,7 +206,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <CheckBox fx:id="pointyTile" layoutX="17.0" layoutY="385.0" mnemonicParsing="false" onAction="#pointyTileAction" prefHeight="25.0" prefWidth="62.0" text="Pointy" />
+                  <Button layoutX="31.0" layoutY="520.0" mnemonicParsing="false" onAction="#pointyToolOn" text="Pointy" />
                </children>
             </AnchorPane>
         <ScrollPane prefHeight="500.0" prefWidth="691.0">

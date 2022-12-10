@@ -8,8 +8,8 @@ import javafx.scene.control.Button;
 public class WelcomeScreenController {
 	
     @FXML
-    private void switchToNewProject() throws IOException {
-    	App.setRoot("chooseBoardScreen");
+    private void switchToEditingScreen() throws IOException {
+    	App.setRoot("editingScreen");
     }
 	
     @FXML

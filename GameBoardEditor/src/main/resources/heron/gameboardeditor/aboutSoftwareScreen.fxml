@@ -10,11 +10,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: EFCA08;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="heron.gameboardeditor.AboutScreensController">
+<BorderPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: EFCA08;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="heron.gameboardeditor.AboutScreensController">
    <top>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#switchToWelcomeScreen" prefHeight="36.0" prefWidth="47.0" style="-fx-background-color: EFCA08 EFCA08;">
+            <Button mnemonicParsing="false" onAction="#switchToWelcomeScreen" prefHeight="60.0" prefWidth="62.0" style="-fx-background-color: EFCA08 EFCA08;">
                <graphic>
                   <ImageView fitHeight="29.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -23,14 +23,14 @@
                   </ImageView>
                </graphic>
             </Button>
-            <ImageView fitHeight="131.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="206.0" fitWidth="215.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Icons/logo.png" />
                </image>
                <VBox.margin>
-                  <Insets left="380.0" />
+                  <Insets left="535.0" />
                </VBox.margin></ImageView>
-            <Label alignment="CENTER" prefHeight="128.0" prefWidth="900.0" text="About Heron Software" textAlignment="CENTER" wrapText="true">
+            <Label alignment="CENTER" prefHeight="109.0" prefWidth="1303.0" text="About Heron Software" textAlignment="CENTER" wrapText="true">
                <padding>
                   <Insets bottom="15.0" top="15.0" />
                </padding>
@@ -55,9 +55,9 @@
       </Label>
    </bottom>
    <left>
-      <VBox prefHeight="327.0" prefWidth="901.0" style="-fx-background-radius: 20 px;" BorderPane.alignment="CENTER">
+      <VBox prefHeight="409.0" prefWidth="1280.0" style="-fx-background-radius: 20 px;" BorderPane.alignment="CENTER">
          <children>
-            <TextArea fx:id="credits" prefHeight="296.0" prefWidth="500.0" text="Our software allows users to....">
+            <TextArea fx:id="credits" prefHeight="366.0" prefWidth="1080.0" text="Our software allows users to....">
                <font>
                   <Font size="25.0" />
                </font>
