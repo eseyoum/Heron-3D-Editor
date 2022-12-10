@@ -43,5 +43,17 @@ class GridTest {
 		
 		
 	}
+	
+	@Test
+	void testIsCoordinateInGrid() {
+		Grid grid = new Grid(5, 5);
+		assertEquals(grid.isCoordinateInGrid(1, 2), true);
+		assertEquals(grid.isCoordinateInGrid(0, 0), true);
+		assertEquals(grid.isCoordinateInGrid(0, 1), true);
+		assertEquals(grid.isCoordinateInGrid(-1, 2), false);
+		assertEquals(grid.isCoordinateInGrid(0, -1), false);
+		assertEquals(grid.isCoordinateInGrid(5, 5), false);
+		assertEquals(grid.isCoordinateInGrid(4, 4), true);
+	}
 
 }
