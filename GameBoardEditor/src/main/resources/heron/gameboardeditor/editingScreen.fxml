@@ -218,13 +218,13 @@
               <content>
                 <AnchorPane focusTraversable="true" minHeight="0.0" minWidth="0.0" prefHeight="1009.0" prefWidth="356.0">
                      <children>
-                        <VBox focusTraversable="true" prefHeight="1009.0" prefWidth="362.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox focusTraversable="true" layoutX="-2.0" layoutY="31.0" prefHeight="1009.0" prefWidth="362.0" AnchorPane.bottomAnchor="-31.0" AnchorPane.topAnchor="31.0">
                            <children>
                               <Button alignment="CENTER" mnemonicParsing="false" onAction="#templateOne" prefHeight="200.0" prefWidth="200.0">
                                  <graphic>
                                     <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@Templates_Image/Augie%20A.png" />
+                                          <Image url="@Templates_Image/Template1.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -236,7 +236,7 @@
                                  <graphic>
                                     <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@Templates_Image/Galaxy.png" />
+                                          <Image url="@Templates_Image/Template2.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -248,7 +248,7 @@
                                  <graphic>
                                     <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@Templates_Image/Maze.png" />
+                                          <Image url="@Templates_Image/Template3.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -260,7 +260,7 @@
                                  <graphic>
                                     <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@Templates_Image/Tree.png" />
+                                          <Image url="@Templates_Image/Template4.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
