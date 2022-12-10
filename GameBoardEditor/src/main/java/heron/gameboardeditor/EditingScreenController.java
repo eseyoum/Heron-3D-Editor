@@ -70,19 +70,23 @@ public class EditingScreenController {
     private VBox boardParentVBox;
     private GridBoardUI gridBoard;
     private UndoRedoHandler undoRedoHandler;
-    private int tileSize;
     
     @FXML
     private void initialize() {
     	this.undoRedoHandler = new UndoRedoHandler(this);
     	refreshUIFromGrid();
-    	tileSize = CellUI.TILE_SIZE;
     }
     
     private void refreshUIFromGrid() {
         gridMapPane = new BorderPane();
         gridMapPane.setPrefSize(600, 800);
-        gridBoard = new GridBoardUI(App.getGrid(), undoRedoHandler); //creates a GridBoardUI, which is the grid the user can see
+        
+    	int tileSize = CellUI.DEFAULT_TILE_SIZE;
+        if (gridBoard != null) {
+        	tileSize = gridBoard.getTileSize();
+        }
+        gridBoard = new GridBoardUI(App.getGrid(), undoRedoHandler, tileSize); //creates a GridBoardUI, which is the grid the user can see
+        
         boardParentVBox = new VBox(50, gridBoard); //creates a vbox with myBoard for children
         boardParentVBox.setAlignment(Pos.TOP_RIGHT);
         gridMapPane.setCenter(boardParentVBox);
@@ -138,17 +142,33 @@ public class EditingScreenController {
     
     @FXML
     void zoomIn() {
-    	gridBoard.setTileSize(tileSize += 10);
+    	gridBoard.setTileSize(gridBoard.getTileSize()+10);
+//    	undoRedoHandler.saveState();
+    	
     }
     
    
     @FXML
     void zoomOut() {
-    	if (tileSize > 10) {
-    		gridBoard.setTileSize(tileSize -= 10);
+    	if (gridBoard.getTileSize() > 10) {
+    		gridBoard.setTileSize(gridBoard.getTileSize()-10);
     	}
+//    	undoRedoHandler.saveState();
     }
     
+//    public void setTileSize(int size) throws ArithmeticException { 
+//    	//this.tileSize = size;
+//    	for (int y = 0; y < gridBoard.getHeight(); y++) { 
+//    		for (int x = 0; x < gridBoard.getWidth(); x++) {
+//    			gridBoard.getCell(x,y).getColorRect().setWidth(size - 1);
+//    			gridBoard.getCell(x,y).getColorRect().setHeight(size - 1);
+//               	
+//    			gridBoard.getCell(x,y).setLayoutX(x*size);
+//    			gridBoard.getCell(x,y).setLayoutY(y*size);
+//    			gridBoard.updateVisual();
+//            }
+//    	}
+//	}
     
     @FXML
     void displayLevel() {
@@ -286,22 +306,22 @@ public class EditingScreenController {
     
     @FXML
     void templateOne(ActionEvent event) throws JsonSyntaxException, JsonIOException, IOException {
-    	templetLoaderHelper("/Users/levinhngoc/Desktop/Heron/HeronRepo/GameBoardEditor/src/main/resources/heron/gameboardeditor/Templates/Augie_A.heron");
+    	templetLoaderHelper("/Users/ezanaseyoum/GitHub/HeronRepo/GameBoardEditor/src/main/resources/heron/gameboardeditor/Templates/Augie_A.heron");
     }
     
     @FXML
     void templateTwo(ActionEvent event) throws JsonSyntaxException, JsonIOException, IOException {
-    	templetLoaderHelper("/Users/levinhngoc/Desktop/Heron/HeronRepo/GameBoardEditor/src/main/resources/heron/gameboardeditor/Templates/Galaxy.heron");
+    	templetLoaderHelper("/Users/ezanaseyoum/GitHub/HeronRepo/GameBoardEditor/src/main/resources/heron/gameboardeditor/Templates/Galaxy.heron");
     }
 
     @FXML
     void templateThree(ActionEvent event) throws JsonSyntaxException, JsonIOException, IOException {
-    	templetLoaderHelper("/Users/levinhngoc/Desktop/Heron/HeronRepo/GameBoardEditor/src/main/resources/heron/gameboardeditor/Templates/Maze.heron");
+    	templetLoaderHelper("/Users/ezanaseyoum/GitHub/HeronRepo/GameBoardEditor/src/main/resources/heron/gameboardeditor/Templates/Maze.heron");
     }
     
     @FXML
     void templateFour(ActionEvent event) throws JsonSyntaxException, JsonIOException, IOException {
-    	templetLoaderHelper("/Users/levinhngoc/Desktop/Heron/HeronRepo/GameBoardEditor/src/main/resources/heron/gameboardeditor/Templates/tree.heron");
+    	templetLoaderHelper("/Users/ezanaseyoum/GitHub/HeronRepo/GameBoardEditor/src/main/resources/heron/gameboardeditor/Templates/Tree.heron");
     }
     
     private void templetLoaderHelper(String path) throws JsonSyntaxException, JsonIOException, IOException {
@@ -310,7 +330,7 @@ public class EditingScreenController {
 	    		Grid grid = ProjectIO.load(file);
 	        	App.setGrid(grid);
 	        	undoRedoHandler = new UndoRedoHandler(this);
-	    		gridBoard = new GridBoardUI(grid, undoRedoHandler);
+	    		gridBoard = new GridBoardUI(grid, undoRedoHandler, CellUI.DEFAULT_TILE_SIZE);
 	    		boardParentVBox.getChildren().clear();
 	    		boardParentVBox.getChildren().addAll(gridBoard);
     	}
@@ -330,7 +350,7 @@ public class EditingScreenController {
 				Grid grid = ProjectIO.load(file);
 				App.setGrid(grid);
 				undoRedoHandler = new UndoRedoHandler(this);
-				gridBoard = new GridBoardUI(grid, undoRedoHandler);
+				gridBoard = new GridBoardUI(grid, undoRedoHandler, CellUI.DEFAULT_TILE_SIZE);
 				boardParentVBox.getChildren().clear();
 				boardParentVBox.getChildren().addAll(gridBoard);
 			} catch (FileNotFoundException ex) {
@@ -457,9 +477,9 @@ public class EditingScreenController {
     				writer.write("v " + (c + 1) + " " + r + " " + 0 + "\n");
     				writer.write("v " + (c + 1) + " " + (r + 1) + " " + 0 + "\n");
     				writer.write("v " + (c + 1) + " " + (r + 1) + " " + e + "\n");
-//    				if(pointyTile.isSelected()) {
-//        				writer.write("v " + (c + 0.5) + " " + (r + 0.5) + " " + (e + 1) + "\n");
-//    				}
+		
+//    				writer.write("v " + (c + 0.5) + " " + (r + 0.5) + " " + (e + 3) + "\n");
+
     			}
     		}
     		for(int i = 0; i < (grid.getWidth() * grid.getHeight()); i++) {
@@ -469,15 +489,7 @@ public class EditingScreenController {
     			writer.write("f " + (8 * i + 8) + " " + (8 * i + 7) + " " + (8 * i + 3) + " " + (8 * i + 4) + "\n");
     			writer.write("f " + (8 * i + 5) + " " + (8 * i + 8) + " " + (8 * i + 4) + " " + (8 * i + 1) + "\n");
     			writer.write("f " + (8 * i + 6) + " " + (8 * i + 7) + " " + (8 * i + 8) + " " + (8 * i + 5) + "\n");
-//    			if(pointyTile.isSelected()) {
-//        			writer.write("f " + (i + 9) + " " + (i + 1) + " " + (i + 4) + "\n");
-//        			writer.write("f " + (i + 9) + " " + (i + 4) + " " + (i + 8) + "\n");
-//        			writer.write("f " + (i + 9) + " " + (i + 8) + " " + (i + 5) + "\n");
-//        			writer.write("f " + (i + 9) + " " + (i + 5) + " " + (i + 1) + "\n");
-//        			i += 8;
-//    			} else {
-    				//i += 7;
-//    			}
+
     		}
     		writer.close();
     	}

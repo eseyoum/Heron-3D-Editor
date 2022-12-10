@@ -1,10 +1,5 @@
 package heron.gameboardeditor.tools;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import heron.gameboardeditor.CellUI;
 import heron.gameboardeditor.GridBoardUI;
 import heron.gameboardeditor.UndoRedoHandler;
@@ -20,21 +15,26 @@ public class PencilTool extends Tool {
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		int x = (int) e.getX() / CellUI.TILE_SIZE;
-		int y = (int) e.getY() / CellUI.TILE_SIZE;
-		if (gridBoard.getGridData().isCoordinateInGrid(x, y)) {
-			CellUI cellClicked = gridBoard.getCell(x, y);
-			cellClicked.setLevel(gridBoard.getLevel());
-		}
+		pencil(e);
 	}
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		int x = (int) e.getX() / CellUI.TILE_SIZE;
-		int y = (int) e.getY() / CellUI.TILE_SIZE;
+		pencil(e);
+	}
+	
+	private void pencil(MouseEvent e) {
+//		CellUI cellClicked = gridBoard.getCell((int) e.getX() / CellUI.TILE_SIZE, (int) e.getY() / CellUI.TILE_SIZE);
+//		int x = (int) e.getX() / CellUI.TILE_SIZE;
+//		int y = (int) e.getY() / CellUI.TILE_SIZE;
+		int x = (int) (e.getX() / gridBoard.getTileSize());
+		int y = (int) (e.getY() / gridBoard.getTileSize());
 		if (gridBoard.getGridData().isCoordinateInGrid(x, y)) {
 			CellUI cellClicked = gridBoard.getCell(x, y);
-			cellClicked.setLevel(gridBoard.getLevel());
+			if (cellClicked.getLevel() != gridBoard.getLevel()) {
+				cellClicked.setLevel(gridBoard.getLevel());
+				undoRedoHandler.saveState();	
+			}
 		}
 	}
 }

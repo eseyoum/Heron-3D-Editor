@@ -18,7 +18,7 @@ import javafx.scene.effect.ColorAdjust;
 public class CellUI extends StackPane implements Cloneable {
 	
     //public int tileSize = 30; //size of the cells
-    public static final int TILE_SIZE = 30;
+    public static final int DEFAULT_TILE_SIZE = 30;
     private static final Color DEFAULT_COLOR = Color.CORNFLOWERBLUE; //default color of the cells
     
     private static int maxLevel; //number of possible levels
@@ -41,9 +41,9 @@ public class CellUI extends StackPane implements Cloneable {
 	
     
    
-    public CellUI(GridBoardUI gridBoard, int xIndex, int yIndex) {
+    public CellUI(GridBoardUI gridBoard, int xIndex, int yIndex, int tileSize) {
 		super();
-		this.colorRect = new Rectangle(TILE_SIZE - 1, TILE_SIZE - 1);
+		this.colorRect = new Rectangle(tileSize - 1, tileSize - 1);
 		//this.levelText = new Text("");
 		this.getChildren().addAll(colorRect);
     	this.gridBoard = gridBoard;
