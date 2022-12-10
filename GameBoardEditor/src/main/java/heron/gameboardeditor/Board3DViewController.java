@@ -7,13 +7,17 @@ import heron.gameboardeditor.datamodel.Block;
 
 import heron.gameboardeditor.datamodel.Grid;
 import javafx.scene.Group;
+import javafx.scene.LightBase;
 import javafx.scene.shape.Box;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
+import javafx.scene.transform.Translate;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.scene.AmbientLight;
 import javafx.scene.Camera;
 import javafx.scene.PerspectiveCamera;
+import javafx.scene.PointLight;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
@@ -48,9 +52,8 @@ public class Board3DViewController {
 	
 		//Create Material
 		PhongMaterial material = new PhongMaterial();
-		//Applying JavaFX Diffuse Map with Color Royal Blue[/caption] Royal blue color
-		material.setDiffuseColor(Color.GREEN);
-		//Apply material for the box
+		material.setDiffuseMap(new Image(getClass().getResourceAsStream("/wood.jpg")));
+
 		
 		
 		// Prepare transformable Group container
@@ -89,11 +92,8 @@ public class Board3DViewController {
 						group.getChildren().add(pointyBox);
 					}
 				}
-				
-				
-				
-				
 				group.getChildren().add(box);
+				group.getChildren().add(prepareLightSource());
 				box.setMaterial(material);
 			}
 		}
@@ -105,6 +105,7 @@ public class Board3DViewController {
 		Scene scene = new Scene(group, WIDTH, HEIGHT,true);
 		scene.setFill(Color.SILVER);
 		scene.setCamera(camera);
+		
 		// Movoe to center of the screen
 		group.translateXProperty().set(WIDTH / 2);
 		group.translateYProperty().set(HEIGHT / 2);
@@ -145,6 +146,16 @@ public class Board3DViewController {
 	public void show() {
 		stage3D.show();
 	}
+	
+	private LightBase prepareLightSource() {
+	    //Create point light
+	    PointLight pointLight = new PointLight();
+	    //Set light color
+	    //pointLight.setColor(Color.SILVER);
+	    //Set location of light source
+	    pointLight.getTransforms().add(new Translate(30,50,-100));
+	    return pointLight;
+	}
 
 	class SmartGroup extends Group {
 
@@ -166,6 +177,7 @@ public class Board3DViewController {
 		}
 	}
 
+	
 	private void initMouseControl(SmartGroup group, Scene scene) {
 		// Prepare X and Y axis rotation transformation objects
 		Rotate xRotate;
