@@ -49,6 +49,7 @@
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -63,35 +64,83 @@
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#loadProject" text="Open…" />
-            <MenuItem mnemonicParsing="false" onAction="#saveProject" text="Save" />
-                  <MenuItem mnemonicParsing="false" onAction="#clear" text="Clear" />
+            <MenuItem mnemonicParsing="false" onAction="#loadProject" text="Open…">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+            <MenuItem mnemonicParsing="false" onAction="#saveProject" text="Save">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+                  <MenuItem mnemonicParsing="false" onAction="#clear" text="Clear">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="C" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                     </accelerator></MenuItem>
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem fx:id="quit" mnemonicParsing="false" onAction="#exitTheSceen" text="Quit" />
+            <MenuItem fx:id="quit" mnemonicParsing="false" onAction="#exitTheSceen" text="Quit">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#undoAction" text="Undo" />
-            <MenuItem mnemonicParsing="false" onAction="#redoAction" text="Redo" />
+            <MenuItem mnemonicParsing="false" onAction="#undoAction" text="Undo">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="U" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+            <MenuItem mnemonicParsing="false" onAction="#redoAction" text="Redo">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="R" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Cut" />
-            <MenuItem mnemonicParsing="false" text="Copy" />
-            <MenuItem mnemonicParsing="false" text="Paste" />
-            <MenuItem mnemonicParsing="false" text="Delete" />
+            <MenuItem mnemonicParsing="false" text="Cut">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="X" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+            <MenuItem mnemonicParsing="false" text="Copy">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="C" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+            <MenuItem mnemonicParsing="false" text="Paste">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="P" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+            <MenuItem mnemonicParsing="false" text="Delete">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="D" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
             <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" onAction="#selectLevel" text="Select Level" />
-                  <MenuItem mnemonicParsing="false" onAction="#deselectLevel" text="Deselect Level" />
+                  <MenuItem mnemonicParsing="false" onAction="#selectLevel" text="Select Level">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="L" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                     </accelerator></MenuItem>
+                  <MenuItem mnemonicParsing="false" onAction="#deselectLevel" text="Deselect Level">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="D" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                     </accelerator></MenuItem>
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" onAction="#setMaxLevel" text="Set Number of Levels" />
+                  <MenuItem mnemonicParsing="false" onAction="#setMaxLevel" text="Set Number of Levels">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="L" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem fx:id="generateMazeButton" mnemonicParsing="false" onAction="#generateMaze" text="Generate Maze" />
+                  <MenuItem fx:id="generateMazeButton" mnemonicParsing="false" onAction="#generateMaze" text="Generate Maze">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="M" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
           </items>
         </Menu>
             <Menu mnemonicParsing="false" text="3D">
               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#show3DPreview" text="Preview" />
-                  <MenuItem mnemonicParsing="false" onAction="#exportToObj" text="Export" />
+                  <MenuItem mnemonicParsing="false" onAction="#show3DPreview" text="Preview">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="P" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                     </accelerator></MenuItem>
+                  <MenuItem mnemonicParsing="false" onAction="#exportToObj" text="Export">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                     </accelerator></MenuItem>
               </items>
             </Menu>
       </menus>
@@ -122,7 +171,7 @@
                               <Insets top="20.0" />
                            </VBox.margin>
                         </GridPane>
-                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#setSizeAction" style="-fx-background-color: EFCA08 EFCA08 EFCA08 EFCA08;" text="Set Size">
+                        <Button alignment="CENTER" onAction="#setSizeAction" style="-fx-background-color: EFCA08 EFCA08 EFCA08 EFCA08;" text="Set Size">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -133,7 +182,7 @@
                      </children>
                   </VBox>
                   <Slider fx:id="levelSlider" blockIncrement="1.0" cacheShape="false" centerShape="false" layoutX="5.0" layoutY="142.0" majorTickUnit="1.0" max="5.0" min="1.0" minorTickCount="0" onDragDetected="#changeLevel" onMouseClicked="#changeLevel" prefHeight="38.0" prefWidth="224.0" scaleShape="false" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
-                  <ToggleButton fx:id="pencilToggle" layoutX="15.0" layoutY="190.0" mnemonicParsing="false" onAction="#pencilButtonOn" prefHeight="30.0" prefWidth="40.0" selected="true">
+                  <ToggleButton fx:id="pencilToggle" layoutX="15.0" layoutY="190.0" onAction="#pencilButtonOn" prefHeight="30.0" prefWidth="40.0" selected="true">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -145,7 +194,7 @@
                         <ToggleGroup fx:id="toolButtonToggleGroup" />
                      </toggleGroup>
                   </ToggleButton>
-                  <ToggleButton fx:id="eraserToggle" layoutX="15.0" layoutY="243.0" mnemonicParsing="false" onAction="#eraserButtonOn" prefHeight="30.0" prefWidth="40.0" toggleGroup="$toolButtonToggleGroup">
+                  <ToggleButton fx:id="eraserToggle" layoutX="15.0" layoutY="243.0" onAction="#eraserButtonOn" prefHeight="30.0" prefWidth="40.0" toggleGroup="$toolButtonToggleGroup">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -153,10 +202,10 @@
                            </image>
                         </ImageView>
                      </graphic></ToggleButton>
-                  <ToggleButton fx:id="digToggle" layoutX="91.0" layoutY="193.0" mnemonicParsing="false" onAction="#digButtonOn" text="DIG/ Change level?" toggleGroup="$toolButtonToggleGroup" />
-                  <ToggleButton layoutX="150.0" layoutY="247.0" mnemonicParsing="false" onAction="#levelPickerOn" text="Level Picker" toggleGroup="$toolButtonToggleGroup" />
-                  <ToggleButton fx:id="fillToolToggle" layoutX="92.0" layoutY="247.0" mnemonicParsing="false" onAction="#fillToolOn" text="FILL" toggleGroup="$toolButtonToggleGroup" />
-                  <ToggleButton fx:id="selectToggle" layoutX="17.0" layoutY="293.0" mnemonicParsing="false" onAction="#selectToolOn" text="SELECT" toggleGroup="$toolButtonToggleGroup">
+                  <ToggleButton fx:id="digToggle" layoutX="91.0" layoutY="193.0" onAction="#digButtonOn" text="DIG/ Change level?" toggleGroup="$toolButtonToggleGroup" />
+                  <ToggleButton layoutX="150.0" layoutY="247.0" onAction="#levelPickerOn" text="Level Picker" toggleGroup="$toolButtonToggleGroup" />
+                  <ToggleButton fx:id="fillToolToggle" layoutX="92.0" layoutY="247.0" onAction="#fillToolOn" text="FILL" toggleGroup="$toolButtonToggleGroup" />
+                  <ToggleButton fx:id="selectToggle" layoutX="17.0" layoutY="293.0" onAction="#selectToolOn" text="SELECT" toggleGroup="$toolButtonToggleGroup">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -164,14 +213,14 @@
                            </image>
                         </ImageView>
                      </graphic></ToggleButton>
-                  <MenuButton fx:id="terrainMenuButton" layoutX="17.0" layoutY="343.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="107.0" text="TerrainTool">
+                  <MenuButton fx:id="terrainMenuButton" layoutX="17.0" layoutY="343.0" prefHeight="31.0" prefWidth="107.0" text="TerrainTool">
                     <items>
                       <MenuItem fx:id="mountainTerrainObject" mnemonicParsing="false" onAction="#terrainTool" text="Mountain" />
                       <MenuItem fx:id="volcanoTerrainObject" mnemonicParsing="false" onAction="#terrainTool" text="Volcano" />
                         <MenuItem mnemonicParsing="false" onAction="#terrainToolCustom" text="Custom..." />
                     </items>
                   </MenuButton>
-                  <CheckBox fx:id="checkBoxDisplayLevel" layoutX="17.0" layoutY="391.0" mnemonicParsing="false" onAction="#displayLevel" prefHeight="25.0" prefWidth="109.0" text="Show Level" />
+                  <CheckBox fx:id="checkBoxDisplayLevel" layoutX="17.0" layoutY="391.0" onAction="#displayLevel" prefHeight="25.0" prefWidth="109.0" text="Show Level" />
                   <Button fx:id="zoomInButton" layoutX="6.0" layoutY="467.0" mnemonicParsing="false" onAction="#zoomIn" prefHeight="30.0" prefWidth="40.0">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
@@ -206,7 +255,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <ToggleButton layoutX="31.0" layoutY="520.0" mnemonicParsing="false" onAction="#pointyToolOn" text="Pointy" toggleGroup="$toolButtonToggleGroup" />
+                  <ToggleButton layoutX="31.0" layoutY="520.0" onAction="#pointyToolOn" text="Pointy" toggleGroup="$toolButtonToggleGroup" />
                </children>
             </AnchorPane>
         <ScrollPane prefHeight="500.0" prefWidth="691.0">
