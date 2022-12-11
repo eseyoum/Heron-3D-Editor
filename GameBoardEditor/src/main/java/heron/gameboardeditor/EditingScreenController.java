@@ -89,8 +89,8 @@ public class EditingScreenController {
 
         mapDisplay.getChildren().clear();
     	mapDisplay.getChildren().addAll(gridMapPane);
-    	
     }
+    
     
     //Tools
     @FXML

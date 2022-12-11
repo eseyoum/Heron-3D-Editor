@@ -3,9 +3,6 @@ package heron.gameboardeditor;
 
 
 import java.util.Set;
-
-import heron.gameboardeditor.datamodel.Block;
-
 import heron.gameboardeditor.datamodel.Grid;
 import heron.gameboardeditor.generators.Maze;
 import heron.gameboardeditor.tools.DigTool;
