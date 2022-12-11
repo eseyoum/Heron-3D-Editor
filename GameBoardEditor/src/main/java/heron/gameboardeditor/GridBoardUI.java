@@ -134,8 +134,8 @@ public class GridBoardUI extends AnchorPane {
     }
     
     public CellUI getCellAtPixelCoordinates(double x, double y) throws IndexOutOfBoundsException {
-    	int xIndex = (int) (x / CellUI.DEFAULT_TILE_SIZE);
-    	int yIndex = (int) (y / CellUI.DEFAULT_TILE_SIZE);
+    	int xIndex = (int) (x / getTileSize());
+    	int yIndex = (int) (y / getTileSize());
     	return cellArray[xIndex][yIndex];
     }
     

@@ -280,7 +280,6 @@ public class EditingScreenController {
     	textInputDialog.setHeaderText("Enter number of possible levels to work on: ");
     	textInputDialog.showAndWait();
     	int newMaxLevel = Integer.parseInt(textInputDialog.getResult());
-    	//undoRedoHandler.saveState();
     	
     	levelSlider.setMax(newMaxLevel);
     	if (newMaxLevel < CellUI.getMaxLevel()) {
@@ -289,7 +288,6 @@ public class EditingScreenController {
     	CellUI.setMaxLevel(newMaxLevel);
     	gridBoard.setLevel(newMaxLevel);
     	gridBoard.updateVisual();
-    	//undoRedoHandler.saveState();
     }
     
     @FXML
