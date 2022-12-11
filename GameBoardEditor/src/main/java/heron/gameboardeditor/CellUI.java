@@ -11,7 +11,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.effect.ColorAdjust; 
 
-
 /**
  * This class represents one cell (or tile) of the GridBoardUI
  */
@@ -100,7 +99,6 @@ public class CellUI extends StackPane implements Cloneable {
     		colorRect.setFill(colorList.get(block.getZ() - 1));
     	} else {
       		colorRect.setFill(DEFAULT_COLOR); //if the cell is not visible, the level is zero
-      		
     	}
     	if (showLevel) {
         	updateVisualDisplayLevel();

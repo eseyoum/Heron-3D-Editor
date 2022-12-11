@@ -1,13 +1,12 @@
 package heron.gameboardeditor.tools;
 
-import java.util.HashSet;
+import java.util.HashSet; 
 import java.util.Set;
 
 import heron.gameboardeditor.CellUI;
 import heron.gameboardeditor.GridBoardUI;
 import heron.gameboardeditor.UndoRedoHandler;
 import heron.gameboardeditor.datamodel.Block;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -19,9 +18,7 @@ public class SelectionTool extends Tool {
 	private double initialSelectY;
 	private Set<CellUI>selectedRegionOfCells = new HashSet<CellUI>();
 	private boolean pressedInSelectedCell;
-		
-	private CellUI removeSelectedCell;
-	
+
 	public SelectionTool(GridBoardUI gridBoard, UndoRedoHandler handler) {
 		super(handler);
 		this.gridBoard = gridBoard;

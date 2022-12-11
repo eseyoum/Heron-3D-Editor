@@ -110,6 +110,7 @@ public class GridBoardUI extends AnchorPane {
 	}
 
 
+    
     public void setTileSize(int size) throws ArithmeticException { 
     	this.tileSize = size;
     	for (int y = 0; y < gridData.getHeight(); y++) { 

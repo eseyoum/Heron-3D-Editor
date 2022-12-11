@@ -1,8 +1,5 @@
 package heron.gameboardeditor.tools;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import heron.gameboardeditor.CellUI;
 import heron.gameboardeditor.GridBoardUI;
 import heron.gameboardeditor.UndoRedoHandler;
@@ -33,8 +30,7 @@ public class EraserTool extends Tool {
 		if (gridBoard.getGridData().isCoordinateInGrid(x, y)) {
 			CellUI cellClicked = gridBoard.getCell(x, y);
 			if (cellClicked.getLevel() > 0) {
-				cellClicked.getBlock().setZ(0);
-				cellClicked.updateVisualBasedOnBlock();
+				cellClicked.setLevel(0);
 				cellClicked.setSelected(false);
 				gridBoard.selectionTool.getSelectedCells().remove(cellClicked);
 				undoRedoHandler.saveState();
