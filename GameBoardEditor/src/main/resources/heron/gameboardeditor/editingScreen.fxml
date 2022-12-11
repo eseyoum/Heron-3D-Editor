@@ -96,7 +96,7 @@
             </Menu>
       </menus>
     </MenuBar>
-    <SplitPane dividerPositions="0.1259124087591241, 0.8308133472367049" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <SplitPane dividerPositions="0.1259124087591241, 0.7677267987486965" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <items>
             <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="500.0" prefWidth="154.0" SplitPane.resizableWithParent="false">
                <children>
@@ -206,7 +206,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button layoutX="31.0" layoutY="520.0" mnemonicParsing="false" onAction="#pointyToolOn" text="Pointy" />
+                  <ToggleButton layoutX="31.0" layoutY="520.0" mnemonicParsing="false" onAction="#pointyToolOn" text="Pointy" toggleGroup="$toolButtonToggleGroup" />
                </children>
             </AnchorPane>
         <ScrollPane prefHeight="500.0" prefWidth="691.0">
@@ -214,11 +214,11 @@
             <AnchorPane id="Content" fx:id="mapDisplay" focusTraversable="true" minHeight="-1.0" minWidth="-1.0" prefHeight="506.0" prefWidth="711.0" />
           </content>
         </ScrollPane>
-            <ScrollPane prefHeight="1000.0" prefWidth="379.0">
+            <ScrollPane prefHeight="1008.0" prefWidth="385.0" SplitPane.resizableWithParent="false">
               <content>
-                <AnchorPane focusTraversable="true" minHeight="0.0" minWidth="0.0" prefHeight="1009.0" prefWidth="356.0">
+                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="1001.0" prefWidth="239.0">
                      <children>
-                        <VBox focusTraversable="true" layoutX="-2.0" layoutY="31.0" prefHeight="1009.0" prefWidth="362.0" AnchorPane.bottomAnchor="-31.0" AnchorPane.topAnchor="31.0">
+                        <VBox fillWidth="false" focusTraversable="true" prefHeight="1001.0" prefWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <Button alignment="CENTER" mnemonicParsing="false" onAction="#templateOne" prefHeight="200.0" prefWidth="200.0">
                                  <graphic>
@@ -229,7 +229,7 @@
                                     </ImageView>
                                  </graphic>
                                  <VBox.margin>
-                                    <Insets left="15.0" top="10.0" />
+                                    <Insets left="10.0" top="15.0" />
                                  </VBox.margin>
                               </Button>
                               <Button alignment="CENTER" mnemonicParsing="false" onAction="#templateTwo" prefHeight="200.0" prefWidth="200.0">
@@ -241,7 +241,7 @@
                                     </ImageView>
                                  </graphic>
                                  <VBox.margin>
-                                    <Insets left="15.0" top="15.0" />
+                                    <Insets left="10.0" top="15.0" />
                                  </VBox.margin>
                               </Button>
                               <Button alignment="CENTER" mnemonicParsing="false" onAction="#templateThree" prefHeight="200.0" prefWidth="200.0">
@@ -253,7 +253,7 @@
                                     </ImageView>
                                  </graphic>
                                  <VBox.margin>
-                                    <Insets left="15.0" top="15.0" />
+                                    <Insets left="10.0" top="15.0" />
                                  </VBox.margin>
                               </Button>
                               <Button alignment="CENTER" mnemonicParsing="false" onAction="#templateFour" prefHeight="200.0" prefWidth="200.0">
@@ -265,7 +265,7 @@
                                     </ImageView>
                                  </graphic>
                                  <VBox.margin>
-                                    <Insets left="15.0" top="15.0" />
+                                    <Insets left="10.0" top="15.0" />
                                  </VBox.margin>
                               </Button>
                            </children>
