@@ -70,8 +70,8 @@ public class Board3DViewController {
 
 				box.translateXProperty().set( BLOCK_SIZE*(x - width/2));
 				box.translateYProperty().set( BLOCK_SIZE*(y - height/2));
-				
 				box.translateZProperty().set(-(level*BLOCK_Z_HEIGHT)/2 + (maxLevel*BLOCK_Z_HEIGHT)/2);
+//				box.translateZProperty().set(-(level*BLOCK_Z_HEIGHT)/2);
 				
 				if (block.isPointy()) {
 					int size = BLOCK_SIZE;
@@ -83,8 +83,9 @@ public class Board3DViewController {
 						
 						pointyBox.translateXProperty().set( BLOCK_SIZE*(x - width/2));
 						pointyBox.translateYProperty().set( BLOCK_SIZE*(y - height/2));
-						
-						pointyBox.translateZProperty().set(-(zForFlatBox) + zForFlatBox/2);
+
+//						pointyBox.translateZProperty().set(-(zForFlatBox) + zForFlatBox/2);
+						pointyBox.translateZProperty().set(-(zForFlatBox) + 35);		
 						zForFlatBox += 1;
 						
 						group.getChildren().add(pointyBox);
@@ -98,7 +99,7 @@ public class Board3DViewController {
 		
 	
 		Camera camera = new PerspectiveCamera();
-		camera.translateZProperty().set(-500);
+		camera.translateZProperty().set(-1200);
 
 		Scene scene = new Scene(group, WIDTH, HEIGHT,true);
 		scene.setFill(Color.SILVER);
@@ -107,7 +108,7 @@ public class Board3DViewController {
 		// Move to center of the screen
 		group.translateXProperty().set(WIDTH / 2);
 		group.translateYProperty().set(HEIGHT / 2);
-		group.translateZProperty().set(-1200);
+		group.translateZProperty().set(-100);
 
 		initMouseControl(group, scene);
 
@@ -203,5 +204,4 @@ public class Board3DViewController {
 			angleY.set(anchorAngleY + anchorX - event.getSceneX());
 		});
 	}
-
 }
