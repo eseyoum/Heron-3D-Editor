@@ -31,7 +31,6 @@ public class Board3DViewController {
 	private static final int BLOCK_SIZE = 50;
 	private static final int BLOCK_Z_HEIGHT = 15;
 	
-
 	private Stage stage3D;
 
 	// Tracks drag starting point for x and y
@@ -72,12 +71,13 @@ public class Board3DViewController {
 
 				box.translateXProperty().set( BLOCK_SIZE*(x - width/2));
 				box.translateYProperty().set( BLOCK_SIZE*(y - height/2));
-				
 				box.translateZProperty().set(-(level*BLOCK_Z_HEIGHT)/2 + (maxLevel*BLOCK_Z_HEIGHT)/2);
+//				box.translateZProperty().set(-(level*BLOCK_Z_HEIGHT)/2);
 				
 				if (block.isPointy()) {
 					int size = BLOCK_SIZE;
 					int zForFlatBox = level * BLOCK_Z_HEIGHT;
+					System.out.println(level);
 
 					for (int i = 0; i < 50; i ++) {
 						Box pointyBox = new Box( size, size, 1);
@@ -85,8 +85,9 @@ public class Board3DViewController {
 						
 						pointyBox.translateXProperty().set( BLOCK_SIZE*(x - width/2));
 						pointyBox.translateYProperty().set( BLOCK_SIZE*(y - height/2));
-						
+
 						pointyBox.translateZProperty().set(-(zForFlatBox) + zForFlatBox/2);
+						
 						zForFlatBox += 1;
 						
 						group.getChildren().add(pointyBox);
@@ -100,7 +101,7 @@ public class Board3DViewController {
 		
 	
 		Camera camera = new PerspectiveCamera();
-		camera.translateZProperty().set(-500);
+		camera.translateZProperty().set(-1200);
 
 		Scene scene = new Scene(group, WIDTH, HEIGHT,true);
 		scene.setFill(Color.SILVER);
@@ -109,7 +110,7 @@ public class Board3DViewController {
 		// Movoe to center of the screen
 		group.translateXProperty().set(WIDTH / 2);
 		group.translateYProperty().set(HEIGHT / 2);
-		group.translateZProperty().set(-1200);
+		group.translateZProperty().set(-100);
 
 		initMouseControl(group, scene);
 
