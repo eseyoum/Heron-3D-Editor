@@ -1,6 +1,5 @@
 package heron.gameboardeditor;
 
-
 import javafx.scene.image.Image;
 
 import heron.gameboardeditor.datamodel.Block;
@@ -30,7 +29,6 @@ public class Board3DViewController {
 	private static final int HEIGHT = 800;
 	private static final int BLOCK_SIZE = 50;
 	private static final int BLOCK_Z_HEIGHT = 15;
-	
 
 	private Stage stage3D;
 
@@ -106,7 +104,7 @@ public class Board3DViewController {
 		scene.setFill(Color.SILVER);
 		scene.setCamera(camera);
 		
-		// Movoe to center of the screen
+		// Move to center of the screen
 		group.translateXProperty().set(WIDTH / 2);
 		group.translateYProperty().set(HEIGHT / 2);
 		group.translateZProperty().set(-1200);

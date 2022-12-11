@@ -24,7 +24,7 @@ public class WelcomeScreenController {
 
     @FXML
     void initialize() {
-    	App.useNewGrid(15, 15);
+    	App.useNewGrid(25, 25);
     }
     
 }
