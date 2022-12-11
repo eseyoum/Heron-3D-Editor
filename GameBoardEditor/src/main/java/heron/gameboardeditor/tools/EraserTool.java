@@ -33,7 +33,8 @@ public class EraserTool extends Tool {
 		if (gridBoard.getGridData().isCoordinateInGrid(x, y)) {
 			CellUI cellClicked = gridBoard.getCell(x, y);
 			if (cellClicked.getLevel() > 0) {
-				cellClicked.setLevel(0);
+				cellClicked.getBlock().setZ(0);
+				cellClicked.updateVisualBasedOnBlock();
 				cellClicked.setSelected(false);
 				gridBoard.selectionTool.getSelectedCells().remove(cellClicked);
 				undoRedoHandler.saveState();

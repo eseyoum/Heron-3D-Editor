@@ -32,7 +32,8 @@ public class PencilTool extends Tool {
 		if (gridBoard.getGridData().isCoordinateInGrid(x, y)) {
 			CellUI cellClicked = gridBoard.getCell(x, y);
 			if (cellClicked.getLevel() != gridBoard.getLevel()) {
-				cellClicked.setLevel(gridBoard.getLevel());
+				cellClicked.getBlock().setZ(gridBoard.getLevel());
+				cellClicked.updateVisualBasedOnBlock();
 				undoRedoHandler.saveState();	
 			}
 		}

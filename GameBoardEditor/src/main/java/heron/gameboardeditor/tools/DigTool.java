@@ -53,7 +53,8 @@ public class DigTool extends Tool {
 		if (cellClicked.getBlock().getZ() < 1) {
 			return;
 		} else {
-			cellClicked.setLevel(cellClicked.getBlock().getZ() - 1);
+			cellClicked.getBlock().setZ(cellClicked.getBlock().getZ() - 1);
+			cellClicked.updateVisualBasedOnBlock();
 		}
 	}
 	
@@ -61,7 +62,8 @@ public class DigTool extends Tool {
 		if (cellClicked.getBlock().getZ() >= CellUI.getMaxLevel()) {
 			return;
 		} else {
-			cellClicked.setLevel(cellClicked.getBlock().getZ() + 1);
+			cellClicked.getBlock().setZ(cellClicked.getBlock().getZ() + 1);
+			cellClicked.updateVisualBasedOnBlock();
 		}
 	}
 }
