@@ -20,12 +20,10 @@ public class CellUI extends StackPane implements Cloneable {
     public static final int DEFAULT_TILE_SIZE = 30;
     private static final Color DEFAULT_COLOR = Color.CORNFLOWERBLUE; //default color of the cells
     
-    private static int maxLevel; //number of possible levels
     private static List<Color> colorList; //list of colors for each level of the depth map
     private static Color firstLevelColor = Color.DARKGREY.darker().darker().darker(); //color for the first level
 
-//    private final GridBoardUI gridBoard;
-    private GridBoardUI gridBoard;
+    private static GridBoardUI gridBoard;
     private int xIndex;
     private int yIndex;
     private boolean isClicked;
@@ -51,14 +49,14 @@ public class CellUI extends StackPane implements Cloneable {
 		this.levelText = new Text("");
 		updateVisualBasedOnBlock();
 		this.setSelected(false);
-		maxLevel = 5;
-		colorList = generateColors();
+		generateColors();
     }
     
     /**
      * Adds the possible colors for differentiating between levels on the depth map
      */
-    private static List<Color> generateColors() {
+    public static void generateColors() {
+    	int maxLevel = gridBoard.getGridData().getMaxZ();
     	List<Color> colors = new ArrayList<>();
     	Color color = firstLevelColor;
     	colors.add(color);
@@ -69,7 +67,6 @@ public class CellUI extends StackPane implements Cloneable {
         	colors.add(color);
         }
         colorList = colors;
-        return colors;
     }
     
     private static Color brightenColor(Color color, double brightnessIncrease) {
@@ -79,16 +76,6 @@ public class CellUI extends StackPane implements Cloneable {
     	}
     	return Color.hsb(color.getHue(), color.getSaturation(), newBrightness, color.getOpacity());
     }
-    
-    public static int getMaxLevel() {
-		return maxLevel;
-	}
-
-    
-	public static void setMaxLevel(int maxLevel) {
-		CellUI.maxLevel = maxLevel;
-		generateColors();
-	}
 
 	/**
      * Updates the cell color to reflect the level of the block
