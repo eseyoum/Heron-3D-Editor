@@ -1,6 +1,6 @@
 package heron.gameboardeditor.tools;
 
-import heron.gameboardeditor.CellUI;
+import heron.gameboardeditor.CellUI; 
 import heron.gameboardeditor.GridBoardUI;
 import heron.gameboardeditor.UndoRedoHandler;
 import javafx.scene.control.Slider;

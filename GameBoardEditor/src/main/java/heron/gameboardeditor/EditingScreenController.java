@@ -122,7 +122,7 @@ public class EditingScreenController {
     private void undoAction() {
     	undoRedoHandler.undo();
     }
-    
+   
     @FXML
     private void redoAction() {
     	undoRedoHandler.redo();

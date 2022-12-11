@@ -1,8 +1,5 @@
 package heron.gameboardeditor.tools;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import heron.gameboardeditor.CellUI;
 import heron.gameboardeditor.GridBoardUI;
 import heron.gameboardeditor.UndoRedoHandler;
@@ -53,8 +50,7 @@ public class DigTool extends Tool {
 		if (cellClicked.getBlock().getZ() < 1) {
 			return;
 		} else {
-			cellClicked.getBlock().setZ(cellClicked.getBlock().getZ() - 1);
-			cellClicked.updateVisualBasedOnBlock();
+			cellClicked.setLevel(cellClicked.getBlock().getZ() - 1);
 		}
 	}
 	
@@ -62,8 +58,7 @@ public class DigTool extends Tool {
 		if (cellClicked.getBlock().getZ() >= CellUI.getMaxLevel()) {
 			return;
 		} else {
-			cellClicked.getBlock().setZ(cellClicked.getBlock().getZ() + 1);
-			cellClicked.updateVisualBasedOnBlock();
+			cellClicked.setLevel(cellClicked.getBlock().getZ() + 1);
 		}
 	}
 }

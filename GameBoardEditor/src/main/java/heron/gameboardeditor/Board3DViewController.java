@@ -76,7 +76,6 @@ public class Board3DViewController {
 				if (block.isPointy()) {
 					int size = BLOCK_SIZE;
 					int zForFlatBox = level * BLOCK_Z_HEIGHT;
-					System.out.println(level);
 
 					for (int i = 0; i < 50; i ++) {
 						Box pointyBox = new Box( size, size, 1);
@@ -85,8 +84,8 @@ public class Board3DViewController {
 						pointyBox.translateXProperty().set( BLOCK_SIZE*(x - width/2));
 						pointyBox.translateYProperty().set( BLOCK_SIZE*(y - height/2));
 
-						pointyBox.translateZProperty().set(-(zForFlatBox) + zForFlatBox/2);
-						
+//						pointyBox.translateZProperty().set(-(zForFlatBox) + zForFlatBox/2);
+						pointyBox.translateZProperty().set(-(zForFlatBox) + 35);		
 						zForFlatBox += 1;
 						
 						group.getChildren().add(pointyBox);
@@ -205,5 +204,4 @@ public class Board3DViewController {
 			angleY.set(anchorAngleY + anchorX - event.getSceneX());
 		});
 	}
-
 }

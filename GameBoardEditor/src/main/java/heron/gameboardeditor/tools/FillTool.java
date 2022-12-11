@@ -1,15 +1,10 @@
 package heron.gameboardeditor.tools;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import heron.gameboardeditor.CellUI;
 import heron.gameboardeditor.GridBoardUI;
 import heron.gameboardeditor.UndoRedoHandler;
 import heron.gameboardeditor.datamodel.Block;
 import heron.gameboardeditor.datamodel.Grid;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 
 public class FillTool extends Tool {

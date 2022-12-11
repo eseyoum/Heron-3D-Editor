@@ -144,6 +144,13 @@ public class Grid implements Cloneable {
 		this.height = newHeight;
 	}
 	
+	public void setPointy(boolean pointy) {
+		for (int y = 0; y < this.getHeight(); y++) {
+            for (int x = 0; x < this.getWidth(); x++) {
+            	blockGrid[x][y].setPointy(pointy);
+            }
+    	}
+	}
 	public boolean isVisibleLevel(int level) { //if the level should be visible
 		boolean isVisible;
 		if (level == 0) {
