@@ -311,7 +311,6 @@ public class EditingScreenController {
     		gridBoard.getGridData().lowerBlocksHigherThan(newMaxLevel);
     	}
     	CellUI.generateColors();
-    	gridBoard.setLevel(newMaxLevel);
     	gridBoard.updateVisual();
     }
     
