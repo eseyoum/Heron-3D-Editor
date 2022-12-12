@@ -3,6 +3,7 @@ package heron.gameboardeditor;
 import java.util.ArrayList;
 import java.util.List;
 import heron.gameboardeditor.datamodel.Block;
+import javafx.fxml.FXML;
 import javafx.geometry.VPos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
@@ -57,7 +58,6 @@ public class CellUI extends StackPane implements Cloneable {
     	stroke.setStrokeWidth(10);
     	stroke.setStroke(Color.YELLOW);
     	this.pointyLine = stroke;
-    	//return stroke;
     }
     
     /**
@@ -99,8 +99,6 @@ public class CellUI extends StackPane implements Cloneable {
     	if (showLevel) {
         	updateVisualDisplayLevel();
     	}
-    
-    
 	}
     
 	public void setPointy(boolean pointy) {
@@ -119,9 +117,11 @@ public class CellUI extends StackPane implements Cloneable {
     	}
 	}
     
-    
-    
-
+   
+    @FXML
+    /**
+     * This method shows the level text on each cell.
+     */
     public void updateVisualDisplayLevel() {
     	updateVisualRemoveLevel();
 
@@ -133,7 +133,10 @@ public class CellUI extends StackPane implements Cloneable {
 		showLevel = true;
 	}
     
-    
+    @FXML
+    /**
+     * This method removes the level text on each cell.
+     */
     public void updateVisualRemoveLevel() {
     	Block block = getBlock(); 
     	int level = block.getZ();

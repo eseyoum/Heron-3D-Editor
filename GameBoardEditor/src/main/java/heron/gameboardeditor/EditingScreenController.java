@@ -161,33 +161,29 @@ public class EditingScreenController {
     }
 
     @FXML
+    /**
+     * When the user clicks on the zoom in button, the grid will be zoomed in.
+     */
     void zoomIn() {
     	gridBoard.setTileSize(gridBoard.getTileSize()+10);
     }
     
    
     @FXML
+    /**
+     * When the user clicks on the zoom out button, the grid will be zoomed out.
+     */
     void zoomOut() {
     	if (gridBoard.getTileSize() > 10) {
     		gridBoard.setTileSize(gridBoard.getTileSize() - 10);
     	}
     }
     
-//    public void setTileSize(int size) throws ArithmeticException { 
-//    	//this.tileSize = size;
-//    	for (int y = 0; y < gridBoard.getHeight(); y++) { 
-//    		for (int x = 0; x < gridBoard.getWidth(); x++) {
-//    			gridBoard.getCell(x,y).getColorRect().setWidth(size - 1);
-//    			gridBoard.getCell(x,y).getColorRect().setHeight(size - 1);
-//               	
-//    			gridBoard.getCell(x,y).setLayoutX(x*size);
-//    			gridBoard.getCell(x,y).setLayoutY(y*size);
-//    			gridBoard.updateVisual();
-//            }
-//    	}
-//	}
     
     @FXML
+    /**
+     * When the user ticks the show level tick box, the level of all cells in the grid will be shown.
+     */
     void displayLevel() {
     	if (checkBoxDisplayLevel.isSelected()) {
     		gridBoard.updateVisualDisplayLevel();
@@ -326,21 +322,33 @@ public class EditingScreenController {
     }
     
     @FXML
+    /**
+     * This method will load template 1
+     */
     void templateOne(ActionEvent event) throws JsonSyntaxException, JsonIOException, IOException {
     	templetLoaderHelper("src/main/resources/heron/gameboardeditor/Templates/Template1.heron");
     }
     
     @FXML
+    /**
+     * This method will load template 2
+     */
     void templateTwo(ActionEvent event) throws JsonSyntaxException, JsonIOException, IOException {
     	templetLoaderHelper("src/main/resources/heron/gameboardeditor/Templates/Template2.heron");
     }
 
     @FXML
+    /**
+     * This method will load template 3
+     */
     void templateThree(ActionEvent event) throws JsonSyntaxException, JsonIOException, IOException {
     	templetLoaderHelper("src/main/resources/heron/gameboardeditor/Templates/Template3.heron");
     }
     
     @FXML
+    /**
+     * This method will load template 4
+     */
     void templateFour(ActionEvent event) throws JsonSyntaxException, JsonIOException, IOException {
     	templetLoaderHelper("src/main/resources/heron/gameboardeditor/Templates/Template4.heron");
     }
@@ -359,6 +367,9 @@ public class EditingScreenController {
     
     //File menu bar
     @FXML
+    /**
+     * When the user click on the menu item "Open" and choose a file, that file will be loaded.
+     */
     void loadProject(ActionEvent event) {
     	File file = saveLoadHelper("open", "heron");
 		if (file != null) {
@@ -378,6 +389,9 @@ public class EditingScreenController {
     }
     
     @FXML
+    /**
+     * When the user click on the menu item "Save", the current grid will be saved.
+     */
     void saveProject(ActionEvent event) {
     	File file = saveLoadHelper("save", "heron");
     	if(file != null) {
