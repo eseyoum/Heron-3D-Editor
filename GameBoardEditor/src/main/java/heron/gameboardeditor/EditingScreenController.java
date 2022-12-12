@@ -89,8 +89,13 @@ public class EditingScreenController {
 
         mapDisplay.getChildren().clear();
     	mapDisplay.getChildren().addAll(gridMapPane);
-    	
+
     }
+    
+    private void refreshSlider() {
+    	levelSlider.setMax(gridBoard.getGridData().getMaxZ());
+    }
+    
     
     //Tools
     @FXML
@@ -122,7 +127,7 @@ public class EditingScreenController {
     private void undoAction() {
     	undoRedoHandler.undo();
     }
-    
+   
     @FXML
     private void redoAction() {
     	undoRedoHandler.redo();
@@ -280,16 +285,17 @@ public class EditingScreenController {
     	textInputDialog.setHeaderText("Enter number of possible levels to work on: ");
     	textInputDialog.showAndWait();
     	int newMaxLevel = Integer.parseInt(textInputDialog.getResult());
-    	//undoRedoHandler.saveState();
+    	gridBoard.getGridData().setMaxZ(newMaxLevel);
     	
     	levelSlider.setMax(newMaxLevel);
-    	if (newMaxLevel < CellUI.getMaxLevel()) {
+    	if (newMaxLevel < gridBoard.getGridData().getMaxLevel()) {
     		gridBoard.getGridData().lowerBlocksHigherThan(newMaxLevel);
     	}
-    	CellUI.setMaxLevel(newMaxLevel);
+    	//CellUI.setMaxLevel(newMaxLevel);
+    	//gridBoard.getGridData().setMaxZ(newMaxLevel);
+    	CellUI.generateColors();
     	gridBoard.setLevel(newMaxLevel);
     	gridBoard.updateVisual();
-    	//undoRedoHandler.saveState();
     }
     
     @FXML
@@ -466,6 +472,7 @@ public class EditingScreenController {
     	public void restore() {
     		App.setGrid(grid.clone());
     		refreshUIFromGrid();
+    		refreshSlider();
     	}
     }
 

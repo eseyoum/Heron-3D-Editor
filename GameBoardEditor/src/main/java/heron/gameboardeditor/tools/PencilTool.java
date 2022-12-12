@@ -1,6 +1,6 @@
 package heron.gameboardeditor.tools;
 
-import heron.gameboardeditor.CellUI;
+import heron.gameboardeditor.CellUI; 
 import heron.gameboardeditor.GridBoardUI;
 import heron.gameboardeditor.UndoRedoHandler;
 import javafx.scene.input.MouseEvent;
@@ -32,8 +32,7 @@ public class PencilTool extends Tool {
 		if (gridBoard.getGridData().isCoordinateInGrid(x, y)) {
 			CellUI cellClicked = gridBoard.getCell(x, y);
 			if (cellClicked.getLevel() != gridBoard.getLevel()) {
-				cellClicked.getBlock().setZ(gridBoard.getLevel());
-				cellClicked.updateVisualBasedOnBlock();
+				cellClicked.setLevel(gridBoard.getLevel());
 				undoRedoHandler.saveState();	
 			}
 		}

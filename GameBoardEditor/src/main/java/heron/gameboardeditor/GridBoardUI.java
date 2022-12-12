@@ -3,9 +3,6 @@ package heron.gameboardeditor;
 
 
 import java.util.Set;
-
-import heron.gameboardeditor.datamodel.Block;
-
 import heron.gameboardeditor.datamodel.Grid;
 import heron.gameboardeditor.generators.Maze;
 import heron.gameboardeditor.tools.DigTool;
@@ -110,6 +107,7 @@ public class GridBoardUI extends AnchorPane {
 	}
 
 
+    
     public void setTileSize(int size) throws ArithmeticException { 
     	this.tileSize = size;
     	for (int y = 0; y < gridData.getHeight(); y++) { 
@@ -134,8 +132,8 @@ public class GridBoardUI extends AnchorPane {
     }
     
     public CellUI getCellAtPixelCoordinates(double x, double y) throws IndexOutOfBoundsException {
-    	int xIndex = (int) (x / CellUI.DEFAULT_TILE_SIZE);
-    	int yIndex = (int) (y / CellUI.DEFAULT_TILE_SIZE);
+    	int xIndex = (int) (x / getTileSize());
+    	int yIndex = (int) (y / getTileSize());
     	return cellArray[xIndex][yIndex];
     }
     

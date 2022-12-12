@@ -1,6 +1,6 @@
 package heron.gameboardeditor.tools;
 
-import java.util.ArrayList;
+import java.util.ArrayList; 
 import java.util.Set;
 
 import heron.gameboardeditor.CellUI;
@@ -125,9 +125,9 @@ public class TerrainTool extends Tool {
 	
 	private int setZ(TerrainData terrainData) {
 		int z = terrainData.level;
-		if (terrainData.level > CellUI.getMaxLevel()) {
+		if (terrainData.level > gridData.getMaxLevel()) {
 			 System.out.println("terrainZ too big = " + z);
-			 z = CellUI.getMaxLevel();
+			 z = gridData.getMaxLevel();
 			 System.out.println("newZ = " + z);
 		 }
 		return z;
