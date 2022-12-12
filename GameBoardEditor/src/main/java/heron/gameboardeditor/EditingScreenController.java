@@ -294,7 +294,6 @@ public class EditingScreenController {
     	//CellUI.setMaxLevel(newMaxLevel);
     	//gridBoard.getGridData().setMaxZ(newMaxLevel);
     	CellUI.generateColors();
-    	gridBoard.setLevel(newMaxLevel);
     	gridBoard.updateVisual();
     }
     
