@@ -3,11 +3,13 @@ package heron.gameboardeditor;
 import java.util.ArrayList;
 import java.util.List;
 import heron.gameboardeditor.datamodel.Block;
+import javafx.geometry.VPos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.effect.ColorAdjust; 
 
@@ -88,7 +90,7 @@ public class CellUI extends StackPane implements Cloneable {
     	}
     	
     	if (block.isPointy()) {
-    		colorRect.setStroke(Color.GREEN);
+    		colorRect.setStroke(Color.YELLOW);
     		//updateVisualPointy();
     	} else {
     		colorRect.setStroke(Color.BLACK);
@@ -106,17 +108,14 @@ public class CellUI extends StackPane implements Cloneable {
 //    public void updateVisualPointy() {
 //    	Block block = getBlock(); 
 //    	Text text = new Text(String.valueOf("O"));
-//    	
-////    	text.setLayoutX(100);
-////    	text.setLayoutY(100);
-////    	text.setX(100);
-////    	text.setY(100);
+//    
+//    	text.setFont(Font.font("Arial Black", 20.0));
 //    	
 //    	this.levelText = text;
 //		this.getChildren().addAll(levelText);
 //		showLevel = true;
 //	}
-//    
+    
 
     public void updateVisualDisplayLevel() {
     	updateVisualRemoveLevel();

@@ -202,9 +202,23 @@
                            </image>
                         </ImageView>
                      </graphic></ToggleButton>
-                  <ToggleButton fx:id="digToggle" layoutX="91.0" layoutY="193.0" onAction="#digButtonOn" text="DIG/ Change level?" toggleGroup="$toolButtonToggleGroup" />
-                  <ToggleButton layoutX="150.0" layoutY="247.0" onAction="#levelPickerOn" text="Level Picker" toggleGroup="$toolButtonToggleGroup" />
-                  <ToggleButton fx:id="fillToolToggle" layoutX="92.0" layoutY="247.0" onAction="#fillToolOn" text="FILL" toggleGroup="$toolButtonToggleGroup" />
+                  <ToggleButton fx:id="digToggle" layoutX="91.0" layoutY="193.0" onAction="#digButtonOn" prefHeight="34.0" prefWidth="129.0" text="DIG" toggleGroup="$toolButtonToggleGroup">
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Icons/dig.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></ToggleButton>
+                  <ToggleButton layoutX="21.0" layoutY="572.0" onAction="#levelPickerOn" text="Level Picker" toggleGroup="$toolButtonToggleGroup" />
+                  <ToggleButton fx:id="fillToolToggle" layoutX="92.0" layoutY="247.0" onAction="#fillToolOn" text="FILL" toggleGroup="$toolButtonToggleGroup">
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Icons/fill.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></ToggleButton>
                   <ToggleButton fx:id="selectToggle" layoutX="17.0" layoutY="293.0" onAction="#selectToolOn" text="SELECT" toggleGroup="$toolButtonToggleGroup">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
