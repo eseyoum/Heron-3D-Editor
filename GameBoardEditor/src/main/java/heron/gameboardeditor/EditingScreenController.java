@@ -64,15 +64,13 @@ public class EditingScreenController {
     private VBox boardParentVBox;
     private GridBoardUI gridBoard;
     private UndoRedoHandler undoRedoHandler;
-    
-    //private ArrayList<TerrainObject> customTerrainObjects = new ArrayList<TerrainObject>(); //represents all the custom terrain objects the user created
-    private ArrayList<TerrainObject> terrainObjects = new ArrayList<TerrainObject>();
+    private ArrayList<TerrainObject> customTerrainObjects = new ArrayList<TerrainObject>(); //represents all the custom terrain objects the user created
+
     
     @FXML
     private void initialize() {
     	this.undoRedoHandler = new UndoRedoHandler(this);
     	refreshUIFromGrid();
-    	this.terrainObjects = gridBoard.terrainTool.getTerrainObjects();
     }
     
     private void refreshUIFromGrid() {
@@ -97,27 +95,7 @@ public class EditingScreenController {
     private void refreshSlider() {
     	levelSlider.setMax(gridBoard.getGridData().getMaxZ());
     }
-
-    private void refreshTerrainMenu() {
-    	terrainMenuButton.getItems().clear();
-    	for (TerrainObject terrainObject : terrainObjects) {
-        	MenuItem menuItem = new MenuItem(terrainObject.getName()); //https://www.geeksforgeeks.org/javafx-menubutton/
-        	menuItem.setOnAction(e -> terrainTool(e));
-    		terrainMenuButton.getItems().add(menuItem);
-    	}
-    	MenuItem customMenuItem = new MenuItem("Custom...");
-    	customMenuItem.setOnAction(e -> terrainToolCustom(e));
-    	terrainMenuButton.getItems().add(customMenuItem);
-    }
     
-    private ArrayList<TerrainObject> getTerrainObjects() {
-    	return this.terrainObjects;
-    }
-    
-    private void setTerrainObjects(ArrayList<TerrainObject> terrainObjects) {
-    	this.terrainObjects = terrainObjects;
-    	gridBoard.terrainTool.setTerrainObjects(this.terrainObjects);
-    }
     
     //Tools
     @FXML
@@ -161,29 +139,33 @@ public class EditingScreenController {
     }
 
     @FXML
-    /**
-     * When the user clicks on the zoom in button, the grid will be zoomed in.
-     */
     void zoomIn() {
     	gridBoard.setTileSize(gridBoard.getTileSize()+10);
     }
     
    
     @FXML
-    /**
-     * When the user clicks on the zoom out button, the grid will be zoomed out.
-     */
     void zoomOut() {
     	if (gridBoard.getTileSize() > 10) {
     		gridBoard.setTileSize(gridBoard.getTileSize() - 10);
     	}
     }
     
+//    public void setTileSize(int size) throws ArithmeticException { 
+//    	//this.tileSize = size;
+//    	for (int y = 0; y < gridBoard.getHeight(); y++) { 
+//    		for (int x = 0; x < gridBoard.getWidth(); x++) {
+//    			gridBoard.getCell(x,y).getColorRect().setWidth(size - 1);
+//    			gridBoard.getCell(x,y).getColorRect().setHeight(size - 1);
+//               	
+//    			gridBoard.getCell(x,y).setLayoutX(x*size);
+//    			gridBoard.getCell(x,y).setLayoutY(y*size);
+//    			gridBoard.updateVisual();
+//            }
+//    	}
+//	}
     
     @FXML
-    /**
-     * When the user ticks the show level tick box, the level of all cells in the grid will be shown.
-     */
     void displayLevel() {
     	if (checkBoxDisplayLevel.isSelected()) {
     		gridBoard.updateVisualDisplayLevel();
@@ -269,7 +251,7 @@ public class EditingScreenController {
     	textInputDialog.showAndWait();
     	String name = textInputDialog.getResult();
     	
-    	if (!gridBoard.terrainTool.isValidName(textInputDialog.getResult(), terrainObjects)) {
+    	if (!gridBoard.terrainTool.isValidName(textInputDialog.getResult(), customTerrainObjects)) {
     		return;
     	}
     	
@@ -277,8 +259,7 @@ public class EditingScreenController {
     	customItem.setOnAction(e -> terrainTool(e));
     	terrainMenuButton.getItems().add(terrainMenuButton.getItems().size() - 1, customItem); //adds the custom item to the second to last of the list
     	gridBoard.terrainTool.createCustomTerrainObject(name);
-    	terrainObjects = gridBoard.terrainTool.getTerrainObjects();
-    	undoRedoHandler.saveState(); //save the custom Terrain objects
+    	customTerrainObjects = gridBoard.terrainTool.getTerrainObjects();
     }
     
     
@@ -310,8 +291,9 @@ public class EditingScreenController {
     	if (newMaxLevel < gridBoard.getGridData().getMaxLevel()) {
     		gridBoard.getGridData().lowerBlocksHigherThan(newMaxLevel);
     	}
+    	//CellUI.setMaxLevel(newMaxLevel);
+    	//gridBoard.getGridData().setMaxZ(newMaxLevel);
     	CellUI.generateColors();
-    	gridBoard.setLevel(newMaxLevel);
     	gridBoard.updateVisual();
     }
     
@@ -322,35 +304,23 @@ public class EditingScreenController {
     }
     
     @FXML
-    /**
-     * This method will load template 1
-     */
     void templateOne(ActionEvent event) throws JsonSyntaxException, JsonIOException, IOException {
-    	templetLoaderHelper("src/main/resources/heron/gameboardeditor/Templates/Template1.heron");
+    	templetLoaderHelper("src/main/resources/heron/gameboardeditor/Templates/AugieLetter.heron");
     }
     
     @FXML
-    /**
-     * This method will load template 2
-     */
     void templateTwo(ActionEvent event) throws JsonSyntaxException, JsonIOException, IOException {
-    	templetLoaderHelper("src/main/resources/heron/gameboardeditor/Templates/Template2.heron");
+    	templetLoaderHelper("src/main/resources/heron/gameboardeditor/Templates/Heart.heron");
     }
 
     @FXML
-    /**
-     * This method will load template 3
-     */
     void templateThree(ActionEvent event) throws JsonSyntaxException, JsonIOException, IOException {
-    	templetLoaderHelper("src/main/resources/heron/gameboardeditor/Templates/Template3.heron");
+    	templetLoaderHelper("src/main/resources/heron/gameboardeditor/Templates/TalkTree.heron");
     }
     
     @FXML
-    /**
-     * This method will load template 4
-     */
     void templateFour(ActionEvent event) throws JsonSyntaxException, JsonIOException, IOException {
-    	templetLoaderHelper("src/main/resources/heron/gameboardeditor/Templates/Template4.heron");
+    	templetLoaderHelper("src/main/resources/heron/gameboardeditor/Templates/Duck.heron");
     }
     
     private void templetLoaderHelper(String path) throws JsonSyntaxException, JsonIOException, IOException {
@@ -367,9 +337,6 @@ public class EditingScreenController {
     
     //File menu bar
     @FXML
-    /**
-     * When the user click on the menu item "Open" and choose a file, that file will be loaded.
-     */
     void loadProject(ActionEvent event) {
     	File file = saveLoadHelper("open", "heron");
 		if (file != null) {
@@ -389,9 +356,6 @@ public class EditingScreenController {
     }
     
     @FXML
-    /**
-     * When the user click on the menu item "Save", the current grid will be saved.
-     */
     void saveProject(ActionEvent event) {
     	File file = saveLoadHelper("save", "heron");
     	if(file != null) {
@@ -499,19 +463,15 @@ public class EditingScreenController {
     
     public class State {
     	private Grid grid;
-    	private ArrayList<TerrainObject> terrainObjects;
     	
     	public State() {
     		grid = (Grid) App.getGrid().clone();
-    		terrainObjects = getTerrainObjects();
     	}
     	
     	public void restore() {
     		App.setGrid(grid.clone());
     		refreshUIFromGrid();
     		refreshSlider();
-    		setTerrainObjects(terrainObjects); //set the terrainObjects to what was saved
-    		refreshTerrainMenu(); //updates the menu for the terrainTool
     	}
     }
 

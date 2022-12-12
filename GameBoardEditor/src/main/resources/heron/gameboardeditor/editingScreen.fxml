@@ -182,7 +182,7 @@
                      </children>
                   </VBox>
                   <Slider fx:id="levelSlider" blockIncrement="1.0" cacheShape="false" centerShape="false" layoutX="5.0" layoutY="142.0" majorTickUnit="1.0" max="5.0" min="1.0" minorTickCount="0" onDragDetected="#changeLevel" onMouseClicked="#changeLevel" prefHeight="38.0" prefWidth="224.0" scaleShape="false" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
-                  <ToggleButton fx:id="pencilToggle" layoutX="15.0" layoutY="190.0" onAction="#pencilButtonOn" prefHeight="30.0" prefWidth="40.0" selected="true">
+                  <ToggleButton fx:id="pencilToggle" layoutX="15.0" layoutY="190.0" mnemonicParsing="false" onAction="#pencilButtonOn" prefHeight="30.0" prefWidth="40.0" selected="true">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -194,7 +194,7 @@
                         <ToggleGroup fx:id="toolButtonToggleGroup" />
                      </toggleGroup>
                   </ToggleButton>
-                  <ToggleButton fx:id="eraserToggle" layoutX="15.0" layoutY="243.0" onAction="#eraserButtonOn" prefHeight="30.0" prefWidth="40.0" toggleGroup="$toolButtonToggleGroup">
+                  <ToggleButton fx:id="eraserToggle" layoutX="15.0" layoutY="243.0" mnemonicParsing="false" onAction="#eraserButtonOn" prefHeight="30.0" prefWidth="40.0" toggleGroup="$toolButtonToggleGroup">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -202,7 +202,7 @@
                            </image>
                         </ImageView>
                      </graphic></ToggleButton>
-                  <ToggleButton fx:id="digToggle" layoutX="91.0" layoutY="193.0" onAction="#digButtonOn" prefHeight="34.0" prefWidth="129.0" text="DIG" toggleGroup="$toolButtonToggleGroup">
+                  <ToggleButton fx:id="digToggle" layoutX="91.0" layoutY="193.0" mnemonicParsing="false" onAction="#digButtonOn" prefHeight="34.0" prefWidth="129.0" text="DIG" toggleGroup="$toolButtonToggleGroup">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -210,8 +210,8 @@
                            </image>
                         </ImageView>
                      </graphic></ToggleButton>
-                  <ToggleButton layoutX="21.0" layoutY="572.0" onAction="#levelPickerOn" text="Level Picker" toggleGroup="$toolButtonToggleGroup" />
-                  <ToggleButton fx:id="fillToolToggle" layoutX="92.0" layoutY="247.0" onAction="#fillToolOn" text="FILL" toggleGroup="$toolButtonToggleGroup">
+                  <ToggleButton layoutX="21.0" layoutY="572.0" mnemonicParsing="false" onAction="#levelPickerOn" text="Level Picker" toggleGroup="$toolButtonToggleGroup" />
+                  <ToggleButton fx:id="fillToolToggle" layoutX="92.0" layoutY="247.0" mnemonicParsing="false" onAction="#fillToolOn" text="FILL" toggleGroup="$toolButtonToggleGroup">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -219,7 +219,7 @@
                            </image>
                         </ImageView>
                      </graphic></ToggleButton>
-                  <ToggleButton fx:id="selectToggle" layoutX="17.0" layoutY="293.0" onAction="#selectToolOn" text="SELECT" toggleGroup="$toolButtonToggleGroup">
+                  <ToggleButton fx:id="selectToggle" layoutX="17.0" layoutY="293.0" mnemonicParsing="false" onAction="#selectToolOn" text="SELECT" toggleGroup="$toolButtonToggleGroup">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -227,14 +227,14 @@
                            </image>
                         </ImageView>
                      </graphic></ToggleButton>
-                  <MenuButton fx:id="terrainMenuButton" layoutX="17.0" layoutY="343.0" prefHeight="31.0" prefWidth="107.0" text="TerrainTool">
+                  <MenuButton fx:id="terrainMenuButton" layoutX="17.0" layoutY="343.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="107.0" text="TerrainTool">
                     <items>
                       <MenuItem fx:id="mountainTerrainObject" mnemonicParsing="false" onAction="#terrainTool" text="Mountain" />
                       <MenuItem fx:id="volcanoTerrainObject" mnemonicParsing="false" onAction="#terrainTool" text="Volcano" />
                         <MenuItem mnemonicParsing="false" onAction="#terrainToolCustom" text="Custom..." />
                     </items>
                   </MenuButton>
-                  <CheckBox fx:id="checkBoxDisplayLevel" layoutX="17.0" layoutY="391.0" onAction="#displayLevel" prefHeight="25.0" prefWidth="109.0" text="Show Level" />
+                  <CheckBox fx:id="checkBoxDisplayLevel" layoutX="17.0" layoutY="391.0" mnemonicParsing="false" onAction="#displayLevel" prefHeight="25.0" prefWidth="109.0" text="Show Level" />
                   <Button fx:id="zoomInButton" layoutX="6.0" layoutY="467.0" mnemonicParsing="false" onAction="#zoomIn" prefHeight="30.0" prefWidth="40.0">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
@@ -269,7 +269,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <ToggleButton layoutX="31.0" layoutY="520.0" onAction="#pointyToolOn" text="Pointy" toggleGroup="$toolButtonToggleGroup" />
+                  <ToggleButton layoutX="31.0" layoutY="520.0" mnemonicParsing="false" onAction="#pointyToolOn" text="Pointy" toggleGroup="$toolButtonToggleGroup" />
                </children>
             </AnchorPane>
         <ScrollPane prefHeight="500.0" prefWidth="691.0">
@@ -287,7 +287,7 @@
                                  <graphic>
                                     <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@Templates_Image/Template1.png" />
+                                          <Image url="@Templates_Image/Screen%20Shot%202022-12-12%20at%203.27.03%20PM.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -299,7 +299,7 @@
                                  <graphic>
                                     <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@Templates_Image/Template2.png" />
+                                          <Image url="@Templates_Image/Screen%20Shot%202022-12-12%20at%203.16.04%20PM.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -311,7 +311,7 @@
                                  <graphic>
                                     <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@Templates_Image/Template3.png" />
+                                          <Image url="@Templates_Image/Screen%20Shot%202022-12-12%20at%203.11.59%20PM.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
