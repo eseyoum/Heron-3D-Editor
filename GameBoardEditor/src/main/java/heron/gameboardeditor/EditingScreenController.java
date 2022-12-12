@@ -91,12 +91,13 @@ public class EditingScreenController {
 
         mapDisplay.getChildren().clear();
     	mapDisplay.getChildren().addAll(gridMapPane);
+
     }
     
     private void refreshSlider() {
     	levelSlider.setMax(gridBoard.getGridData().getMaxZ());
     }
-    
+
     private void refreshTerrainMenu() {
     	terrainMenuButton.getItems().clear();
     	for (TerrainObject terrainObject : terrainObjects) {

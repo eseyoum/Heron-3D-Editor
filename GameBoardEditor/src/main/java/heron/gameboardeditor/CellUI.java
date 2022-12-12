@@ -3,11 +3,13 @@ package heron.gameboardeditor;
 import java.util.ArrayList;
 import java.util.List;
 import heron.gameboardeditor.datamodel.Block;
+import javafx.geometry.VPos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.effect.ColorAdjust; 
 
@@ -33,11 +35,7 @@ public class CellUI extends StackPane implements Cloneable {
     private Rectangle colorRect;
 	private Text levelText;
 	private boolean showLevel = false;
-
-
 	
-    
-   
     public CellUI(GridBoardUI gridBoard, int xIndex, int yIndex, int tileSize) {
 		super();
 		this.colorRect = new Rectangle(tileSize - 1, tileSize - 1);
@@ -86,14 +84,20 @@ public class CellUI extends StackPane implements Cloneable {
     		colorRect.setFill(colorList.get(block.getZ() - 1));
     	} else {
       		colorRect.setFill(DEFAULT_COLOR); //if the cell is not visible, the level is zero
+      		block.setPointy(false);
     	}
     	if (showLevel) {
         	updateVisualDisplayLevel();
     	}
     	
     	if (block.isPointy()) {
-    		colorRect.setStroke(Color.GREEN);
+    		colorRect.setStroke(Color.YELLOW);
+    		//updateVisualPointy();
+    	} else {
+    		colorRect.setStroke(Color.BLACK);
     	}
+    	
+    
 	}
     
 	public void setPointy(boolean pointy) {
@@ -101,6 +105,17 @@ public class CellUI extends StackPane implements Cloneable {
 		block.setPointy(pointy);
 		updateVisualBasedOnBlock();
 	}
+    
+//    public void updateVisualPointy() {
+//    	Block block = getBlock(); 
+//    	Text text = new Text(String.valueOf("O"));
+//    
+//    	text.setFont(Font.font("Arial Black", 20.0));
+//    	
+//    	this.levelText = text;
+//		this.getChildren().addAll(levelText);
+//		showLevel = true;
+//	}
     
 
     public void updateVisualDisplayLevel() {

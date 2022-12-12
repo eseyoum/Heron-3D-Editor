@@ -20,21 +20,28 @@ public class PointyTool extends Tool {
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		setPointy(e);
+		CellUI cellClicked = gridBoard.getCell((int) e.getX() / gridBoard.getTileSize(), (int) e.getY() / gridBoard.getTileSize());
+		
+		handlePointy(cellClicked, e);
 	}
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		setPointy(e);
+		
+		CellUI cellClicked = gridBoard.getCell((int) e.getX() / gridBoard.getTileSize(), (int) e.getY() / gridBoard.getTileSize());
+		
+		if (!cellClicked.equals(cellLastClicked)) { 
+			handlePointy(cellClicked, e);
+		} else { //if the mouse is still on the same cell, nothing should happen
+			return;
+		}
 	}
-	
-	
-	
+
 	public void handlePointy(CellUI cellClicked, MouseEvent e) {
 		if (e.getButton().equals(MouseButton.SECONDARY)) { //if the user right clicks
-			setPointy(e);
-		} else {
 			setNotPointy(e);
+		} else {
+			setPointy(e);
 		}
 		cellLastClicked = cellClicked;
 	}
