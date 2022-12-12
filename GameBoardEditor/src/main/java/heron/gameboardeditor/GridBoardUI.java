@@ -141,6 +141,9 @@ public class GridBoardUI extends AnchorPane {
     	return this.level;
     }
     
+    public boolean isPointy() {
+    	return this.isPointy();
+    }
     public void setLevel(int level) {
     	this.level = level;
     }

@@ -1,8 +1,5 @@
 package heron.gameboardeditor.tools;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import heron.gameboardeditor.CellUI;
 import heron.gameboardeditor.GridBoardUI;
 import heron.gameboardeditor.UndoRedoHandler;
@@ -20,24 +17,26 @@ public class PointyTool extends Tool {
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		CellUI cellClicked = gridBoard.getCell((int) e.getX() / gridBoard.getTileSize(), (int) e.getY() / gridBoard.getTileSize());
+//		CellUI cellClicked = gridBoard.getCell((int) e.getX() / gridBoard.getTileSize(), (int) e.getY() / gridBoard.getTileSize());
 		
-		handlePointy(cellClicked, e);
+		handlePointy(e);
 	}
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		
-		CellUI cellClicked = gridBoard.getCell((int) e.getX() / gridBoard.getTileSize(), (int) e.getY() / gridBoard.getTileSize());
-		
-		if (!cellClicked.equals(cellLastClicked)) { 
-			handlePointy(cellClicked, e);
-		} else { //if the mouse is still on the same cell, nothing should happen
-			return;
-		}
+		handlePointy(e);
+//		
+//		CellUI cellClicked = gridBoard.getCell((int) e.getX() / gridBoard.getTileSize(), (int) e.getY() / gridBoard.getTileSize());
+//		
+//		if (!cellClicked.equals(cellLastClicked)) { 
+//			handlePointy(cellClicked, e);
+//		} else { //if the mouse is still on the same cell, nothing should happen
+//			return;
+//		}
 	}
 
-	public void handlePointy(CellUI cellClicked, MouseEvent e) {
+	public void handlePointy(MouseEvent e) {
+		CellUI cellClicked = gridBoard.getCell((int) e.getX() / gridBoard.getTileSize(), (int) e.getY() / gridBoard.getTileSize());
 		if (e.getButton().equals(MouseButton.SECONDARY)) { //if the user right clicks
 			if (cellClicked.getBlock().isPointy()) {
 				setNotPointy(e);
@@ -49,7 +48,7 @@ public class PointyTool extends Tool {
 			}
 			
 		}
-		cellLastClicked = cellClicked;
+//		cellLastClicked = cellClicked;
 	}
 	
 	
