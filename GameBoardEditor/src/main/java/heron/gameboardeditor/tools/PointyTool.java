@@ -39,9 +39,15 @@ public class PointyTool extends Tool {
 
 	public void handlePointy(CellUI cellClicked, MouseEvent e) {
 		if (e.getButton().equals(MouseButton.SECONDARY)) { //if the user right clicks
-			setNotPointy(e);
+			if (cellClicked.getBlock().isPointy()) {
+				setNotPointy(e);
+			}
+			
 		} else {
-			setPointy(e);
+			if (!cellClicked.getBlock().isPointy()) {
+				setPointy(e);
+			}
+			
 		}
 		cellLastClicked = cellClicked;
 	}
@@ -54,7 +60,8 @@ public class PointyTool extends Tool {
 		if (gridBoard.getGridData().isCoordinateInGrid(x, y)) {
 			CellUI cellClicked = gridBoard.getCell(x, y);
 			cellClicked.setPointy(true);
-			cellClicked.updateVisualBasedOnBlock();
+			cellClicked.createPointyLine();
+			cellClicked.updateVisualPointy();
 			undoRedoHandler.saveState();
 		}
 	}
@@ -67,7 +74,7 @@ public class PointyTool extends Tool {
 		if (gridBoard.getGridData().isCoordinateInGrid(x, y)) {
 			CellUI cellClicked = gridBoard.getCell(x, y);
 			cellClicked.setPointy(false);
-			
+			cellClicked.updateVisualPointy();
 			undoRedoHandler.saveState();
 		}
 	}

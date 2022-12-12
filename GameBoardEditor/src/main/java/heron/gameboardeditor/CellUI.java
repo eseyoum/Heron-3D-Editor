@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -34,6 +35,7 @@ public class CellUI extends StackPane implements Cloneable {
     private String displayLevel;
     private Rectangle colorRect;
 	private Text levelText;
+	private Line pointyLine;
 	private boolean showLevel = false;
 	
     public CellUI(GridBoardUI gridBoard, int xIndex, int yIndex, int tileSize) {
@@ -48,6 +50,14 @@ public class CellUI extends StackPane implements Cloneable {
 		updateVisualBasedOnBlock();
 		this.setSelected(false);
 		generateColors();
+    }
+    
+    public void createPointyLine() {
+    	Line stroke = new Line(0, 0, 10, 10);
+    	stroke.setStrokeWidth(10);
+    	stroke.setStroke(Color.YELLOW);
+    	this.pointyLine = stroke;
+    	//return stroke;
     }
     
     /**
@@ -89,14 +99,7 @@ public class CellUI extends StackPane implements Cloneable {
     	if (showLevel) {
         	updateVisualDisplayLevel();
     	}
-    	
-    	if (block.isPointy()) {
-    		colorRect.setStroke(Color.YELLOW);
-    		//updateVisualPointy();
-    	} else {
-    		colorRect.setStroke(Color.BLACK);
-    	}
-    	
+    
     
 	}
     
@@ -106,16 +109,17 @@ public class CellUI extends StackPane implements Cloneable {
 		updateVisualBasedOnBlock();
 	}
     
-//    public void updateVisualPointy() {
-//    	Block block = getBlock(); 
-//    	Text text = new Text(String.valueOf("O"));
-//    
-//    	text.setFont(Font.font("Arial Black", 20.0));
-//    	
-//    	this.levelText = text;
-//		this.getChildren().addAll(levelText);
-//		showLevel = true;
-//	}
+    public void updateVisualPointy() {
+    	Block block = getBlock();
+    	
+    	if(block.isPointy()) {
+    		this.getChildren().addAll(this.pointyLine);
+    	} else {
+    		this.getChildren().remove(this.pointyLine);
+    	}
+	}
+    
+    
     
 
     public void updateVisualDisplayLevel() {
