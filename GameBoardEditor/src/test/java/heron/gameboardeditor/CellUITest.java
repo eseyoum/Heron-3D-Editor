@@ -1,13 +1,7 @@
 package heron.gameboardeditor;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.ArrayList;
-import java.util.List;
-
+import static org.junit.jupiter.api.Assertions.*; 
 import org.junit.jupiter.api.Test;
-
-import javafx.scene.paint.Color;
 
 class CellUITest {
 

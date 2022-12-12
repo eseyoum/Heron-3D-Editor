@@ -287,7 +287,7 @@
                                  <graphic>
                                     <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@Templates_Image/Template1.png" />
+                                          <Image url="@Templates_Image/Screen%20Shot%202022-12-12%20at%203.27.03%20PM.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -299,7 +299,7 @@
                                  <graphic>
                                     <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@Templates_Image/Template2.png" />
+                                          <Image url="@Templates_Image/Screen%20Shot%202022-12-12%20at%203.16.04%20PM.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -311,7 +311,7 @@
                                  <graphic>
                                     <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@Templates_Image/Template3.png" />
+                                          <Image url="@Templates_Image/Screen%20Shot%202022-12-12%20at%203.11.59%20PM.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
