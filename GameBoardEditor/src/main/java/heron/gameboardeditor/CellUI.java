@@ -36,11 +36,7 @@ public class CellUI extends StackPane implements Cloneable {
     private Rectangle colorRect;
 	private Text levelText;
 	private boolean showLevel = false;
-
-
 	
-    
-   
     public CellUI(GridBoardUI gridBoard, int xIndex, int yIndex, int tileSize) {
 		super();
 		this.colorRect = new Rectangle(tileSize - 1, tileSize - 1);
@@ -108,7 +104,12 @@ public class CellUI extends StackPane implements Cloneable {
     	
     	if (block.isPointy()) {
     		colorRect.setStroke(Color.GREEN);
+    		//updateVisualPointy();
+    	} else {
+    		colorRect.setStroke(Color.BLACK);
     	}
+    	
+    
 	}
     
 	public void setPointy(boolean pointy) {
@@ -117,6 +118,20 @@ public class CellUI extends StackPane implements Cloneable {
 		updateVisualBasedOnBlock();
 	}
     
+//    public void updateVisualPointy() {
+//    	Block block = getBlock(); 
+//    	Text text = new Text(String.valueOf("O"));
+//    	
+////    	text.setLayoutX(100);
+////    	text.setLayoutY(100);
+////    	text.setX(100);
+////    	text.setY(100);
+//    	
+//    	this.levelText = text;
+//		this.getChildren().addAll(levelText);
+//		showLevel = true;
+//	}
+//    
 
     public void updateVisualDisplayLevel() {
     	updateVisualRemoveLevel();
