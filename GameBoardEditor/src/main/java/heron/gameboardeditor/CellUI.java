@@ -84,6 +84,7 @@ public class CellUI extends StackPane implements Cloneable {
     		colorRect.setFill(colorList.get(block.getZ() - 1));
     	} else {
       		colorRect.setFill(DEFAULT_COLOR); //if the cell is not visible, the level is zero
+      		block.setPointy(false);
     	}
     	if (showLevel) {
         	updateVisualDisplayLevel();
