@@ -59,6 +59,7 @@ public class DigTool extends Tool {
 			return;
 		} else {
 			cellClicked.setLevel(cellClicked.getBlock().getZ() + 1);
+			System.out.println("test");
 		}
 	}
 }

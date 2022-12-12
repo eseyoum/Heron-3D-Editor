@@ -8,6 +8,7 @@ import heron.gameboardeditor.GridBoardUI;
 import heron.gameboardeditor.UndoRedoHandler;
 import heron.gameboardeditor.datamodel.Block;
 import heron.gameboardeditor.datamodel.Grid;
+import heron.gameboardeditor.tools.TerrainTool.TerrainObject;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
@@ -21,7 +22,7 @@ public class TerrainTool extends Tool {
 	private TerrainObject defaultVolcano;
 	
 	private ArrayList<TerrainObject> terrainObjects; //list of available terrain objects
-	private ArrayList<TerrainObject> customTerrainObjects;
+	//private ArrayList<TerrainObject> customTerrainObjects;
 	
 	private String name; //the name of the next created terrain object
 	
@@ -37,7 +38,7 @@ public class TerrainTool extends Tool {
 		terrainObjects.add(defaultMountain);
 		terrainObjects.add(defaultVolcano);
 		
-		customTerrainObjects = new ArrayList<TerrainObject>();
+		//customTerrainObjects = new ArrayList<TerrainObject>();
 	}
 	
 	@Override
@@ -106,11 +107,31 @@ public class TerrainTool extends Tool {
 		}
 		
 		TerrainObject customTerrainObject = new TerrainObject(name, customTerrainData, initialBlock.getZ());
-		customTerrainObjects.add(customTerrainObject);
+		//customTerrainObjects.add(customTerrainObject);
 		terrainObjects.add(customTerrainObject);
 	}
 	
+//	public void setCustomTerrainObjects(ArrayList<TerrainObject> customTerrainObjects) {
+//		this.customTerrainObjects = customTerrainObjects;
+//		for (TerrainObject customTerrainObject : customTerrainObjects) {
+//			terrainObjects.add(customTerrainObject);
+//		}
+//	}
+	
+	public void setTerrainObjects(ArrayList<TerrainObject> terrainObjects) {
+		this.terrainObjects = terrainObjects;
+	}
+	
+	public ArrayList<TerrainObject> getTerrainObjects() {
+		return this.terrainObjects;
+	}
+	
 	private void drawTerrainObject(TerrainObject terrainObject, Block initialBlock) {
+//		System.out.println("drawing: ");
+//		for (TerrainObject customTerrainObject : customTerrainObjects) {
+//			System.out.println(customTerrainObject.getName());
+//		}
+		
 		initialBlock.setZ(setZ(terrainObject.initialTerrainData));
 		for (TerrainData terrainData : terrainObject.terrainList) {
 			int x = initialBlock.getX() + terrainData.distanceX;
@@ -125,10 +146,8 @@ public class TerrainTool extends Tool {
 	
 	private int setZ(TerrainData terrainData) {
 		int z = terrainData.level;
-		if (terrainData.level > gridData.getMaxLevel()) {
-			 System.out.println("terrainZ too big = " + z);
+		if (terrainData.level > gridData.getMaxZ()) {
 			 z = gridData.getMaxLevel();
-			 System.out.println("newZ = " + z);
 		 }
 		return z;
 	}
@@ -183,9 +202,9 @@ public class TerrainTool extends Tool {
 		return volcano;
 	}
 	
-	public ArrayList<TerrainObject> getCustomTerrainObjects() {
-		return customTerrainObjects;
-	}
+//	public ArrayList<TerrainObject> getCustomTerrainObjects() {
+//		return customTerrainObjects;
+//	}
 	
 	public class TerrainObject {
 		private ArrayList<TerrainData> terrainList;
