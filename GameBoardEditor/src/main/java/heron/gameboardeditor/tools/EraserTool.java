@@ -23,8 +23,11 @@ public class EraserTool extends Tool {
 		erase(e);
 	}
 	
+	/**
+	 * Sets the CellUI to level 0
+	 * @param e
+	 */
 	private void erase(MouseEvent e) {
-//		CellUI cellClicked = gridBoard.getCell((int) e.getX() / CellUI.TILE_SIZE, (int) e.getY() / CellUI.TILE_SIZE);
 		int x = (int) e.getX() / gridBoard.getTileSize();
 		int y = (int) e.getY() / gridBoard.getTileSize();
 		if (gridBoard.getGridData().isCoordinateInGrid(x, y)) {
