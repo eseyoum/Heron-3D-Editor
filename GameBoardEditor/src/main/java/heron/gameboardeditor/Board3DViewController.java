@@ -57,8 +57,6 @@ public class Board3DViewController {
 		PhongMaterial material = new PhongMaterial();
 		material.setDiffuseMap(new Image(getClass().getResourceAsStream("/wood.jpg")));
 
-		
-		
 		// Prepare transformable Group container
 		SmartGroup group = new SmartGroup();
 		
@@ -75,7 +73,6 @@ public class Board3DViewController {
 
 				box.translateXProperty().set( BLOCK_SIZE*(x - width/2));
 				box.translateYProperty().set( BLOCK_SIZE*(y - height/2));
-//				box.translateZProperty().set(-(level*BLOCK_Z_HEIGHT)/2 + (maxLevel*BLOCK_Z_HEIGHT)/2);
 				box.translateZProperty().set(-(level*BLOCK_Z_HEIGHT)/2);
 
 				

@@ -18,8 +18,6 @@ public class FillTool extends Tool {
 	}
     
     public void mousePressed(MouseEvent e) {
-//    	CellUI cellClicked = gridBoard.getCell((int) e.getX() / CellUI.TILE_SIZE, (int) e.getY() / CellUI.TILE_SIZE); //the initial cell which is clicked
-//    	if (cellClicked.getBlock().getZ() != gridBoard.getLevel()) {
 		int x = (int) e.getX() / gridBoard.getTileSize();
 		int y = (int) e.getY() / gridBoard.getTileSize();
 		if (gridBoard.getGridData().isCoordinateInGrid(x, y)) {
@@ -30,13 +28,16 @@ public class FillTool extends Tool {
     	undoRedoHandler.saveState();
     }
     
+    /**
+     * Fills an area of a certain startingLevel to the turnToLevel
+     * @param block - the block the user clicks on
+     * @param startingLevel - the level of the block
+     * @param turnToLevel - the level the blocks of startingLevel should turn to
+     */
 	public void fill(Block block, int startingLevel, int turnToLevel) {
-//    	CellUI initialCellClicked = gridBoard.getCell(block.getX(), block.getY());
-//    	initialCellClicked.setLevel(turnToLevel);
     	block.setZ(turnToLevel);
     	
     	if (gridData.isEdgeBlock(block)) {
-    		//initialCellClicked.setLevel(turnToLevel);
     		block.setZ(turnToLevel);
     		handleEdgeBlock(block, startingLevel, turnToLevel);
     	} else {
@@ -46,7 +47,6 @@ public class FillTool extends Tool {
     }
     
     private void fill(Block block, Block prevBlock, int startingLevel, int turnToLevel) {
-    		//CellUI cellClicked = gridBoard.getCell(block.getX(), block.getY());
     		if (block.getZ() != startingLevel) {
     			return;
     		}

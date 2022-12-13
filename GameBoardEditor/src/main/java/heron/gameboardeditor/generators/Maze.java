@@ -8,6 +8,9 @@ import heron.gameboardeditor.datamodel.Grid;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
+/**
+ * Generates a randomized maze on the grid
+ */
 public class Maze {
 	private Grid grid;
 	
@@ -24,6 +27,7 @@ public class Maze {
 	public Maze(Grid grid) {
 		this.grid = grid;
 	}
+	
 	/**
      * The generate maze methods creates a randomized maze. It works by first setting
      * all of the blocks in the grid to a certain level. The method then starts at the edge
@@ -191,11 +195,26 @@ public class Maze {
 		}
 	}
 	
+	/**
+	 * Returns whether or not there are 3 adjacent blocks to the block with the given level
+	 * 
+	 * @param block - the block to be tested
+	 * @param level - the level to be tested
+	 * @return whether or not there are 3 adjacent blocks to the block with the given level
+	 */
     public boolean isThreeAdjacentBlocksSameLevel(Block block, int level) {
     	int count = countBlocksInFourDirections(block, level);
     	return (count == 3); //returns true if there are 3 adjacent blocks with the level
     }
      
+    /**
+     * Returns whether or not the block given is a valid path for the maze
+     * 
+     * @param block - the block to be tested
+     * @param level - the level to be tested
+     * @param direction - direction the block went in
+     * @return whether or not the block given is a valid path for the maze
+     */
     public boolean isValidPath(Block block, int level, int direction) {
     	return (isThreeAdjacentBlocksSameLevel(block, level) && (isValidPathCorners(block, level, direction)));
     }

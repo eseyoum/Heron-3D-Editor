@@ -103,10 +103,20 @@ public class GridBoardUI extends AnchorPane {
     	this.height = gridData.getHeight();
     }
     
+	/**
+	 * This method returns the size of the tile
+	 * 
+	 * @return tileSize - the size of the tile
+	 */
     public int getTileSize() { 
 		return tileSize;
 	}
-
+    
+	/**
+	 * This method set the tile size
+	 * 
+	 * @param size - the new tile size
+	 */
     public void setTileSize(int size) throws ArithmeticException { 
     	this.tileSize = size;
     	for (int y = 0; y < gridData.getHeight(); y++) { 
@@ -121,21 +131,48 @@ public class GridBoardUI extends AnchorPane {
     	}
 	}
 
-	
+	/**
+	 * This method returns the grid data
+	 * 
+	 * @return gridData - the grid data
+	 */
     public Grid getGridData() { //grid data represents the data of the GridUI
 		return gridData;
 	}
         
+	/**
+	 * This method returns cell at a particular position in the array
+	 * 
+	 * @param xIndex - the x index
+	 * @param yIndex - the y index
+	 * 
+	 * @return cellArray[xIndex][yIndex] - the cell at position (xIndex , yIndex) in the array
+	 */
     public CellUI getCell(int xIndex, int yIndex) throws IndexOutOfBoundsException {
         return cellArray[xIndex][yIndex];
     }
     
+    
+	/**
+	 * This method returns cell at a particular pixel position in the grid
+	 * 
+	 * @param x - the x coordinate
+	 * @param y - the y coordinate
+	 * 
+	 * @return cellArray[xIndex][yIndex] - the cell at position (x,y) in the grid
+	 */
     public CellUI getCellAtPixelCoordinates(double x, double y) throws IndexOutOfBoundsException {
     	int xIndex = (int) (x / getTileSize());
     	int yIndex = (int) (y / getTileSize());
     	return cellArray[xIndex][yIndex];
     }
     
+    /**
+	 * This method checks if the pointy tool is on
+	 * 
+	 * @return true if the tool is on
+	 * @return false if the tool is off
+	 */
     public boolean isPointy() {
     	return this.isPointy;
     }

@@ -37,6 +37,11 @@ public class DigTool extends Tool {
 		}
 	}
 	
+	/**
+	 * Handles if the user clicked with the left or right mouse button
+	 * @param cellClicked - the cell that was clicked
+	 * @param e - the MouseEvent
+	 */
 	public void handleDig(CellUI cellClicked, MouseEvent e) {
 		if (e.getButton().equals(MouseButton.SECONDARY)) { //if the user right clicks
 			build(cellClicked, e);
@@ -45,7 +50,12 @@ public class DigTool extends Tool {
 		}
 		cellLastClicked = cellClicked;
 	}
-
+	
+	/**
+	 * Sets the CellUI one level higher than it was
+	 * @param cellClicked - the cell that was clicked
+	 * @param e - the MouseEvent
+	 */
 	public void dig(CellUI cellClicked, MouseEvent e) {
 		if (cellClicked.getBlock().getZ() < 1) {
 			return;
@@ -54,12 +64,16 @@ public class DigTool extends Tool {
 		}
 	}
 	
+	/**
+	 * Sets the CellUI one level lower than it was
+	 * @param cellClicked - the cell that was clicked
+	 * @param e e - the MouseEvent
+	 */
 	public void build(CellUI cellClicked, MouseEvent e) {
 		if (cellClicked.getBlock().getZ() >= gridBoard.getGridData().getMaxZ()) {
 			return;
 		} else {
 			cellClicked.setLevel(cellClicked.getBlock().getZ() + 1);
-			System.out.println("test");
 		}
 	}
 }

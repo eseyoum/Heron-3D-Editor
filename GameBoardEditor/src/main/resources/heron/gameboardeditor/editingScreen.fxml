@@ -94,23 +94,6 @@
                         <KeyCodeCombination alt="UP" code="R" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Cut">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="X" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator></MenuItem>
-            <MenuItem mnemonicParsing="false" text="Copy">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="C" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator></MenuItem>
-            <MenuItem mnemonicParsing="false" text="Paste">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="P" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator></MenuItem>
-            <MenuItem mnemonicParsing="false" text="Delete">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="D" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator></MenuItem>
-            <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#selectLevel" text="Select Level">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="L" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
@@ -141,6 +124,11 @@
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
                      </accelerator></MenuItem>
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#showHelpScreen" text="Tools/ Features" />
               </items>
             </Menu>
       </menus>
@@ -202,7 +190,7 @@
                            </image>
                         </ImageView>
                      </graphic></ToggleButton>
-                  <ToggleButton fx:id="digToggle" layoutX="91.0" layoutY="193.0" mnemonicParsing="false" onAction="#digButtonOn" prefHeight="34.0" prefWidth="129.0" text="DIG" toggleGroup="$toolButtonToggleGroup">
+                  <ToggleButton fx:id="digToggle" layoutX="91.0" layoutY="193.0" mnemonicParsing="false" onAction="#digButtonOn" prefHeight="30.0" prefWidth="40.0" toggleGroup="$toolButtonToggleGroup">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -210,8 +198,8 @@
                            </image>
                         </ImageView>
                      </graphic></ToggleButton>
-                  <ToggleButton layoutX="21.0" layoutY="572.0" mnemonicParsing="false" onAction="#levelPickerOn" text="Level Picker" toggleGroup="$toolButtonToggleGroup" />
-                  <ToggleButton fx:id="fillToolToggle" layoutX="92.0" layoutY="247.0" mnemonicParsing="false" onAction="#fillToolOn" text="FILL" toggleGroup="$toolButtonToggleGroup">
+                  <ToggleButton layoutX="13.0" layoutY="425.0" mnemonicParsing="false" onAction="#levelPickerOn" prefHeight="30.0" text="Level Picker" toggleGroup="$toolButtonToggleGroup" />
+                  <ToggleButton fx:id="fillToolToggle" layoutX="92.0" layoutY="247.0" mnemonicParsing="false" onAction="#fillToolOn" prefHeight="30.0" prefWidth="40.0" toggleGroup="$toolButtonToggleGroup">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -219,7 +207,7 @@
                            </image>
                         </ImageView>
                      </graphic></ToggleButton>
-                  <ToggleButton fx:id="selectToggle" layoutX="17.0" layoutY="293.0" mnemonicParsing="false" onAction="#selectToolOn" text="SELECT" toggleGroup="$toolButtonToggleGroup">
+                  <ToggleButton fx:id="selectToggle" layoutX="15.0" layoutY="293.0" mnemonicParsing="false" onAction="#selectToolOn" prefHeight="30.0" prefWidth="40.0" toggleGroup="$toolButtonToggleGroup">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -227,15 +215,15 @@
                            </image>
                         </ImageView>
                      </graphic></ToggleButton>
-                  <MenuButton fx:id="terrainMenuButton" layoutX="17.0" layoutY="343.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="107.0" text="TerrainTool">
+                  <MenuButton fx:id="terrainMenuButton" layoutX="12.0" layoutY="343.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="151.0" text="TerrainTool">
                     <items>
                       <MenuItem fx:id="mountainTerrainObject" mnemonicParsing="false" onAction="#terrainTool" text="Mountain" />
                       <MenuItem fx:id="volcanoTerrainObject" mnemonicParsing="false" onAction="#terrainTool" text="Volcano" />
                         <MenuItem mnemonicParsing="false" onAction="#terrainToolCustom" text="Custom..." />
                     </items>
                   </MenuButton>
-                  <CheckBox fx:id="checkBoxDisplayLevel" layoutX="17.0" layoutY="391.0" mnemonicParsing="false" onAction="#displayLevel" prefHeight="25.0" prefWidth="109.0" text="Show Level" />
-                  <Button fx:id="zoomInButton" layoutX="6.0" layoutY="467.0" mnemonicParsing="false" onAction="#zoomIn" prefHeight="30.0" prefWidth="40.0">
+                  <CheckBox fx:id="checkBoxDisplayLevel" layoutX="20.0" layoutY="385.0" mnemonicParsing="false" onAction="#displayLevel" prefHeight="30.0" prefWidth="109.0" text="Show Level" />
+                  <Button fx:id="zoomInButton" layoutX="12.0" layoutY="515.0" mnemonicParsing="false" onAction="#zoomIn" prefHeight="30.0" prefWidth="40.0">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -243,7 +231,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button fx:id="zoomOutButton" layoutX="72.0" layoutY="467.0" mnemonicParsing="false" onAction="#zoomOut" prefHeight="30.0" prefWidth="40.0">
+                  <Button fx:id="zoomOutButton" layoutX="78.0" layoutY="515.0" mnemonicParsing="false" onAction="#zoomOut" prefHeight="30.0" prefWidth="40.0">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -251,7 +239,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button fx:id="undoButton" layoutX="6.0" layoutY="425.0" mnemonicParsing="false" onAction="#undoAction" prefHeight="30.0" prefWidth="40.0">
+                  <Button fx:id="undoButton" layoutX="12.0" layoutY="473.0" mnemonicParsing="false" onAction="#undoAction" prefHeight="30.0" prefWidth="40.0">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -260,7 +248,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="redoButton" layoutX="73.0" layoutY="426.0" mnemonicParsing="false" onAction="#redoAction" prefHeight="30.0" prefWidth="40.0">
+                  <Button fx:id="redoButton" layoutX="79.0" layoutY="474.0" mnemonicParsing="false" onAction="#redoAction" prefHeight="30.0" prefWidth="40.0">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -269,7 +257,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <ToggleButton layoutX="31.0" layoutY="520.0" mnemonicParsing="false" onAction="#pointyToolOn" text="Pointy" toggleGroup="$toolButtonToggleGroup" />
+                  <ToggleButton layoutX="87.0" layoutY="293.0" mnemonicParsing="false" onAction="#pointyToolOn" prefHeight="30.0" prefWidth="52.0" text="Pointy" toggleGroup="$toolButtonToggleGroup" />
                </children>
             </AnchorPane>
         <ScrollPane prefHeight="500.0" prefWidth="691.0">
