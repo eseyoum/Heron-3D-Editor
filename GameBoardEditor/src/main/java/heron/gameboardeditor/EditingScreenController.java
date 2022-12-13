@@ -156,16 +156,11 @@ public class EditingScreenController {
     }
 
     @FXML
-    private void switchToTemplateScreen(ActionEvent event) throws IOException {
-    	App.setRoot("templateScreen");
-    }
-
-    @FXML
     /**
      * When the user clicks on the zoom in button, the grid will be zoomed in.
      */
     void zoomIn() {
-    	gridBoard.setTileSize(gridBoard.getTileSize()+10);
+    	gridBoard.setTileSize(gridBoard.getTileSize() + 10);
     }
     
    
