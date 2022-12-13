@@ -7,6 +7,9 @@ import heron.gameboardeditor.datamodel.Block;
 import heron.gameboardeditor.datamodel.Grid;
 import javafx.scene.input.MouseEvent;
 
+/**
+ * Fills an area of the gridboard with the level the user desires
+ */
 public class FillTool extends Tool {
 	private GridBoardUI gridBoard;
 	private Grid gridData;
@@ -17,6 +20,7 @@ public class FillTool extends Tool {
 		this.gridData = gridData;
 	}
     
+	@Override
     public void mousePressed(MouseEvent e) {
 		int x = (int) e.getX() / gridBoard.getTileSize();
 		int y = (int) e.getY() / gridBoard.getTileSize();
