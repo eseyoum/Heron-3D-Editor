@@ -74,6 +74,9 @@ public class GridBoardUI extends AnchorPane {
 		this.height = gridData.getHeight();
     }
     
+	/**
+	 * Updates the GridBoardUI to reflect the grid
+	 */
     public void updateVisualBasedOnGrid() {
     	CellUI[][] newCellArray = new CellUI[gridData.getWidth()][gridData.getHeight()];
     	for (int x = 0; x < gridData.getWidth(); x++) {
@@ -181,12 +184,13 @@ public class GridBoardUI extends AnchorPane {
     public boolean isPointy() {
     	return this.isPointy();
     }
+    
     public void setLevel(int level) {
     	this.level = level;
     }
     
     public void updateVisual() {
-    	for (int y = 0; y < gridData.getHeight(); y++) { //may be a better way to go through the cells
+    	for (int y = 0; y < gridData.getHeight(); y++) {
     		for (int x = 0; x < gridData.getWidth(); x++) {
             	cellArray[x][y].updateVisualBasedOnBlock();
             }
@@ -194,7 +198,7 @@ public class GridBoardUI extends AnchorPane {
     }
     
     public void updateVisualDisplayLevel() {
-    	for (int y = 0; y < gridData.getHeight(); y++) { //may be a better way to go through the cells
+    	for (int y = 0; y < gridData.getHeight(); y++) {
     		for (int x = 0; x < gridData.getWidth(); x++) {
             	cellArray[x][y].updateVisualDisplayLevel();
             }
@@ -202,18 +206,18 @@ public class GridBoardUI extends AnchorPane {
     }
     
     public void updateVisualRemoveLevel() {
-    	for (int y = 0; y < gridData.getHeight(); y++) { //may be a better way to go through the cells
+    	for (int y = 0; y < gridData.getHeight(); y++) {
     		for (int x = 0; x < gridData.getWidth(); x++) {
             	cellArray[x][y].updateVisualRemoveLevel();
             }
     	}
     }
     
-        
-  
-    
+    /**
+     * Clears the gridBoard
+     */
     public void clear() {
-    	for (int y = 0; y < gridData.getHeight(); y++) { //may be a better way to go through the cells
+    	for (int y = 0; y < gridData.getHeight(); y++) {
     		for (int x = 0; x < gridData.getWidth(); x++) {
     			if(gridData.getBlockAt(x, y).getZ() != 0) {
     				gridData.getBlockAt(x, y).setZ(0);
@@ -222,9 +226,9 @@ public class GridBoardUI extends AnchorPane {
             }
     	}
     }
-    
+ 
     public Boolean isEmpty() {
-    	for (int y = 0; y < gridData.getHeight(); y++) { //may be a better way to go through the cells
+    	for (int y = 0; y < gridData.getHeight(); y++) {
     		for (int x = 0; x < gridData.getWidth(); x++) {
     			if(gridData.getBlockAt(x, y).getZ() != 0) {
     				return false;
@@ -238,6 +242,10 @@ public class GridBoardUI extends AnchorPane {
     	gridData.resize(newWidth, newHeight);
     }
     
+    /**
+     * Sets all the selected cells to the level
+     * @param level - int the level the selected cells should turn to
+     */
     public void setAllSelectedCellsToLevel(int level) {
     	Set<CellUI> selectedCells = selectionTool.getSelectedCells();
     	for(CellUI cell : selectedCells){
@@ -245,8 +253,12 @@ public class GridBoardUI extends AnchorPane {
     	}
     }
     
+    /**
+     * Selects the cells of a level
+     * @param isSelected - if the cells should be selected
+     */
     public void selectLevel(boolean isSelected) {
-    	for (int y = 0; y < gridData.getHeight(); y++) { //may be a better way to go through the cells
+    	for (int y = 0; y < gridData.getHeight(); y++) {
     		for (int x = 0; x < gridData.getWidth(); x++) {
             	if ((cellArray[x][y]).getBlock().getZ() == level) {
             		if (isSelected) {
@@ -259,12 +271,12 @@ public class GridBoardUI extends AnchorPane {
     	}
     }
     
+    /**
+     * Generates a maze
+     */
     public void generateMaze() {
     	Maze maze = new Maze(gridData);
     	maze.generateMaze();
-    	//gridData.generateMaze();
     	updateVisual();
     }
-    
-
 }
