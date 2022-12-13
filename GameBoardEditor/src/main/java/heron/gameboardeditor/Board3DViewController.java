@@ -23,6 +23,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.stage.Stage;
 
+/**
+ * Most of the code for this file are from https://genuinecoder.com
+ */
+
+
 public class Board3DViewController {
 	private Grid gridData;
 	private static final int WIDTH = 1400;
@@ -120,22 +125,22 @@ public class Board3DViewController {
 		// Add keyboard control.
 		stage3D.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			switch (event.getCode()) {
-			case W:
+			case MINUS:
 				group.translateZProperty().set(group.getTranslateZ() + 100);
 				break;
-			case S:
+			case EQUALS:
 				group.translateZProperty().set(group.getTranslateZ() - 100);
 				break;
-			case Q:
+			case DOWN:
 				group.rotateByX(10);
 				break;
-			case E:
+			case UP:
 				group.rotateByX(-10);
 				break;
-			case NUMPAD6:
+			case LEFT:
 				group.rotateByY(10);
 				break;
-			case NUMPAD4:
+			case RIGHT:
 				group.rotateByY(-10);
 				break;
 			}
@@ -150,10 +155,8 @@ public class Board3DViewController {
 	private LightBase prepareLightSource() {
 	    //Create point light
 	    PointLight pointLight = new PointLight();
-	    //Set light color
-	    //pointLight.setColor(Color.SILVER);
-	    //Set location of light source
-	    pointLight.getTransforms().add(new Translate(30,50,-100));
+	    
+	    pointLight.getTransforms().add(new Translate(20,50,-100));
 	    return pointLight;
 	}
 

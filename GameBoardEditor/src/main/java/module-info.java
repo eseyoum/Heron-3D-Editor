@@ -4,6 +4,7 @@ module heron.gameboardeditor {
 	requires javafx.graphics;
 	requires com.google.gson;
 	requires javafx.base;
+	requires java.base;
 
     opens heron.gameboardeditor to javafx.fxml;
     opens heron.gameboardeditor.datamodel to com.google.gson;

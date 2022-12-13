@@ -12,9 +12,9 @@
 
 <BorderPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: EFCA08;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="heron.gameboardeditor.AboutScreensController">
    <top>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#switchToWelcomeScreen" prefHeight="60.0" prefWidth="62.0" style="-fx-background-color: EFCA08 EFCA08;">
+            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#switchToWelcomeScreen" prefHeight="38.0" prefWidth="1304.0" style="-fx-background-color: EFCA08 EFCA08;">
                <graphic>
                   <ImageView fitHeight="29.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -28,7 +28,7 @@
                   <Image url="@Icons/logo.png" />
                </image>
                <VBox.margin>
-                  <Insets left="535.0" />
+                  <Insets />
                </VBox.margin></ImageView>
             <Label alignment="CENTER" prefHeight="109.0" prefWidth="1303.0" text="About Heron Software" textAlignment="CENTER" wrapText="true">
                <padding>
@@ -54,18 +54,15 @@
          </BorderPane.margin>
       </Label>
    </bottom>
-   <left>
-      <VBox prefHeight="409.0" prefWidth="1280.0" style="-fx-background-radius: 20 px;" BorderPane.alignment="CENTER">
+   <center>
+      <VBox alignment="CENTER" fillWidth="false" prefHeight="409.0" prefWidth="1280.0" snapToPixel="false" style="-fx-background-radius: 20 px;" BorderPane.alignment="CENTER">
          <children>
-            <TextArea fx:id="credits" prefHeight="337.0" prefWidth="967.0" text="Heron 3D Editor is a simple software that allows the user to design their own game boards using&#10;various features.&#10;&#10;                                                                                               Mission&#10;To let the user create game boards of their own desire with as many features and levels they’d like&#10;and print in 3D for real world use. &#10;&#10;                                                                                              Copyright&#10;This software is the intellectual property of Augustana College Team Heron and may not be&#10;reproduced in whole or in parts.">
+            <TextArea fx:id="credits" editable="false" prefHeight="337.0" prefWidth="1042.0" text="Heron 3D Editor is a simple software that allows the user to design their own game boards using&#10;various features.&#10;&#10;                                                                                               Mission&#10;To let the user create game boards of their own desire with as many features and levels they’d like&#10;and print in 3D for real world use. &#10;&#10;                                                                                              Copyright&#10;This software is the intellectual property of Augustana College Team Heron and may not be&#10;reproduced in whole or in parts.">
                <font>
                   <Font size="25.0" />
                </font>
             </TextArea>
          </children>
-         <padding>
-            <Insets left="100.0" right="100.0" />
-         </padding>
       </VBox>
-   </left>
+   </center>
 </BorderPane>

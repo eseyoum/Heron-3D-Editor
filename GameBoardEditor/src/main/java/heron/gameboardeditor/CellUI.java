@@ -69,7 +69,7 @@ public class CellUI extends StackPane implements Cloneable {
     	Color color = firstLevelColor;
     	colors.add(color);
     	double initialBrightness = color.getBrightness();
-    	double brightnessIncrease = ((double) 1 - initialBrightness) / ((double) maxLevel - (double) 1); //how much each level's color should be increased from the previous
+    	double brightnessIncrease = ((double) 1 - initialBrightness) / ((double) maxLevel - 1); //how much each level's color should be increased from the previous
         for (int i = 0; i < maxLevel - 1; i++) {
         	color = brightenColor(color, brightnessIncrease);
         	colors.add(color);
@@ -91,7 +91,7 @@ public class CellUI extends StackPane implements Cloneable {
     public void updateVisualBasedOnBlock() {
     	Block block = getBlock(); 
     	if (block.isVisible()) {
-    		colorRect.setFill(colorList.get(block.getZ() - 1));
+    		colorRect.setFill(colorList.get(getLevel() - 1));
     	} else {
       		colorRect.setFill(DEFAULT_COLOR); //if the cell is not visible, the level is zero
       		block.setPointy(false);

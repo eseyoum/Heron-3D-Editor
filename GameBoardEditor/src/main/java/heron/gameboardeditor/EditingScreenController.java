@@ -6,25 +6,22 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
-
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
-
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import heron.gameboardeditor.datamodel.Block;
 import heron.gameboardeditor.datamodel.Grid;
 import heron.gameboardeditor.datamodel.ProjectIO;
 import heron.gameboardeditor.tools.TerrainTool.TerrainObject;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-
 import javafx.scene.control.CheckBox;
-
 import javafx.scene.control.MenuButton;
-
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
@@ -36,6 +33,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class EditingScreenController {
 	
@@ -65,7 +63,6 @@ public class EditingScreenController {
     private GridBoardUI gridBoard;
     private UndoRedoHandler undoRedoHandler;
     
-    //private ArrayList<TerrainObject> customTerrainObjects = new ArrayList<TerrainObject>(); //represents all the custom terrain objects the user created
     private ArrayList<TerrainObject> terrainObjects = new ArrayList<TerrainObject>();
     
     @FXML
@@ -97,7 +94,7 @@ public class EditingScreenController {
     private void refreshSlider() {
     	levelSlider.setMax(gridBoard.getGridData().getMaxZ());
     }
-
+    
     private void refreshTerrainMenu() {
     	terrainMenuButton.getItems().clear();
     	for (TerrainObject terrainObject : terrainObjects) {
@@ -109,17 +106,16 @@ public class EditingScreenController {
     	customMenuItem.setOnAction(e -> terrainToolCustom(e));
     	terrainMenuButton.getItems().add(customMenuItem);
     }
-    
+
     private ArrayList<TerrainObject> getTerrainObjects() {
     	return this.terrainObjects;
     }
-    
+
     private void setTerrainObjects(ArrayList<TerrainObject> terrainObjects) {
     	this.terrainObjects = terrainObjects;
     	gridBoard.terrainTool.setTerrainObjects(this.terrainObjects);
     }
     
-    //Tools
     @FXML
     /**
      * When the user clicks on Set Size button, this method get the number of rows and columns from the user's input 
@@ -165,20 +161,14 @@ public class EditingScreenController {
     
    
     @FXML
-    /**
-     * When the user clicks on the zoom out button, the grid will be zoomed out.
-     */
     void zoomOut() {
     	if (gridBoard.getTileSize() > 10) {
     		gridBoard.setTileSize(gridBoard.getTileSize() - 10);
     	}
     }
-    
+
     
     @FXML
-    /**
-     * When the user ticks the show level tick box, the level of all cells in the grid will be shown.
-     */
     void displayLevel() {
     	if (checkBoxDisplayLevel.isSelected()) {
     		gridBoard.updateVisualDisplayLevel();
@@ -306,7 +296,6 @@ public class EditingScreenController {
     		gridBoard.getGridData().lowerBlocksHigherThan(newMaxLevel);
     	}
     	CellUI.generateColors();
-    	gridBoard.setLevel(newMaxLevel);
     	gridBoard.updateVisual();
     }
     
@@ -317,35 +306,23 @@ public class EditingScreenController {
     }
     
     @FXML
-    /**
-     * This method will load template 1
-     */
     void templateOne(ActionEvent event) throws JsonSyntaxException, JsonIOException, IOException {
-    	templetLoaderHelper("src/main/resources/heron/gameboardeditor/Templates/Template1.heron");
+    	templetLoaderHelper("src/main/resources/heron/gameboardeditor/Templates/AugieLetter.heron");
     }
     
     @FXML
-    /**
-     * This method will load template 2
-     */
     void templateTwo(ActionEvent event) throws JsonSyntaxException, JsonIOException, IOException {
-    	templetLoaderHelper("src/main/resources/heron/gameboardeditor/Templates/Template2.heron");
+    	templetLoaderHelper("src/main/resources/heron/gameboardeditor/Templates/Heart.heron");
     }
 
     @FXML
-    /**
-     * This method will load template 3
-     */
     void templateThree(ActionEvent event) throws JsonSyntaxException, JsonIOException, IOException {
-    	templetLoaderHelper("src/main/resources/heron/gameboardeditor/Templates/Template3.heron");
+    	templetLoaderHelper("src/main/resources/heron/gameboardeditor/Templates/TalkTree.heron");
     }
     
     @FXML
-    /**
-     * This method will load template 4
-     */
     void templateFour(ActionEvent event) throws JsonSyntaxException, JsonIOException, IOException {
-    	templetLoaderHelper("src/main/resources/heron/gameboardeditor/Templates/Template4.heron");
+    	templetLoaderHelper("src/main/resources/heron/gameboardeditor/Templates/Duck.heron");
     }
     
     private void templetLoaderHelper(String path) throws JsonSyntaxException, JsonIOException, IOException {
@@ -355,6 +332,8 @@ public class EditingScreenController {
 	        	App.setGrid(grid);
 	        	undoRedoHandler = new UndoRedoHandler(this);
 	    		gridBoard = new GridBoardUI(grid, undoRedoHandler, CellUI.DEFAULT_TILE_SIZE);
+		    	this.terrainObjects = gridBoard.terrainTool.getTerrainObjects();
+		    	refreshTerrainMenu();
 	    		boardParentVBox.getChildren().clear();
 	    		boardParentVBox.getChildren().addAll(gridBoard);
     	}
@@ -362,9 +341,6 @@ public class EditingScreenController {
     
     //File menu bar
     @FXML
-    /**
-     * When the user click on the menu item "Open" and choose a file, that file will be loaded.
-     */
     void loadProject(ActionEvent event) {
     	File file = saveLoadHelper("open", "heron");
 		if (file != null) {
@@ -375,6 +351,8 @@ public class EditingScreenController {
 				gridBoard = new GridBoardUI(grid, undoRedoHandler, CellUI.DEFAULT_TILE_SIZE);
 				boardParentVBox.getChildren().clear();
 				boardParentVBox.getChildren().addAll(gridBoard);
+		    	this.terrainObjects = gridBoard.terrainTool.getTerrainObjects();
+		    	refreshTerrainMenu();
 			} catch (FileNotFoundException ex) {
 				new Alert(AlertType.ERROR, "The file you tried to open could not be found.").showAndWait();
 			} catch (IOException ex) {
@@ -384,9 +362,6 @@ public class EditingScreenController {
     }
     
     @FXML
-    /**
-     * When the user click on the menu item "Save", the current grid will be saved.
-     */
     void saveProject(ActionEvent event) {
     	File file = saveLoadHelper("save", "heron");
     	if(file != null) {
@@ -438,6 +413,23 @@ public class EditingScreenController {
     void show3DPreview(ActionEvent event) {
     	Board3DViewController preview3D = new Board3DViewController(gridBoard.getGridData());
     	preview3D.show();
+    }
+    
+
+    @FXML
+    private void switchToTemplateScreen(ActionEvent event) throws IOException {
+    	App.setRoot("templateScreen");
+    }
+    
+    @FXML
+    void showHelpScreen(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("helpScreen.fxml"));
+        VBox root = fxmlLoader.load();    
+        Scene helpScene = new Scene(root, root.getPrefWidth(), root.getPrefHeight());
+        Stage stage = new Stage();
+        helpScene.setRoot(root);
+        stage.setScene(helpScene);
+        stage.show();
     }
     
     @FXML

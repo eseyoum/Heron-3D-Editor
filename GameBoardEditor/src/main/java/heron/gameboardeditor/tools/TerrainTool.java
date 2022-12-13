@@ -22,7 +22,6 @@ public class TerrainTool extends Tool {
 	private TerrainObject defaultVolcano;
 	
 	private ArrayList<TerrainObject> terrainObjects; //list of available terrain objects
-	//private ArrayList<TerrainObject> customTerrainObjects;
 	
 	private String name; //the name of the next created terrain object
 	
@@ -37,8 +36,6 @@ public class TerrainTool extends Tool {
 		terrainObjects = new ArrayList<TerrainObject>();
 		terrainObjects.add(defaultMountain);
 		terrainObjects.add(defaultVolcano);
-		
-		//customTerrainObjects = new ArrayList<TerrainObject>();
 	}
 	
 	@Override
@@ -107,16 +104,8 @@ public class TerrainTool extends Tool {
 		}
 		
 		TerrainObject customTerrainObject = new TerrainObject(name, customTerrainData, initialBlock.getZ());
-		//customTerrainObjects.add(customTerrainObject);
 		terrainObjects.add(customTerrainObject);
 	}
-	
-//	public void setCustomTerrainObjects(ArrayList<TerrainObject> customTerrainObjects) {
-//		this.customTerrainObjects = customTerrainObjects;
-//		for (TerrainObject customTerrainObject : customTerrainObjects) {
-//			terrainObjects.add(customTerrainObject);
-//		}
-//	}
 	
 	public void setTerrainObjects(ArrayList<TerrainObject> terrainObjects) {
 		this.terrainObjects = terrainObjects;
@@ -127,10 +116,6 @@ public class TerrainTool extends Tool {
 	}
 	
 	private void drawTerrainObject(TerrainObject terrainObject, Block initialBlock) {
-//		System.out.println("drawing: ");
-//		for (TerrainObject customTerrainObject : customTerrainObjects) {
-//			System.out.println(customTerrainObject.getName());
-//		}
 		
 		initialBlock.setZ(setZ(terrainObject.initialTerrainData));
 		for (TerrainData terrainData : terrainObject.terrainList) {
@@ -201,10 +186,6 @@ public class TerrainTool extends Tool {
 		TerrainObject volcano = new TerrainObject("Volcano", volcanoList, initialTerrainData);
 		return volcano;
 	}
-	
-//	public ArrayList<TerrainObject> getCustomTerrainObjects() {
-//		return customTerrainObjects;
-//	}
 	
 	public class TerrainObject {
 		private ArrayList<TerrainData> terrainList;
