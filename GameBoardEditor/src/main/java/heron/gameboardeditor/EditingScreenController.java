@@ -64,13 +64,14 @@ public class EditingScreenController {
     private VBox boardParentVBox;
     private GridBoardUI gridBoard;
     private UndoRedoHandler undoRedoHandler;
-    private ArrayList<TerrainObject> customTerrainObjects = new ArrayList<TerrainObject>(); //represents all the custom terrain objects the user created
-
+    
+    private ArrayList<TerrainObject> terrainObjects = new ArrayList<TerrainObject>();
     
     @FXML
     private void initialize() {
     	this.undoRedoHandler = new UndoRedoHandler(this);
     	refreshUIFromGrid();
+    	this.terrainObjects = gridBoard.terrainTool.getTerrainObjects();
     }
     
     private void refreshUIFromGrid() {
@@ -96,8 +97,27 @@ public class EditingScreenController {
     	levelSlider.setMax(gridBoard.getGridData().getMaxZ());
     }
     
+    private void refreshTerrainMenu() {
+    	terrainMenuButton.getItems().clear();
+    	for (TerrainObject terrainObject : terrainObjects) {
+        	MenuItem menuItem = new MenuItem(terrainObject.getName()); //https://www.geeksforgeeks.org/javafx-menubutton/
+        	menuItem.setOnAction(e -> terrainTool(e));
+    		terrainMenuButton.getItems().add(menuItem);
+    	}
+    	MenuItem customMenuItem = new MenuItem("Custom...");
+    	customMenuItem.setOnAction(e -> terrainToolCustom(e));
+    	terrainMenuButton.getItems().add(customMenuItem);
+    }
+
+    private ArrayList<TerrainObject> getTerrainObjects() {
+    	return this.terrainObjects;
+    }
+
+    private void setTerrainObjects(ArrayList<TerrainObject> terrainObjects) {
+    	this.terrainObjects = terrainObjects;
+    	gridBoard.terrainTool.setTerrainObjects(this.terrainObjects);
+    }
     
-    //Tools
     @FXML
     /**
      * When the user clicks on Set Size button, this method get the number of rows and columns from the user's input 
@@ -251,7 +271,7 @@ public class EditingScreenController {
     	textInputDialog.showAndWait();
     	String name = textInputDialog.getResult();
     	
-    	if (!gridBoard.terrainTool.isValidName(textInputDialog.getResult(), customTerrainObjects)) {
+    	if (!gridBoard.terrainTool.isValidName(textInputDialog.getResult(), terrainObjects)) {
     		return;
     	}
     	
@@ -259,7 +279,8 @@ public class EditingScreenController {
     	customItem.setOnAction(e -> terrainTool(e));
     	terrainMenuButton.getItems().add(terrainMenuButton.getItems().size() - 1, customItem); //adds the custom item to the second to last of the list
     	gridBoard.terrainTool.createCustomTerrainObject(name);
-    	customTerrainObjects = gridBoard.terrainTool.getTerrainObjects();
+    	terrainObjects = gridBoard.terrainTool.getTerrainObjects();
+    	undoRedoHandler.saveState(); //save the custom Terrain objects
     }
     
     
@@ -291,8 +312,6 @@ public class EditingScreenController {
     	if (newMaxLevel < gridBoard.getGridData().getMaxLevel()) {
     		gridBoard.getGridData().lowerBlocksHigherThan(newMaxLevel);
     	}
-    	//CellUI.setMaxLevel(newMaxLevel);
-    	//gridBoard.getGridData().setMaxZ(newMaxLevel);
     	CellUI.generateColors();
     	gridBoard.updateVisual();
     }
@@ -330,6 +349,8 @@ public class EditingScreenController {
 	        	App.setGrid(grid);
 	        	undoRedoHandler = new UndoRedoHandler(this);
 	    		gridBoard = new GridBoardUI(grid, undoRedoHandler, CellUI.DEFAULT_TILE_SIZE);
+		    	this.terrainObjects = gridBoard.terrainTool.getTerrainObjects();
+		    	refreshTerrainMenu();
 	    		boardParentVBox.getChildren().clear();
 	    		boardParentVBox.getChildren().addAll(gridBoard);
     	}
@@ -347,6 +368,8 @@ public class EditingScreenController {
 				gridBoard = new GridBoardUI(grid, undoRedoHandler, CellUI.DEFAULT_TILE_SIZE);
 				boardParentVBox.getChildren().clear();
 				boardParentVBox.getChildren().addAll(gridBoard);
+		    	this.terrainObjects = gridBoard.terrainTool.getTerrainObjects();
+		    	refreshTerrainMenu();
 			} catch (FileNotFoundException ex) {
 				new Alert(AlertType.ERROR, "The file you tried to open could not be found.").showAndWait();
 			} catch (IOException ex) {
@@ -463,15 +486,19 @@ public class EditingScreenController {
     
     public class State {
     	private Grid grid;
+    	private ArrayList<TerrainObject> terrainObjects;
     	
     	public State() {
     		grid = (Grid) App.getGrid().clone();
+    		terrainObjects = getTerrainObjects();
     	}
     	
     	public void restore() {
     		App.setGrid(grid.clone());
     		refreshUIFromGrid();
     		refreshSlider();
+    		setTerrainObjects(terrainObjects); //set the terrainObjects to what was saved
+    		refreshTerrainMenu(); //updates the menu for the terrainTool
     	}
     }
 
