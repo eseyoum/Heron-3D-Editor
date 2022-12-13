@@ -108,7 +108,7 @@ public class Block {
 	 * @return false if the block is not pointy
 	 */
 	public boolean isPointy() {
-		return(this.isPointy);
+		return isPointy;
 	}
 
 	

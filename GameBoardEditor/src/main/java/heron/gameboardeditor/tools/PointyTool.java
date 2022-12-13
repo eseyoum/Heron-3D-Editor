@@ -17,25 +17,27 @@ public class PointyTool extends Tool {
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-//		CellUI cellClicked = gridBoard.getCell((int) e.getX() / gridBoard.getTileSize(), (int) e.getY() / gridBoard.getTileSize());
+		CellUI cellClicked = gridBoard.getCell((int) e.getX() / gridBoard.getTileSize(), (int) e.getY() / gridBoard.getTileSize());
 		
-		handlePointy(e);
+		handlePointy(cellClicked, e);
+		
 	}
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		handlePointy(e);
-//		
-//		CellUI cellClicked = gridBoard.getCell((int) e.getX() / gridBoard.getTileSize(), (int) e.getY() / gridBoard.getTileSize());
-//		
-//		if (!cellClicked.equals(cellLastClicked)) { 
-//			handlePointy(cellClicked, e);
-//		} else { //if the mouse is still on the same cell, nothing should happen
-//			return;
-//		}
+		
+		CellUI cellClicked = gridBoard.getCell((int) e.getX() / gridBoard.getTileSize(), (int) e.getY() / gridBoard.getTileSize());
+		
+		handlePointy(cellClicked, e);
+		
+		if (!cellClicked.equals(cellLastClicked)) { 
+			handlePointy(cellClicked, e);
+		} else { //if the mouse is still on the same cell, nothing should happen
+			return;
+		}
 	}
 
-	public void handlePointy(MouseEvent e) {
+	public void handlePointy(CellUI cellClciked, MouseEvent e) {
 		CellUI cellClicked = gridBoard.getCell((int) e.getX() / gridBoard.getTileSize(), (int) e.getY() / gridBoard.getTileSize());
 		if (e.getButton().equals(MouseButton.SECONDARY)) { //if the user right clicks
 			if (cellClicked.getBlock().isPointy()) {
@@ -48,9 +50,8 @@ public class PointyTool extends Tool {
 			}
 			
 		}
-//		cellLastClicked = cellClicked;
+		cellLastClicked = cellClicked;
 	}
-	
 	
 	private void setPointy(MouseEvent e) {
 		int x = (int) e.getX() / gridBoard.getTileSize();
@@ -58,9 +59,8 @@ public class PointyTool extends Tool {
 		if (gridBoard.getGridData().isCoordinateInGrid(x, y)) {
 			CellUI cellClicked = gridBoard.getCell(x, y);
 			cellClicked.setPointy(true);
-			cellClicked.createPointyLine();
-			cellClicked.updateVisualPointy();
-			undoRedoHandler.saveState();
+			cellClicked.updateVisualBasedOnBlock();
+//			undoRedoHandler.saveState();
 		}
 	}
 	
@@ -71,8 +71,8 @@ public class PointyTool extends Tool {
 		if (gridBoard.getGridData().isCoordinateInGrid(x, y)) {
 			CellUI cellClicked = gridBoard.getCell(x, y);
 			cellClicked.setPointy(false);
-			cellClicked.updateVisualPointy();
-			undoRedoHandler.saveState();
+			cellClicked.updateVisualBasedOnBlock();
+//			undoRedoHandler.saveState();
 		}
 	}
 }

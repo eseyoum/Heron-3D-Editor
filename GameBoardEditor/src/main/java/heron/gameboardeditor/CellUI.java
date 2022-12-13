@@ -52,14 +52,7 @@ public class CellUI extends StackPane implements Cloneable {
 		this.setSelected(false);
 		generateColors();
     }
-    
-    public void createPointyLine() {
-    	Line stroke = new Line(0, 0, 10, 10);
-    	stroke.setStrokeWidth(10);
-    	stroke.setStroke(Color.YELLOW);
-    	this.pointyLine = stroke;
-    }
-    
+
     /**
      * Adds the possible colors for differentiating between levels on the depth map
      */
@@ -84,7 +77,24 @@ public class CellUI extends StackPane implements Cloneable {
     	}
     	return Color.hsb(color.getHue(), color.getSaturation(), newBrightness, color.getOpacity());
     }
-
+    
+    public void createPointyLine() {
+    	Line stroke = new Line(0, 0, 10, 10);
+    	stroke.setStrokeWidth(10);
+    	stroke.setStroke(Color.YELLOW);
+    	this.pointyLine = stroke;
+    }
+    
+    public boolean isPointy() {
+    	return getBlock().isPointy();
+    }
+    
+	public void setPointy(boolean pointy) {
+		Block block = getBlock(); 
+		block.setPointy(pointy);
+		updateVisualBasedOnBlock();
+	}
+    
 	/**
      * Updates the cell color to reflect the level of the block
      */
@@ -96,26 +106,27 @@ public class CellUI extends StackPane implements Cloneable {
       		colorRect.setFill(DEFAULT_COLOR); //if the cell is not visible, the level is zero
       		block.setPointy(false);
     	}
+    	
     	if (showLevel) {
         	updateVisualDisplayLevel();
     	}
-	}
-    
-	public void setPointy(boolean pointy) {
-		Block block = getBlock(); 
-		block.setPointy(pointy);
-		updateVisualBasedOnBlock();
-	}
-    
-    public void updateVisualPointy() {
-    	Block block = getBlock();
     	
+    	createPointyLine();
     	if(block.isPointy()) {
-    		this.getChildren().addAll(this.pointyLine);
+    		this.getChildren().add(pointyLine);
     	} else {
-    		this.getChildren().remove(this.pointyLine);
+    		this.getChildren().remove(pointyLine);
     	}
 	}
+    
+//    public void updateVisualPointy() {
+//    	Block block = getBlock();
+//    	if(block.isPointy()) {
+//    		this.getChildren().add(this.pointyLine);
+//    	} else {
+//    		this.getChildren().remove(this.pointyLine);
+//    	}
+//	}
     
    
     @FXML
@@ -168,11 +179,11 @@ public class CellUI extends StackPane implements Cloneable {
   		return colorRect;
   	}
   	
+  	//SELECTION TOOL
     public void setSelected(boolean status) {
     	isClicked = status;
     	if (isClicked) {
     		colorRect.setStroke(Color.RED);
-    		//this.setFill(Color.GREEN);
     	} else {
     		colorRect.setStroke(Color.BLACK);
     	}
@@ -181,6 +192,7 @@ public class CellUI extends StackPane implements Cloneable {
     	return isClicked;
     }
     
+    //TERRAIN TOOL
     public boolean isEdgeCell() {
     	return (xIndex == gridBoard.getGridData().getWidth() - 1 || xIndex == 0 || yIndex == gridBoard.getGridData().getHeight() - 1 || yIndex == 0);
     }

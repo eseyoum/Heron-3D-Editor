@@ -27,6 +27,7 @@ public class GridBoardUI extends AnchorPane {
     private int height; //number of cells of the height
   	
 	private int level = 1; //the level of the depth map the user is currently working on. The user starts on level 1
+    private boolean isPointy = false;
     
     public GridEditor gridEditor; //controls which tool the user is currently using
     
@@ -106,8 +107,6 @@ public class GridBoardUI extends AnchorPane {
 		return tileSize;
 	}
 
-
-    
     public void setTileSize(int size) throws ArithmeticException { 
     	this.tileSize = size;
     	for (int y = 0; y < gridData.getHeight(); y++) { 
@@ -137,13 +136,18 @@ public class GridBoardUI extends AnchorPane {
     	return cellArray[xIndex][yIndex];
     }
     
+    public boolean isPointy() {
+    	return this.isPointy;
+    }
+    
+    public void setPointy(boolean pointy) {
+    	this.isPointy = pointy;
+    }
+    
     public int getLevel() {
     	return this.level;
     }
-    
-    public boolean isPointy() {
-    	return this.isPointy();
-    }
+
     public void setLevel(int level) {
     	this.level = level;
     }
@@ -171,9 +175,6 @@ public class GridBoardUI extends AnchorPane {
             }
     	}
     }
-    
-        
-  
     
     public void clear() {
     	for (int y = 0; y < gridData.getHeight(); y++) { //may be a better way to go through the cells
