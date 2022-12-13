@@ -13,11 +13,13 @@ import com.google.gson.JsonSyntaxException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import heron.gameboardeditor.datamodel.Block;
 import heron.gameboardeditor.datamodel.Grid;
 import heron.gameboardeditor.datamodel.ProjectIO;
 import heron.gameboardeditor.tools.TerrainTool.TerrainObject;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
@@ -36,6 +38,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class EditingScreenController {
 	
@@ -133,10 +136,6 @@ public class EditingScreenController {
     	undoRedoHandler.redo();
     }
 
-    @FXML
-    private void switchToTemplateScreen(ActionEvent event) throws IOException {
-    	App.setRoot("templateScreen");
-    }
 
     @FXML
     void zoomIn() {
@@ -150,20 +149,7 @@ public class EditingScreenController {
     		gridBoard.setTileSize(gridBoard.getTileSize() - 10);
     	}
     }
-    
-//    public void setTileSize(int size) throws ArithmeticException { 
-//    	//this.tileSize = size;
-//    	for (int y = 0; y < gridBoard.getHeight(); y++) { 
-//    		for (int x = 0; x < gridBoard.getWidth(); x++) {
-//    			gridBoard.getCell(x,y).getColorRect().setWidth(size - 1);
-//    			gridBoard.getCell(x,y).getColorRect().setHeight(size - 1);
-//               	
-//    			gridBoard.getCell(x,y).setLayoutX(x*size);
-//    			gridBoard.getCell(x,y).setLayoutY(y*size);
-//    			gridBoard.updateVisual();
-//            }
-//    	}
-//	}
+
     
     @FXML
     void displayLevel() {
@@ -407,6 +393,23 @@ public class EditingScreenController {
     void show3DPreview(ActionEvent event) {
     	Board3DViewController preview3D = new Board3DViewController(gridBoard.getGridData());
     	preview3D.show();
+    }
+    
+
+    @FXML
+    private void switchToTemplateScreen(ActionEvent event) throws IOException {
+    	App.setRoot("templateScreen");
+    }
+    
+    @FXML
+    void showHelpScreen(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("helpScreen.fxml"));
+        VBox root = fxmlLoader.load();    
+        Scene helpScene = new Scene(root, root.getPrefWidth(), root.getPrefHeight());
+        Stage stage = new Stage();
+        helpScene.setRoot(root);
+        stage.setScene(helpScene);
+        stage.show();
     }
     
     @FXML

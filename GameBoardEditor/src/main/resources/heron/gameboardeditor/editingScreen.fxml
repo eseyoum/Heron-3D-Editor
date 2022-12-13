@@ -143,6 +143,12 @@
                      </accelerator></MenuItem>
               </items>
             </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#showHelpScreen" text="Tools/ Features" />
+                  <MenuItem mnemonicParsing="false" text="Shortcuts" />
+              </items>
+            </Menu>
       </menus>
     </MenuBar>
     <SplitPane dividerPositions="0.1259124087591241, 0.7677267987486965" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
