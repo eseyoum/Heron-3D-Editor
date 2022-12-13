@@ -195,13 +195,14 @@ public class CellUI extends StackPane implements Cloneable {
   		return colorRect;
   	}
   	
-  	
-  	
+  	/**
+  	 * Sets the CellUI to selected
+  	 * @param status - boolean whether or not the CellUI should be selected
+  	 */
     public void setSelected(boolean status) {
     	isClicked = status;
     	if (isClicked) {
     		colorRect.setStroke(Color.RED);
-    		//this.setFill(Color.GREEN);
     	} else {
     		colorRect.setStroke(Color.BLACK);
     	}
