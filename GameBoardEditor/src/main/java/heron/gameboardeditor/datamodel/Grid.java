@@ -163,7 +163,10 @@ public class Grid implements Cloneable {
 		this.height = newHeight;
 	}
 	
-	
+	/**
+	 * Sets if the block is pointy
+	 * @param pointy - whether or not a block is pointy
+	 */
 	public void setPointy(boolean pointy) {
 		for (int y = 0; y < this.getHeight(); y++) {
             for (int x = 0; x < this.getWidth(); x++) {
@@ -172,8 +175,12 @@ public class Grid implements Cloneable {
     	}
 	}
 	
-	
-	public boolean isVisibleLevel(int level) { //if the level should be visible
+	/**
+	 * If the level should be visible
+	 * @param level - int the level to check
+	 * @return boolean if the level should be visible
+	 */
+	public boolean isVisibleLevel(int level) {
 		boolean isVisible;
 		if (level == 0) {
     		isVisible = false;
@@ -183,6 +190,10 @@ public class Grid implements Cloneable {
 		return isVisible;
 	}
 	
+	/**
+	 * Sets all the blocks to z
+	 * @param level - the level which the blocks should be set to
+	 */
 	public void allBlocksSetZ(int level) {
 		boolean isVisible = isVisibleLevel(level);
 		
@@ -193,6 +204,10 @@ public class Grid implements Cloneable {
     	}
 	}
 	
+	/**
+	 * Lowers all blocks higher than a specified level
+	 * @param level - the level which should be the highest in the grid
+	 */
 	public void lowerBlocksHigherThan(int level) {
 		for (int y = 0; y < this.getHeight(); y++) {
             for (int x = 0; x < this.getWidth(); x++) {
@@ -203,6 +218,11 @@ public class Grid implements Cloneable {
     	}
 	}
 	
+	/**
+	 * Returns the blocks associated with the selectedCells
+	 * @param selectedCells - Set of CellUI which are selected
+	 * @return a set of blocks which are associated with the selected Cells
+	 */
 	public Set<Block> getSelectedBlocks(Set<CellUI> selectedCells) { //gets the blocks associated with the selected cells
 		Set<Block> selectedBlocks = new HashSet<Block>();
 		for (CellUI cell : selectedCells) {
@@ -212,36 +232,70 @@ public class Grid implements Cloneable {
 		return selectedBlocks;
 	}
 	
+	/**
+	 * Returns the block to the right of the parameter
+	 * @param block - Block the block to check
+	 * @return the block to the right of the parameter
+	 */
 	public Block getBlockRight(Block block) {
 		return this.getBlockAt(block.getX() + 1, block.getY());
 	}
 	
+	/**
+	 * Returns the block to the left of the parameter
+	 * @param block - Block the block to check
+	 * @return the block to the left of the parameter
+	 */
 	public Block getBlockLeft(Block block) {
 		return this.getBlockAt(block.getX() - 1, block.getY());
 	}
 	
+	/**
+	 * Returns the block to the above block of the parameter
+	 * @param block - Block the block to check
+	 * @return the block above the parameter
+	 */
 	public Block getBlockAbove(Block block) {
 		return this.getBlockAt(block.getX(), block.getY() - 1);
 	}
 	
+	/**
+	 * Returns the block below the parameter
+	 * @param block - Block the block to check
+	 * @return the block to the right of the parameter
+	 */
 	public Block getBlockBelow(Block block) {
 		return this.getBlockAt(block.getX(), block.getY() + 1);
 	}
 	
+	/**
+	 * Returns if a block is on the edge of the grid
+	 * @param block - Block block to check
+	 * @return if a block is on the edge of the grid
+	 */
     public boolean isEdgeBlock(Block block) {
     	return (block.getX() == this.width - 1 || block.getX() == 0 || block.getY() == this.height - 1 || block.getY() == 0);
     }
     
+    /**
+     * Returns if a block is on the corner of the grid
+     * @param block - Block block to check
+     * @return if a block is on the corner of the grid
+     */
     public boolean isCornerBlock(Block block) {
     	return ((block.getX() == 0 && block.getY() == 0) || (block.getX() == 0 && block.getY() == this.height - 1) || (block.getX() == this.width - 1 && block.getY() == 0) || (block.getX() == this.width - 1 && block.getY() == this.height - 1));
     }
     
+    /**
+     * Gets all the blocks on the edge of the gridboard
+     * @return - ArrayList of blocks on the edge of the gridboard
+     */
     public ArrayList<Block> getEdgeBlocks() {
     	ArrayList<Block> edgeBlocks = new ArrayList<>();
     	
     	int edgeBlockCount = 0;
     	
-    	for (int y = 0; y < this.getHeight(); y++) { //may be a better way to go through the blocks
+    	for (int y = 0; y < this.getHeight(); y++) {
             for (int x = 0; x < this.getWidth(); x++) {
             	if (isEdgeBlock(blockGrid[x][y])) {
             		edgeBlocks.add(blockGrid[x][y]); //adds all edge blocks to an array
@@ -252,6 +306,11 @@ public class Grid implements Cloneable {
     	return edgeBlocks;
     }
     
+    /**
+     * Returns a random block on the edge of the grid
+     * @param edgeBlocks - the array list of blocks on the edge of the grid
+     * @return - Block a block on the edge of the grid
+     */
     public Block getRandomEdgeBlock(ArrayList<Block> edgeBlocks) {
     	Random rand = new Random();
     	Block block = edgeBlocks.get(rand.nextInt(edgeBlocks.size())); //randomly chooses an edge block for the start of the maze
@@ -301,6 +360,9 @@ public class Grid implements Cloneable {
     	}
 	}
 	
+	/**
+	 * Prints the grid
+	 */
 	public void printGrid() {
 		System.out.println(this.toString());
 	}
