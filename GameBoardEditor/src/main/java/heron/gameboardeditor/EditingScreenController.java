@@ -326,6 +326,7 @@ public class EditingScreenController {
     }
     
     private void templetLoaderHelper(String path) throws JsonSyntaxException, JsonIOException, IOException {
+    	clear();
     	File file = new File(path);
     	if (file != null) {
 	    		Grid grid = ProjectIO.load(file);
@@ -362,7 +363,7 @@ public class EditingScreenController {
     }
     
     @FXML
-    void saveProject(ActionEvent event) {
+    void saveProject() {
     	File file = saveLoadHelper("save", "heron");
     	if(file != null) {
     		Grid grid = App.getGrid();
@@ -393,8 +394,17 @@ public class EditingScreenController {
     }
     
     @FXML
-    void clear(ActionEvent event) {
-    	gridBoard.clear();
+    void clear() {
+    	if(!gridBoard.isEmpty()) {
+        	Alert alert = new Alert(AlertType.WARNING, "Do you want to save your work?", ButtonType.YES, ButtonType.NO);
+        	Optional<ButtonType> result = alert.showAndWait();
+        	if (result.get() == ButtonType.YES) {
+        		saveProject();
+        		gridBoard.clear();
+        	} else {
+        		gridBoard.clear();
+        	}
+    	}
     	undoRedoHandler.saveState();
     }
     
