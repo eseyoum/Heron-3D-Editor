@@ -53,6 +53,11 @@ public class CellUI extends StackPane implements Cloneable {
 		generateColors();
     }
     
+    
+    /**
+     * This method will draw a line representing pointy inside a cell
+     *
+     */
     public void createPointyLine() {
     	Line stroke = new Line(0, 0, 10, 10);
     	stroke.setStrokeWidth(10);
@@ -101,12 +106,21 @@ public class CellUI extends StackPane implements Cloneable {
     	}
 	}
     
+    /**
+     * This method sets the pointy status to the block associated with the cell 
+     * 
+	 * @param pointy- the pointy status
+     */
 	public void setPointy(boolean pointy) {
 		Block block = getBlock(); 
 		block.setPointy(pointy);
 		updateVisualBasedOnBlock();
 	}
     
+    /**
+     * This method updates the visual of cells based on pointy status. If a cell is block, draw the pointy line.
+     *
+     */
     public void updateVisualPointy() {
     	Block block = getBlock();
     	
@@ -144,22 +158,35 @@ public class CellUI extends StackPane implements Cloneable {
 		showLevel = false;
 	}
 	
-    
+    /**
+     * This method sets level of the cell
+     * 
+	 * @param level - the level the cell will be set to
+     */
 	public void setLevel(int level) {
 		Block block = getBlock();
 		block.setZ(level);//if cell level is zero it should not be visible
 		updateVisualBasedOnBlock();
 	}
 	
+    /**
+     * This method returns the level of a cell
+     * 
+	 * @param getBlock().getZ() - the level of the cell
+     */
 	public int getLevel() {
 		return getBlock().getZ();	
 	}
 
-	
+	 /**
+     * This method returns the block associated with the cell
+     * 
+	 * @param gridBoard.getGridData().getBlockAt(xIndex, yIndex) -  the block associated with the cell
+     */
     public Block getBlock() { 
     	return gridBoard.getGridData().getBlockAt(xIndex, yIndex);
     }
-    
+
     public String getDisplayLevel() {
   		return displayLevel;
   	}
@@ -167,6 +194,8 @@ public class CellUI extends StackPane implements Cloneable {
   	public Rectangle getColorRect() {
   		return colorRect;
   	}
+  	
+  	
   	
     public void setSelected(boolean status) {
     	isClicked = status;
@@ -177,14 +206,34 @@ public class CellUI extends StackPane implements Cloneable {
     		colorRect.setStroke(Color.BLACK);
     	}
     }
+    
+	 /**
+     * This method checks if a cell is clicked
+     * 
+	 * @return true - if the cell is clicked
+	 * @return false - if the cell is not clicked
+     */
     public boolean isSelected() {
     	return isClicked;
     }
     
+	 /**
+     * This method checks if an edge cell
+     * 
+	 * @return true - if the cell is an edge cell
+	 * @return false - if the cell is not an edge cell
+     */
     public boolean isEdgeCell() {
     	return (xIndex == gridBoard.getGridData().getWidth() - 1 || xIndex == 0 || yIndex == gridBoard.getGridData().getHeight() - 1 || yIndex == 0);
     }
     
+    
+	 /**
+     * This method checks if an corner cell
+     * 
+	 * @return true - if the cell is an corner cell
+	 * @return false - if the cell is not corner cell
+     */
     public boolean isCornerCell() {
     	return ((xIndex == 0 && yIndex == 0) || (xIndex == 0 && yIndex == gridBoard.getGridData().getHeight() - 1) || (xIndex == gridBoard.getGridData().getWidth() - 1 && yIndex == 0) || (xIndex == gridBoard.getGridData().getWidth() - 1 && yIndex == gridBoard.getGridData().getHeight() - 1));
     }

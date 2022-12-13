@@ -161,6 +161,9 @@ public class EditingScreenController {
     
    
     @FXML
+    /**
+     * When the user clicks on the zoom in button, the grid will be zoomed out.
+     */
     void zoomOut() {
     	if (gridBoard.getTileSize() > 10) {
     		gridBoard.setTileSize(gridBoard.getTileSize() - 10);
@@ -169,6 +172,9 @@ public class EditingScreenController {
 
     
     @FXML
+    /**
+     * When the user ticks on the show level box, the level of each block will be shown
+     */
     void displayLevel() {
     	if (checkBoxDisplayLevel.isSelected()) {
     		gridBoard.updateVisualDisplayLevel();
@@ -305,6 +311,8 @@ public class EditingScreenController {
     	undoRedoHandler.saveState();
     }
     
+    
+    ///Templates
     @FXML
     void templateOne(ActionEvent event) throws JsonSyntaxException, JsonIOException, IOException {
     	templetLoaderHelper("src/main/resources/heron/gameboardeditor/Templates/AugieLetter.heron");

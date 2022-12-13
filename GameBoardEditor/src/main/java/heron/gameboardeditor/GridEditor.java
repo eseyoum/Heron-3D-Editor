@@ -14,6 +14,10 @@ public class GridEditor {
 		this.currentTool = initialTool;
 	}
 
+    /**
+     * The method sets the current tool 
+     *@param newTool - the tool which current tool will be set to
+     */
 	public void setCurrentTool(Tool newTool) {
 		currentTool = newTool;
 	}

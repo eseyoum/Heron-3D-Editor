@@ -8,10 +8,14 @@ public class Block {
     private int z;  // If the level is zero, it should not be visible
     private boolean isPointy = false;
     
-    
-//    public Block(int x, int y, int z) {
-//    	this(x,y,z,false);
-//    }
+	/**
+	 * Constructs a block
+	 * 
+	 * @param x - the x coordinate
+	 * @param y - the y coordinate
+	 * @param z - the level
+	 * 
+	 */
     public Block(int x, int y, int z) {
     	this.x = x;
     	this.y = y;
@@ -19,7 +23,6 @@ public class Block {
     	
     }
     
-    @FXML
     /**
      * This method checks if a block is visible.
      * 
@@ -30,7 +33,6 @@ public class Block {
 		return z > 0;
 	}
 
-    @FXML
     /**
      * This method gets the x coordinate of the block
      * 
@@ -40,7 +42,6 @@ public class Block {
 		return x;
 	}
 
-    @FXML
     /**
      * This method gets the y coordinate of the block
      * 
@@ -60,7 +61,6 @@ public class Block {
 		return z;
 	}
 
-    @FXML
     /**
      * This method sets the x coordinate of the block
      * 
@@ -70,7 +70,7 @@ public class Block {
 		this.x = x;
 	}
 	
-    @FXML
+
     /**
      * This method sets the y coordinate of the block
      * 
@@ -116,6 +116,13 @@ public class Block {
 		return new Block(x,y,z);
 	}
 
+	
+	/**
+	 * This method moves a block to a position
+	 * 
+	 * @param dx - the x coordinate of the position which the block will be moved to
+	 * @param dy - the y coordinate of the position which the block will be moved to
+	 */
 	public void moveTo(int dx, int dy) {
 		Block blockToClone = this.clone();
 		blockToClone = new Block(x + dx, y + dy,z);

@@ -20,6 +20,7 @@ public class Grid implements Cloneable {
 	private int height;
 	
 	private int maxZ; //the max level a block can be
+	
 	/**
 	 * Constructs a grid 
 	 * 
@@ -41,18 +42,24 @@ public class Grid implements Cloneable {
 		this.maxZ = 5; //default max level
 	}
 
+	/**
+	 * This method returns the max z of the grid
+	 * 
+	 * @maxZ - the max level of the grid
+	 */
 	public int getMaxZ() {
 		return this.maxZ;
 	}
 	
+	/**
+	 * This method sets the max z of the grid
+	 * 
+	 * @maxZ - the value that maz z will be set to
+	 */
 	public void setMaxZ(int maxZ) {
 		this.maxZ = maxZ;
 	}
 
-	public void repaint() {
-		
-	}
-	
 	/**
 	 * This method returns the block at position (x,y)
 	 * 
@@ -156,6 +163,7 @@ public class Grid implements Cloneable {
 		this.height = newHeight;
 	}
 	
+	
 	public void setPointy(boolean pointy) {
 		for (int y = 0; y < this.getHeight(); y++) {
             for (int x = 0; x < this.getWidth(); x++) {
@@ -163,6 +171,8 @@ public class Grid implements Cloneable {
             }
     	}
 	}
+	
+	
 	public boolean isVisibleLevel(int level) { //if the level should be visible
 		boolean isVisible;
 		if (level == 0) {
