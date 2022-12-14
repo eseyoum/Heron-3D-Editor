@@ -1,4 +1,4 @@
-# HeronRepo
+# Heron 3D Editor
 Team Heron's 3-D Tabletop RPG Game Board Editor
 Version 1.0 Release Notes
 
