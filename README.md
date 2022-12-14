@@ -1,4 +1,5 @@
-![alt text](https://github.com/AugustanaCSC305Fall22/HeronRepo/blob/main/GameBoardEditor/src/main/resources/heron/gameboardeditor/Icons/logo.png)
+
+<img src="https://github.com/AugustanaCSC305Fall22/HeronRepo/blob/main/GameBoardEditor/src/main/resources/heron/gameboardeditor/Icons/logo.png" width="128"/>
 # Heron 3D Editor
 Team Heron's 3-D Tabletop RPG Game Board Editor
 Version 1.0 Release Notes
