@@ -9,7 +9,7 @@ Version 1.0 Release Notes
 
 [App Presentation](https://docs.google.com/presentation/d/1lJqE9SCdDlVkpKH5tRUSKmcLUrMNFxQJH4-3iQp2YPY/edit?usp=sharing)
 
-## Software Description
+##  :computer: Software Description
 The Heron 3D Editor lets you easily create your own custom World Building. With the ability to use a 2D grid board, you can design terrain features and then make them 3-dimensional shapes. The editor allows you to quickly and easily build your own 3D maps for beginner level,  making it the perfect low cost alternative to costly programs like Blender or Maya.
 
 <p align="center">
@@ -21,7 +21,7 @@ The Heron 3D Editor lets you easily create your own custom World Building. With 
   <img src="https://github.com/AugustanaCSC305Fall22/HeronRepo/blob/f94abbbf5467d10a0113b988e3ddc6ee6dc26316/GameBoardEditor/src/main/assets/Screen%20Shot%202022-12-13%20at%207.01.30%20PM.png" width="505" />
 </p>
 
-## About the Software
+## :star: About the Software
 Our team wanted to build a fully functional 3D editor app but user-friendly for beginner level. With Heron 3D Editor app, user can:
 
 - Modify the 2D Grid Board with a ton of useful tools including Pencil, Erase, Fill, Selection 
@@ -33,7 +33,7 @@ And so much more!
 
 Download our app to explore more features and immerse yourself in your own 3D World Building!
 
-## Built With
+## :hammer: Built With
 - Executing the app functions through JavaFX 
 - Using Eclipse as the main IDE
 - Styling the app through SceneBuilder
@@ -41,7 +41,7 @@ Download our app to explore more features and immerse yourself in your own 3D Wo
 - Adding Gson as the third-party for reading 3D patterns
 - Applying OOP and Java from both CSC202 and CSC305
 
-## Accomplishments
+## :trophy: Accomplishments
 - Genuinely proud of my team for working pair-to-pair consistently and frequently communicating with each other for implementing their wanted useful ideas
 - Being able to build a highly-functional and usable software by obtaining from what we have learned so far 
 - Being more proficient in git commands and solve smoothly through all conflicts
@@ -49,25 +49,25 @@ Download our app to explore more features and immerse yourself in your own 3D Wo
 - Fully prepared to show off our fancy software to other ACE developers, your project supervisor (me), and our clients
 - Experimenting more with 3D Printers from Anycube, Dremel, Prusa, and Eiger
 
-## Challenges
+##  :wrench: Challenges
 - Refactoring well at the beginning 
 - Git add -A
 - Design Choice : Canvas
 - Data model
 - Dependency Architecture 
 
-## Lesson Learned
+## :mortar_board: Lesson Learned
 - Having a good collaborative team is important to work through the big project
 - Having a good design choice at the beginning does help a lot in further built-in functions and refactor
 
-## Future Plan
+## :mag_right: Future Plan
 - We aim to continue developing this into a real maintable app for users with more advanced features but still for beginner level
 
-## The Talented Team 
+## :rocket: The Talented Team 
 - [Stephanie Nhi Le](https://github.com/StephanieNhiLe)
 - [Corey Reagan](https://github.com/cjreagan)
 - [Ngoc Le](https://github.com/ngocle05)
 - [Ezana Seyoum](https://github.com/eseyoum)
 
-## Acknowledgements
+## :clap: Acknowledgements
 Special thanks to [Dr.Stonedahl](https://github.com/fstonedahl) from Math & Computer Science Department for staying hours to help us fix the bugs!
