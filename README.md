@@ -7,7 +7,7 @@
 Team Heron's 3-D Tabletop RPG Game Board Editor
 Version 1.0 Release Notes
 
-Presentation: https://docs.google.com/presentation/d/1lJqE9SCdDlVkpKH5tRUSKmcLUrMNFxQJH4-3iQp2YPY/edit?usp=sharing
+[App Presentation](https://docs.google.com/presentation/d/1lJqE9SCdDlVkpKH5tRUSKmcLUrMNFxQJH4-3iQp2YPY/edit?usp=sharing)
 
 ## Software Description
 The Heron 3D Editor lets you easily create your own custom World Building. With the ability to use a 2D grid board, you can design terrain features and then make them 3-dimensional shapes. The editor allows you to quickly and easily build your own 3D maps for beginner level,  making it the perfect low cost alternative to costly programs like Blender or Maya.
