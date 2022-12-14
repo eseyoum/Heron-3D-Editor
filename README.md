@@ -71,11 +71,3 @@ Download our app to explore more features and immerse yourself in your own 3D Wo
 
 ## Acknowledgements
 Special thanks to [Dr.Stonedahl](https://github.com/fstonedahl) from Math & Computer Science Department for staying hours to help us fix the bugs!
-
-
-
-
-
-Bugs: Can't ndo each pointy tile at a time,
-      Clear pointy,
-      Save file pointy with pointy tiles
