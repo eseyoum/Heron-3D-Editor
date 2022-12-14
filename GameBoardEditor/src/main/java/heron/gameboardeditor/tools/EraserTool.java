@@ -5,6 +5,9 @@ import heron.gameboardeditor.GridBoardUI;
 import heron.gameboardeditor.UndoRedoHandler;
 import javafx.scene.input.MouseEvent;
 
+/**
+ * Erases a tile the user clicks on
+ */
 public class EraserTool extends Tool {
 	private GridBoardUI gridBoard;
 	

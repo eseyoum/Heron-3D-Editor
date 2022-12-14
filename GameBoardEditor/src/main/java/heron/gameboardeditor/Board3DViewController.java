@@ -24,7 +24,7 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.stage.Stage;
 
 /**
- * Most of the code for this file are from https://genuinecoder.com
+ * Credits: Most of the code for this file are from https://genuinecoder.com
  */
 
 

@@ -18,7 +18,6 @@ public class Grid implements Cloneable {
 	private Block[][] blockGrid;
 	private int width;
 	private int height;
-	
 	private int maxZ; //the max level a block can be
 	
 	/**
@@ -42,57 +41,36 @@ public class Grid implements Cloneable {
 		this.maxZ = 5; //default max level
 	}
 
-	/**
-	 * This method returns the max z of the grid
-	 * 
-	 * @maxZ - the max level of the grid
-	 */
+	//------------- getters and setters -------------
+	
 	public int getMaxZ() {
 		return this.maxZ;
 	}
 	
-	/**
-	 * This method sets the max z of the grid
-	 * 
-	 * @maxZ - the value that maz z will be set to
-	 */
 	public void setMaxZ(int maxZ) {
 		this.maxZ = maxZ;
 	}
 
-	/**
-	 * This method returns the block at position (x,y)
-	 * 
-	 * @return blockGrid[x][y] - a block at position (x,y)
-	 */
 	public Block getBlockAt(int x, int y) {
 		return blockGrid[x][y];
 	}
 
-	
-	/**
-	 * This method return the width of the grid
-	 * 
-	 * @return width - the width of the grid    
-	 */
 	public int getWidth() {
 		return width;
 	}
 
-	/**
-	 * This method return the height of the grid
-	 * 
-	 * @return height - the height of the grid    
-	 */
 	public int getHeight() {
 		return height;
 	}
 	
+	public Block[][] getBlockGrid() {
+		return blockGrid;
+	}
 	
 	/**
-	 * This method return biggest level of the grid
+	 * This method return the current highest level of the grid
 	 * 
-	 * @return max - the biggest level of the grid
+	 * @return max - the highest level of the grid
 	 */
 	public int getMaxLevel() {
 		int max = -1;
@@ -109,23 +87,12 @@ public class Grid implements Cloneable {
 	}
 	
 	/**
-	 * This method return blockGrid
-	 * 
-	 * @return blockGrid - the array array of blocks
-	 */
-	public Block[][] getBlockGrid() {
-		return blockGrid;
-	}
-	
-	/**
 	 * This method checks if a coordinate is inside the grid
 	 * 
 	 * @param x - the x coordinate
 	 * @param y - the y coordinate
 	 * 
-	 * @return true if the coordinate is inside the grid
-	 * @return false if the coordinate is not inside the grid
-	 * 
+	 * @return true if the coordinate is inside the grid, otherwise, it's false
 	 */
 	public boolean isCoordinateInGrid(int x, int y) {
 		if ((x < 0) || (x > width - 1)) {
@@ -163,7 +130,10 @@ public class Grid implements Cloneable {
 		this.height = newHeight;
 	}
 	
-	
+	/**
+	 * Sets if the block is pointy
+	 * @param pointy - whether or not a block is pointy
+	 */
 	public void setPointy(boolean pointy) {
 		for (int y = 0; y < this.getHeight(); y++) {
             for (int x = 0; x < this.getWidth(); x++) {
@@ -172,8 +142,13 @@ public class Grid implements Cloneable {
     	}
 	}
 	
-	
-	public boolean isVisibleLevel(int level) { //if the level should be visible
+	/**
+	 * Set the visibility of the block based on its level 
+	 * Level 0 is auto set to invisible, and other levels greater than 0 are visible 
+	 * @param level - pass in the level to check
+	 * @return boolean if the level should be visible
+	 */
+	public boolean isVisibleLevel(int level) {
 		boolean isVisible;
 		if (level == 0) {
     		isVisible = false;
@@ -183,6 +158,11 @@ public class Grid implements Cloneable {
 		return isVisible;
 	}
 	
+	//---------------- Maze Generation -----------------------------
+	/**
+	 * Sets all the blocks to z
+	 * @param level - the level which the blocks should be set to
+	 */
 	public void allBlocksSetZ(int level) {
 		boolean isVisible = isVisibleLevel(level);
 		
@@ -193,55 +173,70 @@ public class Grid implements Cloneable {
     	}
 	}
 	
-	public void lowerBlocksHigherThan(int level) {
-		for (int y = 0; y < this.getHeight(); y++) {
-            for (int x = 0; x < this.getWidth(); x++) {
-            	if (blockGrid[x][y].getZ() > level) {
-            		blockGrid[x][y].setZ(level);
-            	}
-            }
-    	}
-	}
-	
-	public Set<Block> getSelectedBlocks(Set<CellUI> selectedCells) { //gets the blocks associated with the selected cells
-		Set<Block> selectedBlocks = new HashSet<Block>();
-		for (CellUI cell : selectedCells) {
-			selectedBlocks.add(cell.getBlock());
-		}
-		
-		return selectedBlocks;
-	}
-	
+	/**
+	 * Returns the block to the right of the parameter
+	 * @param block - Block the block to check
+	 * @return the block to the right of the parameter
+	 */
 	public Block getBlockRight(Block block) {
 		return this.getBlockAt(block.getX() + 1, block.getY());
 	}
 	
+	/**
+	 * Returns the block to the left of the parameter
+	 * @param block - Block the block to check
+	 * @return the block to the left of the parameter
+	 */
 	public Block getBlockLeft(Block block) {
 		return this.getBlockAt(block.getX() - 1, block.getY());
 	}
 	
+	/**
+	 * Returns the block to the above block of the parameter
+	 * @param block - Block the block to check
+	 * @return the block above the parameter
+	 */
 	public Block getBlockAbove(Block block) {
 		return this.getBlockAt(block.getX(), block.getY() - 1);
 	}
 	
+	/**
+	 * Returns the block below the parameter
+	 * @param block - Block the block to check
+	 * @return the block to the right of the parameter
+	 */
 	public Block getBlockBelow(Block block) {
 		return this.getBlockAt(block.getX(), block.getY() + 1);
 	}
 	
+	/**
+	 * Returns if a block is on the edge of the grid
+	 * @param block - Block block to check
+	 * @return if a block is on the edge of the grid
+	 */
     public boolean isEdgeBlock(Block block) {
     	return (block.getX() == this.width - 1 || block.getX() == 0 || block.getY() == this.height - 1 || block.getY() == 0);
     }
     
+    /**
+     * Returns if a block is on the corner of the grid
+     * @param block - Block block to check
+     * @return if a block is on the corner of the grid
+     */
     public boolean isCornerBlock(Block block) {
     	return ((block.getX() == 0 && block.getY() == 0) || (block.getX() == 0 && block.getY() == this.height - 1) || (block.getX() == this.width - 1 && block.getY() == 0) || (block.getX() == this.width - 1 && block.getY() == this.height - 1));
     }
     
+    /**
+     * Gets all the blocks on the edge of the gridboard
+     * @return - ArrayList of blocks on the edge of the gridboard
+     */
     public ArrayList<Block> getEdgeBlocks() {
     	ArrayList<Block> edgeBlocks = new ArrayList<>();
     	
     	int edgeBlockCount = 0;
     	
-    	for (int y = 0; y < this.getHeight(); y++) { //may be a better way to go through the blocks
+    	for (int y = 0; y < this.getHeight(); y++) {
             for (int x = 0; x < this.getWidth(); x++) {
             	if (isEdgeBlock(blockGrid[x][y])) {
             		edgeBlocks.add(blockGrid[x][y]); //adds all edge blocks to an array
@@ -252,6 +247,11 @@ public class Grid implements Cloneable {
     	return edgeBlocks;
     }
     
+    /**
+     * Returns a random block on the edge of the grid
+     * @param edgeBlocks - the array list of blocks on the edge of the grid
+     * @return - Block a block on the edge of the grid
+     */
     public Block getRandomEdgeBlock(ArrayList<Block> edgeBlocks) {
     	Random rand = new Random();
     	Block block = edgeBlocks.get(rand.nextInt(edgeBlocks.size())); //randomly chooses an edge block for the start of the maze
@@ -264,23 +264,38 @@ public class Grid implements Cloneable {
     	
     	return block;
     }
-
-	public Grid clone() {
-		try {
-			Grid clone = (Grid) super.clone();
-			clone.blockGrid = new Block[width][height];
-			for (int y = 0; y < height; y++) {
-				for (int x = 0; x < width; x++) {
-					clone.blockGrid[x][y] = this.blockGrid[x][y].clone();
-				}			
-			} 
-			return clone;
-		} catch (CloneNotSupportedException e) {
-			e.printStackTrace();
-			return null;
-		}
+	
+	//----------------- Set Max Level for the Level Slider ---------
+	/**
+	 * Lowers all blocks higher than a specified level
+	 * @param level - the level which should be the highest in the grid
+	 */
+	public void lowerBlocksHigherThan(int level) {
+		for (int y = 0; y < this.getHeight(); y++) {
+            for (int x = 0; x < this.getWidth(); x++) {
+            	if (blockGrid[x][y].getZ() > level) {
+            		blockGrid[x][y].setZ(level);
+            	}
+            }
+    	}
 	}
 	
+	//----------------- Related Terrain Tool ----------------------
+	/**
+	 * Returns the blocks associated with the selectedCells
+	 * @param selectedCells - Set of CellUI which are selected
+	 * @return a set of blocks which are associated with the selected Cells
+	 */
+	public Set<Block> getSelectedBlocks(Set<CellUI> selectedCells) { //gets the blocks associated with the selected cells
+		Set<Block> selectedBlocks = new HashSet<Block>();
+		for (CellUI cell : selectedCells) {
+			selectedBlocks.add(cell.getBlock());
+		}
+		
+		return selectedBlocks;
+	}
+	
+	//------------------ Related Selection Tool ----------------
 	public void cutAndPaste(Set<Block> selectedBlocks, int changeInXIndex, int changeInYIndex) throws ArrayIndexOutOfBoundsException {
 		Grid originalData = this.clone();
     	
@@ -301,6 +316,9 @@ public class Grid implements Cloneable {
     	}
 	}
 	
+	/**
+	 * Prints the grid
+	 */
 	public void printGrid() {
 		System.out.println(this.toString());
 	}
@@ -318,4 +336,24 @@ public class Grid implements Cloneable {
 		return sb.toString();
 	}
 
+	/**
+	 * creates and returns a clone of this Grid and the list of Block contained in this Grid and Block themselves
+	 * 
+	 * @return a deep clone of this Grid
+	 */
+	public Grid clone() {
+		try {
+			Grid clone = (Grid) super.clone();
+			clone.blockGrid = new Block[width][height];
+			for (int y = 0; y < height; y++) {
+				for (int x = 0; x < width; x++) {
+					clone.blockGrid[x][y] = this.blockGrid[x][y].clone();
+				}			
+			} 
+			return clone;
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

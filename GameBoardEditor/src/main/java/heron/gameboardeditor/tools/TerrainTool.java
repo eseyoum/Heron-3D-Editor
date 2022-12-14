@@ -13,6 +13,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 
+/**
+ * Allows the user to add large scale terrain objects or create custom ones to use
+ */
 public class TerrainTool extends Tool {
 	private GridBoardUI gridBoard;
 	private TerrainObject terrainObject;
@@ -47,14 +50,25 @@ public class TerrainTool extends Tool {
     	undoRedoHandler.saveState();
 	}
 	
+	/**
+	 * Sets the name of the terrainObject
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 	
+	/**
+	 * Gets the name of the terrainObject
+	 * @return - string the name of the terrainObject
+	 */
 	public String getName() {
 		return name;
 	}
 	
+	/**
+	 * Sets the current terrain object
+	 * @param terrainObjectString - string the name of the terrainObject
+	 */
 	public void setCurrentTerrainObject(String terrainObjectString) {
 		for (TerrainObject terrainObject : terrainObjects) {
 			if (terrainObject.name.equals(terrainObjectString)) {
@@ -63,13 +77,19 @@ public class TerrainTool extends Tool {
 		}
 	}
 	
-	public boolean isValidName(String name, ArrayList<TerrainObject> customTerrainObjects) {
+	/**
+	 * Returns whether or not the name is valid for the terrainObject
+	 * @param name - the name to check
+	 * @param terrainObjects - ArrayList of the terrainObjects which the user has available
+	 * @return whether or not the name is valid for the terrainObject
+	 */
+	public boolean isValidName(String name, ArrayList<TerrainObject> terrainObjects) {
 		if (name == null || name.isBlank()) {
     		return false;
     	}
 		
 		boolean isValidName = true;
-    	for (TerrainObject terrainObject : customTerrainObjects) {
+    	for (TerrainObject terrainObject : terrainObjects) {
     		if (terrainObject.getName().equalsIgnoreCase(name)) {
     			isValidName = false;
     		}
@@ -83,6 +103,10 @@ public class TerrainTool extends Tool {
     	return isValidName;
 	}
 	
+	/**
+	 * Creates a custom terrain object
+	 * @param name - String the name of the terrainObject
+	 */
 	public void createCustomTerrainObject(String name) {
 		Set<CellUI> selectedCells = gridBoard.selectionTool.getSelectedCells(); //the blocks which are part of the custom terrain object
 		Set<Block> terrainBlocks = gridData.getSelectedBlocks(selectedCells);
@@ -107,10 +131,18 @@ public class TerrainTool extends Tool {
 		terrainObjects.add(customTerrainObject);
 	}
 	
+	/**
+	 * Sets the terrainObjects
+	 * @param terrainObjects - ArrayList of terrainobjects
+	 */
 	public void setTerrainObjects(ArrayList<TerrainObject> terrainObjects) {
 		this.terrainObjects = terrainObjects;
 	}
 	
+	/**
+	 * Returns the terrainObjects
+	 * @return ArrayList of terrainObjects
+	 */
 	public ArrayList<TerrainObject> getTerrainObjects() {
 		return this.terrainObjects;
 	}
@@ -187,6 +219,10 @@ public class TerrainTool extends Tool {
 		return volcano;
 	}
 	
+	/**
+	 * Represents a TerrainObject. This is data which decides how the terrain should be drawn
+	 *
+	 */
 	public class TerrainObject {
 		private ArrayList<TerrainData> terrainList;
 		private TerrainData initialTerrainData;
@@ -209,6 +245,9 @@ public class TerrainTool extends Tool {
 		}
 	}
 	
+	/**
+	 * Represents TerrainData. TerrainData makes up a TerrainObject
+	 */
 	private class TerrainData {
 		int distanceX;
 		int distanceY;

@@ -13,7 +13,7 @@ public class Block {
 	 * 
 	 * @param x - the x coordinate
 	 * @param y - the y coordinate
-	 * @param z - the level
+	 * @param z - the height or level 
 	 * 
 	 */
     public Block(int x, int y, int z) {
@@ -26,56 +26,29 @@ public class Block {
     /**
      * This method checks if a block is visible.
      * 
-     * @return true if the height is bigger than 0.
-     * @return false if the height is less than or equal to 0.
+     * @return true - if the height is bigger than 0, the block itself is visible 
+     * @return false - if the height is less than or equal to 0, the block itself is inVisible 
      */
 	public boolean isVisible() {
 		return z > 0;
 	}
 
-    /**
-     * This method gets the x coordinate of the block
-     * 
-     * @return x - the x coordinate of the block
-     */
 	public int getX() {
 		return x;
 	}
 
-    /**
-     * This method gets the y coordinate of the block
-     * 
-     * @return y - the y coordinate of the block
-     */
 	public int getY() {
 		return y;
 	}
 	
-    @FXML
-    /**
-     * This method gets the height/ level of the block
-     * 
-     * @return z - the height 
-     */
 	public int getZ() {
 		return z;
 	}
 
-    /**
-     * This method sets the x coordinate of the block
-     * 
-     * @param x - the value that the x coordinate of the block will be set to
-     */
 	public void setX(int x) {
 		this.x = x;
 	}
 	
-
-    /**
-     * This method sets the y coordinate of the block
-     * 
-     * @param y - the value that the y coordinate of the block will be set to
-     */
 	public void setY(int y) {
 		this.y = y;
 	}
@@ -114,18 +87,6 @@ public class Block {
 	
 	public Block clone() {
 		return new Block(x,y,z);
-	}
-
-	
-	/**
-	 * This method moves a block to a position
-	 * 
-	 * @param dx - the x coordinate of the position which the block will be moved to
-	 * @param dy - the y coordinate of the position which the block will be moved to
-	 */
-	public void moveTo(int dx, int dy) {
-		Block blockToClone = this.clone();
-		blockToClone = new Block(x + dx, y + dy,z);
 	}
 
 }

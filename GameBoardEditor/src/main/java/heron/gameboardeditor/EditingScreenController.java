@@ -1,6 +1,6 @@
 package heron.gameboardeditor;
 
-import java.io.File;   
+import java.io.File;    
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -72,7 +72,9 @@ public class EditingScreenController {
     	this.terrainObjects = gridBoard.terrainTool.getTerrainObjects();
     }
     
+    //------------------------ State Restored to make or re-make --------------------
     private void refreshUIFromGrid() {
+    	//initially create a BorderPane to contain all the components of a grid board and set the preference size to fir the computer window 
         gridMapPane = new BorderPane();
         gridMapPane.setPrefSize(600, 800);
         
@@ -80,7 +82,9 @@ public class EditingScreenController {
         if (gridBoard != null) {
         	tileSize = gridBoard.getTileSize();
         }
-        gridBoard = new GridBoardUI(App.getGrid(), undoRedoHandler, tileSize); //creates a GridBoardUI, which is the grid the user can see
+        
+        //creates a viewer GridBoardUI, which is the grid the user can see
+        gridBoard = new GridBoardUI(App.getGrid(), undoRedoHandler, tileSize); 
         
         boardParentVBox = new VBox(50, gridBoard); //creates a vbox with myBoard for children
         boardParentVBox.setAlignment(Pos.TOP_RIGHT);
@@ -141,6 +145,8 @@ public class EditingScreenController {
 
     }
     
+    //--------------- Menu Event Handling ----------------------
+    
     @FXML
     private void undoAction() {
     	undoRedoHandler.undo();
@@ -159,7 +165,6 @@ public class EditingScreenController {
     	gridBoard.setTileSize(gridBoard.getTileSize() + 10);
     }
     
-   
     @FXML
     /**
      * When the user clicks on the zoom in button, the grid will be zoomed out.
@@ -170,7 +175,6 @@ public class EditingScreenController {
     	}
     }
 
-    
     @FXML
     /**
      * When the user ticks on the show level box, the level of each block will be shown
@@ -311,8 +315,7 @@ public class EditingScreenController {
     	undoRedoHandler.saveState();
     }
     
-    
-    ///Templates
+    //--------------------------------Templates----------------------
     @FXML
     void templateOne(ActionEvent event) throws JsonSyntaxException, JsonIOException, IOException {
     	templetLoaderHelper("src/main/resources/heron/gameboardeditor/Templates/AugieLetter.heron");
@@ -348,7 +351,7 @@ public class EditingScreenController {
     	}
     }
     
-    //File menu bar
+    //------------------------- File menu bar ----------------------
     @FXML
     void loadProject(ActionEvent event) {
     	File file = saveLoadHelper("open", "heron");
@@ -408,9 +411,9 @@ public class EditingScreenController {
         	Optional<ButtonType> result = alert.showAndWait();
         	if (result.get() == ButtonType.YES) {
         		saveProject();
-        		gridBoard.clear();
+        		gridBoard.clearAll();
         	} else {
-        		gridBoard.clear();
+        		gridBoard.clearAll();
         	}
     	}
     	undoRedoHandler.saveState();
@@ -426,7 +429,7 @@ public class EditingScreenController {
     	}
     }
     
-    //3D menu bar
+    //------------------------- 3D menu bar ------------------------- 
     @FXML
     void show3DPreview(ActionEvent event) {
     	Board3DViewController preview3D = new Board3DViewController(gridBoard.getGridData());

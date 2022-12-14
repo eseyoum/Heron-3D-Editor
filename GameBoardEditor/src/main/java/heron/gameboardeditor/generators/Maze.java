@@ -1,6 +1,6 @@
 package heron.gameboardeditor.generators;
 
-import java.util.ArrayList;
+import java.util.ArrayList; 
 import java.util.Random;
 
 import heron.gameboardeditor.datamodel.Block;
@@ -15,11 +15,11 @@ public class Maze {
 	private Grid grid;
 	
 	private ArrayList<Block> edgeBlocks = new ArrayList<Block>(); //stores all blocks on the edge of the gridBoard. Used for generating the maze
-
-	private Block failedMovementMazeBlock = new Block (0, 0, 0); //when creating the maze, this represents a block which cannot move in a certain direction
-	private int failedDirectionCount; //count of failed directions. If a failedMovementMazeBlock has 3 failed directions, it cannot move
 	private ArrayList<Block>mazeBranchBlocks = new ArrayList<Block>();
+	private Block failedMovementMazeBlock = new Block (0, 0, 0); //when creating the maze, this represents a block which cannot move in a certain direction
 	private Block possibleEndBlock;
+	
+	private int failedDirectionCount; //count of failed directions. If a failedMovementMazeBlock has 3 failed directions, it cannot move
 	private int numBranches = 4; //the number of times branches should be made off of each other
 	private int mazeBorderLevel = 2; //the level of the borders of the maze
 	private int mazePathLevel = 1; //the level of the path of the maze

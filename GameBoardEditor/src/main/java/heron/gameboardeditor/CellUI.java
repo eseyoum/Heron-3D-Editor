@@ -20,24 +20,24 @@ import javafx.scene.effect.ColorAdjust;
  */
 public class CellUI extends StackPane implements Cloneable {
 	
-    //public int tileSize = 30; //size of the cells
     public static final int DEFAULT_TILE_SIZE = 30;
     private static final Color DEFAULT_COLOR = Color.CORNFLOWERBLUE; //default color of the cells
     
     private static List<Color> colorList; //list of colors for each level of the depth map
     private static Color firstLevelColor = Color.DARKGREY.darker().darker().darker(); //color for the first level
-
     private static GridBoardUI gridBoard;
+    
     private int xIndex;
     private int yIndex;
-    private boolean isClicked;
-
     private int tileSize;
+
+	private boolean showLevel = false;
+    private boolean isClicked;
+   
     private String displayLevel;
     private Rectangle colorRect;
 	private Text levelText;
 	private Line pointyLine;
-	private boolean showLevel = false;
 	
     public CellUI(GridBoardUI gridBoard, int xIndex, int yIndex, int tileSize) {
 		super();
@@ -53,6 +53,7 @@ public class CellUI extends StackPane implements Cloneable {
 		generateColors();
     }
     
+    //---------------- Color ------------------------
     /**
      * Adds the possible colors for differentiating between levels on the depth map
      */
@@ -78,6 +79,7 @@ public class CellUI extends StackPane implements Cloneable {
     	return Color.hsb(color.getHue(), color.getSaturation(), newBrightness, color.getOpacity());
     }
     
+    //----------------------------- Pointy Feature ------------------------------
     /**
      * This method will draw a line representing pointy inside a cell
      *
@@ -104,6 +106,7 @@ public class CellUI extends StackPane implements Cloneable {
 		updateVisualBasedOnBlock();
 	}
     
+	//------------------------Update Visual Based on its Features ----------------------------
 	/**
      * Updates the cell color to reflect the level of the block
      */
@@ -171,6 +174,7 @@ public class CellUI extends StackPane implements Cloneable {
 		showLevel = false;
 	}
 	
+    //---------------------------- Getters and Setters ------------------------------
     /**
      * This method sets level of the cell
      * 
@@ -207,8 +211,13 @@ public class CellUI extends StackPane implements Cloneable {
   	public Rectangle getColorRect() {
   		return colorRect;
   	}
-  	
-  	//SELECTION TOOL
+
+  	//-------------------------------SELECTION TOOL-------------------------------
+
+  	/**
+  	 * Sets the CellUI to selected
+  	 * @param status - boolean whether or not the CellUI should be selected
+  	 */
     public void setSelected(boolean status) {
     	isClicked = status;
     	if (isClicked) {
@@ -228,7 +237,7 @@ public class CellUI extends StackPane implements Cloneable {
     	return isClicked;
     }
     
-    //TERRAIN TOOL
+    //-------------------------------TERRAIN TOOL-------------------------------
 	 /**
      * This method checks if an edge cell
      * 
@@ -248,15 +257,5 @@ public class CellUI extends StackPane implements Cloneable {
      */
     public boolean isCornerCell() {
     	return ((xIndex == 0 && yIndex == 0) || (xIndex == 0 && yIndex == gridBoard.getGridData().getHeight() - 1) || (xIndex == gridBoard.getGridData().getWidth() - 1 && yIndex == 0) || (xIndex == gridBoard.getGridData().getWidth() - 1 && yIndex == gridBoard.getGridData().getHeight() - 1));
-    }
-        
-    public CellUI clone() {
-    	try {
-    		CellUI clone = (CellUI) super.clone();
-    		return clone;
-    	} catch (CloneNotSupportedException e) {
-    		assert false;
-    		return null;
-    	}
     }
 }

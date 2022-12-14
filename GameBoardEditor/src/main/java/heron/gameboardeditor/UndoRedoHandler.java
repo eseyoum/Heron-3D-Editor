@@ -11,7 +11,7 @@ public class UndoRedoHandler {
 	/**
 	 * constructor
 	 * 
-	 * @param canvas the DrawingCanvas whose changes are saved for later
+	 * @param controller -  the EditingScreenController whose changes are saved for later
 	 *               restoration.
 	 */
 	public UndoRedoHandler(EditingScreenController controller) {
@@ -23,7 +23,7 @@ public class UndoRedoHandler {
 	}
 
 	/**
-	 * saves the current state of the drawing canvas for later restoration
+	 * saves the current state of the editing screen controller for later restoration
 	 */
 	public void saveState() {
 		EditingScreenController.State canvasState = controller.createMemento();
@@ -32,7 +32,7 @@ public class UndoRedoHandler {
 	}
 
 	/**
-	 * restores the state of the drawing canvas to what it was before the last
+	 * restores the state of the editing screen controller to what it was before the last
 	 * change. Nothing happens if there is no previous state (for example, when the
 	 * application first starts up or when you've already undone all actions since
 	 * the startup state).
@@ -47,8 +47,8 @@ public class UndoRedoHandler {
 	}
 
 	/**
-	 * restores the state of the drawing canvas to what it was before the last undo
-	 * action was performed. If some change was made to the state of the canvas
+	 * restores the state of the editing screen controller to what it was before the last undo
+	 * action was performed. If some change was made to the state of the controller
 	 * since the last undo, then this method does nothing.
 	 */
 	public void redo() {

@@ -5,6 +5,9 @@ import heron.gameboardeditor.GridBoardUI;
 import heron.gameboardeditor.UndoRedoHandler;
 import javafx.scene.input.MouseEvent;
 
+/**
+ * Draws a tile with the current level
+ */
 public class PencilTool extends Tool {
 	private GridBoardUI gridBoard;
 	
@@ -24,9 +27,6 @@ public class PencilTool extends Tool {
 	}
 	
 	private void pencil(MouseEvent e) {
-//		CellUI cellClicked = gridBoard.getCell((int) e.getX() / CellUI.TILE_SIZE, (int) e.getY() / CellUI.TILE_SIZE);
-//		int x = (int) e.getX() / CellUI.TILE_SIZE;
-//		int y = (int) e.getY() / CellUI.TILE_SIZE;
 		int x = (int) (e.getX() / gridBoard.getTileSize());
 		int y = (int) (e.getY() / gridBoard.getTileSize());
 		if (gridBoard.getGridData().isCoordinateInGrid(x, y)) {

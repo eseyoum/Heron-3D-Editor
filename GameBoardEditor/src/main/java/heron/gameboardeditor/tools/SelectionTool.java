@@ -11,6 +11,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * The user can drag a selection rectangle or click to select tiles. They can then move these tiles by dragging
+ */
 public class SelectionTool extends Tool {
 	private GridBoardUI gridBoard;
 	Rectangle selectionRectangle;
@@ -42,7 +45,6 @@ public class SelectionTool extends Tool {
 		selectionRectangle.setHeight(0);
 		selectionRectangle.setVisible(true);
 
-		
 		try {
 			CellUI cellClicked = gridBoard.getCellAtPixelCoordinates(initialSelectX, initialSelectY);
 			pressedInSelectedCell = (cellClicked.isSelected() == true);
@@ -96,6 +98,9 @@ public class SelectionTool extends Tool {
 		}
 	}
 	
+	/**
+	 * Deselects all selected cells
+	 */
 	public void deselectAll() {
 		for (CellUI cell: selectedRegionOfCells) {
 			cell.setSelected(false);
@@ -103,10 +108,19 @@ public class SelectionTool extends Tool {
     	selectedRegionOfCells.clear();
     }
 	
+	/**
+	 * Returns the selected cells
+	 * @return - ArrayList of selected cells
+	 */
 	public Set<CellUI> getSelectedCells() {
 		return selectedRegionOfCells;
 	}
 	
+	/**
+	 * Removes the selected cells
+	 * @param xIndex - the x index of the array which cell should be removed
+	 * @param yIndex - the y index of the array which cell should be removed
+	 */
 	public void removeSelectedCell(int xIndex, int yIndex) {
 		for (CellUI cell: selectedRegionOfCells) {
 			if (cell.getBlock().getX() == xIndex && cell.getBlock().getY() == yIndex) {
@@ -116,11 +130,19 @@ public class SelectionTool extends Tool {
 		}
 	}
 	
+	/**
+	 * Adds a cell to the selected cells
+	 * @param cell - CellUI cell to be selected
+	 */
 	public void addSelectedCell(CellUI cell) {
 		cell.setSelected(true);
 		selectedRegionOfCells.add(cell);
 	}
 	
+	/**
+	 * Removes a selected cell
+	 * @param cell - CellUI selected cell to be removed
+	 */
 	public void removeSelectedCell(CellUI cell) {
 		cell.setSelected(false);
 		if (selectedRegionOfCells.contains(cell)) {
@@ -128,6 +150,15 @@ public class SelectionTool extends Tool {
 		}
 	}
 	
+	/**
+	 * Moves the cells and cuts the cells which were there previously
+	 * 
+	 * @param startXIndex - int start x index
+	 * @param startYIndex - int start y index
+	 * @param endXIndex - int end x index
+	 * @param endYIndex - int end y index
+	 * @throws ArrayIndexOutOfBoundsException
+	 */
     public void cutAndPaste(int startXIndex, int startYIndex, int endXIndex, int endYIndex) throws ArrayIndexOutOfBoundsException {
     	Set<Block> selectedBlocks = new HashSet<>();
     	
